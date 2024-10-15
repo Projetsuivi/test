@@ -1,512 +1,1261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8"> <!-- Increased initial scale -->
-    <title>Editable Table with Charts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Programme d'entraînement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Existing styles */
-        .chart-container {
-            width: 90%; /* Wider for mobile */
-            margin: auto;
-            padding: 20px;
-        }
-        .chart-container canvas {
-            max-width: 100%;
-            margin: 20px 0;
-        }
-        .update-btn, .open-modal-btn, .export-btn, .import-btn, .load-data-btn {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #F4B084;
-            color: rgb(0, 0, 0);
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        table {
-            width: 90%; /* Wider for mobile */
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        td[contenteditable="true"] {
-            background-color: #f0f0f0;
-        }
-        .highlight {
-            border-left: 5px solid green;
-        }
-        /* Modal styles */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px; 
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%; /* Wider for mobile */
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
+    #dateDisplay {
+    font-size: 1rem;
+    color: #FF8A65;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    position: absolute;  /* Added for positioning */
+    top: 20px;           /* Aligns it at the top */
+    right: 10px;         /* Aligns it to the right */
+}
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        .btn {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #F4B084; 
-            color: rgb(0, 0, 0);
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none; 
-            border-radius: 5px; 
-            transition: background-color 0.3s ease, transform 0.3s ease; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-        }
-        /* Specific style for the calculator button */
-        .calculator-btn {
-            background-color: #F4B084; 
-        }
-        .calculator-btn:hover {
-            background-color: #F4B084; 
-        }
-        .calculator-btn:active {
-            transform: scale(0.98); 
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
+            background-size: cover;
+            backdrop-filter: blur(0.1px);
+            overflow: auto;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .chart-container {
-                width: 95%; /* Slightly increase for smaller screens */
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 32px 48px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #333;
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+
+        #exportButton {
+            background-color: #FF8A65;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 18px;
+            align-self: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #exportButton:hover {
+            background-color: #e07453;
+            transform: translateY(-2px);
+        }
+
+        /* Styles for the Lock Button */
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            overflow: visible;
+            justify-content: space-between;
+        }
+
+        .workout-container {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            height: auto;
+        }
+
+        .exercise-row {
+    display: flex;
+    align-items: center; /* Ensure elements are aligned vertically */
+    justify-content: flex-start; /* Ensure they are aligned to the left */
+    padding: 02px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.975) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    height: 250px;
+    gap: 1px; /* Adjust gap between Exercice and next elements */
+}
+
+        .exercise-number {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    align-items: center; /* Vertically center the text */
+    font-size: 1rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Bold text */
+    color: #FF8A65; /* Color of the text */
+    flex-shrink: 0;
+    margin-right: 10px; /* Space between the number and next element */
+    padding: 5px; /* Padding around the text */
+    text-transform: uppercase; /* Optional: make the text uppercase */
+    letter-spacing: 0.5px; /* Optional: increase letter spacing */
+}
+
+       .exercise-slot {
+    width: 300px;
+    height: 190px;
+    border: 1.2px dashed #FF8A65;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    margin-right: 16px;
+}
+
+        .exercise-slot video {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .slider-group label {
+    font-size: 1rem;       /* Increase font size for better readability */
+    color: #000000;        /* Change color to match the theme */
+    font-weight: bold;     /* Make the label text bold */
+    margin-bottom: 8px;    /* Increase margin to add more spacing */
+}
+
+.slider {
+    width: 120px;          /* Increase the width of the slider */
+    accent-color: #e07453; /* Change the accent color of the slider */
+    cursor: pointer;       /* Show pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition when changing */
+
+}
+
+        /* Sticky Video bank container */
+        .video-bank-container {
+    position: sticky;
+    top: 20px;
+    width: 300px; /* Reduced width of the video bank */
+    max-height: 93vh; /* Keep the video bank taller if needed */
+    overflow-y: auto;
+    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px; /* Reduced padding to make the container more compact */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+        .exercise-set {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+
+/* Adjust the size of each video card */
+.exercise-card {
+    background-size: cover; /* Make sure the background covers the entire card */
+    background-position: center; /* Center the background image */
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 370px;
+    height: 250px;
+    max-width: 100%;
+}.exercise-card p {
+    font-size: 1rem; /* Increased for better visibility */
+    font-weight: 500; /* Bolder text for emphasis */
+    color: #444; /* Darker gray for a professional look */
+    margin-top: 8px; /* Add some spacing above the text */
+    text-align: center; /* Center the text below the video */
+    text-transform: capitalize; /* Capitalize the first letter of each word */
+    letter-spacing: 0.5px; /* Slightly increase letter spacing for a cleaner look */
+}
+
+
+/* Adjust the size of the video inside the card */
+.exercise-card video {
+    width: 270px; /* Width of the video, leaving a small padding */
+    height: 200px; /* Height of the video, adjusted to fit the card */
+    object-fit: cover; /* Ensures the video covers its container */
+    border-radius: 8px 8px 0 0; /* Rounded corners at the top */
+    margin-bottom: 10px; /* Space between the video and text */
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+        /* Media Queries */
+        @media screen and (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
             }
-            table {
-                width: 95%; /* Adjust table width */
-            }
-            .modal-content {
-                width: 95%; /* Adjust modal width */
+
+            .workout-container, .video-bank-container {
+                width: 100%;
             }
         }
+
+        .arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #e07453;
+}
+
+h2#setTitle {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+    flex-grow: 1; /* Ensures the title takes up the space between the arrows */
+    text-align: center; /* Center the text inside the title element */
+}
+/* Container for Degressif */
+.degressif-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-right: 20px;
+    padding: 10px;
+    border: 2px dashed #FF8A65; /* Dashed border to indicate option selection */
+    border-radius: 8px;
+    background-color: rgba(255, 245, 235, 0.7); /* Light background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Degressif */
+.degressif-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Container for Repos */
+.repos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px solid #FF8A65; /* Solid border for Repos */
+    border-radius: 8px;
+    background-color: rgba(235, 245, 255, 0.7); /* Light blue background for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Repos */
+.repos-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Parent container for Degressif and Repos to add space between them */
+.exercise-controls {
+    display: flex;
+    flex-direction: row; /* Align Degressif and Repos in a row */
+    justify-content: space-between; /* Ensure space between them */
+    align-items: center;
+    gap: 40px; /* Adjust the gap between Degressif and Repos containers */
+    margin-top: 20px;
+}
+
+/* Container for Degressif */
+.degressif-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px dashed #FF8A65;
+    border-radius: 8px;
+    background-color: rgba(255, 245, 235, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Degressif */
+.degressif-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Container for Repos */
+.repos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px solid #FF8A65;
+    border-radius: 8px;
+    background-color: rgba(235, 245, 255, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Adjust spacing and styling around checkbox and dropdown */
+.checkbox-group label, .rest-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+    transform: scale(1.2); /* Increase the size of the checkbox */
+    accent-color: #FF8A65;
+}
+
+.rest-group {
+    display: flex;
+    flex-direction: column;  
+    align-items: flex-start;  /* Align content to the left */
+    justify-content: center;  
+    height: 100%;             
+    margin-left: -10px;  /* Use negative margin to push it left beyond its container */
+    margin-right: 0px;        
+}
+
+.rest-group select {
+    padding: 5px 3px;
+    font-size: 0.9rem;
+    border-radius: 3px;
+    border: 2px solid #FF8A65;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease;
+    width: 90px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;  /* Stack label and checkbox vertically */
+    align-items: center;     /* Horizontally center the content */
+    justify-content: center;  /* Vertically center the content */
+    margin-left: 10px;        /* Adjust left margin as needed */
+    margin-right: 50px;       /* Adjust right margin as needed */
+    height: 100%;             /* Ensure it takes up the full height of its container */
+}
+
+
     </style>
 </head>
 <body>
 
-        <header>
-            <!-- Import a local logo -->
-            <img src="logo.png" alt="Company Logo" width="100" height="auto">
-        </header>
-    <a href="index.html" class="btn calculator-btn" style="font-weight: bold;">Accéder au calculateur</a>
-    <button class="export-btn" onclick="exportToXML()">Exporter ma progression</button>
-    <input type="file" id="import-file" class="import-btn" accept=".xml" onchange="importFromXML()" style="display: none;">
-    <button class="import-btn" onclick="document.getElementById('import-file').click()">Importer ma progression</button>
+    <!-- Bouton d'exportation -->
+    <button id="exportButton">Sauvegarder ma séance</button>
+    <div id="dateDisplay"></div>
 
-    <div class="scroll-container">
-        <div class="chart-container">
-            <canvas id="chart1"></canvas> <!-- Volume total -->
-            <canvas id="chart2"></canvas> <!-- Reps totales -->
-            <canvas id="chart3"></canvas> <!-- Nb exos -->
-            <canvas id="chart4"></canvas> <!-- Intensité totale -->
+    <div class="main-container">
+        <!-- Workout Area with 6 Exercise Rows -->
+        <div class="workout-container">
+            <div class="workout-area">
+              <!-- Exercise Row 1 -->
+              <div class="exercise-row">
+                <div class="exercise-number">Exercice 1</div>
+                <div class="exercise-slot" id="slot1"></div>
+                <div class="slider-group">
+                    <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif1">Dégressif</label>
+                    <input type="checkbox" id="degressif1">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest1">Repos</label>
+                    <select id="rest1" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Row 2 -->
+            <div class="exercise-row">
+                <div class="exercise-number">Exercice 2</div>
+                <div class="exercise-slot" id="slot2"></div>
+                <div class="slider-group">
+                    <label for="series2">Séries: <span id="seriesValue2">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps2">Répétitions: <span id="repsValue2">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps2" oninput="document.getElementById('repsValue2').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif2">Dégressif</label>
+                    <input type="checkbox" id="degressif2">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest2">Repos</label>
+                    <select id="rest2" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Row 3 -->
+            <div class="exercise-row">
+                <div class="exercise-number">Exercice 3</div>
+                <div class="exercise-slot" id="slot3"></div>
+                <div class="slider-group">
+                    <label for="series3">Séries: <span id="seriesValue3">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series3" oninput="document.getElementById('seriesValue3').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps3">Répétitions: <span id="repsValue3">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps3" oninput="document.getElementById('repsValue3').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif3">Dégressif</label>
+                    <input type="checkbox" id="degressif3">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest3">Repos</label>
+                    <select id="rest3" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Row 4 -->
+            <div class="exercise-row">
+                <div class="exercise-number">Exercice 4</div>
+                <div class="exercise-slot" id="slot4"></div>
+                <div class="slider-group">
+                    <label for="series4">Séries: <span id="seriesValue4">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series4" oninput="document.getElementById('seriesValue4').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps4">Répétitions: <span id="repsValue4">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps4" oninput="document.getElementById('repsValue4').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif4">Dégressif</label>
+                    <input type="checkbox" id="degressif4">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest4">Repos</label>
+                    <select id="rest4" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Row 5 -->
+            <div class="exercise-row">
+                <div class="exercise-number">Exercice 5</div>
+                <div class="exercise-slot" id="slot5"></div>
+                <div class="slider-group">
+                    <label for="series5">Séries: <span id="seriesValue5">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series5" oninput="document.getElementById('seriesValue5').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps5">Répétitions: <span id="repsValue5">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps5" oninput="document.getElementById('repsValue5').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif5">Dégressif</label>
+                    <input type="checkbox" id="degressif5">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest5">Repos</label>
+                    <select id="rest5" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Row 6 -->
+            <div class="exercise-row">
+                <div class="exercise-number">Exercice 6</div>
+                <div class="exercise-slot" id="slot6"></div>
+                <div class="slider-group">
+                    <label for="series6">Séries: <span id="seriesValue6">3</span></label>
+                    <input type="range" min="1" max="6" value="3" class="slider" id="series6" oninput="document.getElementById('seriesValue6').textContent = this.value;">
+                </div>
+                <div class="slider-group">
+                    <label for="reps6">Répétitions: <span id="repsValue6">10</span></label>
+                    <input type="range" min="1" max="30" value="10" class="slider" id="reps6" oninput="document.getElementById('repsValue6').textContent = this.value;">
+                </div>
+                <div class="checkbox-group">
+                    <label for="degressif6">Dégressif</label>
+                    <input type="checkbox" id="degressif6">
+                </div>
+
+                <!-- Temps de Repos Dropdown -->
+                <div class="rest-group">
+                    <label for="rest6">Repos</label>
+                    <select id="rest6" class="rest-dropdown">
+                        <option value="5">15 sec</option>
+                        <option value="10">30 sec</option>
+                        <option value="15">45 sec</option>
+                        <option value="30">1 min</option>
+                        <option value="45">1 min 15</option>
+                        <option value="60">1 min 30 sec</option>
+                        <option value="90">1 min 45 sec</option>
+                        <option value="120">2 min</option>
+                        <option value="150">2 min 15 sec</option>
+                        <option value="180">2 min 30 sec</option>
+                        <option value="195">2 min 45 sec</option>
+                        <option value="210">3 min</option>
+                        <option value="225">3 min 15 sec</option>
+                        <option value="240">3 min 30 sec</option>
+                        <option value="255">3 min 45 sec</option>
+                        <option value="270">4 min</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
-
-    <table>
-            </header>
-            <tr>
-                <th>Date</th>
-                <th>Nb exos</th>
-                <th>Volume total</th>
-                <th>Intensité totale</th>
-                <th>Reps totales</th>
-            </tr>
-        </thead>
-        <tbody id="data-table-body"></tbody>
-    </table>
-
-    <!-- The Modal -->
-    <div id="data-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Ajouter / Modifier les données</h2>
-            <div class="form-group">
-                <label for="modal-date">Date:</label>
-                <input type="text" id="modal-date" placeholder="dd/mm/yyyy">
-            </div>
-            <div class="form-group">
-                <label for="modal-nbExos">Nb exos:</label>
-                <input type="number" id="modal-nbExos">
-            </div>
-            <div class="form-group">
-                <label for="modal-volumeTotal">Volume total:</label>
-                <input type="number" id="modal-volumeTotal">
-            </div>
-            <div class="form-group">
-                <label for="modal-intensiteTotale">Intensité totale:</label>
-                <input type="number" id="modal-intensiteTotale">
-            </div>
-            <div class="form-group">
-                <label for="modal-repsTotales">Reps totales:</label>
-                <input type="number" id="modal-repsTotales">
-            </div>
-            <button onclick="saveData()">Enregistrer</button>
+ <div class="video-bank-container">
+    <div class="title-container">
+        <button class="arrow arrow-left" onclick="prevSet()">&#8249;</button>
+        <h2 id="setTitle" style="font-size: 1rem;">Entrainements Triceps</h2>
+        <button class="arrow arrow-right" onclick="nextSet()">&#8250;</button>
+    </div>
+    <div class="video-bank" id="exerciseSetsContainer">
+      <!-- Set 1: Triceps -->
+<div class="exercise-set" id="exerciseSet1">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
+            <video controls src="barre_au_front_chaise.mp4" width="180" alt="Bench press" poster="bar_au_front.png"></video>
+            <p>Barre au front + Chaise</p>
         </div>
     </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video2">
+            <video controls src="extension_coude_corde_dos_puis_face_a_la_poulie.mp4" width="180" alt="Extension Coudes Corde" poster="extension_coude.png"></video>
+            <p>Extension Coudes Corde</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video3">
+            <video controls src="extension_coudes_banc_incline.mp4" width="180" alt="Extension Coudes Banc Incliné" poster="extension_coude_banc_incline.png"></video>
+            <p>Extension Coudes Banc Incliné</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video4">
+            <video controls src="triceps_unilateral.mp4" width="180" alt="Triceps unilatéral" poster="triceps_unilateral.png"></video>
+            <p>Triceps Unilatéral</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
+            <video controls src="dips.mp4" width="180" alt="Pushdown à la poulie" poster="dips.png"></video>
+            <p>Dips</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
+            <video controls src="dips_assistes.mp4" width="180" alt="Dips assistés" poster="dips_assistes.png"></video>
+            <p>Dips assistés</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
+            <video controls src="extension_de_coudes.mp4" width="180" alt="Kickback haltères" poster="extensions_de_coude.png"></video>
+            <p>Extension de coudes</p>
+        </div>
+    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // JavaScript code (including existing functions) as provided earlier
+<!-- Set 2: Biceps -->
+<div class="exercise-set" id="exerciseSet2" style="display:none;">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
+            <video controls src="biceps_unilateral.mp4" width="180" alt="Biceps unilatéral" poster="biceps_unilateral.png"></video>
+            <p>Biceps unilatéral</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
+            <video controls src="curl_incline_degressif.mp4" width="180" alt="Curl Incliné + Dégressif" poster="curl_incline_degressif.png"></video>
+            <p>Curl Incliné + Dégressif</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
+            <video controls src="curl_prise_marteaux.mp4" width="180" alt="Curl Prise Marteaux" poster="curl_prise_marteaux.png"></video>
+            <p>Curl Prise Marteaux</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video8">
+            <video controls src="curl_biceps_supination.mp4" width="180" alt="Curl Biceps Supination" poster="biceps_supination.png"></video>
+            <p>Curl Biceps Supination</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
+            <video controls src="curl_supination_poulie.mp4" width="180" alt="Curl Supination Poulie" poster="curl_supination_poulie.png"></video>
+            <p>Curl Supination Poulie</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
+            <video controls src="curl_prise_inverse.mp4" width="180" alt="Cable Curl" poster="curl_prise_inverse.png"></video>
+            <p>Curl Prise inverse</p>
+        </div>
+    </div>
+</div>
 
-        window.onload = function() {
-            populateTable(); // Load data and populate table on page load
-        };
+<!-- Set 3: Pectoraux -->
+<div class="exercise-set" id="exerciseSet3" style="display:none;">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
+            <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
+            <p>Écartés Poulies coudes rentrés</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
+            <video controls src="ecart_poulies_hautes.mp4" width="180" alt="Écarté Poulies Hautes" poster="ecarte_poulie_haute.png"></video>
+            <p>Écartés Poulies Hautes</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video11">
+            <video controls src="bench_machine_tempo.mp4" width="180" alt="Bench machine Tempo" poster="bench_machine_tempo.png"></video>
+            <p>Bench machine Tempo</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video12">
+            <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
+            <p>Développé Couché haltere</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video13">
+            <video controls src="butterfly_pompes.mp4" width="180" alt="Butterfly + Pompes" poster="butterfly.png"></video>
+            <p>Butterfly + Pompes</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video14">
+            <video controls src="ecarte_poulie_basse.mp4" width="180" alt="Pec Fly Machine" poster="ecarte_poulie_basse.png"></video>
+            <p>Ecarte poulie basse</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video15">
+            <video controls src="dips_prise_large.mp4" width="180" alt="DIPS Prise Large" poster="dips_prise_large.png"></video>
+            <p>DIPS Prise Large</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video16">
+            <video controls src="smith_machine_tempo.mp4" width="180" alt="Incline Bench Press" poster="smith_machine_tempo.png"></video>
+            <p>Smith machine tempo</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video17">
+            <video controls src="pecs_au_butterfly.mp4" width="180" alt="Chest Dips" poster="uniquement_pec_butterfly.png"></video>
+            <p>Pecs au Butterfly</p>
+        </div>
+    </div>
+</div>
 
-        const dates = [];
-        const nbExos = [];
-        const volumeTotal = [];
-        const intensiteTotale = [];
-        const repsTotales = [];
-        let chart1, chart2, chart3, chart4;
+<!-- Set 4: Jambes -->
+<div class="exercise-set" id="exerciseSet4" style="display:none;">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video19">
+            <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
+            <p>Fentes Bulgares en détail !</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video20">
+            <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
+            <p>Legs Extension ! Dégressif</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video21">
+            <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
+            <p>Presse Verticale en détail !</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video22">
+            <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
+            <p>Soulevé de Terre Jambes Tendues !</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
+            <video controls src="squat.mp4" width="180" alt="Squat" poster="squat.png"></video>
+            <p>Squat</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
+            <video controls src="adducteur.mp4" width="180" alt="Hack Squat" poster="adducteur.png"></video>
+            <p>Adducteur</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
+            <video controls src="fentes_guides.mp4" width="180" alt="Lunges" poster="fentes_guides.png"></video>
+            <p>Fentes Guidés</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
+            <video controls src="hack_squat.mp4" width="180" alt="Glute Bridge" poster="hack_squat.png"></video>
+            <p>Hack Squat</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
+            <video controls src="leg_curl.mp4" width="180" alt="Leg Curl" poster="leg_curl.png"></video>
+            <p>Leg Curl</p>
+        </div>
+    </div>
+</div>
 
-        function generateDates(startDate, endDate) {
-            const dates = [];
-            let currentDate = new Date(startDate);
-            const end = new Date(endDate);
+<!-- Set 5: Épaules -->
+<div class="exercise-set" id="exerciseSet5" style="display:none;">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
+            <video controls src="elevations_laterales_machine.mp4" alt="Élévations Latérales Machine" poster="elevation_machine_laterale.png"></video>
+            <p>Élévations latérales machine</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
+            <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
+            <p>Élévations Frontales en dégressif</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
+            <video controls src="elevations_laterales_poulie.mp4" alt="Élévations Latérales Poulie" poster="elevation_laterale_poulie.png"></video>
+            <p>Élévations latérales poulie</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
+            <video controls src="developpe_militaire_smith_guide.mp4" alt="Développé Militaire" poster="elevation_militaire_smith.png"></video>
+            <p>Développé Militaire Smith Guidé</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
+            <video controls src="ton_exo_butterfly_inverse.mp4" alt="Butterfly Inversé" poster="butterfly_inverse.png"></video>
+            <p>Butterfly Inversé</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
+            <video controls src="dev_militaire_machine.mp4" alt="Dev militaire machine" poster="dev_militaire.png"></video>
+            <p>Dev militaire machine</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
+            <video controls src="face_pull.mp4" alt="Face Pull" poster="face_pull.png"></video>
+            <p>Face Pull</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
+            <video controls src="elevations_laterales_degressif.mp4" alt="Élévations latérales + Dégressif" poster="elevations_laterales_degressif.png"></video>
+            <p>Élévations latérales + Dégressif</p>
+        </div>
+    </div>
+</div>
 
-            while (currentDate <= end) {
-                const day = String(currentDate.getDate()).padStart(2, '0');
-                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-                const year = currentDate.getFullYear();
-                dates.push(`${day}/${month}/${year}`);
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
+<!-- Set 6: Dos -->
+<div class="exercise-set" id="exerciseSet6" style="display:none;">
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
+            <video controls src="releves_de_buste_en_detail.mp4" alt="Relevés de Buste" poster="releve_buste.png"></video>
+            <p>Relevés de Buste en Détail</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
+            <video controls src="tes_tractions_assistees_en_details.mp4" alt="Tractions Assitées" poster="traction_assistee.png"></video>
+            <p>Tes tractions assitées en Détails</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
+            <video controls src="tirage_dorsaux.mp4" alt="Tirage Dorsaux" poster="tirage_dorsaux.png"></video>
+            <p>Tirage Dorsaux</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video32">
+            <video controls src="tirage_horizontal_machine.mp4" alt="Tirage Horizontal Machine" poster="tirage_horizontal_machine.png"></video>
+            <p>Tirage horizontal machine</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video33">
+            <video controls src="tirage_inverse_meilleur_exo_dos.mp4" alt="Tirage Inversé" poster="tirage_inverse.png"></video>
+            <p>Tirage inversé, Meilleur exo dos</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video34">
+            <video controls src="tirage_menton.mp4" alt="Tirage Menton" poster="tirage_menton.png"></video>
+            <p>Tirage Menton</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video35">
+            <video controls src="tirage_poulie_vis_a_vis.mp4" alt="Tirage Poulie Vis à Vis" poster="tirage_poulie_vis_a_vis.png"></video>
+            <p>Tirage Poulie Vis à Vis</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video36">
+            <video controls src="tirage_trapeze.mp4" alt="Tirage Trapeze" poster="tirage_trapeze.png"></video>
+            <p>Tirage Trapeze</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video37">
+            <video controls src="tirage_unilateral_a_la_poulie.mp4" alt="Tirage unilatéral à la Poulie" poster="tirage_unilateral_poulie.png"></video>
+            <p>Tirage unilatéral à la Poulie</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video38">
+            <video controls src="tirage_verticale.mp4" alt="Tirage Verticale" poster="tirage_verticale.png"></video>
+            <p>Tirage verticale</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video39">
+            <video controls src="ton_exo_le_shrug.mp4" alt="Shrug" poster="shrug.png"></video>
+            <p>Ton Exo, Le Shrug</p>
+        </div>
+    </div>
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video40">
+            <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
+            <p>Tirage Horizontale Trapèzes</p>
+        </div>
+</div>
+            
+            <script>
+      let currentSet = 1;  // Start with Set 1
+    const totalSets = 6; // Total number of sets
 
-            return dates;
+    function nextSet() {
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (currentElement) {
+            currentElement.style.display = 'none';
         }
 
-        function getDataFromLocalStorage() {
-            const data = {};
-            const allDates = generateDates('2024-09-01', '2024-12-31'); // Generate dates in dd/mm/yyyy format
-
-            allDates.forEach(date => {
-                data[date] = {
-                    nbExos: parseFloat(localStorage.getItem(`nbExos_${date}`)) || 0,
-                    volumeTotal: parseFloat(localStorage.getItem(`volumeTotal_${date}`)) || 0,
-                    intensiteTotale: parseFloat(localStorage.getItem(`intensiteTotale_${date}`)) || 0,
-                    repsTotales: parseFloat(localStorage.getItem(`repsTotales_${date}`)) || 0
-                };
-            });
-
-            return data;
+        currentSet = (currentSet % totalSets) + 1;
+        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (nextElement) {
+            nextElement.style.display = 'flex';
         }
 
-        function populateTable() {
-            const localStorageData = getDataFromLocalStorage(); // Retrieve data in dd/mm/yyyy format
-            const allDates = generateDates('2024-09-01', '2024-12-31');
-            const tableBody = document.getElementById('data-table-body');
-            tableBody.innerHTML = ''; // Clear existing rows
+        updateTitle();
+    }
 
-            allDates.forEach(date => {
-                const storedData = localStorageData[date] || {
-                    nbExos: 0,
-                    volumeTotal: 0,
-                    intensiteTotale: 0,
-                    repsTotales: 0
-                };
-
-                // Add editable row to the table using the dd/mm/yyyy format
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${date}</td>
-                    <td contenteditable="true" data-type="nbExos" data-date="${date}">${storedData.nbExos}</td>
-                    <td contenteditable="true" data-type="volumeTotal" data-date="${date}">${storedData.volumeTotal}</td>
-                    <td contenteditable="true" data-type="intensiteTotale" data-date="${date}">${storedData.intensiteTotale}</td>
-                    <td contenteditable="true" data-type="repsTotales" data-date="${date}">${storedData.repsTotales}</td>
-                `;
-
-                if (storedData.nbExos > 0 || storedData.volumeTotal > 0 || storedData.intensiteTotale > 0 || storedData.repsTotales > 0) {
-                    row.classList.add('highlight');
-                }
-
-                tableBody.appendChild(row);
-            });
-
-            // Update the table with the initial data
-            updateChartsFromTable();
-
-            // Add blur event to each editable cell
-            document.querySelectorAll('td[contenteditable="true"]').forEach(cell => {
-                cell.addEventListener('blur', updateChartsFromTable);
-            });
+    function prevSet() {
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (currentElement) {
+            currentElement.style.display = 'none';
         }
 
-        function updateCharts() {
-    const ctxChart1 = document.getElementById('chart1').getContext('2d');
-    const ctxChart2 = document.getElementById('chart2').getContext('2d');
-    const ctxChart3 = document.getElementById('chart3').getContext('2d');
-    const ctxChart4 = document.getElementById('chart4').getContext('2d');
+        currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (prevElement) {
+            prevElement.style.display = 'flex';
+        }
 
-    // Update chart1 with volumeTotal
-    if (chart1) chart1.destroy();
-    chart1 = new Chart(ctxChart1, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Volume Total',
-                    data: volumeTotal,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: true,
-                },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        updateTitle();
+    }
+
+    function updateTitle() {
+        const titles = [
+            "Entrainements Triceps",
+            "Entrainements Biceps",
+            "Entrainements Pectoraux",
+            "Entrainements Jambes",
+            "Entrainements Épaules",
+            "Entrainements Dos"
+        ];
+        document.getElementById("setTitle").textContent = titles[currentSet - 1];
+    }
+
+    function displayCurrentDate() {
+        const dateElement = document.getElementById("dateDisplay");
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('fr-FR', options);
+        dateElement.textContent = formattedDate;
+    }
+
+    window.onload = function() {
+        displayCurrentDate();
+        addDragAndDropListeners();
+    };
+
+
+    // Drag and Drop functionality
+    let draggedElement = null;
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('draggable')) {
+            draggedElement = e.target;
         }
     });
 
-    // Update chart2 with repsTotales
-    if (chart2) chart2.destroy();
-    chart2 = new Chart(ctxChart2, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Reps Totales',
-                    data: repsTotales,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: true,
-                }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
+    document.addEventListener('dragend', (e) => {
+        draggedElement = null;
     });
 
-    // Update chart3 with nbExos
-    if (chart3) chart3.destroy();
-    chart3 = new Chart(ctxChart3, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Nb Exos',
-                    data: nbExos,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    fill: true,
-                }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
 
-    // Update chart4 with intensiteTotale
-    if (chart4) chart4.destroy();
-    chart4 = new Chart(ctxChart4, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Intensité Totale',
-                    data: intensiteTotale,
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    fill: true,
-                }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    function handleDropOnSlot(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        // Clone the dragged element to maintain a copy in the bank
+        let clonedElement = draggedElement.cloneNode(true);
+        
+        // Clear the slot and append both the cloned video and its title
+        e.target.innerHTML = '';  // Clear slot
+        
+        // Extract the video element from the dragged element
+        const draggedVideo = draggedElement.querySelector('video');
+        
+        // Create a new video element for the dropped slot
+        const newVideo = document.createElement('video');
+        newVideo.controls = true;
+        
+        // Set the 'src' and 'poster' attributes of the new video
+        newVideo.src = draggedVideo.src;
+        newVideo.poster = draggedVideo.poster;
+        newVideo.width = 270;  // Optional: adjust width to fit the slot
+        
+        // Append the new video to the slot
+        e.target.appendChild(newVideo);
+        
+        // Get the title of the video
+        let videoTitle = draggedElement.querySelector('p').textContent;
+        
+        // Create a title element and append it to the slot below the video
+        let titleElement = document.createElement('p');
+        titleElement.textContent = videoTitle;
+        e.target.appendChild(titleElement);
+
+        // Make sure the video is no longer draggable after being dropped in the slot
+        newVideo.draggable = false;
+    }
 }
 
-function updateChartsFromTable() {
-    const tableBody = document.getElementById('data-table-body');
-    dates.length = 0;
-    nbExos.length = 0;
-    volumeTotal.length = 0;
-    intensiteTotale.length = 0;
-    repsTotales.length = 0;
+    function handleDropOnVideoBank(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const videoBank = document.querySelector('.video-bank-container');
+            if (!videoBank.contains(draggedElement)) {
+                draggedElement.draggable = true;
+                videoBank.appendChild(draggedElement);
+            }
+        }
+    }
 
-    tableBody.querySelectorAll('tr').forEach(row => {
-        const cells = row.querySelectorAll('td');
-        const date = cells[0].innerText.trim();
-        const nbExo = parseFloat(cells[1].innerText.trim()) || 0;
-        const volume = parseFloat(cells[2].innerText.trim()) || 0;
-        const intensite = parseFloat(cells[3].innerText.trim()) || 0;
-        const reps = parseFloat(cells[4].innerText.trim()) || 0;
+    function addDragAndDropListeners() {
+        const videoElements = document.querySelectorAll('.draggable');
+        videoElements.forEach(video => {
+            video.setAttribute('draggable', 'true');
+        });
 
-        dates.push(date);
-        nbExos.push(nbExo);
-        volumeTotal.push(volume);
-        intensiteTotale.push(intensite);
-        repsTotales.push(reps);
+        const exerciseSlots = document.querySelectorAll('.exercise-slot');
+        exerciseSlots.forEach(slot => {
+            slot.addEventListener('dragover', handleDragOver);
+            slot.addEventListener('drop', handleDropOnSlot);
+        });
 
-        // Update localStorage on data change
-        localStorage.setItem(`nbExos_${date}`, nbExo);
-        localStorage.setItem(`volumeTotal_${date}`, volume);
-        localStorage.setItem(`intensiteTotale_${date}`, intensite);
-        localStorage.setItem(`repsTotales_${date}`, reps);
+        const videoBankContainer = document.querySelector('.video-bank-container');
+        videoBankContainer.addEventListener('dragover', handleDragOver);
+        videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+    }
+
+// Export session function 
+function exportSession() {
+    let contentToExport = `
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Séance Enregistrée</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
+                background-size: cover;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                line-height: 1.6;
+            }
+            h1, h2 {
+                text-align: center;
+                color: #FF8A65;
+            }
+            .container {
+                width: 80%;
+                max-width: 1000px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .exercise-card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                padding: 15px;
+                background-color: #fafafa;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .exercise-card h3 {
+                margin-bottom: 10px;
+                color: #FF8A65;
+                text-transform: uppercase;
+            }
+            .exercise-card video {
+                width: 100%;
+                max-width: 400px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .exercise-details {
+                margin-top: 15px;
+                font-size: 0.9rem;
+            }
+            .exercise-details div {
+                margin-bottom: 5px;
+            }
+            .footer {
+                text-align: center;
+                padding: 10px 0;
+                color: #777;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
+    `;
+
+    const exerciseRows = document.querySelectorAll('.exercise-row');
+    exerciseRows.forEach((row, index) => {
+        let exerciseNumber = row.querySelector('.exercise-number').textContent;
+        let slot = row.querySelector('.exercise-slot');
+        let videoElement = slot.querySelector('video');
+
+        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
+        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
+
+        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
+        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
+        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
+        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
+
+        contentToExport += `
+            <div class="exercise-card">
+                <h3>${exerciseNumber}</h3>
+        `;
+
+        if (videoSrc) {
+            contentToExport += `
+                <div>
+                    Vidéo:<br>
+                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
+                </div>
+            `;
+        } else {
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+        }
+
+        contentToExport += `
+            <div class="exercise-details">
+                <div><strong>Séries:</strong> ${seriesValue}</div>
+                <div><strong>Répétitions:</strong> ${repsValue}</div>
+                <div><strong>Dégressif:</strong> ${degressif}</div>
+                <div><strong>Repos:</strong> ${restPeriod}</div>
+            </div>
+        </div>`;
     });
 
-    updateCharts(); // Ensure this is called to update all charts
+    contentToExport += `
+        </div>
+        <div class="footer">
+            <p>Séance d'entraînement enregistrée avec succès.</p>
+        </div>
+    </body>
+    </html>
+    `;
+
+    const blob = new Blob([contentToExport], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'seance.html';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
-
-        // Exporting and importing data
-        function exportToXML() {
-            let xml = '<data>';
-            const allDates = generateDates('2024-09-01', '2024-12-31');
-
-            allDates.forEach(date => {
-                const nbExosValue = localStorage.getItem(`nbExos_${date}`) || 0;
-                const volumeTotalValue = localStorage.getItem(`volumeTotal_${date}`) || 0;
-                const intensiteTotaleValue = localStorage.getItem(`intensiteTotale_${date}`) || 0;
-                const repsTotalesValue = localStorage.getItem(`repsTotales_${date}`) || 0;
-
-                xml += `<row>
-                    <date>${date}</date>
-                    <nbExos>${nbExosValue}</nbExos>
-                    <volumeTotal>${volumeTotalValue}</volumeTotal>
-                    <intensiteTotale>${intensiteTotaleValue}</intensiteTotale>
-                    <repsTotales>${repsTotalesValue}</repsTotales>
-                </row>`;
-            });
-
-            xml += '</data>';
-
-            const blob = new Blob([xml], { type: 'application/xml' });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'data.xml';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function importFromXML() {
-            const input = document.getElementById('import-file');
-            const file = input.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const parser = new DOMParser();
-                    const xml = parser.parseFromString(e.target.result, 'text/xml');
-                    const rows = xml.getElementsByTagName('row');
-
-                    for (let i = 0; i < rows.length; i++) {
-                        const date = rows[i].getElementsByTagName('date')[0].textContent;
-                        const nbExosValue = rows[i].getElementsByTagName('nbExos')[0].textContent;
-                        const volumeTotalValue = rows[i].getElementsByTagName('volumeTotal')[0].textContent;
-                        const intensiteTotaleValue = rows[i].getElementsByTagName('intensiteTotale')[0].textContent;
-                        const repsTotalesValue = rows[i].getElementsByTagName('repsTotales')[0].textContent;
-
-                        localStorage.setItem(`nbExos_${date}`, nbExosValue);
-                        localStorage.setItem(`volumeTotal_${date}`, volumeTotalValue);
-                        localStorage.setItem(`intensiteTotale_${date}`, intensiteTotaleValue);
-                        localStorage.setItem(`repsTotales_${date}`, repsTotalesValue);
-                    }
-
-                    populateTable(); // Refresh the table after importing data
-                };
-                reader.readAsText(file);
-            }
-        }
-
-        // Modal related functions
-        function openModal() {
-            document.getElementById('data-modal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('data-modal').style.display = 'none';
-        }
-
-        function saveData() {
-            const date = document.getElementById('modal-date').value;
-            const nbExos = document.getElementById('modal-nbExos').value;
-            const volumeTotal = document.getElementById('modal-volumeTotal').value;
-            const intensiteTotale = document.getElementById('modal-intensiteTotale').value;
-            const repsTotales = document.getElementById('modal-repsTotales').value;
-
-            if (date) {
-                // Save data in localStorage
-                localStorage.setItem(`nbExos_${date}`, nbExos);
-                localStorage.setItem(`volumeTotal_${date}`, volumeTotal);
-                localStorage.setItem(`intensiteTotale_${date}`, intensiteTotale);
-                localStorage.setItem(`repsTotales_${date}`, repsTotales);
-
-                populateTable(); // Update table after saving data
-                closeModal(); // Close modal
-            } else {
-                alert('Please enter a valid date.');
-            }
-        }
-    </script>
+document.getElementById('exportButton').addEventListener('click', exportSession);
+</script>
 </body>
 </html>
