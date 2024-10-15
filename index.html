@@ -1,88 +1,821 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Training avancés</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Button Styling Example</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        /* Styling for all buttons to have a uniform look */
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #F4B084;
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center; /* Center text within the button */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        /* Hover effect for buttons */
+        .btn:hover {
+            background-color: #F4B084;
+        }
+
+        /* Active state when clicking on buttons */
+        .btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Example</title>
+</head>
+<body>
+<header>
+    <!-- Import a local logo -->
+    <img src="logo.png" alt="Company Logo" width="100" height="auto">
+</header>
+</body>
+</html>
+<body>
+
+<!-- Button container to center buttons -->
+<div class="button-container">
+    <button class="btn" onclick="reloadPage()" style="font-weight: bold;">Mettre les valeurs à 0</button>
+    <a href="newPage.html" class="btn" style="font-weight: bold;">Accéder au tableau de suivi</a>
+    <button id="save-data-button" class="btn" style="font-weight: bold;">Sauvegarder ma séance</button>
+</div>
+
+
+    <script>
+        function reloadPage() {
+            window.location.reload();
+        }
+    </script>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            font-size: 12.6px; /* Reduced font size by 10% */
+        }
+    
+        h1 {
+            text-align: center;
+        }
+    
+        table {
+            width: 100%;
+            max-width: 90%;
+            border-collapse: collapse;
+            margin: 10px auto;
+            table-layout: fixed; /* Ensure column widths are respected */
+        }
+    
+        table, th, td {
+            border: 1px solid #ddd;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(181, 255, 252, 0.8) 100%), 
-                        url('logo.png') no-repeat center center fixed;
-            background-size: cover;
-            backdrop-filter: blur(0.1px); /* Adds blur effect on the background */
-        }
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
-            padding: 40px 60px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
+        th, td {
+            padding: 3.6px; /* Reduced padding by 10% */
             text-align: center;
+            vertical-align: middle;
+            font-size: 12.6px; /* Reduced font size by 10% */
         }
-
-        h1 {
-            font-size: 3rem;
-            color: #333;
-            margin-bottom: 40px;
-            font-weight: 600;
+    
+        /* Make all cells in columns 1, 2, 3, and 4 bold, except clickable cells */
+        td:nth-child(1):not([contenteditable="true"]),
+        td:nth-child(2):not([contenteditable="true"]),
+        td:nth-child(3):not([contenteditable="true"]),
+        th:nth-child(1),
+        th:nth-child(2),
+        th:nth-child(3) {
+            font-weight: bold;
         }
-
-        .buttons {
+    
+        /* Reset bold for columns 4 through 11 */
+        td:nth-child(4),
+        td:nth-child(5),
+        td:nth-child(6),
+        td:nth-child(7),
+        td:nth-child(8),
+        td:nth-child(9),
+        td:nth-child(10),
+        td:nth-child(11),
+        th:nth-child(4),
+        th:nth-child(5),
+        th:nth-child(6),
+        th:nth-child(7),
+        th:nth-child(8),
+        th:nth-child(9),
+        th:nth-child(10),
+        th:nth-child(11) {
+            font-weight: normal;
+        }
+    
+        /* Make specific headers and cells bold */
+        #total-session-table th:nth-child(4),
+        #total-session-table th:nth-child(5) {
+            font-weight: bold;
+        }
+    
+        #total-session-intensité,
+        #total-session-totalreps {
+            font-weight: bold;
+        }
+    
+        th {
+            background-color: #f4f4f4;
+        }
+    
+        td {
+            cursor: pointer;
+            font-weight: normal;
+        }
+    
+        td[contenteditable="true"] {
+            background-color: #f9f9f9;
+        }
+    
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #4a90e2;
+        }
+    
+        tr.highlight-row {
+            background-color: rgba(244, 176, 132);
+        }
+    
+        td.highlight-cell {
+            background-color: rgba(244, 176, 132);
+        }
+    
+        .underline {
+            text-decoration: underline;
+        }
+    
+        /* Adjust column widths */
+        th:nth-child(1), td:nth-child(1) {
+            width: 108px; /* Reduced by 10% */
+        }
+    
+        th:nth-child(2), td:nth-child(2) {
+            width: 162px; /* Reduced by 10% */
+        }
+    
+        th:nth-child(3), td:nth-child(3) {
+            width: 108px; /* Reduced by 10% */
+        }
+    
+        th:nth-child(4), td:nth-child(4),
+        th:nth-child(5), td:nth-child(5),
+        th:nth-child(6), td:nth-child(6),
+        th:nth-child(7), td:nth-child(7),
+        th:nth-child(8), td:nth-child(8),
+        th:nth-child(9), td:nth-child(9),
+        th:nth-child(10), td:nth-child(10),
+        th:nth-child(11), td:nth-child(11) {
+            width: 72px; /* Reduced by 10% */
+        }
+    
+        th:nth-child(12), td:nth-child(12) {
+            width: 72px; /* Reduced by 10% */
+        }
+    
+        th:nth-child(13), td:nth-child(13) {
+            width: 72px; /* Reduced by 10% */
+            font-weight: bold;
+        }
+        th:nth-child(14), td:nth-child(14) {
+            width: 72px; /* Reduced by 10% */
+            font-weight: bold;
+        }
+    
+        /* Target and style "Exercice 1" through "Exercice 6" in the first column */
+        table tr:nth-child(1) td:nth-child(1),
+        table tr:nth-child(4) td:nth-child(1),
+        table tr:nth-child(7) td:nth-child(1),
+        table tr:nth-child(10) td:nth-child(1),
+        table tr:nth-child(13) td:nth-child(1),
+        table tr:nth-child(16) td:nth-child(1) {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    
+        /* Specific cells with different background colors */
+        table tr:nth-child(2) td:nth-child(11),
+        table tr:nth-child(2) td:nth-child(12),
+        table tr:nth-child(2) td:nth-child(13),
+        table tr:nth-child(5) td:nth-child(11),
+        table tr:nth-child(5) td:nth-child(12),
+        table tr:nth-child(5) td:nth-child(13),
+        table tr:nth-child(8) td:nth-child(11),
+        table tr:nth-child(8) td:nth-child(12),
+        table tr:nth-child(8) td:nth-child(13),
+        table tr:nth-child(11) td:nth-child(11),
+        table tr:nth-child(11) td:nth-child(12),
+        table tr:nth-child(11) td:nth-child(13),
+        table tr:nth-child(14) td:nth-child(11),
+        table tr:nth-child(14) td:nth-child(12),
+        table tr:nth-child(14) td:nth-child(13),
+        table tr:nth-child(17) td:nth-child(11),
+        table tr:nth-child(17) td:nth-child(12),
+        table tr:nth-child(17) td:nth-child(13) {
+            background-color: #d8d8d8;
+            color: #000;
+        }
+    
+        /* Summary Tables Container */
+        .summary-container {
+            width: 31.5%; /* Reduced by 10% */
             display: flex;
             flex-direction: column;
-            gap: 20px;
+        }
+    
+/* Summary Table Styles */
+#summary-table, #total-session-table {
+    border-collapse: collapse;
+    width: 90%; /* Reduced by 10% */
+    margin-bottom: 10px;
+}
+
+#summary-table th, #summary-table td,
+#total-session-table th, #total-session-table td {
+    border: 1px solid #ddd;
+    padding: 7.2px; /* Reduced padding by 10% */
+    text-align: center;
+    font-size: 12.6px; /* Reduced font size by 10% */
+}
+
+#summary-table th, #total-session-table th {
+    background-color: #e0e0e0;
+}
+
+/* Add specific widths for each column */
+#summary-table th:nth-child(1), 
+#total-session-table th:nth-child(1),
+#summary-table td:nth-child(1), 
+#total-session-table td:nth-child(1) {
+    width: 108px; /* Reduced by 10% */
+}
+
+#summary-table th:nth-child(2), 
+#total-session-table th:nth-child(2),
+#summary-table td:nth-child(2), 
+#total-session-table td:nth-child(2) {
+    width: 150px; /* Adjust as needed */
+}
+
+#summary-table th:nth-child(3), 
+#total-session-table th:nth-child(3),
+#summary-table td:nth-child(3), 
+#total-session-table td:nth-child(3) {
+    width: 150px; /* Adjust as needed */
+}
+
+/* Continue for additional columns */
+#summary-table th:nth-child(4), 
+#total-session-table th:nth-child(4),
+#summary-table td:nth-child(4), 
+#total-session-table td:nth-child(4) {
+    width: 150px; /* Adjust as needed */
+}
+#summary-table th:nth-child(5), 
+#total-session-table th:nth-child(5),
+#summary-table td:nth-child(5), 
+#total-session-table td:nth-child(5) {
+    width: 150px; /* Adjust as needed */
+}
+    
+ /* Responsive Table for Screens Smaller than 900px */
+ @media (max-width: 900px) {
+        table {
+            width: 1000px;
+            overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
         }
 
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #F4B084, #FF8A65);
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            text-decoration: none;
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        /* Adjust summary container for mobile */
+        .summary-container {
+            position: fixed;
+            width: 1000px; 
+            margin: 0 auto;
+            padding: 10px; /* Adjust the container padding */
         }
 
-        .btn:hover {
-            background: linear-gradient(135deg, #FF8A65, #F4B084);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        th, td {
+            padding: 3.6px 2px; /* Reduced padding by 10% on mobile for better fit */
+            font-size: 12.6px; /* Keep font size reduced */
+            white-space: nowrap; /* Prevent wrapping */
         }
-
-        .btn:active {
-            transform: translateY(-2px);
-        }
-
+    }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Training avancés</h1>
-        <div class="buttons">
-            <!-- Link updated to point to autonome.html -->
-            <a href="autonome.html" class="btn">Je crée mon programme en autonomie</a>
-            <a href="modifier_programme.html" class="btn">Je module un programme existant</a>
-        </div>
-    </div>
+    <!-- Your table markup would go here -->
 </body>
 </html>
+    <h1>Suivi de l'évolution à chaque Séance</h1>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Méthodes</th>
+                <th></th>
+                <th>Série 1</th>
+                <th>Série 2</th>
+                <th>Série 3</th>
+                <th>Série 4</th>
+                <th>Série 5</th>
+                <th>Série 6</th>
+                <th>Série 7</th>
+                <th>Série 8</th>
+                <th>Volume</th>
+                <th>Intensité</th>
+                <th>Total reps</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Exercise 1 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 1</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges1"></td>
+                <td contenteditable="true"id="charges2"></td>
+                <td contenteditable="true"id="charges3"></td>
+                <td contenteditable="true"id="charges4"></td>
+                <td contenteditable="true"id="charges5"></td>
+                <td contenteditable="true"id="charges6"></td>
+                <td contenteditable="true"id="charges7"></td>
+                <td contenteditable="true"id="charges8"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum1" style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum1"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum1">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                <td contenteditable="true" id="reps1"></td>
+                <td contenteditable="true" id="reps2"></td>
+                <td contenteditable="true" id="reps3"></td>
+                <td contenteditable="true" id="reps4"></td>
+                <td contenteditable="true" id="reps5"></td>
+                <td contenteditable="true" id="reps6"></td>
+                <td contenteditable="true" id="reps7"></td>
+                <td contenteditable="true" id="reps8"></td>
+            </tr>
+
+            <!-- Exercise 2 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 2</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges9"></td>
+                <td contenteditable="true"id="charges10"></td>
+                <td contenteditable="true"id="charges11"></td>
+                <td contenteditable="true"id="charges12"></td>
+                <td contenteditable="true"id="charges13"></td>
+                <td contenteditable="true"id="charges14"></td>
+                <td contenteditable="true"id="charges15"></td>
+                <td contenteditable="true"id="charges16"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum2"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum2"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum2">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                <td contenteditable="true" id="reps9"></td>
+                <td contenteditable="true" id="reps10"></td>
+                <td contenteditable="true" id="reps11"></td>
+                <td contenteditable="true" id="reps12"></td>
+                <td contenteditable="true" id="reps13"></td>
+                <td contenteditable="true" id="reps14"></td>
+                <td contenteditable="true" id="reps15"></td>
+                <td contenteditable="true" id="reps16"></td>
+            </tr>
+
+            <!-- Exercise 3 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 3</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges17"></td>
+                <td contenteditable="true"id="charges18"></td>
+                <td contenteditable="true"id="charges19"></td>
+                <td contenteditable="true"id="charges20"></td>
+                <td contenteditable="true"id="charges21"></td>
+                <td contenteditable="true"id="charges22"></td>
+                <td contenteditable="true"id="charges23"></td>
+                <td contenteditable="true"id="charges24"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum3"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum3"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum3">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                    <td contenteditable="true" id="reps17"></td>
+                    <td contenteditable="true" id="reps18"></td>
+                    <td contenteditable="true" id="reps19"></td>
+                    <td contenteditable="true" id="reps20"></td>
+                    <td contenteditable="true" id="reps21"></td>
+                    <td contenteditable="true" id="reps22"></td>
+                    <td contenteditable="true" id="reps23"></td>
+                    <td contenteditable="true" id="reps24"></td>
+            </tr>
+
+            <!-- Exercise 4 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 4</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges25"></td>
+                <td contenteditable="true"id="charges26"></td>
+                <td contenteditable="true"id="charges27"></td>
+                <td contenteditable="true"id="charges28"></td>
+                <td contenteditable="true"id="charges29"></td>
+                <td contenteditable="true"id="charges30"></td>
+                <td contenteditable="true"id="charges31"></td>
+                <td contenteditable="true"id="charges32"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum4"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum4"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum4">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                <td contenteditable="true" id="reps25"></td>
+                <td contenteditable="true" id="reps26"></td>
+                <td contenteditable="true" id="reps27"></td>
+                <td contenteditable="true" id="reps28"></td>
+                <td contenteditable="true" id="reps29"></td>
+                <td contenteditable="true" id="reps30"></td>
+                <td contenteditable="true" id="reps31"></td>
+                <td contenteditable="true" id="reps32"></td>
+            </tr>
+
+            <!-- Exercise 5 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 5</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges33"></td>
+                <td contenteditable="true"id="charges34"></td>
+                <td contenteditable="true"id="charges35"></td>
+                <td contenteditable="true"id="charges36"></td>
+                <td contenteditable="true"id="charges37"></td>
+                <td contenteditable="true"id="charges38"></td>
+                <td contenteditable="true"id="charges39"></td>
+                <td contenteditable="true"id="charges40"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum5"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum5"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum5">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                <td contenteditable="true" id="reps33"></td>
+                <td contenteditable="true" id="reps34"></td>
+                <td contenteditable="true" id="reps35"></td>
+                <td contenteditable="true" id="reps36"></td>
+                <td contenteditable="true" id="reps37"></td>
+                <td contenteditable="true" id="reps38"></td>
+                <td contenteditable="true" id="reps39"></td>
+                <td contenteditable="true" id="reps40"></td>
+            </tr>
+            </tr>
+
+            <!-- Exercise 6 -->
+            <tr>
+                <td contenteditable="false" rowspan="3">Exercice 6</td>
+                <td class="highlight-cell">Nom de l'exercice ⬇️</td>
+                <td colspan="10" class="highlight-cell"></td>
+                <td colspan="2" class="highlight-cell"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true" rowspan="2"></td>
+                <td contenteditable="false">Charges</td>
+                <td contenteditable="true"id="charges41"></td>
+                <td contenteditable="true"id="charges42"></td>
+                <td contenteditable="true"id="charges43"></td>
+                <td contenteditable="true"id="charges44"></td>
+                <td contenteditable="true"id="charges45"></td>
+                <td contenteditable="true"id="charges46"></td>
+                <td contenteditable="true"id="charges47"></td>
+                <td contenteditable="true"id="charges48"></td>
+                <td contenteditable="true" rowspan="2" id="total-volume-sum6"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2"id="total-intensite-sum6"style="font-weight: bold;">0</td>
+                <td contenteditable="true" rowspan="2" id="total-reps-sum6">0</td>
+            </tr>
+            <tr>
+                <td contenteditable="false">Répétitions</td>
+                <td contenteditable="true" id="reps41"></td>
+                <td contenteditable="true" id="reps42"></td>
+                <td contenteditable="true" id="reps43"></td>
+                <td contenteditable="true" id="reps44"></td>
+                <td contenteditable="true" id="reps45"></td>
+                <td contenteditable="true" id="reps46"></td>
+                <td contenteditable="true" id="reps47"></td>
+                <td contenteditable="true" id="reps48"></td>
+            </tr>
+        </tbody>
+    </table>
+
+<!-- Total Session Table -->
+<table id="total-session-table">
+    <thead>
+        <tr>
+            <th></th> <!-- Empty cell for alignment -->
+            <th>Nb exos</th>
+            <th>Volume total</th>
+            <th>Intensité totale</th>
+            <th>Reps totales</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Total séance</td>
+            <td contenteditable="true" id="total-session-exos" style="font-weight: bold;">0</td>
+            <td contenteditable="true" id="total-session-volume"style="font-weight: bold;">0</td>
+            <td contenteditable="true" id="total-session-intensité">0</td>
+            <td contenteditable="true" id="total-session-totalreps">0</td>
+            <td contenteditable="false" id="current-date"style="font-weight: bold;"></td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+
+    <script>
+        // Function to get the current date in dd/mm/yyyy format
+        function getCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    
+        // Function to get the date from the "total séance" section
+        function getSessionDate() {
+            const dateElement = document.getElementById('current-date');
+            return dateElement ? dateElement.textContent.trim() : getCurrentDate();
+        }
+    
+        // Function to format the date as dd/mm/yyyy for localStorage keys
+        function getFormattedDate() {
+            const sessionDate = getSessionDate();
+            return sessionDate; // Keep the format as dd/mm/yyyy
+        }
+    
+        // Function to calculate total volume
+        function calculateTotalVolume() {
+            const chargesIds = [
+                ['charges1', 'charges2', 'charges3', 'charges4', 'charges5', 'charges6', 'charges7', 'charges8'],
+                ['charges9', 'charges10', 'charges11', 'charges12', 'charges13', 'charges14', 'charges15', 'charges16'],
+                ['charges17', 'charges18', 'charges19', 'charges20', 'charges21', 'charges22', 'charges23', 'charges24'],
+                ['charges25', 'charges26', 'charges27', 'charges28', 'charges29', 'charges30', 'charges31', 'charges32'],
+                ['charges33', 'charges34', 'charges35', 'charges36', 'charges37', 'charges38', 'charges39', 'charges40'],
+                ['charges41', 'charges42', 'charges43', 'charges44', 'charges45', 'charges46', 'charges47', 'charges48']
+            ];
+    
+            const repsIds = [
+                ['reps1', 'reps2', 'reps3', 'reps4', 'reps5', 'reps6', 'reps7', 'reps8'],
+                ['reps9', 'reps10', 'reps11', 'reps12', 'reps13', 'reps14', 'reps15', 'reps16'],
+                ['reps17', 'reps18', 'reps19', 'reps20', 'reps21', 'reps22', 'reps23', 'reps24'],
+                ['reps25', 'reps26', 'reps27', 'reps28', 'reps29', 'reps30', 'reps31', 'reps32'],
+                ['reps33', 'reps34', 'reps35', 'reps36', 'reps37', 'reps38', 'reps39', 'reps40'],
+                ['reps41', 'reps42', 'reps43', 'reps44', 'reps45', 'reps46', 'reps47', 'reps48']
+            ];
+    
+            let totalVolumes = [0, 0, 0, 0, 0, 0];
+    
+            // Function to calculate total volume for a given set of charges and reps
+            const calculateVolumeForIds = (chargesIds, repsIds) => {
+                let totalVolume = 0;
+                for (let i = 0; i < chargesIds.length; i++) {
+                    const chargeCell = document.getElementById(chargesIds[i]);
+                    const repsCell = document.getElementById(repsIds[i]);
+    
+                    if (chargeCell && repsCell) {
+                        const chargeValue = parseFloat(chargeCell.textContent.trim());
+                        const repsValue = parseFloat(repsCell.textContent.trim());
+    
+                        if (!isNaN(chargeValue) && !isNaN(repsValue)) {
+                            totalVolume += chargeValue * repsValue;
+                        }
+                    }
+                }
+                return totalVolume;
+            };
+    
+            // Calculate total volume for each set
+            chargesIds.forEach((_, index) => {
+                totalVolumes[index] = calculateVolumeForIds(chargesIds[index], repsIds[index]);
+            });
+    
+            // Update the total volume cells with the calculated totals
+            const totalVolumeCells = [
+                'total-volume-sum1', 'total-volume-sum2', 'total-volume-sum3',
+                'total-volume-sum4', 'total-volume-sum5', 'total-volume-sum6'
+            ];
+    
+            totalVolumeCells.forEach((id, index) => {
+                const cell = document.getElementById(id);
+                if (cell) {
+                    cell.textContent = totalVolumes[index].toFixed(2);
+                }
+            });
+    
+            // Calculate and update intensity for all sets
+            calculateAndUpdateIntensity(totalVolumes, repsIds);
+        }
+    
+        // Function to calculate total reps for all exercises
+        function calculateTotalReps() {
+            const repsIds = [
+                ['reps1', 'reps2', 'reps3', 'reps4', 'reps5', 'reps6', 'reps7', 'reps8'],
+                ['reps9', 'reps10', 'reps11', 'reps12', 'reps13', 'reps14', 'reps15', 'reps16'],
+                ['reps17', 'reps18', 'reps19', 'reps20', 'reps21', 'reps22', 'reps23', 'reps24'],
+                ['reps25', 'reps26', 'reps27', 'reps28', 'reps29', 'reps30', 'reps31', 'reps32'],
+                ['reps33', 'reps34', 'reps35', 'reps36', 'reps37', 'reps38', 'reps39', 'reps40'],
+                ['reps41', 'reps42', 'reps43', 'reps44', 'reps45', 'reps46', 'reps47', 'reps48']
+            ];
+    
+            let totalReps = repsIds.map(ids => ids.reduce((total, id) => {
+                const cell = document.getElementById(id);
+                if (cell) {
+                    const value = parseFloat(cell.textContent.trim());
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
+                }
+                return total;
+            }, 0));
+    
+            // Update the total reps cells with the calculated totals
+            const totalRepsCells = [
+                'total-reps-sum1', 'total-reps-sum2', 'total-reps-sum3',
+                'total-reps-sum4', 'total-reps-sum5', 'total-reps-sum6'
+            ];
+    
+            totalRepsCells.forEach((id, index) => {
+                const cell = document.getElementById(id);
+                if (cell) {
+                    cell.textContent = totalReps[index].toFixed(2);
+                }
+            });
+    
+            // Update the intensity calculation cells
+            calculateAndUpdateIntensity(null, repsIds, totalReps);
+        }
+    
+        // Function to calculate and update intensity for all intensity cells
+        function calculateAndUpdateIntensity(totalVolumes, repsIds, totalRepsOverride = null) {
+            const intensityCells = [
+                { volumeId: 'total-volume-sum1', repsIds: repsIds[0], intensityId: 'total-intensite-sum1' },
+                { volumeId: 'total-volume-sum2', repsIds: repsIds[1], intensityId: 'total-intensite-sum2' },
+                { volumeId: 'total-volume-sum3', repsIds: repsIds[2], intensityId: 'total-intensite-sum3' },
+                { volumeId: 'total-volume-sum4', repsIds: repsIds[3], intensityId: 'total-intensite-sum4' },
+                { volumeId: 'total-volume-sum5', repsIds: repsIds[4], intensityId: 'total-intensite-sum5' },
+                { volumeId: 'total-volume-sum6', repsIds: repsIds[5], intensityId: 'total-intensite-sum6' }
+            ];
+    
+            intensityCells.forEach(({ volumeId, repsIds, intensityId }, index) => {
+                const totalVolumeValue = totalVolumes ? totalVolumes[index] : parseFloat(document.getElementById(volumeId).textContent.trim()) || 0;
+                const totalReps = totalRepsOverride ? totalRepsOverride[index] : repsIds.reduce((sum, id) => {
+                    const cell = document.getElementById(id);
+                    const value = parseFloat(cell.textContent.trim());
+                    return sum + (isNaN(value) ? 0 : value);
+                }, 0);
+    
+                const intensity = totalReps > 0 ? (totalVolumeValue / totalReps).toFixed(2) : '0';
+                const intensityCell = document.getElementById(intensityId);
+                if (intensityCell) {
+                    intensityCell.textContent = intensity;
+                }
+            });
+        }
+    
+        // Function to update overall totals
+        function updateTotals() {
+            let Nbexos = 0;
+            let Volumetotal = 0;
+            let Intensitétotale = 0;
+            let Repstotales = 0;
+    
+            const getValue = (cell) => parseFloat(cell.textContent) || 0;
+    
+            // Loop through each row in the table body
+            document.querySelectorAll('tbody > tr').forEach(row => {
+                // Check if the row has enough cells for volume, intensity, and reps
+                if (row.cells.length >= 13) {
+                    // Collect values from the relevant columns
+                    const volumeCell = row.cells[10];
+                    const intensitéCell = row.cells[11];
+                    const totalRepsCell = row.cells[12];
+    
+                    // Only count the row if the volume cell is not empty
+                    if (getValue(volumeCell) > 0) {
+                        Nbexos++; // Count each non-empty row as an exercise
+                    }
+    
+                    // Accumulate totals
+                    Volumetotal += getValue(volumeCell);
+                    Intensitétotale += getValue(intensitéCell);
+                    Repstotales += getValue(totalRepsCell);
+                }
+            });
+    
+            // Update the HTML elements with the calculated totals
+            document.getElementById('total-session-exos').textContent = Nbexos;
+            document.getElementById('total-session-volume').textContent = Volumetotal.toFixed(2);
+            document.getElementById('total-session-intensité').textContent = Intensitétotale.toFixed(2);
+            document.getElementById('total-session-totalreps').textContent = Repstotales.toFixed(2);
+        }
+    
+        // Set up event listeners for all editable cells
+        document.addEventListener('DOMContentLoaded', () => {
+            const editableCells = document.querySelectorAll('td[contenteditable="true"]');
+    
+            editableCells.forEach(cell => {
+                cell.addEventListener('input', () => {
+                    calculateTotalVolume();
+                    calculateTotalReps();
+                    updateTotals();
+                });
+    
+                cell.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault(); // Prevent default Enter key action (like a new line)
+    
+                        const row = cell.parentElement;
+                        const nextRow = row.nextElementSibling;
+                        if (nextRow) {
+                            const nextEditableCell = nextRow.querySelector('td[contenteditable="true"]');
+                            if (nextEditableCell) {
+                                nextEditableCell.focus();
+                            }
+                        }
+                    }
+                });
+            });
+    
+            // Display the current date (if not manually set)
+            const dateElement = document.getElementById('current-date');
+            if (dateElement && dateElement.textContent.trim() === '') {
+                dateElement.textContent = getCurrentDate();
+            }
+        });
+    
+        // Save button event listener
+        document.getElementById('save-data-button').addEventListener('click', function() {
+            // Get the manually entered or auto-filled date from the #current-date element
+            const sessionDate = getSessionDate();
+    
+            // Get values from the total session table
+            const totalSessionExos = document.getElementById('total-session-exos').textContent.trim();
+            const totalSessionVolume = document.getElementById('total-session-volume').textContent.trim();
+            const totalSessionIntensite = document.getElementById('total-session-intensité').textContent.trim();
+            const totalSessionTotalreps = document.getElementById('total-session-totalreps').textContent.trim();
+    
+            // Store data in localStorage with individual keys using the dd/mm/yyyy format
+            localStorage.setItem(`nbExos_${sessionDate}`, totalSessionExos);
+            localStorage.setItem(`volumeTotal_${sessionDate}`, totalSessionVolume);
+            localStorage.setItem(`intensiteTotale_${sessionDate}`, totalSessionIntensite);
+            localStorage.setItem(`repsTotales_${sessionDate}`, totalSessionTotalreps);
+    
+            alert('Les valeurs ont bien été enregistrées!');
+        });
+    </script>     
+    
+    
