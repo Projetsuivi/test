@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8"> <!-- Increased initial scale -->
+    <title>Editable Table with Charts</title>
+    <style>
+        /* Existing styles */
+        .chart-container {
+            width: 90%; /* Wider for mobile */
+            margin: auto;
+            padding: 20px;
+        }
+        .chart-container canvas {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        .update-btn, .open-modal-btn, .export-btn, .import-btn, .load-data-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #F4B084;
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        table {
+            width: 90%; /* Wider for mobile */
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        td[contenteditable="true"] {
+            background-color: #f0f0f0;
+        }
+        .highlight {
+            border-left: 5px solid green;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px; 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; /* Wider for mobile */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #F4B084; 
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none; 
+            border-radius: 5px; 
+            transition: background-color 0.3s ease, transform 0.3s ease; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        }
+        /* Specific style for the calculator button */
+        .calculator-btn {
+            background-color: #F4B084; 
+        }
+        .calculator-btn:hover {
+            background-color: #F4B084; 
+        }
+        .calculator-btn:active {
+            transform: scale(0.98); 
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .chart-container {
+                width: 95%; /* Slightly increase for smaller screens */
+            }
+            table {
+                width: 95%; /* Adjust table width */
+            }
+            .modal-content {
+                width: 95%; /* Adjust modal width */
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <header>
+            <!-- Import a local logo -->
+            <img src="logo.png" alt="Company Logo" width="100" height="auto">
+        </header>
+    <a href="index.html" class="btn calculator-btn" style="font-weight: bold;">Accéder au calculateur</a>
+    <button class="export-btn" onclick="exportToXML()">Exporter ma progression</button>
+    <input type="file" id="import-file" class="import-btn" accept=".xml" onchange="importFromXML()" style="display: none;">
+    <button class="import-btn" onclick="document.getElementById('import-file').click()">Importer ma progression</button>
+
+    <div class="scroll-container">
+        <div class="chart-container">
+            <canvas id="chart1"></canvas> <!-- Volume total -->
+            <canvas id="chart2"></canvas> <!-- Reps totales -->
+            <canvas id="chart3"></canvas> <!-- Nb exos -->
+            <canvas id="chart4"></canvas> <!-- Intensité totale -->
+        </div>
+    </div>
+
+    <table>
+            </header>
+            <tr>
+                <th>Date</th>
+                <th>Nb exos</th>
+                <th>Volume total</th>
+                <th>Intensité totale</th>
+                <th>Reps totales</th>
+            </tr>
+        </thead>
+        <tbody id="data-table-body"></tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div id="data-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Ajouter / Modifier les données</h2>
+            <div class="form-group">
+                <label for="modal-date">Date:</label>
+                <input type="text" id="modal-date" placeholder="dd/mm/yyyy">
+            </div>
+            <div class="form-group">
+                <label for="modal-nbExos">Nb exos:</label>
+                <input type="number" id="modal-nbExos">
+            </div>
+            <div class="form-group">
+                <label for="modal-volumeTotal">Volume total:</label>
+                <input type="number" id="modal-volumeTotal">
+            </div>
+            <div class="form-group">
+                <label for="modal-intensiteTotale">Intensité totale:</label>
+                <input type="number" id="modal-intensiteTotale">
+            </div>
+            <div class="form-group">
+                <label for="modal-repsTotales">Reps totales:</label>
+                <input type="number" id="modal-repsTotales">
+            </div>
+            <button onclick="saveData()">Enregistrer</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // JavaScript code (including existing functions) as provided earlier
+
+        window.onload = function() {
+            populateTable(); // Load data and populate table on page load
+        };
+
+        const dates = [];
+        const nbExos = [];
+        const volumeTotal = [];
+        const intensiteTotale = [];
+        const repsTotales = [];
+        let chart1, chart2, chart3, chart4;
+
+        function generateDates(startDate, endDate) {
+            const dates = [];
+            let currentDate = new Date(startDate);
+            const end = new Date(endDate);
+
+            while (currentDate <= end) {
+                const day = String(currentDate.getDate()).padStart(2, '0');
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                const year = currentDate.getFullYear();
+                dates.push(`${day}/${month}/${year}`);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            return dates;
+        }
+
+        function getDataFromLocalStorage() {
+            const data = {};
+            const allDates = generateDates('2024-09-01', '2024-12-31'); // Generate dates in dd/mm/yyyy format
+
+            allDates.forEach(date => {
+                data[date] = {
+                    nbExos: parseFloat(localStorage.getItem(`nbExos_${date}`)) || 0,
+                    volumeTotal: parseFloat(localStorage.getItem(`volumeTotal_${date}`)) || 0,
+                    intensiteTotale: parseFloat(localStorage.getItem(`intensiteTotale_${date}`)) || 0,
+                    repsTotales: parseFloat(localStorage.getItem(`repsTotales_${date}`)) || 0
+                };
+            });
+
+            return data;
+        }
+
+        function populateTable() {
+            const localStorageData = getDataFromLocalStorage(); // Retrieve data in dd/mm/yyyy format
+            const allDates = generateDates('2024-09-01', '2024-12-31');
+            const tableBody = document.getElementById('data-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            allDates.forEach(date => {
+                const storedData = localStorageData[date] || {
+                    nbExos: 0,
+                    volumeTotal: 0,
+                    intensiteTotale: 0,
+                    repsTotales: 0
+                };
+
+                // Add editable row to the table using the dd/mm/yyyy format
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${date}</td>
+                    <td contenteditable="true" data-type="nbExos" data-date="${date}">${storedData.nbExos}</td>
+                    <td contenteditable="true" data-type="volumeTotal" data-date="${date}">${storedData.volumeTotal}</td>
+                    <td contenteditable="true" data-type="intensiteTotale" data-date="${date}">${storedData.intensiteTotale}</td>
+                    <td contenteditable="true" data-type="repsTotales" data-date="${date}">${storedData.repsTotales}</td>
+                `;
+
+                if (storedData.nbExos > 0 || storedData.volumeTotal > 0 || storedData.intensiteTotale > 0 || storedData.repsTotales > 0) {
+                    row.classList.add('highlight');
+                }
+
+                tableBody.appendChild(row);
+            });
+
+            // Update the table with the initial data
+            updateChartsFromTable();
+
+            // Add blur event to each editable cell
+            document.querySelectorAll('td[contenteditable="true"]').forEach(cell => {
+                cell.addEventListener('blur', updateChartsFromTable);
+            });
+        }
+
+        function updateCharts() {
+    const ctxChart1 = document.getElementById('chart1').getContext('2d');
+    const ctxChart2 = document.getElementById('chart2').getContext('2d');
+    const ctxChart3 = document.getElementById('chart3').getContext('2d');
+    const ctxChart4 = document.getElementById('chart4').getContext('2d');
+
+    // Update chart1 with volumeTotal
+    if (chart1) chart1.destroy();
+    chart1 = new Chart(ctxChart1, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Volume Total',
+                    data: volumeTotal,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Update chart2 with repsTotales
+    if (chart2) chart2.destroy();
+    chart2 = new Chart(ctxChart2, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Reps Totales',
+                    data: repsTotales,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Update chart3 with nbExos
+    if (chart3) chart3.destroy();
+    chart3 = new Chart(ctxChart3, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Nb Exos',
+                    data: nbExos,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true,
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Update chart4 with intensiteTotale
+    if (chart4) chart4.destroy();
+    chart4 = new Chart(ctxChart4, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Intensité Totale',
+                    data: intensiteTotale,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: true,
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function updateChartsFromTable() {
+    const tableBody = document.getElementById('data-table-body');
+    dates.length = 0;
+    nbExos.length = 0;
+    volumeTotal.length = 0;
+    intensiteTotale.length = 0;
+    repsTotales.length = 0;
+
+    tableBody.querySelectorAll('tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const date = cells[0].innerText.trim();
+        const nbExo = parseFloat(cells[1].innerText.trim()) || 0;
+        const volume = parseFloat(cells[2].innerText.trim()) || 0;
+        const intensite = parseFloat(cells[3].innerText.trim()) || 0;
+        const reps = parseFloat(cells[4].innerText.trim()) || 0;
+
+        dates.push(date);
+        nbExos.push(nbExo);
+        volumeTotal.push(volume);
+        intensiteTotale.push(intensite);
+        repsTotales.push(reps);
+
+        // Update localStorage on data change
+        localStorage.setItem(`nbExos_${date}`, nbExo);
+        localStorage.setItem(`volumeTotal_${date}`, volume);
+        localStorage.setItem(`intensiteTotale_${date}`, intensite);
+        localStorage.setItem(`repsTotales_${date}`, reps);
+    });
+
+    updateCharts(); // Ensure this is called to update all charts
+}
+
+        // Exporting and importing data
+        function exportToXML() {
+            let xml = '<data>';
+            const allDates = generateDates('2024-09-01', '2024-12-31');
+
+            allDates.forEach(date => {
+                const nbExosValue = localStorage.getItem(`nbExos_${date}`) || 0;
+                const volumeTotalValue = localStorage.getItem(`volumeTotal_${date}`) || 0;
+                const intensiteTotaleValue = localStorage.getItem(`intensiteTotale_${date}`) || 0;
+                const repsTotalesValue = localStorage.getItem(`repsTotales_${date}`) || 0;
+
+                xml += `<row>
+                    <date>${date}</date>
+                    <nbExos>${nbExosValue}</nbExos>
+                    <volumeTotal>${volumeTotalValue}</volumeTotal>
+                    <intensiteTotale>${intensiteTotaleValue}</intensiteTotale>
+                    <repsTotales>${repsTotalesValue}</repsTotales>
+                </row>`;
+            });
+
+            xml += '</data>';
+
+            const blob = new Blob([xml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.xml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function importFromXML() {
+            const input = document.getElementById('import-file');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const parser = new DOMParser();
+                    const xml = parser.parseFromString(e.target.result, 'text/xml');
+                    const rows = xml.getElementsByTagName('row');
+
+                    for (let i = 0; i < rows.length; i++) {
+                        const date = rows[i].getElementsByTagName('date')[0].textContent;
+                        const nbExosValue = rows[i].getElementsByTagName('nbExos')[0].textContent;
+                        const volumeTotalValue = rows[i].getElementsByTagName('volumeTotal')[0].textContent;
+                        const intensiteTotaleValue = rows[i].getElementsByTagName('intensiteTotale')[0].textContent;
+                        const repsTotalesValue = rows[i].getElementsByTagName('repsTotales')[0].textContent;
+
+                        localStorage.setItem(`nbExos_${date}`, nbExosValue);
+                        localStorage.setItem(`volumeTotal_${date}`, volumeTotalValue);
+                        localStorage.setItem(`intensiteTotale_${date}`, intensiteTotaleValue);
+                        localStorage.setItem(`repsTotales_${date}`, repsTotalesValue);
+                    }
+
+                    populateTable(); // Refresh the table after importing data
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Modal related functions
+        function openModal() {
+            document.getElementById('data-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('data-modal').style.display = 'none';
+        }
+
+        function saveData() {
+            const date = document.getElementById('modal-date').value;
+            const nbExos = document.getElementById('modal-nbExos').value;
+            const volumeTotal = document.getElementById('modal-volumeTotal').value;
+            const intensiteTotale = document.getElementById('modal-intensiteTotale').value;
+            const repsTotales = document.getElementById('modal-repsTotales').value;
+
+            if (date) {
+                // Save data in localStorage
+                localStorage.setItem(`nbExos_${date}`, nbExos);
+                localStorage.setItem(`volumeTotal_${date}`, volumeTotal);
+                localStorage.setItem(`intensiteTotale_${date}`, intensiteTotale);
+                localStorage.setItem(`repsTotales_${date}`, repsTotales);
+
+                populateTable(); // Update table after saving data
+                closeModal(); // Close modal
+            } else {
+                alert('Please enter a valid date.');
+            }
+        }
+    </script>
+</body>
+</html>
