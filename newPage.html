@@ -1016,13 +1016,13 @@ h2#setTitle {
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        const currentElement = document.getElementById(exerciseSet${currentSet});
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet % totalSets) + 1;
-        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+        const nextElement = document.getElementById(exerciseSet${currentSet});
         if (nextElement) {
             nextElement.style.display = 'flex';
         }
@@ -1031,13 +1031,13 @@ h2#setTitle {
     }
 
     function prevSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        const currentElement = document.getElementById(exerciseSet${currentSet});
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+        const prevElement = document.getElementById(exerciseSet${currentSet});
         if (prevElement) {
             prevElement.style.display = 'flex';
         }
@@ -1070,99 +1070,102 @@ h2#setTitle {
         addDragAndDropListeners();
     };
 
-         // Drag and Drop functionality
-         let draggedElement = null;
+    // Drag and Drop functionality
+    let draggedElement = null;
 
-// Add touch event support for mobile drag and drop
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
-
-function handleTouchMove(e) {
-    e.preventDefault();
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
-
-document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-});
-
-document.addEventListener('dragend', (e) => {
-    draggedElement = null;
-});
-
-function handleDragOver(e) {
-    e.preventDefault();
-}
-
-function handleDropOnSlot(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        let clonedElement = draggedElement.cloneNode(true);
-        e.target.innerHTML = ''; 
-        const draggedVideo = draggedElement.querySelector('video');
-        const newVideo = document.createElement('video');
-        newVideo.controls = true;
-        newVideo.src = draggedVideo.src;
-        newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270; 
-        e.target.appendChild(newVideo);
-
-        let videoTitle = draggedElement.querySelector('p').textContent;
-        let titleElement = document.createElement('p');
-        titleElement.textContent = videoTitle;
-        e.target.appendChild(titleElement);
-
-        newVideo.draggable = false;
-    }
-}
-
-function handleDropOnVideoBank(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const videoBank = document.querySelector('.video-bank-container');
-        if (!videoBank.contains(draggedElement)) {
-            draggedElement.draggable = true;
-            videoBank.appendChild(draggedElement);
+    // Add touch event support for mobile drag and drop
+    function handleTouchStart(e) {
+        if (e.target.classList.contains('draggable')) {
+            draggedElement = e.target;
         }
     }
-}
 
-function addDragAndDropListeners() {
-    const videoElements = document.querySelectorAll('.draggable');
-    videoElements.forEach(video => {
-        video.setAttribute('draggable', 'true');
-        video.addEventListener('touchstart', handleTouchStart);
-        video.addEventListener('touchmove', handleTouchMove);
-        video.addEventListener('touchend', handleTouchEnd);
+    function handleTouchMove(e) {
+        e.preventDefault();
+    }
+
+    function handleTouchEnd(e) {
+        draggedElement = null;
+    }
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('draggable')) {
+            draggedElement = e.target;
+        }
     });
 
-    const exerciseSlots = document.querySelectorAll('.exercise-slot');
-    exerciseSlots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
+    document.addEventListener('dragend', (e) => {
+        draggedElement = null;
+    });
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleDropOnSlot(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            let clonedElement = draggedElement.cloneNode(true);
+            e.target.innerHTML = ''; 
+            const draggedVideo = draggedElement.querySelector('video');
+            const newVideo = document.createElement('video');
+            newVideo.controls = true;
+            newVideo.src = draggedVideo.src;
+            newVideo.poster = draggedVideo.poster;
+            newVideo.width = 270; 
+            e.target.appendChild(newVideo);
+
+            let videoTitle = draggedElement.querySelector('p').textContent;
+            let titleElement = document.createElement('p');
+            titleElement.textContent = videoTitle;
+            e.target.appendChild(titleElement);
+
+            newVideo.draggable = false;
+        }
+    }
+
+    function handleDropOnVideoBank(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const videoBank = document.querySelector('.video-bank-container');
+            if (!videoBank.contains(draggedElement)) {
+                draggedElement.draggable = true;
+                videoBank.appendChild(draggedElement);
+            }
+        }
+    }
+
+    function addDragAndDropListeners() {
+        const videoElements = document.querySelectorAll('.draggable');
+        videoElements.forEach(video => {
+            video.setAttribute('draggable', 'true');
+            // Add touch listeners for mobile support
+            video.addEventListener('touchstart', handleTouchStart);
+            video.addEventListener('touchmove', handleTouchMove);
+            video.addEventListener('touchend', handleTouchEnd);
         });
-    });
 
-    const videoBankContainer = document.querySelector('.video-bank-container');
-    videoBankContainer.addEventListener('dragover', handleDragOver);
-    videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
-}
+        const exerciseSlots = document.querySelectorAll('.exercise-slot');
+        exerciseSlots.forEach(slot => {
+            slot.addEventListener('dragover', handleDragOver);
+            slot.addEventListener('drop', handleDropOnSlot);
 
-// Export session function
+            // Add touch listeners for mobile support
+            slot.addEventListener('touchmove', handleTouchMove);
+            slot.addEventListener('touchend', (e) => {
+                handleDropOnSlot(e);
+                handleTouchEnd(e);
+            });
+        });
+
+        const videoBankContainer = document.querySelector('.video-bank-container');
+        videoBankContainer.addEventListener('dragover', handleDragOver);
+        videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+    }
+
+// Export session function 
 function exportSession() {
-    let contentToExport = `
+    let contentToExport = 
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1228,7 +1231,7 @@ function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
+    ;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
     exerciseRows.forEach((row, index) => {
@@ -1244,40 +1247,40 @@ function exportSession() {
         let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        `;
+        ;
 
         if (videoSrc) {
-            contentToExport += `
+            contentToExport += 
                 <div>
                     Vidéo:<br>
                     <video controls src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
-            `;
+            ;
         } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+            contentToExport += <div>Aucune vidéo sélectionnée</div>;
         }
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Dégressif:</strong> ${degressif}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>`;
+        </div>;
     });
 
-    contentToExport += `
+    contentToExport += 
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    `;
+    ;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
@@ -1288,13 +1291,7 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-};
 </script>
 </body>
 </html>
