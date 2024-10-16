@@ -225,78 +225,194 @@
 }
 
 
-@media screen and (max-width: 600px) {
-    body {
-        flex-direction: column;
-        padding: 20px;
+        /* Media Queries */
+        @media screen and (max-width: 600px) {
+    .exercise-slot, .video-bank-container {
+        width: 100%; /* Make slots full-width on smaller screens */
+        height: auto; /* Allow height to adjust */
     }
 
-    .container {
-        padding: 16px 24px;
-        width: 100%;
-    }
-
-    .exercise-card, .exercise-slot {
-        width: 100%; /* Make exercise cards and slots full width */
-        height: auto; /* Adjust height to scale with content */
-    }
-
-    h1 {
-        font-size: 1.8rem; /* Reduce header size */
-    }
-
-    .exercise-row {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center;
-    }
-
-    .video-bank-container {
-        width: 100%; /* Full width for mobile */
-        max-height: auto; /* Adjust height */
-    }
-
-    .arrow-left, .arrow-right {
-        width: 24px;
-        height: 24px;
-        font-size: 1rem; /* Smaller arrow buttons */
-    }
-
-    #exportButton {
-        font-size: 0.7rem;
-        padding: 8px 12px;
-    }
-
-    .exercise-slot video {
+    .exercise-card {
         width: 100%;
         height: auto;
     }
 
-    .slider-group label, .checkbox-group label, .rest-group label {
-        font-size: 0.8rem; /* Smaller labels */
+    .exercise-number, .slider-group, .checkbox-group, .rest-group {
+        font-size: 0.8rem; /* Reduce font size for mobile */
+        margin-bottom: 10px;
     }
 
-    /* Make exercise slots responsive for touch */
-    .exercise-slot {
-        min-height: 200px;
-        background-color: #fff;
-        border: 1.2px dashed #FF8A65;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .draggable video {
+        width: 100%; /* Ensure videos are responsive */
+        height: auto;
     }
 
-    /* Ensure the video-bank is responsive */
-    .video-bank-container {
-        overflow-y: auto;
-        padding: 10px;
+    .slider {
+        width: 100%; /* Full-width sliders on mobile */
     }
 
-    /* Enable touch events for dragging videos */
-    .draggable {
-        touch-action: none; /* Disable default touch action to enable custom dragging */
+    .arrow-left, .arrow-right {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
     }
+
+    h2#setTitle {
+        font-size: 1.2rem;
+    }
+}
+
+        .arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #e07453;
+}
+
+h2#setTitle {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+    flex-grow: 1; /* Ensures the title takes up the space between the arrows */
+    text-align: center; /* Center the text inside the title element */
+}
+/* Container for Degressif */
+.degressif-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-right: 20px;
+    padding: 10px;
+    border: 2px dashed #FF8A65; /* Dashed border to indicate option selection */
+    border-radius: 8px;
+    background-color: rgba(255, 245, 235, 0.7); /* Light background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Degressif */
+.degressif-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Container for Repos */
+.repos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px solid #FF8A65; /* Solid border for Repos */
+    border-radius: 8px;
+    background-color: rgba(235, 245, 255, 0.7); /* Light blue background for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Repos */
+.repos-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Parent container for Degressif and Repos to add space between them */
+.exercise-controls {
+    display: flex;
+    flex-direction: row; /* Align Degressif and Repos in a row */
+    justify-content: space-between; /* Ensure space between them */
+    align-items: center;
+    gap: 40px; /* Adjust the gap between Degressif and Repos containers */
+    margin-top: 20px;
+}
+
+/* Container for Degressif */
+.degressif-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px dashed #FF8A65;
+    border-radius: 8px;
+    background-color: rgba(255, 245, 235, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for Degressif */
+.degressif-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Container for Repos */
+.repos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px solid #FF8A65;
+    border-radius: 8px;
+    background-color: rgba(235, 245, 255, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Adjust spacing and styling around checkbox and dropdown */
+.checkbox-group label, .rest-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+    transform: scale(1.2); /* Increase the size of the checkbox */
+    accent-color: #FF8A65;
+}
+
+.rest-group {
+    display: flex;
+    flex-direction: column;  
+    align-items: flex-start;  /* Align content to the left */
+    justify-content: center;  
+    height: 100%;             
+    margin-left: -10px;  /* Use negative margin to push it left beyond its container */
+    margin-right: 0px;        
+}
+
+.rest-group select {
+    padding: 5px 3px;
+    font-size: 0.9rem;
+    border-radius: 3px;
+    border: 2px solid #FF8A65;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease;
+    width: 90px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;  /* Stack label and checkbox vertically */
+    align-items: center;     /* Horizontally center the content */
+    justify-content: center;  /* Vertically center the content */
+    margin-left: 10px;        /* Adjust left margin as needed */
+    margin-right: 50px;       /* Adjust right margin as needed */
+    height: 100%;             /* Ensure it takes up the full height of its container */
 }
 
 
@@ -896,7 +1012,7 @@
 </div>
             
             <script>
-      let currentSet = 1;  // Start with Set 1
+        let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
@@ -954,90 +1070,97 @@
         addDragAndDropListeners();
     };
 
+         // Drag and Drop functionality
+         let draggedElement = null;
 
-    // Drag and Drop functionality
-    let draggedElement = null;
-
-    document.addEventListener('dragstart', (e) => {
-        if (e.target.classList.contains('draggable')) {
-            draggedElement = e.target;
-        }
-    });
-
-    document.addEventListener('dragend', (e) => {
-        draggedElement = null;
-    });
-
-    function handleDragOver(e) {
-        e.preventDefault();
+// Add touch event support for mobile drag and drop
+function handleTouchStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
     }
+}
 
-    function handleDropOnSlot(e) {
+function handleTouchMove(e) {
+    e.preventDefault();
+}
+
+function handleTouchEnd(e) {
+    draggedElement = null;
+}
+
+document.addEventListener('dragstart', (e) => {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
+    }
+});
+
+document.addEventListener('dragend', (e) => {
+    draggedElement = null;
+});
+
+function handleDragOver(e) {
+    e.preventDefault();
+}
+
+function handleDropOnSlot(e) {
     e.preventDefault();
     if (draggedElement) {
-        // Clone the dragged element to maintain a copy in the bank
         let clonedElement = draggedElement.cloneNode(true);
-        
-        // Clear the slot and append both the cloned video and its title
-        e.target.innerHTML = '';  // Clear slot
-        
-        // Extract the video element from the dragged element
+        e.target.innerHTML = ''; 
         const draggedVideo = draggedElement.querySelector('video');
-        
-        // Create a new video element for the dropped slot
         const newVideo = document.createElement('video');
         newVideo.controls = true;
-        
-        // Set the 'src' and 'poster' attributes of the new video
         newVideo.src = draggedVideo.src;
         newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270;  // Optional: adjust width to fit the slot
-        
-        // Append the new video to the slot
+        newVideo.width = 270; 
         e.target.appendChild(newVideo);
-        
-        // Get the title of the video
+
         let videoTitle = draggedElement.querySelector('p').textContent;
-        
-        // Create a title element and append it to the slot below the video
         let titleElement = document.createElement('p');
         titleElement.textContent = videoTitle;
         e.target.appendChild(titleElement);
 
-        // Make sure the video is no longer draggable after being dropped in the slot
         newVideo.draggable = false;
     }
 }
 
-    function handleDropOnVideoBank(e) {
-        e.preventDefault();
-        if (draggedElement) {
-            const videoBank = document.querySelector('.video-bank-container');
-            if (!videoBank.contains(draggedElement)) {
-                draggedElement.draggable = true;
-                videoBank.appendChild(draggedElement);
-            }
+function handleDropOnVideoBank(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const videoBank = document.querySelector('.video-bank-container');
+        if (!videoBank.contains(draggedElement)) {
+            draggedElement.draggable = true;
+            videoBank.appendChild(draggedElement);
         }
     }
+}
 
-    function addDragAndDropListeners() {
-        const videoElements = document.querySelectorAll('.draggable');
-        videoElements.forEach(video => {
-            video.setAttribute('draggable', 'true');
+function addDragAndDropListeners() {
+    const videoElements = document.querySelectorAll('.draggable');
+    videoElements.forEach(video => {
+        video.setAttribute('draggable', 'true');
+        video.addEventListener('touchstart', handleTouchStart);
+        video.addEventListener('touchmove', handleTouchMove);
+        video.addEventListener('touchend', handleTouchEnd);
+    });
+
+    const exerciseSlots = document.querySelectorAll('.exercise-slot');
+    exerciseSlots.forEach(slot => {
+        slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('drop', handleDropOnSlot);
+        slot.addEventListener('touchmove', handleTouchMove);
+        slot.addEventListener('touchend', (e) => {
+            handleDropOnSlot(e);
+            handleTouchEnd(e);
         });
+    });
 
-        const exerciseSlots = document.querySelectorAll('.exercise-slot');
-        exerciseSlots.forEach(slot => {
-            slot.addEventListener('dragover', handleDragOver);
-            slot.addEventListener('drop', handleDropOnSlot);
-        });
+    const videoBankContainer = document.querySelector('.video-bank-container');
+    videoBankContainer.addEventListener('dragover', handleDragOver);
+    videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+}
 
-        const videoBankContainer = document.querySelector('.video-bank-container');
-        videoBankContainer.addEventListener('dragover', handleDragOver);
-        videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
-    }
-
-// Export session function 
+// Export session function
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1165,7 +1288,13 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
+
 document.getElementById('exportButton').addEventListener('click', exportSession);
+
+// Initialize listeners when the page loads
+window.onload = function() {
+    addDragAndDropListeners();
+};
 </script>
 </body>
 </html>
