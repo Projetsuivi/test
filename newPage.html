@@ -225,16 +225,129 @@
 }
 
 
-        /* Media Queries */
-        @media screen and (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-            }
+       @media screen and (max-width: 600px) {
+    body {
+        font-size: 0.9rem;
+        padding: 10px;
+        background-size: cover; /* Ensure background fits */
+    }
 
-            .workout-container, .video-bank-container {
-                width: 100%;
-            }
-        }
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .main-container {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .workout-container, .video-bank-container {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .exercise-row {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .exercise-slot {
+        width: 100%;
+        height: auto;
+    }
+
+    .exercise-number {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .slider-group {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .checkbox-group, .rest-group {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .exercise-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .exercise-card video {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Button adjustments for better touch interaction */
+    #exportButton {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .arrow-left, .arrow-right {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+
+    h2#setTitle {
+        font-size: 1.1rem;
+    }
+
+    .title-container {
+        padding: 0 10px;
+    }
+}
+
+/* Adjustments for tablets (small to medium-sized screens) */
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .main-container {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .exercise-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .exercise-slot {
+        width: 100%;
+        height: auto;
+    }
+
+    .slider-group {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .checkbox-group, .rest-group {
+        margin-top: 10px;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .exercise-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .exercise-card video {
+        width: 100%;
+        height: auto;
+    }
+}
 
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
