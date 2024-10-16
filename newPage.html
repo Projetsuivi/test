@@ -1012,40 +1012,6 @@ h2#setTitle {
 </div>
             
             <script>
-    const base64Content = btoa(unescape(encodeURIComponent(contentToExport)));         
-
-                const owner = 'your-github-username';   // Replace with your GitHub username
-const repo = 'your-repository';         // Replace with your GitHub repository name
-const path = 'seance.html';             // Path where the file will be stored (e.g., seance.html)
-
-                const data = {
-    message: 'Upload new workout session',  // Commit message
-    content: base64Content,                 // Base64 encoded file content
-    branch: 'main'                          // The branch where the file will be committed
-};
-                try {
-    const response = await fetch(githubApiUrl, {
-        method: 'PUT',
-        headers: {
-            'Authorization': 'token YOUR_PERSONAL_ACCESS_TOKEN',  // Replace with your GitHub PAT
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-                    if (response.ok) {
-    // Success! Get the URL to the new file on GitHub Pages
-    const fileUrl = `https://${owner}.github.io/${repo}/${path}`;
-    alert(`File uploaded successfully! You can view it here: ${fileUrl}`);
-    window.location.href = fileUrl;  // Optionally redirect to the uploaded file
-} else {
-    console.error('Error uploading file:', result);
-    alert('Failed to upload the file.');
-}
-                    document.getElementById('exportButton').addEventListener('click', exportToGitHub);
-
-const githubApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
         let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
