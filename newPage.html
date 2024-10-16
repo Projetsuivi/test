@@ -225,51 +225,14 @@
 }
 
 
-         /* Bandwidth at the bottom for mobile */
-         @media screen and (max-width: 600px) {
-            .bandwidth-container {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background-color: rgba(255, 255, 255, 0.9);
-                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-                padding: 10px;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                height: 100px;
-                z-index: 100;
-            }
-
-            .bandwidth-cell {
-                width: 60px;
-                height: 60px;
-                border: 1px dashed #FF8A65;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: white;
-                border-radius: 8px;
-            }
-
-            .bandwidth-cell video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-        }
-
         /* Media Queries */
-        @media screen and (max-width: 600px) {
-            .exercise-slot {
-                width: 100%;
-                height: auto;
+        @media screen and (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
             }
-            .exercise-card video {
+
+            .workout-container, .video-bank-container {
                 width: 100%;
-                height: auto;
             }
         }
 
@@ -1020,28 +983,20 @@ h2#setTitle {
             <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
             <p>Tirage Horizontale Trapèzes</p>
         </div>
-            <!-- Bandwidth at the bottom for mobile -->
-    <div class="bandwidth-container">
-        <div class="bandwidth-cell" id="bandwidth-cell1"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell2"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell3"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell4"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell5"></div>
-    </div>
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
+      let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        const currentElement = document.getElementById(exerciseSet${currentSet});
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet % totalSets) + 1;
-        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+        const nextElement = document.getElementById(exerciseSet${currentSet});
         if (nextElement) {
             nextElement.style.display = 'flex';
         }
@@ -1050,13 +1005,13 @@ h2#setTitle {
     }
 
     function prevSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        const currentElement = document.getElementById(exerciseSet${currentSet});
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+        const prevElement = document.getElementById(exerciseSet${currentSet});
         if (prevElement) {
             prevElement.style.display = 'flex';
         }
@@ -1089,101 +1044,92 @@ h2#setTitle {
         addDragAndDropListeners();
     };
 
-             // Drag and Drop functionality
-        let draggedElement = null;
 
-// Add touch event support for mobile drag and drop
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
+    // Drag and Drop functionality
+    let draggedElement = null;
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('draggable')) {
+            draggedElement = e.target;
+        }
+    });
+
+    document.addEventListener('dragend', (e) => {
+        draggedElement = null;
+    });
+
+    function handleDragOver(e) {
+        e.preventDefault();
     }
-}
 
-function handleTouchMove(e) {
-    e.preventDefault();
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
-
-document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-});
-
-document.addEventListener('dragend', (e) => {
-    draggedElement = null;
-});
-
-function handleDragOver(e) {
-    e.preventDefault();
-}
-
-function handleDropOnSlot(e) {
+    function handleDropOnSlot(e) {
     e.preventDefault();
     if (draggedElement) {
+        // Clone the dragged element to maintain a copy in the bank
         let clonedElement = draggedElement.cloneNode(true);
-        e.target.innerHTML = ''; 
+        
+        // Clear the slot and append both the cloned video and its title
+        e.target.innerHTML = '';  // Clear slot
+        
+        // Extract the video element from the dragged element
         const draggedVideo = draggedElement.querySelector('video');
+        
+        // Create a new video element for the dropped slot
         const newVideo = document.createElement('video');
         newVideo.controls = true;
+        
+        // Set the 'src' and 'poster' attributes of the new video
         newVideo.src = draggedVideo.src;
         newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270; 
+        newVideo.width = 270;  // Optional: adjust width to fit the slot
+        
+        // Append the new video to the slot
         e.target.appendChild(newVideo);
-
+        
+        // Get the title of the video
         let videoTitle = draggedElement.querySelector('p').textContent;
+        
+        // Create a title element and append it to the slot below the video
         let titleElement = document.createElement('p');
         titleElement.textContent = videoTitle;
         e.target.appendChild(titleElement);
 
+        // Make sure the video is no longer draggable after being dropped in the slot
         newVideo.draggable = false;
     }
 }
 
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
+    function handleDropOnVideoBank(e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const videoBank = document.querySelector('.video-bank-container');
+            if (!videoBank.contains(draggedElement)) {
+                draggedElement.draggable = true;
+                videoBank.appendChild(draggedElement);
+            }
+        }
     }
-}
 
-function addDragAndDropListeners() {
-    const videoElements = document.querySelectorAll('.draggable');
-    videoElements.forEach(video => {
-        video.setAttribute('draggable', 'true');
-        video.addEventListener('touchstart', handleTouchStart);
-        video.addEventListener('touchmove', handleTouchMove);
-        video.addEventListener('touchend', handleTouchEnd);
-    });
-
-    const exerciseSlots = document.querySelectorAll('.exercise-slot');
-    exerciseSlots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
+    function addDragAndDropListeners() {
+        const videoElements = document.querySelectorAll('.draggable');
+        videoElements.forEach(video => {
+            video.setAttribute('draggable', 'true');
         });
-    });
 
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
-    });
-}
+        const exerciseSlots = document.querySelectorAll('.exercise-slot');
+        exerciseSlots.forEach(slot => {
+            slot.addEventListener('dragover', handleDragOver);
+            slot.addEventListener('drop', handleDropOnSlot);
+        });
 
-// Export session function
+        const videoBankContainer = document.querySelector('.video-bank-container');
+        videoBankContainer.addEventListener('dragover', handleDragOver);
+        videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+    }
+
+// Export session function 
 function exportSession() {
-    let contentToExport = `
+    let contentToExport = 
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1249,7 +1195,7 @@ function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
+    ;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
     exerciseRows.forEach((row, index) => {
@@ -1265,40 +1211,40 @@ function exportSession() {
         let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        `;
+        ;
 
         if (videoSrc) {
-            contentToExport += `
+            contentToExport += 
                 <div>
                     Vidéo:<br>
                     <video controls src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
-            `;
+            ;
         } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+            contentToExport += <div>Aucune vidéo sélectionnée</div>;
         }
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Dégressif:</strong> ${degressif}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>`;
+        </div>;
     });
 
-    contentToExport += `
+    contentToExport += 
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    `;
+    ;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
@@ -1309,13 +1255,7 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-};
 </script>
 </body>
 </html>
