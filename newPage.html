@@ -990,13 +990,13 @@ h2#setTitle {
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
-        const currentElement = document.getElementById(exerciseSet${currentSet});
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet % totalSets) + 1;
-        const nextElement = document.getElementById(exerciseSet${currentSet});
+        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
         if (nextElement) {
             nextElement.style.display = 'flex';
         }
@@ -1005,13 +1005,13 @@ h2#setTitle {
     }
 
     function prevSet() {
-        const currentElement = document.getElementById(exerciseSet${currentSet});
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
         if (currentElement) {
             currentElement.style.display = 'none';
         }
 
         currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-        const prevElement = document.getElementById(exerciseSet${currentSet});
+        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
         if (prevElement) {
             prevElement.style.display = 'flex';
         }
@@ -1129,7 +1129,7 @@ h2#setTitle {
 
 // Export session function 
 function exportSession() {
-    let contentToExport = 
+    let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1195,7 +1195,7 @@ function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    ;
+    `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
     exerciseRows.forEach((row, index) => {
@@ -1211,40 +1211,40 @@ function exportSession() {
         let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        ;
+        `;
 
         if (videoSrc) {
-            contentToExport += 
+            contentToExport += `
                 <div>
                     Vidéo:<br>
                     <video controls src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
-            ;
+            `;
         } else {
-            contentToExport += <div>Aucune vidéo sélectionnée</div>;
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Dégressif:</strong> ${degressif}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>;
+        </div>`;
     });
 
-    contentToExport += 
+    contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    ;
+    `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
