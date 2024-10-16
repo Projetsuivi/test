@@ -225,16 +225,56 @@
 }
 
 
-        /* Media Queries */
-        @media screen and (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-            }
+@media screen and (max-width: 600px) {
+    body {
+        flex-direction: column;
+        padding: 20px;
+    }
 
-            .workout-container, .video-bank-container {
-                width: 100%;
-            }
-        }
+    .container {
+        padding: 16px 24px;
+        width: 100%;
+    }
+
+    .exercise-card, .exercise-slot {
+        width: 100%; /* Make exercise cards and slots full width */
+        height: auto; /* Adjust height to scale with content */
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Reduce header size */
+    }
+
+    .exercise-row {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+
+    .video-bank-container {
+        width: 100%; /* Full width for mobile */
+        max-height: auto; /* Adjust height */
+    }
+
+    .arrow-left, .arrow-right {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem; /* Smaller arrow buttons */
+    }
+
+    #exportButton {
+        font-size: 0.7rem;
+        padding: 8px 12px;
+    }
+
+    .exercise-slot video {
+        width: 100%;
+        height: auto;
+    }
+
+    .slider-group label, .checkbox-group label, .rest-group label {
+        font-size: 0.8rem; /* Smaller labels */
+    }
+}
 
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
