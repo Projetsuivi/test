@@ -226,41 +226,15 @@
 
 
         /* Media Queries */
-        @media screen and (max-width: 600px) {
-    .exercise-slot, .video-bank-container {
-        width: 100%; /* Make slots full-width on smaller screens */
-        height: auto; /* Allow height to adjust */
-    }
+        @media screen and (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
 
-    .exercise-card {
-        width: 100%;
-        height: auto;
-    }
-
-    .exercise-number, .slider-group, .checkbox-group, .rest-group {
-        font-size: 0.8rem; /* Reduce font size for mobile */
-        margin-bottom: 10px;
-    }
-
-    .draggable video {
-        width: 100%; /* Ensure videos are responsive */
-        height: auto;
-    }
-
-    .slider {
-        width: 100%; /* Full-width sliders on mobile */
-    }
-
-    .arrow-left, .arrow-right {
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem;
-    }
-
-    h2#setTitle {
-        font-size: 1.2rem;
-    }
-}
+            .workout-container, .video-bank-container {
+                width: 100%;
+            }
+        }
 
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
@@ -1012,7 +986,7 @@ h2#setTitle {
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
+      let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
@@ -1070,23 +1044,9 @@ h2#setTitle {
         addDragAndDropListeners();
     };
 
+
     // Drag and Drop functionality
     let draggedElement = null;
-
-    // Add touch event support for mobile drag and drop
-    function handleTouchStart(e) {
-        if (e.target.classList.contains('draggable')) {
-            draggedElement = e.target;
-        }
-    }
-
-    function handleTouchMove(e) {
-        e.preventDefault();
-    }
-
-    function handleTouchEnd(e) {
-        draggedElement = null;
-    }
 
     document.addEventListener('dragstart', (e) => {
         if (e.target.classList.contains('draggable')) {
@@ -1103,26 +1063,41 @@ h2#setTitle {
     }
 
     function handleDropOnSlot(e) {
-        e.preventDefault();
-        if (draggedElement) {
-            let clonedElement = draggedElement.cloneNode(true);
-            e.target.innerHTML = ''; 
-            const draggedVideo = draggedElement.querySelector('video');
-            const newVideo = document.createElement('video');
-            newVideo.controls = true;
-            newVideo.src = draggedVideo.src;
-            newVideo.poster = draggedVideo.poster;
-            newVideo.width = 270; 
-            e.target.appendChild(newVideo);
+    e.preventDefault();
+    if (draggedElement) {
+        // Clone the dragged element to maintain a copy in the bank
+        let clonedElement = draggedElement.cloneNode(true);
+        
+        // Clear the slot and append both the cloned video and its title
+        e.target.innerHTML = '';  // Clear slot
+        
+        // Extract the video element from the dragged element
+        const draggedVideo = draggedElement.querySelector('video');
+        
+        // Create a new video element for the dropped slot
+        const newVideo = document.createElement('video');
+        newVideo.controls = true;
+        
+        // Set the 'src' and 'poster' attributes of the new video
+        newVideo.src = draggedVideo.src;
+        newVideo.poster = draggedVideo.poster;
+        newVideo.width = 270;  // Optional: adjust width to fit the slot
+        
+        // Append the new video to the slot
+        e.target.appendChild(newVideo);
+        
+        // Get the title of the video
+        let videoTitle = draggedElement.querySelector('p').textContent;
+        
+        // Create a title element and append it to the slot below the video
+        let titleElement = document.createElement('p');
+        titleElement.textContent = videoTitle;
+        e.target.appendChild(titleElement);
 
-            let videoTitle = draggedElement.querySelector('p').textContent;
-            let titleElement = document.createElement('p');
-            titleElement.textContent = videoTitle;
-            e.target.appendChild(titleElement);
-
-            newVideo.draggable = false;
-        }
+        // Make sure the video is no longer draggable after being dropped in the slot
+        newVideo.draggable = false;
     }
+}
 
     function handleDropOnVideoBank(e) {
         e.preventDefault();
@@ -1139,23 +1114,12 @@ h2#setTitle {
         const videoElements = document.querySelectorAll('.draggable');
         videoElements.forEach(video => {
             video.setAttribute('draggable', 'true');
-            // Add touch listeners for mobile support
-            video.addEventListener('touchstart', handleTouchStart);
-            video.addEventListener('touchmove', handleTouchMove);
-            video.addEventListener('touchend', handleTouchEnd);
         });
 
         const exerciseSlots = document.querySelectorAll('.exercise-slot');
         exerciseSlots.forEach(slot => {
             slot.addEventListener('dragover', handleDragOver);
             slot.addEventListener('drop', handleDropOnSlot);
-
-            // Add touch listeners for mobile support
-            slot.addEventListener('touchmove', handleTouchMove);
-            slot.addEventListener('touchend', (e) => {
-                handleDropOnSlot(e);
-                handleTouchEnd(e);
-            });
         });
 
         const videoBankContainer = document.querySelector('.video-bank-container');
