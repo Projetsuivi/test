@@ -31,12 +31,15 @@
             min-height: 100vh;
             margin: 0;
             display: flex;
-            flex-direction: column;
+display: -webkit-flex; /* Safari-specific */
+flex-direction: column;
+-webkit-flex-direction: column; /* Safari-specific */
             justify-content: flex-start;
             align-items: center;
             background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
             background-size: cover;
             backdrop-filter: blur(0.1px);
+            -webkit-backdrop-filter: blur(0.1px); /* Safari-specific */
             overflow: auto;
         }
 
@@ -67,6 +70,7 @@
             margin-bottom: 18px;
             align-self: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+-webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Safari-specific */
             transition: background-color 0.3s, transform 0.2s;
         }
 
@@ -1045,87 +1049,143 @@ h2#setTitle {
     };
 
 
-    // Drag and Drop functionality
-    let draggedElement = null;
+// Drag and Drop functionality with Safari-specific adjustments
+let draggedElement = null;
+let originalSlot = null; // To track the original parent slot
+let originalFromExerciseSlot = false; // To track if the video came from an exercise slot
 
-    document.addEventListener('dragstart', (e) => {
-        if (e.target.classList.contains('draggable')) {
-            draggedElement = e.target;
-        }
-    });
-
-    document.addEventListener('dragend', (e) => {
-        draggedElement = null;
-    });
-
-    function handleDragOver(e) {
-        e.preventDefault();
-    }
-
-    function handleDropOnSlot(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        // Clone the dragged element to maintain a copy in the bank
-        let clonedElement = draggedElement.cloneNode(true);
-        
-        // Clear the slot and append both the cloned video and its title
-        e.target.innerHTML = '';  // Clear slot
-        
-        // Extract the video element from the dragged element
-        const draggedVideo = draggedElement.querySelector('video');
-        
-        // Create a new video element for the dropped slot
-        const newVideo = document.createElement('video');
-        newVideo.controls = true;
-        
-        // Set the 'src' and 'poster' attributes of the new video
-        newVideo.src = draggedVideo.src;
-        newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270;  // Optional: adjust width to fit the slot
-        
-        // Append the new video to the slot
-        e.target.appendChild(newVideo);
-        
-        // Get the title of the video
-        let videoTitle = draggedElement.querySelector('p').textContent;
-        
-        // Create a title element and append it to the slot below the video
-        let titleElement = document.createElement('p');
-        titleElement.textContent = videoTitle;
-        e.target.appendChild(titleElement);
-
-        // Make sure the video is no longer draggable after being dropped in the slot
-        newVideo.draggable = false;
+// Refined drag and drop functions
+// Function to handle drag start
+function handleDragStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target; // Track the dragged element
+        originalSlot = e.target.closest('.exercise-slot') || e.target.closest('.video-bank'); // Track the source
+        originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Determine if it's from an exercise slot
     }
 }
 
-    function handleDropOnVideoBank(e) {
-        e.preventDefault();
-        if (draggedElement) {
-            const videoBank = document.querySelector('.video-bank-container');
-            if (!videoBank.contains(draggedElement)) {
-                draggedElement.draggable = true;
-                videoBank.appendChild(draggedElement);
-            }
+// Function to handle drag end
+function handleDragEnd(e) {
+
+    // Reset variables after dragging is completed
+    draggedElement = null; 
+    originalSlot = null;
+    originalFromExerciseSlot = false; 
+}
+
+// Attach dragstart and dragend listeners
+document.addEventListener('dragstart', handleDragStart);
+document.addEventListener('dragend', handleDragEnd);
+
+// Function to handle drop on exercise slot
+function handleDropOnSlot(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        // Check if the dragged element comes from the video bank
+        if (originalSlot.classList.contains('video-bank')) {
+            // Clone the dragged element to place it in the exercise slot (original stays in the video bank)
+            let clonedElement = draggedElement.cloneNode(true);
+
+            // Append the cloned video and title (the entire element) to the target exercise slot
+            e.target.innerHTML = '';  // Clear the target slot
+            e.target.appendChild(clonedElement);
+
+            // Ensure the cloned video remains draggable
+            let newVideo = clonedElement.querySelector('video');
+            newVideo.draggable = true;
+
+            // Add dragstart listener to the cloned element (video + title)
+            clonedElement.addEventListener('dragstart', (e) => {
+                draggedElement = e.target.closest('.draggable');
+                originalSlot = draggedElement.parentElement;
+                originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Update the flag
+            });
+
+        } else {
+            // If the dragged element is from another exercise slot, just move it to the new slot
+            e.target.innerHTML = '';  // Clear the target slot
+            e.target.appendChild(draggedElement);  // Move the original video to the new slot
+
+            // The original exercise slot will be cleared in dragend event
         }
     }
+}
 
-    function addDragAndDropListeners() {
-        const videoElements = document.querySelectorAll('.draggable');
-        videoElements.forEach(video => {
-            video.setAttribute('draggable', 'true');
+// Add drag and drop listeners to the exercise and video bank slots
+function addDragAndDropListeners() {
+    const videoElements = document.querySelectorAll('.draggable');
+    videoElements.forEach(video => {
+        video.setAttribute('draggable', 'true');
+        video.addEventListener('dragstart', (e) => {
+            draggedElement = e.target.closest('.draggable');  // Grab the entire draggable element (video + title)
+            originalSlot = draggedElement.parentElement;  // Track the original parent slot
+            originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Track if the original was from an exercise slot
         });
+    });
 
-        const exerciseSlots = document.querySelectorAll('.exercise-slot');
-        exerciseSlots.forEach(slot => {
-            slot.addEventListener('dragover', handleDragOver);
-            slot.addEventListener('drop', handleDropOnSlot);
-        });
+    const exerciseSlots = document.querySelectorAll('.exercise-slot');
+    exerciseSlots.forEach(slot => {
+        slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('drop', handleDropOnSlot);
+    });
 
-        const videoBankContainer = document.querySelector('.video-bank-container');
-        videoBankContainer.addEventListener('dragover', handleDragOver);
-        videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+    const videoBankContainer = document.querySelector('.video-bank-container');
+    videoBankContainer.addEventListener('dragover', handleDragOver);
+    videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
+}
+
+// Prevent default behavior on dragover
+function handleDragOver(e) {
+    e.preventDefault();  // Prevent default to allow drop
+}
+
+// Handle drop on video bank
+function handleDropOnVideoBank(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const videoBank = document.querySelector('.video-bank');
+
+        // If the dragged element is from an exercise slot, move it back to the video bank
+        if (!originalSlot.classList.contains('video-bank')) {
+            // Remove the video from the exercise slot
+            originalSlot.innerHTML = '';  // Clear the original exercise slot
+
+            // Clone the dragged element to place it back into the video bank
+            let clonedElement = draggedElement.cloneNode(true);
+
+            // Insert the cloned video back to the video bank
+            videoBank.appendChild(clonedElement);  // Append to the video bank
+
+            // Ensure the cloned video remains draggable
+            let newVideo = clonedElement.querySelector('video');
+            newVideo.draggable = true;
+
+            // Add dragstart listener to the cloned element (video + title)
+            clonedElement.addEventListener('dragstart', (e) => {
+                draggedElement = e.target.closest('.draggable');
+                originalSlot = draggedElement.parentElement;
+                originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Update the flag
+            });
+
+            rearrangeVideoBank();
+        }
     }
+}
+
+// Rearrange video bank to remove gaps after drag
+function rearrangeVideoBank() {
+    const videoBank = document.querySelector('.video-bank');
+    const videoElements = Array.from(videoBank.querySelectorAll('.draggable'));
+
+    // Rearrange the video bank to move up the remaining videos
+    videoElements.forEach((video, index) => {
+        video.style.order = index;  // Ensure videos are re-ordered properly without gaps
+    });
+}
+
+window.onload = function() {
+    addDragAndDropListeners();
+};
 
 // Export session function 
 function exportSession() {
@@ -1255,7 +1315,45 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
+
 document.getElementById('exportButton').addEventListener('click', exportSession);
+
+// Track touch-based drag for mobile Safari
+let touchDragElement = null;
+
+function handleTouchStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        touchDragElement = e.target.cloneNode(true); // Clone the element
+        e.target.classList.add('dragging'); // Add a class instead of setting inline opacity for better performance
+    }
+}
+
+function handleTouchMove(e) {
+    e.preventDefault(); // Prevent scrolling during touch drag
+}
+
+function handleTouchEnd(e) {
+    const touchLocation = e.changedTouches[0];
+    const targetElement = document.elementFromPoint(touchLocation.clientX, touchLocation.clientY);
+
+    if (touchDragElement && targetElement.classList.contains('exercise-slot')) {
+        targetElement.innerHTML = ''; // Clear the slot
+        targetElement.appendChild(touchDragElement); // Append cloned element
+
+        // Re-enable dragging for the cloned element
+        addDragAndDropListeners(touchDragElement);
+
+        // Remove dragging class and reset references
+        touchDragElement.classList.remove('dragging');
+        touchDragElement = null;
+    }
+}
+
+// Attach touch listeners for mobile drag-and-drop compatibility
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
+document.addEventListener('touchend', handleTouchEnd);
+
 </script>
 </body>
 </html>
