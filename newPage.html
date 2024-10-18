@@ -271,7 +271,7 @@ flex-direction: column;
         left: 0;
         right: 0;
         width: 100vw; /* Full width */
-        height: 220px; /* Height for the vertical video bank */
+        height: 300px; /* Increased height for the vertical video bank */
         overflow-y: auto; /* Allow vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
@@ -284,23 +284,29 @@ flex-direction: column;
 
     .exercise-set {
         flex-direction: column; /* Display videos in a column */
-        gap: 10px; /* Space between videos */
+        gap: 15px; /* Space between videos */
     }
 
     .exercise-card {
-        min-height: 80px; /* Reduced height for each video card */
+        min-height: 260px; /* Increased height for the video card to include title */
         width: 100%; /* Full width for the video card */
     }
 
     .exercise-card video {
         width: 100%; /* Full width of the video */
-        height: 200px; /* Reduced height of the video */
+        height: 220px; /* Increased height of the video */
         object-fit: cover;
+    }
+
+    .exercise-card p {
+        font-size: 0.9rem; /* Font size for the title */
+        margin-top: 5px; /* Small space between the video and title */
+        text-align: center;
     }
 
     /* Push the main content down to make space for the video bank */
     .main-container {
-        margin-top: 260px; /* Create space for the video bank */
+        margin-top: 320px; /* Create space for the larger video bank */
     }
 
     /* Keep the "Sauvegarder ma séance" button in its original position */
