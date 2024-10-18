@@ -244,50 +244,51 @@ flex-direction: column;
 
         /* Adjust the video bank for mobile screens */
 @media (max-width: 900px) {
-    /* Make the video bank a horizontal strip */
+    /* Make the video bank a vertical strip on the right */
     .video-bank-container {
-        position: fixed; /* Stick it to the top */
+        position: fixed; /* Stick it to the side */
         top: 0;
-        left: 0;
-        width: 100vw; /* Full width */
-        height: auto;
-        max-height: 150px; /* Limit the height of the video bank */
-        overflow-x: auto; /* Allow horizontal scrolling */
-        overflow-y: hidden; /* Disable vertical scrolling */
+        right: 0;
+        width: 120px; /* Set a small width for the vertical video bank */
+        height: 100vh; /* Full height */
+        overflow-y: auto; /* Allow vertical scrolling */
+        overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
+        flex-direction: column; /* Stack videos vertically */
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure it's always on top */
     }
 
     .exercise-set {
-        flex-direction: row; /* Display videos in a row */
+        flex-direction: column; /* Stack videos vertically */
         align-items: center;
         gap: 10px; /* Add space between videos */
     }
 
     .exercise-card {
-        min-width: 120px; /* Make each video card smaller */
-        width: auto;
+        width: 100%; /* Full width of the container */
         height: auto;
     }
 
     .exercise-card video {
-        width: 100px;
-        height: 100px;
+        width: 100%; /* Full width of each video */
+        height: auto;
         object-fit: cover;
     }
 
-    /* Ensure the main content stays below the video bank */
+    /* Ensure the exercise content is not overlapped by the video bank */
     .main-container {
-        margin-top: 170px; /* Create space at the top for the video bank */
+        padding-right: 140px; /* Add space on the right for the video bank */
     }
-}
 
-    /* Hide the arrows for smaller screens */
-    .arrow {
-        display: none;
+    /* Keep the export button at the bottom of the main content */
+    #exportButton {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 10000; /* Ensure it stays on top */
     }
 }
         .arrow-left, .arrow-right {
