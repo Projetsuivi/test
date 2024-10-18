@@ -243,33 +243,18 @@ flex-direction: column;
 
 
         /* Mobile-friendly layout */
-       /* Mobile-friendly layout */
         @media (max-width: 900px) {
-            /* Ensure main container remains column-based */
             .main-container {
                 flex-direction: column;
-                align-items: flex-start;
-            }
-
-            /* Horizontal scroll band for exercises */
-            .workout-container {
-                display: flex;
-                overflow-x: auto; /* Enable horizontal scroll */
-                flex-direction: row; /* Horizontal layout of exercises */
-                white-space: nowrap; /* Prevent wrapping */
-                padding-bottom: 20px;
             }
 
             .exercise-row {
                 flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 250px; /* Set fixed width for each exercise */
-                margin-right: 15px; /* Add margin between each exercise */
+                align-items: flex-start;
             }
 
             .exercise-slot {
-                width: 100%; /* Stretch the slot to fit the row width */
+                width: 100%;
             }
 
             /* Show dropdown in mobile view */
@@ -278,11 +263,6 @@ flex-direction: column;
                 width: 100%;
                 margin-top: 10px;
             }
-        }
-
-        /* Smooth scroll for mobile */
-        .workout-container {
-            scroll-behavior: smooth;
         }
 
         .arrow-left, .arrow-right {
