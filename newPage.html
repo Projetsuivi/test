@@ -242,14 +242,26 @@ flex-direction: column;
 }
 
 
-        /* Media Queries */
-        @media screen and (max-width: 900px) {
+        /* Mobile-friendly layout */
+        @media (max-width: 900px) {
             .main-container {
                 flex-direction: column;
             }
 
-            .workout-container, .video-bank-container {
+            .exercise-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .exercise-slot {
                 width: 100%;
+            }
+
+            /* Show dropdown in mobile view */
+            .video-select {
+                display: block;
+                width: 100%;
+                margin-top: 10px;
             }
         }
 
