@@ -242,29 +242,50 @@ flex-direction: column;
 }
 
 
-        /* Mobile-friendly layout */
-        @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-            }
+        /* Adjust the video bank for mobile screens */
+@media (max-width: 900px) {
+    /* Make the video bank a horizontal strip */
+    .video-bank-container {
+        position: fixed; /* Stick it to the top */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Full width */
+        height: auto;
+        overflow-x: scroll; /* Allow horizontal scrolling */
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 9999; /* Ensure it's always on top */
+    }
 
-            .exercise-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .exercise-set {
+        flex-direction: row; /* Display videos in a row */
+        align-items: center;
+        gap: 10px; /* Add space between videos */
+    }
 
-            .exercise-slot {
-                width: 100%;
-            }
+    .exercise-card {
+        min-width: 150px; /* Make each video card smaller */
+        width: auto;
+        height: auto;
+    }
 
-            /* Show dropdown in mobile view */
-            .video-select {
-                display: block;
-                width: 100%;
-                margin-top: 10px;
-            }
-        }
+    .exercise-card video {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
 
+    .main-container {
+        padding-top: 150px; /* Create space at the top for the video bank */
+    }
+
+    /* Hide the arrows for smaller screens */
+    .arrow {
+        display: none;
+    }
+}
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
