@@ -243,28 +243,71 @@ flex-direction: column;
 
 
         /* Mobile-friendly layout */
-        @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-            }
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+    }
 
-            .exercise-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .exercise-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            .exercise-slot {
-                width: 100%;
-            }
+    .exercise-slot {
+        width: 100%;
+    }
 
-            /* Show dropdown in mobile view */
-            .video-select {
-                display: block;
-                width: 100%;
-                margin-top: 10px;
-            }
-        }
+    /* Show dropdown in mobile view */
+    .video-select {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
 
+    /* Vertical video bank at the top of the page */
+    .video-bank-container {
+        position: fixed; /* Stick it to the top */
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw; /* Full width */
+        height: 120px; /* Height for the vertical video bank */
+        overflow-y: auto; /* Allow vertical scrolling */
+        overflow-x: hidden; /* Disable horizontal scrolling */
+        display: flex;
+        flex-direction: column; /* Stack videos vertically */
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 9999; /* Ensure it's always on top */
+    }
+
+    .exercise-set {
+        flex-direction: column; /* Display videos in a column */
+        gap: 10px; /* Space between videos */
+    }
+
+    .exercise-card {
+        min-height: 100px; /* Reduced height for each video card */
+        width: 100%; /* Full width for the video card */
+    }
+
+    .exercise-card video {
+        width: 100%; /* Full width of the video */
+        height: 100px; /* Reduce height to fit */
+        object-fit: cover;
+    }
+
+    /* Push the main content down to make space for the video bank */
+    .main-container {
+        margin-top: 140px; /* Create space for the video bank */
+    }
+
+    /* Keep the "Sauvegarder ma séance" button in its original position */
+    #exportButton {
+        margin-top: 20px;
+    }
+}
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
