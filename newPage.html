@@ -264,14 +264,14 @@ flex-direction: column;
         margin-top: 10px;
     }
 
-    /* Vertical video bank at the top of the page */
+    /* Sticky video bank at the top of the page */
     .video-bank-container {
         position: fixed; /* Stick it to the top */
         top: 0;
         left: 0;
         right: 0;
         width: 100vw; /* Full width */
-        height: 350px; /* Increased height for the vertical video bank */
+        height: 300px; /* Adjusted height for the vertical video bank */
         overflow-y: auto; /* Allow vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
@@ -294,7 +294,7 @@ flex-direction: column;
 
     .exercise-card video {
         width: 100%; /* Full width of the video */
-        height: 220px; /* Increased height of the video */
+        height: 220px; /* Adjusted height of the video */
         object-fit: cover;
     }
 
@@ -306,12 +306,15 @@ flex-direction: column;
 
     /* Push the main content down to make space for the video bank */
     .main-container {
-        margin-top: 320px; /* Create space for the larger video bank */
+        margin-top: 320px; /* Create space for the sticky video bank */
     }
 
     /* Keep the "Sauvegarder ma séance" button in its original position */
     #exportButton {
-        margin-top: 20px;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 10000; /* Ensure it's visible on top of content */
     }
 }
         .arrow-left, .arrow-right {
