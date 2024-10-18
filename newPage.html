@@ -266,12 +266,10 @@ flex-direction: column;
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed; /* Stick it to the top */
-        top: 0;
-        left: 0;
-        right: 0;
+        position: sticky; /* Change to sticky */
+        top: 0; /* Stick it to the top */
         width: 100vw; /* Full width */
-        height: 380px; /* Adjusted height for the vertical video bank */
+        max-height: 250px; /* Adjusted height for the vertical video bank */
         overflow-y: auto; /* Allow vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
@@ -279,7 +277,7 @@ flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 9999; /* Ensure it's always on top */
+        z-index: 1000; /* Ensure it's always on top */
     }
 
     .exercise-set {
@@ -288,13 +286,13 @@ flex-direction: column;
     }
 
     .exercise-card {
-        min-height: 260px; /* Increased height for the video card to include title */
+        min-height: 200px; /* Adjusted height for the video card */
         width: 100%; /* Full width for the video card */
     }
 
     .exercise-card video {
         width: 100%; /* Full width of the video */
-        height: 220px; /* Adjusted height of the video */
+        height: 180px; /* Adjusted height of the video */
         object-fit: cover;
     }
 
@@ -306,7 +304,7 @@ flex-direction: column;
 
     /* Push the main content down to make space for the video bank */
     .main-container {
-        margin-top: 320px; /* Create space for the sticky video bank */
+        margin-top: 270px; /* Adjust margin for the sticky video bank */
     }
 
     /* Keep the "Sauvegarder ma séance" button in its original position */
