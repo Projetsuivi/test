@@ -251,9 +251,11 @@ flex-direction: column;
         left: 0;
         width: 100vw; /* Full width */
         height: auto;
-        overflow-x: scroll; /* Allow horizontal scrolling */
+        max-height: 150px; /* Limit the height of the video bank */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
         display: flex;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure it's always on top */
@@ -266,7 +268,7 @@ flex-direction: column;
     }
 
     .exercise-card {
-        min-width: 150px; /* Make each video card smaller */
+        min-width: 120px; /* Make each video card smaller */
         width: auto;
         height: auto;
     }
@@ -277,9 +279,11 @@ flex-direction: column;
         object-fit: cover;
     }
 
+    /* Ensure the main content stays below the video bank */
     .main-container {
-        padding-top: 150px; /* Create space at the top for the video bank */
+        margin-top: 170px; /* Create space at the top for the video bank */
     }
+}
 
     /* Hide the arrows for smaller screens */
     .arrow {
