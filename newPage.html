@@ -243,10 +243,8 @@ flex-direction: column;
 
 
 @media (max-width: 900px) {
-    /* Main container adjustments for mobile */
     .main-container {
         flex-direction: column;
-        margin-top: 30vh; /* Adjusted margin to push content down for the sticky video bank */
     }
 
     .exercise-row {
@@ -267,47 +265,47 @@ flex-direction: column;
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed; /* Stick to the top */
+        position: fixed; /* Stick it to the top */
         top: 0;
         left: 0;
         right: 0;
         width: 100vw; /* Full width */
-        height: 30vh; /* Responsive height relative to the viewport */
-        max-height: 345px; /* Maximum height for larger devices */
+        height: 345px; /* Adjusted height for the vertical video bank */
         overflow-y: auto; /* Allow vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
         flex-direction: column; /* Stack videos vertically */
-        background-color: rgba(255, 255, 255, 0.9); /* Transparent background */
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999; /* Ensure it's always on top */
     }
 
-    /* Adjust layout for the videos in the video bank */
     .exercise-set {
         flex-direction: column; /* Display videos in a column */
         gap: 15px; /* Space between videos */
     }
 
-    /* Styling individual video cards */
     .exercise-card {
-        min-height: 260px; /* Increased height for the video card */
+        min-height: 260px; /* Increased height for the video card to include title */
         width: 100%; /* Full width for the video card */
     }
 
-    /* Adjust the video dimensions */
     .exercise-card video {
         width: 100%; /* Full width of the video */
-        height: 220px; /* Adjusted height */
-        object-fit: cover; /* Ensure video covers the area */
+        height: 220px; /* Adjusted height of the video */
+        object-fit: cover;
     }
 
-    /* Styling for the video titles */
     .exercise-card p {
         font-size: 0.9rem; /* Font size for the title */
         margin-top: 5px; /* Small space between the video and title */
         text-align: center;
+    }
+
+    /* Push the main content down to make space for the video bank */
+    .main-container {
+        margin-top: 330px; /* Create space for the sticky video bank */
     }
 }
 
