@@ -240,11 +240,10 @@ flex-direction: column;
     align-items: center;
     margin-bottom: 15px;
 }
-
-
 @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
+        margin-top: 330px; /* Create space for the sticky video bank */
     }
 
     .exercise-row {
@@ -302,24 +301,19 @@ flex-direction: column;
         margin-top: 5px; /* Small space between the video and title */
         text-align: center;
     }
-
-    /* Push the main content down to make space for the video bank */
-    .main-container {
-        margin-top: 330px; /* Create space for the sticky video bank */
-    }
 }
 
+/* Push the main content down to make space for the video bank */
 .main-container {
     margin-top: 30vh; /* Use the same relative height to push content down */
 }
 
-    /* Keep the "Sauvegarder ma séance" button in its original position */
-    #exportButton {
-        position: fixed;
-        bottom: 50px;
-        left: 10px;
-        z-index: 10000; /* Ensure it's visible on top of content */
-    }
+/* Keep the "Sauvegarder ma séance" button in its original position */
+#exportButton {
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    z-index: 10000; /* Ensure it's visible on top of content */
 }
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
