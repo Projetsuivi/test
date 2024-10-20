@@ -193,9 +193,55 @@ flex-direction: column;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-        }
+            width: @media (max-width: 900px) {
+    .exercise-row {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%; /* Take full width on mobile */
+        height: auto; /* Allow flexible height */
+        padding: 20px; /* Increase padding for more space around content */
+        margin-bottom: 20px; /* Add more space between rows */
+        background-color: #fff; /* Ensure a light background */
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Add a stronger shadow */
+    }
 
+    .exercise-slot {
+        width: 100%; /* Allow exercise slot to take full width */
+        height: 260px; /* Increase the height for larger video container */
+        margin-bottom: 10px; /* Add spacing between the slot and the sliders */
+        background-color: #f8f8f8;
+        border: 1.5px dashed #FF8A65; /* Keep dashed border */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+
+    .exercise-slot video {
+        width: 100%; /* Keep the video at full width */
+        height: 220px; /* Increase the video height */
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .slider-group, .checkbox-group, .rest-group {
+        width: 100%; /* Ensure these elements take full width */
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .slider-group label, .checkbox-group label, .rest-group label {
+        font-size: 1rem; /* Increase label font size for better readability */
+    }
+
+    .slider-group input, .rest-group select {
+        width: 100%;
+        font-size: 1rem; /* Increase the input size */
+        padding: 10px;
+        margin-top: 5px;
+    }
+}
 
 /* Adjust the size of each video card */
 .exercise-card {
