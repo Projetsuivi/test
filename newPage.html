@@ -290,7 +290,7 @@ h2#setTitle {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 305px; /* Set a fixed height for the entire video bank */
+        height: 100vh; /* Set the height to full viewport */
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
@@ -300,7 +300,7 @@ h2#setTitle {
         overflow: hidden; /* Prevent scrolling on the entire container */
     }
 
-    /* Ensure the title is always sticky at the top */
+    /* Ensure the title is sticky and visible at the top */
     .title-container {
         display: flex;
         justify-content: center;
@@ -312,11 +312,11 @@ h2#setTitle {
         z-index: 10;
     }
 
-    /* Set a fixed height for the video section and make it scrollable */
+    /* Scrollable video section */
     .video-bank {
         flex: 1;
-        overflow-y: auto; /* Allow vertical scrolling for the videos */
-        max-height: calc(100% - 60px); /* Subtract space for the title */
+        overflow-y: scroll; /* Enable vertical scrolling for the videos */
+        max-height: calc(100vh - 60px); /* Subtract space for the sticky title */
     }
 
     .exercise-set {
