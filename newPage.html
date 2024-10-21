@@ -290,16 +290,17 @@ h2#setTitle {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 305px;
+        height: 305px; /* Set a fixed height for the entire video bank */
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+        overflow: hidden; /* Prevent scrolling on the entire container */
     }
 
-    /* Make the title sticky and the video bank scrollable */
+    /* Ensure the title is always sticky at the top */
     .title-container {
         display: flex;
         justify-content: center;
@@ -314,7 +315,8 @@ h2#setTitle {
     /* Set a fixed height for the video section and make it scrollable */
     .video-bank {
         flex: 1;
-        overflow-y: auto;
+        overflow-y: auto; /* Allow vertical scrolling for the videos */
+        max-height: calc(100% - 60px); /* Subtract space for the title */
     }
 
     .exercise-set {
@@ -367,7 +369,6 @@ h2#setTitle {
         background-color: #e07453; /* Darken on hover */
     }
 }
-
     .title-container {
         display: flex;
         justify-content: center;
