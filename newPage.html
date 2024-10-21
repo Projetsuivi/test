@@ -229,7 +229,7 @@
        @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        margin-top: 250px;
+        margin-top: 260px; /* Adjust margin-top for slightly larger video bank */
         overflow-y: auto;
     }
 
@@ -256,7 +256,7 @@
         left: 0;
         right: 0;
         width: 100vw;
-        height: 220px; /* Reduced height for a smaller video bank */
+        height: 270px; /* Increased height for a larger video bank */
         overflow-x: auto; /* Enable horizontal scrolling */
         display: flex;
         flex-direction: row; /* Arrange videos horizontally */
@@ -271,27 +271,35 @@
     /* Each video card in the video bank */
     .video-bank-container .exercise-card {
         flex: 0 0 auto; /* Ensure videos don't shrink and stay their size */
-        min-width: 180px; /* Adjust the size to fit multiple videos horizontally */
+        min-width: 220px; /* Increased size for videos */
         margin-right: 10px; /* Spacing between videos */
     }
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 200px; /* Adjust height of the video */
+        height: 240px; /* Increased height for the video */
         object-fit: cover;
     }
 
     .exercise-card p {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Slightly larger font for better readability */
         margin-top: 5px;
         text-align: center;
     }
 
-    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
+    /* Adjusting exercise details below each exercise */
     .exercise-set {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px; /* Increased gap between each detail */
         text-align: center;
+    }
+
+    .exercise-set-details {
+        font-size: 1.1rem; /* Larger font for exercise details */
+        padding: 10px 20px; /* Add padding for better touchability */
+        border-radius: 8px; /* Rounded corners for a modern look */
+        background-color: #f9f9f9; /* Light background for better visibility */
+        margin-bottom: 15px; /* Add some space below each set of details */
     }
 }
 
@@ -299,7 +307,15 @@
 .main-container {
     margin-top: 30vh;
     overflow-y: auto;
-    height: calc(100vh - 250px); /* Adjust height to account for the fixed video bank */
+    height: calc(100vh - 270px); /* Adjust height to account for the increased video bank */
+}
+
+/* Keep the "Sauvegarder ma séance" button in its original position */
+#exportButton {
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    z-index: 10000; /* Ensure it's visible on top of content */
 }
 
         .arrow-left, .arrow-right {
