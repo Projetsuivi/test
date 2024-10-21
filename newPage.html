@@ -223,44 +223,9 @@
     align-items: center;
     margin-bottom: 15px;
 }
-/* Arrow button styles */
-.arrow-left, .arrow-right {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    margin: 0 10px; /* Adjust space around arrows */
-}
 
-.arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453; /* Darken on hover */
-}
 
-/* Centering the arrows with text */
-.title-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-h2#setTitle {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 600;
-    margin: 0;
-    flex-grow: 1; /* Ensures the title takes up the space between the arrows */
-    text-align: center; /* Center the text inside the title element */
-}
-@media (max-width: 900px) {
+       @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
@@ -290,33 +255,15 @@ h2#setTitle {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 100vh; /* Set the height to full viewport */
+        height: 290px;
+        overflow-y: auto;
+        overflow-x: hidden;
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        overflow: hidden; /* Prevent scrolling on the entire container */
-    }
-
-    /* Ensure the title is sticky and visible at the top */
-    .title-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px;
-        position: sticky;
-        top: 0;
-        background-color: rgba(255, 255, 255, 0.9); /* Keep background with the title */
-        z-index: 10;
-    }
-
-    /* Scrollable video section */
-    .video-bank {
-        flex: 1;
-        overflow-y: scroll; /* Enable vertical scrolling for the videos */
-        max-height: calc(100vh - 60px); /* Subtract space for the sticky title */
     }
 
     .exercise-set {
@@ -337,7 +284,7 @@ h2#setTitle {
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 187px; /* Adjust height of the video */
+        height: 187px; /* Increased height of the video */
         object-fit: cover;
         border-radius: 6px; /* Optional: Add rounded corners to the video */
     }
@@ -345,6 +292,13 @@ h2#setTitle {
     .exercise-card p {
         font-size: 1rem; /* Slightly increase the font size for better readability */
         margin-top: 10px; /* Increase space between video and text */
+        text-align: center;
+    }
+
+    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
+    .exercise-set {
+        flex-direction: column;
+        gap: 15px;
         text-align: center;
     }
 
@@ -368,20 +322,24 @@ h2#setTitle {
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453; /* Darken on hover */
     }
+        .arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
 }
-    .title-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-    }
 
-    /* Push the main content down to make space for the video bank */
-    .main-container {
-        margin-top: 30vh;
-        overflow-y: auto;
-        height: calc(100vh - 250px); /* Adjust height to account for the fixed video bank */
-    }
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #e07453;
 }
 
 h2#setTitle {
