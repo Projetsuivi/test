@@ -224,8 +224,7 @@
     margin-bottom: 15px;
 }
 
-
-         @media (max-width: 900px) {
+@media (max-width: 900px) {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
@@ -248,43 +247,53 @@
         margin-top: 10px;
     }
 
-    /* Sticky video bank at the top of the page with horizontal scroll */
+    /* Sticky video bank at the top of the page */
     .video-bank-container {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         width: 100vw;
-        height: 220px; /* Reduced height for a smaller video bank */
-        overflow-x: auto; /* Enable horizontal scrolling */
+        height: 220px;
+        overflow-y: auto;
+        overflow-x: hidden;
         display: flex;
-        flex-direction: row; /* Arrange videos horizontally */
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        scroll-snap-type: x mandatory; /* Snap scrolling */
-        -webkit-overflow-scrolling: touch; /* Enable smooth touch scrolling */
     }
 
-    /* Each video card in the video bank */
-    .video-bank-container .exercise-card {
-        flex: 0 0 auto; /* Ensure videos don't shrink and stay their size */
-        min-width: 180px; /* Adjust the size to fit multiple videos horizontally */
-        margin-right: 10px; /* Spacing between videos */
+    .exercise-set {
+        flex-direction: column;
+        gap: 20px; /* Increase space between exercises */
+        text-align: center;
+    }
+
+    /* Increase size for each exercise container */
+    .exercise-card {
+        min-height: 350px; /* Increased height for the exercise container */
+        width: 100%; /* Full width */
+        padding: 15px; /* Add padding for better spacing inside the container */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+        border-radius: 8px; /* Optional: Add rounded corners */
+        background-color: #fff; /* Optional: Ensure a light background */
     }
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 200px; /* Adjust height of the video */
+        height: 250px; /* Increased height of the video */
         object-fit: cover;
+        border-radius: 6px; /* Optional: Add rounded corners to the video */
     }
 
     .exercise-card p {
-        font-size: 0.9rem;
-        margin-top: 5px;
+        font-size: 1rem; /* Slightly increase the font size for better readability */
+        margin-top: 10px; /* Increase space between video and text */
         text-align: center;
     }
+
 
     /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
     .exercise-set {
