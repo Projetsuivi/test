@@ -226,7 +226,7 @@
 
 
          /* Bandwidth at the bottom for mobile */
-        @media (max-width: 900px) {
+       @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
@@ -249,7 +249,7 @@
         margin-top: 10px;
     }
 
-    /* Sticky video bank at the top of the page with reduced size */
+    /* Sticky video bank at the top of the page with horizontal scroll */
     .video-bank-container {
         position: fixed;
         top: 0;
@@ -257,30 +257,27 @@
         right: 0;
         width: 100vw;
         height: 220px; /* Reduced height for a smaller video bank */
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow-x: auto; /* Enable horizontal scrolling */
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* Arrange videos horizontally */
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+        scroll-snap-type: x mandatory; /* Snap scrolling */
+        -webkit-overflow-scrolling: touch; /* Enable smooth touch scrolling */
     }
 
-    .exercise-set {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .exercise-card {
-        min-height: 250px; /* Adjusted height for the video card */
-        width: 100%;
+    /* Each video card in the video bank */
+    .video-bank-container .exercise-card {
+        flex: 0 0 auto; /* Ensure videos don't shrink and stay their size */
+        min-width: 180px; /* Adjust the size to fit multiple videos horizontally */
+        margin-right: 10px; /* Spacing between videos */
     }
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 200px; /* Reduced height of the video */
+        height: 200px; /* Adjust height of the video */
         object-fit: cover;
     }
 
@@ -290,6 +287,20 @@
         text-align: center;
     }
 
+    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
+    .exercise-set {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Push the main content down to make space for the video bank */
+.main-container {
+    margin-top: 30vh;
+    overflow-y: auto;
+    height: calc(100vh - 250px); /* Adjust height to account for the fixed video bank */
+}
 
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
