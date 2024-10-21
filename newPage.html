@@ -291,14 +291,30 @@ h2#setTitle {
         right: 0;
         width: 100vw;
         height: 305px;
-        overflow-y: auto;
-        overflow-x: hidden;
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+    }
+
+    /* Make the title sticky and the video bank scrollable */
+    .title-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        position: sticky;
+        top: 0;
+        background-color: rgba(255, 255, 255, 0.9); /* Keep background with the title */
+        z-index: 10;
+    }
+
+    /* Set a fixed height for the video section and make it scrollable */
+    .video-bank {
+        flex: 1;
+        overflow-y: auto;
     }
 
     .exercise-set {
@@ -319,7 +335,7 @@ h2#setTitle {
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 197px; /* Increased height of the video */
+        height: 197px; /* Adjust height of the video */
         object-fit: cover;
         border-radius: 6px; /* Optional: Add rounded corners to the video */
     }
@@ -327,13 +343,6 @@ h2#setTitle {
     .exercise-card p {
         font-size: 1rem; /* Slightly increase the font size for better readability */
         margin-top: 10px; /* Increase space between video and text */
-        text-align: center;
-    }
-
-    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
-    .exercise-set {
-        flex-direction: column;
-        gap: 15px;
         text-align: center;
     }
 
@@ -357,6 +366,7 @@ h2#setTitle {
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453; /* Darken on hover */
     }
+}
 
     .title-container {
         display: flex;
