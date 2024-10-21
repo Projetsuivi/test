@@ -31,15 +31,12 @@
             min-height: 100vh;
             margin: 0;
             display: flex;
-display: -webkit-flex; /* Safari-specific */
-flex-direction: column;
--webkit-flex-direction: column; /* Safari-specific */
+            flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
             background-size: cover;
             backdrop-filter: blur(0.1px);
-            -webkit-backdrop-filter: blur(0.1px); /* Safari-specific */
             overflow: auto;
         }
 
@@ -70,7 +67,6 @@ flex-direction: column;
             margin-bottom: 18px;
             align-self: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
--webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Safari-specific */
             transition: background-color 0.3s, transform 0.2s;
         }
 
@@ -140,17 +136,6 @@ flex-direction: column;
     overflow: hidden;
     margin-right: 16px;
 }
-.exercise-slot p {
-    font-size: 0.8rem; /* Adjusted font size for smaller titles */
-    font-weight: 500; /* Keep the text bold */
-    color: #444; /* Darker gray for readability */
-    margin-top: 4px; /* Reduce spacing above the text */
-    text-align: center; /* Keep the text centered */
-    text-transform: capitalize; /* Keep capitalization */
-    letter-spacing: 0.5px; /* Slightly increase letter spacing */
-    line-height: 1.1; /* Reduce line height for multi-line titles */
-    word-wrap: break-word; /* Ensure long words wrap properly */
-}
 
         .exercise-slot video {
             width: 100%;
@@ -173,69 +158,6 @@ flex-direction: column;
     transition: all 0.3s ease; /* Smooth transition when changing */
 
 }
-Reduce video bank size a bit @media (max-width: 900px) {
-    .main-container {
-        flex-direction: column;
-        margin-top: 250px; /* Reduced space for the video bank */
-        overflow-y: auto; /* Allow scrolling in the exercise content */
-    }
-
-    .exercise-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .exercise-slot {
-        width: 100%;
-    }
-
-    /* Show dropdown in mobile view */
-    .video-select {
-        display: block;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    /* Sticky video bank at the top of the page */
-    .video-bank-container {
-        position: fixed; /* Stick it to the top */
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100vw; /* Full width */
-        height: 280px; /* Reduced height for the vertical video bank */
-        overflow-y: auto; /* Allow vertical scrolling for videos inside the bank */
-        overflow-x: hidden; /* Disable horizontal scrolling */
-        display: flex;
-        flex-direction: column; /* Stack videos vertically */
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 9999; /* Ensure it's always on top */
-    }
-
-    .exercise-set {
-        flex-direction: column; /* Display videos in a column */
-        gap: 15px; /* Space between videos */
-        text-align: center; /* Center align the content of each exercise set */
-    }
-
-    .exercise-card {
-        min-height: 280px; /* Increased height for the video card to include title */
-        width: 100%; /* Full width for the video card */
-    }
-
-    .exercise-card video {
-        width: 100%; /* Full width of the video */
-        height: 280px; /* Adjusted height of the video to fit the reduced bank */
-        object-fit: cover;
-    }
-
-    .exercise-card p {
-        font-size: 0.9rem; /* Font size for the title */
-        margin-top: 5px; /* Small space between the video and title */
-        text-align: center;
-    }
 
         /* Sticky Video bank container */
         .video-bank-container {
@@ -256,90 +178,119 @@ Reduce video bank size a bit @media (max-width: 900px) {
             display: flex;
             flex-direction: column;
             align-items: center;
-            
+            width: 100%;
+        }
 
-    /* Add more space between control elements */
-    .slider-group, .checkbox-group, .rest-group {
-        margin-bottom: 15px;
-        text-align: left;
-        width: 100%; /* Full width for better alignment on mobile */
-    }
 
-    /* Increase input and dropdown sizes for better mobile usability */
-    .slider-group input, .rest-group select {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-    }
+/* Adjust the size of each video card */
+.exercise-card {
+    background-size: cover; /* Make sure the background covers the entire card */
+    background-position: center; /* Center the background image */
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 370px;
+    height: 250px;
+    max-width: 100%;
+}.exercise-card p {
+    font-size: 1rem; /* Increased for better visibility */
+    font-weight: 500; /* Bolder text for emphasis */
+    color: #444; /* Darker gray for a professional look */
+    margin-top: 8px; /* Add some spacing above the text */
+    text-align: center; /* Center the text below the video */
+    text-transform: capitalize; /* Capitalize the first letter of each word */
+    letter-spacing: 0.5px; /* Slightly increase letter spacing for a cleaner look */
 }
 
-    /* 
-    Adjusting the arrows next to the "Entraînement" title */
-    .entraînement-title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        font-size: 1.5rem; /* Adjust font size for the title */
-        margin-bottom: 20px; /* Spacing below the title */
-    }
 
-    .arrow-left, .arrow-right {
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem; /* Adjust font size for better visibility */
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s;
-        margin: 0 10px; /* Space around the arrows */
-    }
-
-    .arrow-left {
-        margin-right: 15px; /* Space between left arrow and the title */
-    }
-
-    .arrow-right {
-        margin-left: 15px; /* Space between right arrow and the title */
-    }
-
-    .arrow-left:hover, .arrow-right:hover {
-        background-color: #e07453;
-    }
-
-    /* Centering content for Série, Répétition, Dégressif, and Repos */
-    .exercise-set-details {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        margin-top: 10px; /* Add some space between the video and the details */
-    }
-
-    .exercise-set-details .detail {
-        margin-bottom: 10px; /* Add some space between each detail */
-    }
+/* Adjust the size of the video inside the card */
+.exercise-card video {
+    width: 270px; /* Width of the video, leaving a small padding */
+    height: 200px; /* Height of the video, adjusted to fit the card */
+    object-fit: cover; /* Ensures the video covers its container */
+    border-radius: 8px 8px 0 0; /* Rounded corners at the top */
+    margin-bottom: 10px; /* Space between the video and text */
 }
 
-/* Push the main content down to make space for the video bank */
-.main-container {
-    margin-top: 30vh; /* Use the same relative height to push content down */
-    overflow-y: auto; /* Ensure scrolling is enabled for the main content */
-    height: calc(100vh - 250px); /* Adjust height to account for the fixed video bank */
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-/* Keep the "Sauvegarder ma séance" button in its original position */
-#exportButton {
-    position: fixed;
-    bottom: 50px;
-    left: 10px;
-    z-index: 10000; /* Ensure it's visible on top of content */
+
+         /* Bandwidth at the bottom for mobile */
+         @media screen and (max-width: 600px) {
+            .bandwidth-container {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: 100px;
+                z-index: 100;
+            }
+
+            .bandwidth-cell {
+                width: 60px;
+                height: 60px;
+                border: 1px dashed #FF8A65;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                border-radius: 8px;
+            }
+
+            .bandwidth-cell video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 600px) {
+            .exercise-slot {
+                width: 100%;
+                height: auto;
+            }
+            .exercise-card video {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #e07453;
 }
 
 h2#setTitle {
@@ -1069,10 +1020,18 @@ h2#setTitle {
             <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
             <p>Tirage Horizontale Trapèzes</p>
         </div>
+            <!-- Bandwidth at the bottom for mobile -->
+    <div class="bandwidth-container">
+        <div class="bandwidth-cell" id="bandwidth-cell1"></div>
+        <div class="bandwidth-cell" id="bandwidth-cell2"></div>
+        <div class="bandwidth-cell" id="bandwidth-cell3"></div>
+        <div class="bandwidth-cell" id="bandwidth-cell4"></div>
+        <div class="bandwidth-cell" id="bandwidth-cell5"></div>
+    </div>
 </div>
             
             <script>
-      let currentSet = 1;  // Start with Set 1
+        let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
@@ -1130,146 +1089,99 @@ h2#setTitle {
         addDragAndDropListeners();
     };
 
+             // Drag and Drop functionality
+        let draggedElement = null;
 
-// Drag and Drop functionality with Safari-specific adjustments
-let draggedElement = null;
-let originalSlot = null; // To track the original parent slot
-let originalFromExerciseSlot = false; // To track if the video came from an exercise slot
-
-// Refined drag and drop functions
-// Function to handle drag start
-function handleDragStart(e) {
+// Add touch event support for mobile drag and drop
+function handleTouchStart(e) {
     if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target; // Track the dragged element
-        originalSlot = e.target.closest('.exercise-slot') || e.target.closest('.video-bank'); // Track the source
-        originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Determine if it's from an exercise slot
+        draggedElement = e.target;
     }
 }
 
-// Function to handle drag end
-function handleDragEnd(e) {
-
-    // Reset variables after dragging is completed
-    draggedElement = null; 
-    originalSlot = null;
-    originalFromExerciseSlot = false; 
+function handleTouchMove(e) {
+    e.preventDefault();
 }
 
-// Attach dragstart and dragend listeners
-document.addEventListener('dragstart', handleDragStart);
-document.addEventListener('dragend', handleDragEnd);
+function handleTouchEnd(e) {
+    draggedElement = null;
+}
 
-// Function to handle drop on exercise slot
+document.addEventListener('dragstart', (e) => {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
+    }
+});
+
+document.addEventListener('dragend', (e) => {
+    draggedElement = null;
+});
+
+function handleDragOver(e) {
+    e.preventDefault();
+}
+
 function handleDropOnSlot(e) {
     e.preventDefault();
     if (draggedElement) {
-        // Check if the dragged element comes from the video bank
-        if (originalSlot.classList.contains('video-bank')) {
-            // Clone the dragged element to place it in the exercise slot (original stays in the video bank)
-            let clonedElement = draggedElement.cloneNode(true);
+        let clonedElement = draggedElement.cloneNode(true);
+        e.target.innerHTML = ''; 
+        const draggedVideo = draggedElement.querySelector('video');
+        const newVideo = document.createElement('video');
+        newVideo.controls = true;
+        newVideo.src = draggedVideo.src;
+        newVideo.poster = draggedVideo.poster;
+        newVideo.width = 270; 
+        e.target.appendChild(newVideo);
 
-            // Append the cloned video and title (the entire element) to the target exercise slot
-            e.target.innerHTML = '';  // Clear the target slot
-            e.target.appendChild(clonedElement);
+        let videoTitle = draggedElement.querySelector('p').textContent;
+        let titleElement = document.createElement('p');
+        titleElement.textContent = videoTitle;
+        e.target.appendChild(titleElement);
 
-            // Ensure the cloned video remains draggable
-            let newVideo = clonedElement.querySelector('video');
-            newVideo.draggable = true;
-
-            // Add dragstart listener to the cloned element (video + title)
-            clonedElement.addEventListener('dragstart', (e) => {
-                draggedElement = e.target.closest('.draggable');
-                originalSlot = draggedElement.parentElement;
-                originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Update the flag
-            });
-
-        } else {
-            // If the dragged element is from another exercise slot, just move it to the new slot
-            e.target.innerHTML = '';  // Clear the target slot
-            e.target.appendChild(draggedElement);  // Move the original video to the new slot
-
-            // The original exercise slot will be cleared in dragend event
-        }
+        newVideo.draggable = false;
     }
 }
 
-// Add drag and drop listeners to the exercise and video bank slots
+function handleDropOnCell(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const clonedElement = draggedElement.cloneNode(true);
+        const video = clonedElement.querySelector('video');
+        e.target.innerHTML = '';  // Clear the cell
+        e.target.appendChild(video);  // Add the dragged video to the cell
+        video.draggable = false;  // Disable dragging inside the cell
+    }
+}
+
 function addDragAndDropListeners() {
     const videoElements = document.querySelectorAll('.draggable');
     videoElements.forEach(video => {
         video.setAttribute('draggable', 'true');
-        video.addEventListener('dragstart', (e) => {
-            draggedElement = e.target.closest('.draggable');  // Grab the entire draggable element (video + title)
-            originalSlot = draggedElement.parentElement;  // Track the original parent slot
-            originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Track if the original was from an exercise slot
-        });
+        video.addEventListener('touchstart', handleTouchStart);
+        video.addEventListener('touchmove', handleTouchMove);
+        video.addEventListener('touchend', handleTouchEnd);
     });
 
     const exerciseSlots = document.querySelectorAll('.exercise-slot');
     exerciseSlots.forEach(slot => {
         slot.addEventListener('dragover', handleDragOver);
         slot.addEventListener('drop', handleDropOnSlot);
+        slot.addEventListener('touchmove', handleTouchMove);
+        slot.addEventListener('touchend', (e) => {
+            handleDropOnSlot(e);
+            handleTouchEnd(e);
+        });
     });
 
-    const videoBankContainer = document.querySelector('.video-bank-container');
-    videoBankContainer.addEventListener('dragover', handleDragOver);
-    videoBankContainer.addEventListener('drop', handleDropOnVideoBank);
-}
-
-// Prevent default behavior on dragover
-function handleDragOver(e) {
-    e.preventDefault();  // Prevent default to allow drop
-}
-
-// Handle drop on video bank
-function handleDropOnVideoBank(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const videoBank = document.querySelector('.video-bank');
-
-        // If the dragged element is from an exercise slot, move it back to the video bank
-        if (!originalSlot.classList.contains('video-bank')) {
-            // Remove the video from the exercise slot
-            originalSlot.innerHTML = '';  // Clear the original exercise slot
-
-            // Clone the dragged element to place it back into the video bank
-            let clonedElement = draggedElement.cloneNode(true);
-
-            // Insert the cloned video back to the video bank
-            videoBank.appendChild(clonedElement);  // Append to the video bank
-
-            // Ensure the cloned video remains draggable
-            let newVideo = clonedElement.querySelector('video');
-            newVideo.draggable = true;
-
-            // Add dragstart listener to the cloned element (video + title)
-            clonedElement.addEventListener('dragstart', (e) => {
-                draggedElement = e.target.closest('.draggable');
-                originalSlot = draggedElement.parentElement;
-                originalFromExerciseSlot = originalSlot.classList.contains('exercise-slot'); // Update the flag
-            });
-
-            rearrangeVideoBank();
-        }
-    }
-}
-
-// Rearrange video bank to remove gaps after drag
-function rearrangeVideoBank() {
-    const videoBank = document.querySelector('.video-bank');
-    const videoElements = Array.from(videoBank.querySelectorAll('.draggable'));
-
-    // Rearrange the video bank to move up the remaining videos
-    videoElements.forEach((video, index) => {
-        video.style.order = index;  // Ensure videos are re-ordered properly without gaps
+    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
+    bandwidthCells.forEach(cell => {
+        cell.addEventListener('dragover', handleDragOver);
+        cell.addEventListener('drop', handleDropOnCell);
     });
 }
 
-window.onload = function() {
-    addDragAndDropListeners();
-};
-
-// Export session function 
+// Export session function
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1400,42 +1312,10 @@ function exportSession() {
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
 
-// Track touch-based drag for mobile Safari
-let touchDragElement = null;
-
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        touchDragElement = e.target.cloneNode(true); // Clone the element
-        e.target.classList.add('dragging'); // Add a class instead of setting inline opacity for better performance
-    }
-}
-
-function handleTouchMove(e) {
-    e.preventDefault(); // Prevent scrolling during touch drag
-}
-
-function handleTouchEnd(e) {
-    const touchLocation = e.changedTouches[0];
-    const targetElement = document.elementFromPoint(touchLocation.clientX, touchLocation.clientY);
-
-    if (touchDragElement && targetElement.classList.contains('exercise-slot')) {
-        targetElement.innerHTML = ''; // Clear the slot
-        targetElement.appendChild(touchDragElement); // Append cloned element
-
-        // Re-enable dragging for the cloned element
-        addDragAndDropListeners(touchDragElement);
-
-        // Remove dragging class and reset references
-        touchDragElement.classList.remove('dragging');
-        touchDragElement = null;
-    }
-}
-
-// Attach touch listeners for mobile drag-and-drop compatibility
-document.addEventListener('touchstart', handleTouchStart);
-document.addEventListener('touchmove', handleTouchMove);
-document.addEventListener('touchend', handleTouchEnd);
-
+// Initialize listeners when the page loads
+window.onload = function() {
+    addDragAndDropListeners();
+};
 </script>
 </body>
 </html>
