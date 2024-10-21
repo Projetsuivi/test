@@ -250,20 +250,20 @@
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed;
+        position: sticky; /* Changed to sticky for smoother scrolling */
         top: 0;
         left: 0;
         right: 0;
         width: 100vw;
-        height: 290px;
-        overflow-y: auto;
+        max-height: 290px;
+        overflow-y: auto; /* Ensure scrolling is enabled */
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
+        z-index: 9999; /* Ensure it stays on top */
     }
 
     .exercise-set {
@@ -322,24 +322,13 @@
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453; /* Darken on hover */
     }
-        .arrow-left, .arrow-right {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    margin: 0 10px; /* Space around the arrows */
-}
 
-.arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453;
+    /* Push the main content down to make space for the video bank */
+    .main-container {
+        margin-top: 30vh;
+        overflow-y: auto;
+        height: calc(100vh - 290px); /* Adjust height to account for the sticky video bank */
+    }
 }
 
 h2#setTitle {
