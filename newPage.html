@@ -26,19 +26,20 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-            background-size: cover;
-            backdrop-filter: blur(0.1px);
-            overflow: auto;
-        }
+       /* Ensure the body allows scrolling */
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(0.1px);
+    overflow-y: auto; /* Ensure vertical scrolling */
+}
 
         .container {
             background-color: rgba(255, 255, 255, 0.5);
@@ -75,26 +76,27 @@
             transform: translateY(-2px);
         }
 
-        /* Styles for the Lock Button */
-        .main-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            overflow: visible;
-            justify-content: space-between;
-        }
+        /* Adjust for better scrolling behavior in containers */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
+}
 
         .workout-container {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            height: auto;
-        }
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    height: auto;
+    overflow-y: auto; /* Enable scrolling if content is too tall */
+}
 
         .exercise-row {
     display: flex;
@@ -159,19 +161,20 @@
 
 }
 
-        /* Sticky Video bank container */
-        .video-bank-container {
-    position: sticky;
-    top: 20px;
-    width: 300px; /* Reduced width of the video bank */
-    max-height: 93vh; /* Keep the video bank taller if needed */
-    overflow-y: auto;
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 15px; /* Reduced padding to make the container more compact */
+        /* Adjust the sticky video bank container */
+.video-bank-container {
+    position: sticky; /* Use sticky positioning instead of fixed */
+    top: 0; /* Stick to the top when scrolling */
+    width: 100vw;
+    height: 290px; /* Adjust height if necessary */
+    overflow-y: auto; /* Allow vertical scrolling within the video bank */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    z-index: 9999;
 }
 
         .exercise-set {
