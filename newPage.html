@@ -233,55 +233,43 @@ body {
         flex-direction: column;
         margin-top: 250px;
         overflow-y: auto; /* Ensure container scrolls properly */
+        -webkit-overflow-scrolling: touch; /* Add smooth scrolling */
+        scroll-behavior: smooth; /* Add smooth scroll behavior */
     }
 
     .exercise-row {
         flex-direction: column;
         align-items: flex-start;
-        flex-grow: 1; /* Allow rows to grow */
-        height: auto; /* Ensure no fixed height restricts the children */
+        flex-grow: 1;
+        height: auto;
     }
 
     .exercise-slot {
-        width: 340px !important; /* Set the width */
-        height: 175px !important; /* Force height to ensure it updates */
-        background-color: lightgray; /* Temporary background for testing */
-        border: 0.5px solid red; /* Temporary border to check the size */
-    }
-
-    /* Show dropdown in mobile view */
-    .video-select {
-        display: block;
-        width: 100%;
-        margin-top: 10px;
+        width: 340px !important;
+        height: 175px !important;
     }
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed;
+        position: sticky; /* Use sticky instead of fixed to improve scroll performance */
         top: 0;
-        left: 0;
-        right: 0;
         width: 100vw;
         height: 327px;
-        overflow-y: auto; /* Allow vertical scrolling */
+        overflow-y: auto;
         overflow-x: hidden;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
-        display: flex;
-        flex-direction: column;
+        -webkit-overflow-scrolling: touch;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+        will-change: transform; /* Inform the browser to optimize scrolling */
     }
 
     .exercise-set {
         flex-direction: column;
-        gap: 20px; /* Increase space between exercises */
+        gap: 20px;
         text-align: center;
     }
 
-    /* Increase size for each exercise container */
     .exercise-card {
         min-height: 350px;
         width: 100%;
