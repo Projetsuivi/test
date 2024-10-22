@@ -232,21 +232,22 @@ body {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
-        overflow-y: visible; /* Ensure container allows for expanded height */
+        overflow-y: auto; /* Ensure smooth scrolling within the container */
+        -webkit-overflow-scrolling: touch; /* Add momentum scrolling for iOS */
     }
 
     .exercise-row {
         flex-direction: column;
         align-items: flex-start;
-        flex-grow: 1; /* Allow rows to grow */
-        height: auto; /* Ensure no fixed height restricts the children */
+        flex-grow: 1;
+        height: auto;
     }
 
     .exercise-slot {
-        width: 340px !important; /* Set the width */
-        height: 175px !important; /* Force height to ensure it updates */
-        background-color: lightgray; /* Temporary background for testing */
-        border: 0.5px solid red; /* Temporary border to check the size */
+        width: 340px !important;
+        height: 175px !important;
+        background-color: lightgray;
+        border: 0.5px solid red;
     }
 
     /* Show dropdown in mobile view */
@@ -258,25 +259,25 @@ body {
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed;
+        position: sticky; /* Use sticky instead of fixed for better scroll performance */
         top: 0;
         left: 0;
         right: 0;
         width: 100vw;
         height: 327px;
-        overflow-y: auto;
+        overflow-y: auto; /* Ensure it scrolls properly */
         overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+        -webkit-overflow-scrolling: touch; /* Momentum scrolling for mobile devices */
+        will-change: transform; /* Improve performance by hinting at animations */
     }
 
     .exercise-set {
         flex-direction: column;
-        gap: 20px; /* Increase space between exercises */
+        gap: 20px;
         text-align: center;
     }
 
