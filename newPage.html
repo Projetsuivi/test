@@ -225,11 +225,10 @@
 }
 
 
-     /* Mobile-friendly layout */
-@media (max-width: 900px) {
+       @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        margin-top: 260px; /* Adjust margin-top for slightly larger video bank */
+        margin-top: 250px;
         overflow-y: auto;
     }
 
@@ -240,17 +239,7 @@
 
     .exercise-slot {
         width: 100%;
-        height: 500px; /* Increased height to give more space for video dropping */
-        margin-bottom: 20px; /* Add margin to give more space between exercise slots */
-        padding: 10px; /* Optional: Add padding inside the exercise slot for spacing */
-        border: 2px dashed #FF8A65; /* Add a dashed border to visually indicate drop area */
-        background-color: #f9f9f9; /* Optional: Light background to indicate drop area */
-        border-radius: 12px; /* Optional: Add border-radius for smoother edges */
-    }
-
-    .exercise-slot video {
-        height: 240px; /* Increased height for video in exercise slot */
-        object-fit: cover;
+        height: 400px;
     }
 
     /* Show dropdown in mobile view */
@@ -260,77 +249,81 @@
         margin-top: 10px;
     }
 
-    /* Sticky video bank at the top of the page with horizontal scroll */
+    /* Sticky video bank at the top of the page */
     .video-bank-container {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         width: 100vw;
-        height: 270px; /* Increased height for a larger video bank */
-        overflow-x: auto; /* Enable horizontal scrolling */
+        height: 290px;
+        overflow-y: auto;
+        overflow-x: hidden;
         display: flex;
-        flex-direction: row; /* Arrange videos horizontally */
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        scroll-snap-type: x mandatory; /* Snap scrolling */
-        -webkit-overflow-scrolling: touch; /* Enable smooth touch scrolling */
     }
 
-    /* Each video card in the video bank */
-    .video-bank-container .exercise-card {
-        flex: 0 0 auto; /* Ensure videos don't shrink and stay their size */
-        min-width: 220px; /* Increased size for videos */
-        margin-right: 10px; /* Spacing between videos */
+    .exercise-set {
+        flex-direction: column;
+        gap: 20px; /* Increase space between exercises */
+        text-align: center;
+    }
+
+    /* Increase size for each exercise container */
+    .exercise-card {
+        min-height: 350px; /* Increased height for the exercise container */
+        width: 100%; /* Full width */
+        padding: 15px; /* Add padding for better spacing inside the container */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+        border-radius: 8px; /* Optional: Add rounded corners */
+        background-color: #fff; /* Optional: Ensure a light background */
     }
 
     .exercise-card video {
         width: 100%; /* Keep full width */
-        height: 240px; /* Increased height for the video */
+        height: 187px; /* Increased height of the video */
         object-fit: cover;
+        border-radius: 6px; /* Optional: Add rounded corners to the video */
     }
 
     .exercise-card p {
-        font-size: 1rem; /* Slightly larger font for better readability */
-        margin-top: 5px;
+        font-size: 1rem; /* Slightly increase the font size for better readability */
+        margin-top: 10px; /* Increase space between video and text */
         text-align: center;
     }
 
-    /* Adjusting exercise details below each exercise */
+    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
     .exercise-set {
         flex-direction: column;
-        gap: 20px; /* Increased gap between each detail */
+        gap: 15px;
         text-align: center;
     }
 
-    .exercise-set-details {
-        font-size: 1.1rem; /* Larger font for exercise details */
-        padding: 10px 20px; /* Add padding for better touchability */
-        border-radius: 8px; /* Rounded corners for a modern look */
-        background-color: #f9f9f9; /* Light background for better visibility */
-        margin-bottom: 15px; /* Add some space below each set of details */
+    /* Arrow design adjustments for mobile */
+    .arrow-left, .arrow-right {
+        background-color: #FF8A65;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px; /* Smaller arrow size for mobile */
+        height: 30px; /* Smaller arrow size for mobile */
+        font-size: 1.2rem; /* Slightly smaller font size */
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+        margin: 0 10px; /* Adjust space around arrows */
     }
-}
 
-/* Push the main content down to make space for the video bank */
-.main-container {
-    margin-top: 30vh;
-    overflow-y: auto;
-    height: calc(100vh - 270px); /* Adjust height to account for the increased video bank */
-}
-
-/* Keep the "Sauvegarder ma séance" button in its original position */
-#exportButton {
-    position: fixed;
-    bottom: 50px;
-    right: 10px;
-    z-index: 10000; /* Ensure it's visible on top of content */
-}
-
-/* Adjust the size and positioning of arrows */
-.arrow-left, .arrow-right {
+    .arrow-left:hover, .arrow-right:hover {
+        background-color: #e07453; /* Darken on hover */
+    }
+        .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
     border: none;
@@ -343,12 +336,13 @@
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s;
-    margin: 0 10px;
+    margin: 0 10px; /* Space around the arrows */
 }
 
 .arrow-left:hover, .arrow-right:hover {
     background-color: #e07453;
 }
+
 h2#setTitle {
     font-size: 1.2rem;
     color: #333;
