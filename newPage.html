@@ -229,54 +229,94 @@
 @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        margin-top: calc(20vh + 20px); /* Dynamically adjust the space below the video bank */
-        padding-bottom: 20px;
+        margin-top: 260px; /* Adjust margin-top for slightly larger video bank */
+        overflow-y: auto;
     }
 
-    /* Sticky video bank at the top of the page */
+    .exercise-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .exercise-slot {
+        width: 100%;
+    }
+
+    /* Show dropdown in mobile view */
+    .video-select {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Sticky video bank at the top of the page with horizontal scroll */
     .video-bank-container {
-        position: fixed; /* Ensure it sticks to the top */
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        width: 100vw; /* Full width */
-        height: 30vh; /* Adjust height to be 30% of the viewport on mobile */
-        overflow-y: auto; /* Enable vertical scrolling for the video bank */
-        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on mobile */
+        width: 100vw;
+        height: 270px; /* Increased height for a larger video bank */
+        overflow-x: auto; /* Enable horizontal scrolling */
         display: flex;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.95);
+        flex-direction: row; /* Arrange videos horizontally */
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000; /* Keep it on top */
+        z-index: 9999;
+        scroll-snap-type: x mandatory; /* Snap scrolling */
+        -webkit-overflow-scrolling: touch; /* Enable smooth touch scrolling */
     }
 
-    .exercise-set {
-        flex-direction: column; /* Stack videos vertically */
-        gap: 10px; /* Space between video cards */
-    }
-
-    .exercise-card {
-        min-height: 160px; /* Adjust height for mobile */
-        width: 100%; /* Full width for the video card */
+    /* Each video card in the video bank */
+    .video-bank-container .exercise-card {
+        flex: 0 0 auto; /* Ensure videos don't shrink and stay their size */
+        min-width: 220px; /* Increased size for videos */
+        margin-right: 10px; /* Spacing between videos */
     }
 
     .exercise-card video {
-        width: 100%; /* Full width for the video */
-        height: auto; /* Automatically adjust the height */
-        object-fit: contain; /* Prevent video from being cut off */
+        width: 100%; /* Keep full width */
+        height: 240px; /* Increased height for the video */
+        object-fit: cover;
     }
 
     .exercise-card p {
-        font-size: 0.8rem; /* Adjust font size for mobile */
+        font-size: 1rem; /* Slightly larger font for better readability */
         margin-top: 5px;
         text-align: center;
     }
 
-    /* Ensure content doesn't overlap the video bank */
-    .main-container {
-        margin-top: calc(30vh + 10px); /* Ensure there's enough space for the video bank */
+    /* Adjusting exercise details below each exercise */
+    .exercise-set {
+        flex-direction: column;
+        gap: 20px; /* Increased gap between each detail */
+        text-align: center;
     }
+
+    .exercise-set-details {
+        font-size: 1.1rem; /* Larger font for exercise details */
+        padding: 10px 20px; /* Add padding for better touchability */
+        border-radius: 8px; /* Rounded corners for a modern look */
+        background-color: #f9f9f9; /* Light background for better visibility */
+        margin-bottom: 15px; /* Add some space below each set of details */
+    }
+}
+
+/* Push the main content down to make space for the video bank */
+.main-container {
+    margin-top: 30vh;
+    overflow-y: auto;
+    height: calc(100vh - 270px); /* Adjust height to account for the increased video bank */
+}
+
+/* Keep the "Sauvegarder ma séance" button in its original position */
+#exportButton {
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    z-index: 10000; /* Ensure it's visible on top of content */
+}
 
     /* Adjust the size and positioning of arrows */
     .arrow-left, .arrow-right {
