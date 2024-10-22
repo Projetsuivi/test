@@ -225,7 +225,7 @@
 }
 
 
-         /* Mobile-friendly layout */
+     /* Mobile-friendly layout */
 @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
@@ -240,6 +240,12 @@
 
     .exercise-slot {
         width: 100%;
+        height: 240px; /* Increased height to match the video bank size */
+    }
+
+    .exercise-slot video {
+        height: 220px; /* Increased height for video in exercise slot */
+        object-fit: cover;
     }
 
     /* Show dropdown in mobile view */
@@ -318,28 +324,26 @@
     z-index: 10000; /* Ensure it's visible on top of content */
 }
 
-    /* Adjust the size and positioning of arrows */
-    .arrow-left, .arrow-right {
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 1.2rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s;
-        margin: 0 10px;
-    }
-
-    .arrow-left:hover, .arrow-right:hover {
-        background-color: #e07453;
-    }
+/* Adjust the size and positioning of arrows */
+.arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px;
 }
 
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #e07453;
+}
 h2#setTitle {
     font-size: 1.2rem;
     color: #333;
