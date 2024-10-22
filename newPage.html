@@ -301,34 +301,24 @@
     }
 
    /* Style for the arrow buttons */
-.arrow-left, .arrow-right {
-    background-color: #FF8A65; /* Base color for the arrows */
+        .arrow-left, .arrow-right {
+    background-color: #FF8A65;
     color: white;
     border: none;
-    border-radius: 50%; /* Circular shape */
-    width: 40px; /* Adjust the size */
-    height: 40px;
-    font-size: 1.5rem; /* Font size for the arrow symbol */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s, transform 0.3s ease-in-out;
-    margin: 0 15px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Add shadow for a 3D effect */
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
 }
 
-/* Hover effect for arrows */
 .arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453; /* Darken the color on hover */
-    transform: scale(1.1); /* Scale up the arrows slightly */
-}
-
-/* Disabled state for arrows (optional) */
-.arrow-left:disabled, .arrow-right:disabled {
-    background-color: #ccc; /* Gray out when disabled */
-    cursor: not-allowed; /* Change cursor to not allowed */
-    transform: none; /* Remove the scale on hover */
+    background-color: #e07453;
 }
 
 
