@@ -241,7 +241,7 @@
         
 
 
-      @media (max-width: 900px) {
+     @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
@@ -335,8 +335,30 @@
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
     }
-}
 
+    /* Make the 'Sauvegarder ma séance' button fixed at the bottom */
+    #exportButton {
+        width: calc(100% - 40px);
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        background-color: #FF8A65;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #exportButton:hover {
+        background-color: #e07453;
+    }
+}
 h2#setTitle {
     font-size: 1.2rem;
     color: #333;
