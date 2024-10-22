@@ -241,25 +241,33 @@
         
 
 
-     @media (max-width: 900px) {
+   @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        margin-top: 250px;
+        margin-top: 100px; /* Adjust the margin to make it lower */
         overflow-y: visible; /* Ensure container allows for expanded height */
     }
 
     .exercise-row {
         flex-direction: column;
         align-items: flex-start;
-        flex-grow: 1; /* Allow rows to grow */
-        height: auto; /* Ensure no fixed height restricts the children */
+        flex-grow: 1;
+        height: auto;
+        margin-bottom: 20px; /* Add margin to separate exercise rows */
+        padding-top: 20px; /* Add padding to make the exercise number more visible */
+    }
+
+    .exercise-number {
+        font-size: 1.2rem; /* Make "EXERCICE" more prominent */
+        margin-bottom: 10px; /* Add space below the exercise number */
     }
 
     .exercise-slot {
-        width: 340px !important; /* Set the width */
-        height: 175px !important; /* Force height to ensure it updates */
-        background-color: lightgray; /* Temporary background for testing */
-        border: 0.5px solid red; /* Temporary border to check the size */
+        width: 340px !important;
+        height: 175px !important;
+        background-color: lightgray;
+        border: 0.5px solid red;
+        margin-bottom: 10px; /* Add space between the slot and other elements */
     }
 
     /* Show dropdown in mobile view */
@@ -289,7 +297,7 @@
 
     .exercise-set {
         flex-direction: column;
-        gap: 20px; /* Increase space between exercises */
+        gap: 20px;
         text-align: center;
     }
 
@@ -336,26 +344,27 @@
         background-color: #e07453;
     }
 
-/* Make the 'Sauvegarder ma séance' button fixed at the right bottom */
-#exportButton {
-    width: auto; /* Adjust the width to fit the content */
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    padding: 12px 20px; /* Add padding for a better appearance */
-    border-radius: 8px;
-    font-size: 1rem;
-    text-align: center;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Make the 'Sauvegarder ma séance' button fixed at the right bottom */
+    #exportButton {
+        width: auto;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #FF8A65;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-#exportButton:hover {
-    background-color: #e07453;
+    #exportButton:hover {
+        background-color: #e07453;
+    }
 }
 }
 h2#setTitle {
