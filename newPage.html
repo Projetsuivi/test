@@ -232,22 +232,21 @@ body {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
-        overflow-y: auto; /* Ensure container scrolls properly */
-        -webkit-overflow-scrolling: touch; /* Add momentum scrolling for iOS */
+        overflow-y: visible; /* Ensure container allows for expanded height */
     }
 
     .exercise-row {
         flex-direction: column;
         align-items: flex-start;
-        flex-grow: 1;
-        height: auto;
+        flex-grow: 1; /* Allow rows to grow */
+        height: auto; /* Ensure no fixed height restricts the children */
     }
 
     .exercise-slot {
-        width: 340px !important;
-        height: 175px !important;
-        background-color: lightgray;
-        border: 0.5px solid red;
+        width: 340px !important; /* Set the width */
+        height: 175px !important; /* Force height to ensure it updates */
+        background-color: lightgray; /* Temporary background for testing */
+        border: 0.5px solid red; /* Temporary border to check the size */
     }
 
     /* Show dropdown in mobile view */
@@ -259,29 +258,25 @@ body {
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed; /* Revert back to fixed positioning */
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
         width: 100vw;
         height: 327px;
-        overflow-y: auto; /* Ensure it scrolls properly */
+        overflow-y: auto;
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        -webkit-overflow-scrolling: touch; /* Momentum scrolling for mobile devices */
-    }
-
-    /* Ensure content below video bank has padding to avoid overlap */
-    .main-container {
-        padding-top: 350px; /* Add padding equal to the video-bank height to avoid overlap */
     }
 
     .exercise-set {
         flex-direction: column;
-        gap: 20px;
+        gap: 20px; /* Increase space between exercises */
         text-align: center;
     }
 
@@ -328,6 +323,8 @@ body {
         background-color: #e07453;
     }
 }
+}
+
 h2#setTitle {
     font-size: 1.2rem;
     color: #333;
