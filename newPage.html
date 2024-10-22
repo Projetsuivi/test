@@ -227,12 +227,10 @@
 }
 
 
-         /* Bandwidth at the bottom for mobile */
-       @media (max-width: 900px) {
+         /* Mobile-friendly layout */
+@media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        margin-top: 250px;
-        overflow-y: auto;
     }
 
     .exercise-row {
@@ -251,63 +249,51 @@
         margin-top: 10px;
     }
 
-    /* Sticky video bank at the top of the page with reduced size */
+    /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed;
+        position: fixed; /* Stick it to the top */
         top: 0;
         left: 0;
         right: 0;
-        width: 100vw;
-        height: 220px; /* Reduced height for a smaller video bank */
-        overflow-y: auto;
-        overflow-x: hidden;
+        width: 100vw; /* Full width */
+        height: 220px; /* Adjusted height for the vertical video bank */
+        overflow-y: auto; /* Allow vertical scrolling inside the video bank */
+        overflow-x: hidden; /* Disable horizontal scrolling */
         display: flex;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.9);
+        flex-direction: column; /* Stack videos vertically */
+        background-color: rgba(255, 255, 255, 0.95); /* Slight opacity */
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
+        z-index: 1000; /* Ensure it's always on top */
     }
 
     .exercise-set {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
+        flex-direction: column; /* Display videos in a column */
+        gap: 10px; /* Space between videos */
     }
 
     .exercise-card {
-        min-height: 250px; /* Adjusted height for the video card */
-        width: 100%;
+        min-height: 160px; /* Adjust height to fit the container */
+        width: 100%; /* Full width for the video card */
     }
 
     .exercise-card video {
-        width: 100%; /* Keep full width */
-        height: 200px; /* Reduced height of the video */
+        width: 100%; /* Full width of the video */
+        height: 140px; /* Adjusted height for the video */
         object-fit: cover;
     }
 
     .exercise-card p {
-        font-size: 0.9rem;
-        margin-top: 5px;
+        font-size: 0.8rem; /* Font size for the title */
+        margin-top: 5px; /* Small space between the video and title */
         text-align: center;
     }
-}
+
+    /* Push the main content down to make space for the sticky video bank */
+    .main-container {
+        margin-top: 240px; /* Create space for the sticky video bank */
     }
 
-    /* Centering "Série", "Répétition", "Dégressif", and "Repos" */
-    .exercise-set {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-}
-
-/* Push the main content down to make space for the video bank */
-.main-container {
-    margin-top: 30vh;
-    overflow-y: auto;
-    height: calc(100vh - 250px); /* Adjust height to account for the fixed video bank */
-}
 
         .arrow-left, .arrow-right {
     background-color: #FF8A65;
