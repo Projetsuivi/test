@@ -241,7 +241,7 @@
         
 
 
-   @media (max-width: 900px) {
+@media (max-width: 900px) {
     .main-container {
         flex-direction: column;
         margin-top: 100px; /* Adjust the margin to make it lower */
@@ -253,13 +253,13 @@
         align-items: flex-start;
         flex-grow: 1;
         height: auto;
-        margin-bottom: 5px; /* Add margin to separate exercise rows */
-        padding-top: 200px; /* Add padding to make the exercise number more visible */
+        margin-bottom: 2px; /* Reduced margin between exercise rows */
+        padding-top: 50px; /* Reduced padding to bring exercises closer */
     }
 
     .exercise-number {
         font-size: 1.2rem; /* Make "EXERCICE" more prominent */
-        margin-bottom: 10px; /* Add space below the exercise number */
+        margin-bottom: 5px; /* Reduced space below the exercise number */
     }
 
     .exercise-slot {
@@ -267,7 +267,7 @@
         height: 175px !important;
         background-color: lightgray;
         border: 0.5px solid red;
-        margin-bottom: 10px; /* Add space between the slot and other elements */
+        margin-bottom: 5px; /* Reduced space between the slot and other elements */
     }
 
     /* Show dropdown in mobile view */
@@ -303,9 +303,9 @@
 
     /* Increase size for each exercise container */
     .exercise-card {
-        min-height: 250px;
+        min-height: 200px; /* Adjusted to reduce card size */
         width: 100%;
-        padding: 15px;
+        padding: 10px; /* Reduced padding */
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         background-color: #fff;
@@ -320,7 +320,7 @@
 
     .exercise-card p {
         font-size: 1rem;
-        margin-top: 10px;
+        margin-top: 5px; /* Reduced margin in text */
         text-align: center;
     }
 
@@ -343,6 +343,7 @@
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
     }
+}
 
     /* Make the 'Sauvegarder ma séance' button fixed at the right bottom */
     #exportButton {
