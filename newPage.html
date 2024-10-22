@@ -232,7 +232,7 @@ body {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
-        overflow-y: visible; /* Ensure container allows for expanded height */
+        overflow-y: auto; /* Ensure container scrolls properly */
     }
 
     .exercise-row {
@@ -264,8 +264,9 @@ body {
         right: 0;
         width: 100vw;
         height: 327px;
-        overflow-y: auto;
+        overflow-y: auto; /* Allow vertical scrolling */
         overflow-x: hidden;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
         display: flex;
         flex-direction: column;
         background-color: rgba(255, 255, 255, 0.9);
@@ -322,7 +323,6 @@ body {
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
     }
-}
 }
 
 h2#setTitle {
