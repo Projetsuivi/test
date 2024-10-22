@@ -27,18 +27,14 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-            background-size: cover;
-            backdrop-filter: blur(0.1px);
-            overflow: auto;
-        }
+    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    /* Remove background-attachment: fixed to improve performance on mobile */
+    background-attachment: scroll;
+    /* Remove the backdrop filter to avoid performance lag */
+    /* backdrop-filter: blur(0.1px); */
+}
 
         .container {
             background-color: rgba(255, 255, 255, 0.5);
@@ -1364,6 +1360,39 @@ document.getElementById('exportButton').addEventListener('click', exportSession)
 window.onload = function() {
     addDragAndDropListeners();
 };
+// Throttle scroll event to prevent performance lag
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+window.addEventListener('scroll', function(e) {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      // Perform scroll actions here (if any)
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+                // Add touch event support only when necessary
+function handleTouchStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
+    }
+}
+
+// Avoid unnecessary touchmove handling if not dragging
+function handleTouchMove(e) {
+    if (draggedElement) {
+        e.preventDefault();  // Only prevent scrolling if dragging
+    }
+}
+
+function handleTouchEnd(e) {
+    draggedElement = null;
+}
 </script>
 </body>
 </html>
