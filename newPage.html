@@ -232,7 +232,7 @@ body {
     .main-container {
         flex-direction: column;
         margin-top: 250px;
-        overflow-y: auto; /* Ensure smooth scrolling within the container */
+        overflow-y: auto; /* Ensure container scrolls properly */
         -webkit-overflow-scrolling: touch; /* Add momentum scrolling for iOS */
     }
 
@@ -259,7 +259,7 @@ body {
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: sticky; /* Use sticky instead of fixed for better scroll performance */
+        position: fixed; /* Revert back to fixed positioning */
         top: 0;
         left: 0;
         right: 0;
@@ -272,7 +272,11 @@ body {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
         -webkit-overflow-scrolling: touch; /* Momentum scrolling for mobile devices */
-        will-change: transform; /* Improve performance by hinting at animations */
+    }
+
+    /* Ensure content below video bank has padding to avoid overlap */
+    .main-container {
+        padding-top: 350px; /* Add padding equal to the video-bank height to avoid overlap */
     }
 
     .exercise-set {
@@ -324,8 +328,6 @@ body {
         background-color: #e07453;
     }
 }
-}
-
 h2#setTitle {
     font-size: 1.2rem;
     color: #333;
