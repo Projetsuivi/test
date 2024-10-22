@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -231,88 +229,75 @@
 @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
-    }
-
-    .exercise-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .exercise-slot {
-        width: 100%;
-    }
-
-    /* Show dropdown in mobile view */
-    .video-select {
-        display: block;
-        width: 100%;
-        margin-top: 10px;
+        margin-top: calc(20vh + 20px); /* Dynamically adjust the space below the video bank */
+        padding-bottom: 20px;
     }
 
     /* Sticky video bank at the top of the page */
     .video-bank-container {
-        position: fixed; /* Stick it to the top */
+        position: fixed; /* Ensure it sticks to the top */
         top: 0;
         left: 0;
         right: 0;
         width: 100vw; /* Full width */
-        height: 220px; /* Adjusted height for the vertical video bank */
-        overflow-y: auto; /* Allow vertical scrolling inside the video bank */
-        overflow-x: hidden; /* Disable horizontal scrolling */
+        height: 30vh; /* Adjust height to be 30% of the viewport on mobile */
+        overflow-y: auto; /* Enable vertical scrolling for the video bank */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on mobile */
         display: flex;
-        flex-direction: column; /* Stack videos vertically */
-        background-color: rgba(255, 255, 255, 0.95); /* Slight opacity */
+        flex-direction: column;
+        background-color: rgba(255, 255, 255, 0.95);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000; /* Ensure it's always on top */
+        z-index: 1000; /* Keep it on top */
     }
 
     .exercise-set {
-        flex-direction: column; /* Display videos in a column */
-        gap: 10px; /* Space between videos */
+        flex-direction: column; /* Stack videos vertically */
+        gap: 10px; /* Space between video cards */
     }
 
     .exercise-card {
-        min-height: 160px; /* Adjust height to fit the container */
+        min-height: 160px; /* Adjust height for mobile */
         width: 100%; /* Full width for the video card */
     }
 
     .exercise-card video {
-        width: 100%; /* Full width of the video */
-        height: 140px; /* Adjusted height for the video */
-        object-fit: cover;
+        width: 100%; /* Full width for the video */
+        height: auto; /* Automatically adjust the height */
+        object-fit: contain; /* Prevent video from being cut off */
     }
 
     .exercise-card p {
-        font-size: 0.8rem; /* Font size for the title */
-        margin-top: 5px; /* Small space between the video and title */
+        font-size: 0.8rem; /* Adjust font size for mobile */
+        margin-top: 5px;
         text-align: center;
     }
 
-    /* Push the main content down to make space for the sticky video bank */
+    /* Ensure content doesn't overlap the video bank */
     .main-container {
-        margin-top: 240px; /* Create space for the sticky video bank */
+        margin-top: calc(30vh + 10px); /* Ensure there's enough space for the video bank */
     }
 
+    /* Adjust the size and positioning of arrows */
+    .arrow-left, .arrow-right {
+        background-color: #FF8A65;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+        margin: 0 10px;
+    }
 
-        .arrow-left, .arrow-right {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    margin: 0 10px; /* Space around the arrows */
-}
-
-.arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453;
+    .arrow-left:hover, .arrow-right:hover {
+        background-color: #e07453;
+    }
 }
 
 h2#setTitle {
