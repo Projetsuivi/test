@@ -240,11 +240,16 @@
 
     .exercise-slot {
         width: 100%;
-        height: 1500px; /* Increased height to match the video bank size */
+        height: 300px; /* Increased height to give more space for video dropping */
+        margin-bottom: 20px; /* Add margin to give more space between exercise slots */
+        padding: 10px; /* Optional: Add padding inside the exercise slot for spacing */
+        border: 2px dashed #FF8A65; /* Add a dashed border to visually indicate drop area */
+        background-color: #f9f9f9; /* Optional: Light background to indicate drop area */
+        border-radius: 12px; /* Optional: Add border-radius for smoother edges */
     }
 
     .exercise-slot video {
-        height: 220px; /* Increased height for video in exercise slot */
+        height: 240px; /* Increased height for video in exercise slot */
         object-fit: cover;
     }
 
