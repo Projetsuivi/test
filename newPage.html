@@ -56,29 +56,24 @@
         }
 
         #exportButton {
-#exportButton {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.2s;
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    max-width: 100vw;
-    z-index: 1000;
-    text-align: center;
-}
+            background-color: #FF8A65;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 18px;
+            align-self: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-#exportButton:hover {
-    background-color: #e07453;
-    transform: translateY(-2px);
-}
-
+        #exportButton:hover {
+            background-color: #e07453;
+            transform: translateY(-2px);
+        }
 
         /* Styles for the Lock Button */
         .main-container {
@@ -228,47 +223,14 @@
     align-items: center;
     margin-bottom: 15px;
 }
-.arrow-left, .arrow-right {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    margin: 0 10px; /* Space around the arrows */
-}
 
-.arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453;
-}
 
        @media (max-width: 900px) {
-    }
     .main-container {
         flex-direction: column;
         margin-top: 250px;
         overflow-y: visible; /* Ensure container allows for expanded height */
     }
-            #exportButton {
-            background-color: #FF8A65;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 18px;
-            align-self: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.2s;
-        }
 
     .exercise-row {
         flex-direction: column;
@@ -338,27 +300,26 @@
         text-align: center;
     }
 
-   /* Style for the arrow buttons */
-        .arrow-left, .arrow-right {
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-    margin: 0 10px; /* Space around the arrows */
-}
+    .arrow-left, .arrow-right {
+        background-color: #FF8A65;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+        margin: 0 10px;
+    }
 
-.arrow-left:hover, .arrow-right:hover {
-    background-color: #e07453;
+    .arrow-left:hover, .arrow-right:hover {
+        background-color: #e07453;
+    }
 }
-
 
 h2#setTitle {
     font-size: 1.2rem;
@@ -491,7 +452,7 @@ h2#setTitle {
     margin-left: 10px;        /* Adjust left margin as needed */
     margin-right: 50px;       /* Adjust right margin as needed */
     height: 100%;             /* Ensure it takes up the full height of its container */
-}         
+}
 
 
     </style>
