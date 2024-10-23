@@ -1372,19 +1372,19 @@ h2#setTitle {
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
+let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 function nextSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
-        currentElement.style.display = 'none';
+        currentElement.classList.remove('active');
     }
 
     currentSet = (currentSet % totalSets) + 1;
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
-        nextElement.style.display = 'flex';
+        nextElement.classList.add('active');
     }
 
     updateTitle();
@@ -1393,13 +1393,13 @@ function nextSet() {
 function prevSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
-        currentElement.style.display = 'none';
+        currentElement.classList.remove('active');
     }
 
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
-        prevElement.style.display = 'flex';
+        prevElement.classList.add('active');
     }
 
     updateTitle();
@@ -1527,33 +1527,32 @@ function cloneVideoToSlot(exerciseNumber) {
     const selectedValue = selectElement.value;  // Get the selected video ID
 
     if (selectedValue) {
-        // Find the corresponding video in the video bank by its ID
         const videoElement = document.getElementById(selectedValue);
 
         if (videoElement) {
-            // Get the video details (source, poster, etc.)
             const draggedVideo = videoElement.querySelector('video');
             const videoSrc = draggedVideo.src;
             const videoPoster = draggedVideo.poster;
 
-            // Get the exercise slot where the video should be placed
             const slotElement = document.getElementById(`slot${exerciseNumber}`);
 
-            // Clear any previous content in the slot
-            slotElement.innerHTML = '';
+            let videoTag = slotElement.querySelector('video');
+            let titleElement = slotElement.querySelector('p');
 
-            // Create a new video element and append it to the slot
-            const newVideo = document.createElement('video');
-            newVideo.controls = true;
-            newVideo.src = videoSrc;
-            newVideo.poster = videoPoster;
-            newVideo.width = 270;  // Set the width of the video
-            slotElement.appendChild(newVideo);
+            if (!videoTag) {
+                videoTag = document.createElement('video');
+                videoTag.controls = true;
+                slotElement.appendChild(videoTag);
+            }
 
-            // Add the title below the video
-            const titleElement = document.createElement('p');
+            if (!titleElement) {
+                titleElement = document.createElement('p');
+                slotElement.appendChild(titleElement);
+            }
+
+            videoTag.src = videoSrc;
+            videoTag.poster = videoPoster;
             titleElement.textContent = videoElement.querySelector('p').textContent;
-            slotElement.appendChild(titleElement);
         }
     }
 }
@@ -1694,6 +1693,7 @@ window.onload = function() {
     addDragAndDropListeners();
     displayCurrentDate();
 };
+
 // Throttle scroll event to prevent performance lag
 let lastKnownScrollPosition = 0;
 let ticking = false;
