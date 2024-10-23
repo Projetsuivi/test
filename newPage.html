@@ -544,155 +544,479 @@ h2#setTitle {
     </style>
 </head>
 <body>
+<div class="workout-container">
+    <!-- Exercise Row 1 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 1</div>
+        <div class="exercise-slot" id="slot1"></div>
+        <div class="slider-group">
+            <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif1">Dégressif</label>
+            <input type="checkbox" id="degressif1">
+        </div>
+        <div class="rest-group">
+            <label for="rest1">Repos</label>
+            <select id="rest1" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
 
-<!-- Exercice 1 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 1</div>
-    <div class="exercise-slot" id="slot1"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise1">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise1" onchange="cloneVideoToSlot(1)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Triceps -->
-            <option value="video1">Barre au front + Chaise</option>
-            <option value="video2">Extension Coudes Corde</option>
-            <option value="video3">Extension Coudes Banc Incliné</option>
-            <option value="video4">Triceps Unilatéral</option>
-            <option value="video5">Dips</option>
-            <option value="video6">Dips assistés</option>
-            <option value="video7">Extension de coudes</option>
-            <!-- Biceps -->
-            <option value="video8">Biceps unilatéral</option>
-            <option value="video9">Curl Incliné + Dégressif</option>
-            <option value="video10">Curl Prise Marteaux</option>
-            <option value="video11">Curl Biceps Supination</option>
-            <option value="video12">Curl Supination Poulie</option>
-            <option value="video13">Curl Prise inverse</option>
-            <!-- Pectoraux -->
-            <option value="video14">Écartés Poulies coudes rentrés</option>
-            <option value="video15">Écartés Poulies Hautes</option>
-            <option value="video16">Bench machine Tempo</option>
-            <option value="video17">Développé Couché haltere</option>
-            <!-- Jambes -->
-            <option value="video18">Fentes Bulgares</option>
-            <option value="video19">Legs Extension</option>
-            <option value="video20">Presse Verticale</option>
-            <option value="video21">Soulevé de Terre</option>
-            <option value="video22">Squat</option>
-            <!-- Épaules -->
-            <option value="video23">Élévations Latérales Machine</option>
-            <option value="video24">Élévations Frontales en Dégressif</option>
-            <option value="video25">Élévations Latérales Poulie</option>
-            <option value="video26">Développé Militaire Smith Guidé</option>
-            <!-- Dos -->
-            <option value="video27">Relevés de Buste</option>
-            <option value="video28">Tractions Assistées</option>
-            <option value="video29">Tirage Dorsaux</option>
-            <option value="video30">Tirage Horizontal Machine</option>
-            <option value="video31">Tirage Inversé</option>
-        </select>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise1">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise1" onchange="cloneVideoToSlot(1)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
     </div>
+
+    <!-- Exercise Row 2 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 2</div>
+        <div class="exercise-slot" id="slot2"></div>
+        <div class="slider-group">
+            <label for="series2">Séries: <span id="seriesValue2">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps2">Répétitions: <span id="repsValue2">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps2" oninput="document.getElementById('repsValue2').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif2">Dégressif</label>
+            <input type="checkbox" id="degressif2">
+        </div>
+        <div class="rest-group">
+            <label for="rest2">Repos</label>
+            <select id="rest2" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise2">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise2" onchange="cloneVideoToSlot(2)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise Row 3 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 3</div>
+        <div class="exercise-slot" id="slot3"></div>
+        <div class="slider-group">
+            <label for="series3">Séries: <span id="seriesValue3">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series3" oninput="document.getElementById('seriesValue3').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps3">Répétitions: <span id="repsValue3">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps3" oninput="document.getElementById('repsValue3').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif3">Dégressif</label>
+            <input type="checkbox" id="degressif3">
+        </div>
+        <div class="rest-group">
+            <label for="rest3">Repos</label>
+            <select id="rest3" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise3">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise3" onchange="cloneVideoToSlot(3)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise Row 4 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 4</div>
+        <div class="exercise-slot" id="slot4"></div>
+        <div class="slider-group">
+            <label for="series4">Séries: <span id="seriesValue4">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series4" oninput="document.getElementById('seriesValue4').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps4">Répétitions: <span id="repsValue4">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps4" oninput="document.getElementById('repsValue4').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif4">Dégressif</label>
+            <input type="checkbox" id="degressif4">
+        </div>
+        <div class="rest-group">
+            <label for="rest4">Repos</label>
+            <select id="rest4" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise4">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise4" onchange="cloneVideoToSlot(4)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise Row 5 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 5</div>
+        <div class="exercise-slot" id="slot5"></div>
+        <div class="slider-group">
+            <label for="series5">Séries: <span id="seriesValue5">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series5" oninput="document.getElementById('seriesValue5').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps5">Répétitions: <span id="repsValue5">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps5" oninput="document.getElementById('repsValue5').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif5">Dégressif</label>
+            <input type="checkbox" id="degressif5">
+        </div>
+        <div class="rest-group">
+            <label for="rest5">Repos</label>
+            <select id="rest5" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise5">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise5" onchange="cloneVideoToSlot(5)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise Row 6 -->
+    <div class="exercise-row">
+        <div class="exercise-number">Exercice 6</div>
+        <div class="exercise-slot" id="slot6"></div>
+        <div class="slider-group">
+            <label for="series6">Séries: <span id="seriesValue6">3</span></label>
+            <input type="range" min="1" max="6" value="3" class="slider" id="series6" oninput="document.getElementById('seriesValue6').textContent = this.value;">
+        </div>
+        <div class="slider-group">
+            <label for="reps6">Répétitions: <span id="repsValue6">10</span></label>
+            <input type="range" min="1" max="30" value="10" class="slider" id="reps6" oninput="document.getElementById('repsValue6').textContent = this.value;">
+        </div>
+        <div class="checkbox-group">
+            <label for="degressif6">Dégressif</label>
+            <input type="checkbox" id="degressif6">
+        </div>
+        <div class="rest-group">
+            <label for="rest6">Repos</label>
+            <select id="rest6" class="rest-dropdown">
+                <option value="5">15 sec</option>
+                <option value="10">30 sec</option>
+                <option value="15">45 sec</option>
+                <option value="30">1 min</option>
+                <option value="45">1 min 15</option>
+                <option value="60">1 min 30 sec</option>
+                <option value="90">1 min 45 sec</option>
+                <option value="120">2 min</option>
+                <option value="150">2 min 15 sec</option>
+                <option value="180">2 min 30 sec</option>
+                <option value="195">2 min 45 sec</option>
+                <option value="210">3 min</option>
+                <option value="225">3 min 15 sec</option>
+                <option value="240">3 min 30 sec</option>
+                <option value="255">3 min 45 sec</option>
+                <option value="270">4 min</option>
+            </select>
+        </div>
+        <!-- Mobile dropdown for video selection -->
+        <div class="mobile-video-select">
+            <label for="selectExercise6">Sélectionner une vidéo:</label>
+            <select class="video-select" id="selectExercise6" onchange="cloneVideoToSlot(6)">
+                <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
+                <option value="video1">Barre au front + Chaise</option>
+                <option value="video2">Extension Coudes Corde</option>
+                <option value="video3">Extension Coudes Banc Incliné</option>
+                <option value="video4">Triceps Unilatéral</option>
+                <option value="video5">Dips</option>
+                <option value="video6">Dips assistés</option>
+                <option value="video7">Extension de coudes</option>
+                <option value="video8">Biceps unilatéral</option>
+                <option value="video9">Curl Incliné + Dégressif</option>
+                <option value="video10">Curl Prise Marteaux</option>
+                <option value="video11">Curl Biceps Supination</option>
+                <option value="video12">Curl Supination Poulie</option>
+                <option value="video13">Curl Prise inverse</option>
+                <option value="video14">Écartés Poulies coudes rentrés</option>
+                <option value="video15">Écartés Poulies Hautes</option>
+                <option value="video16">Bench machine Tempo</option>
+                <option value="video17">Développé Couché haltere</option>
+                <option value="video18">Fentes Bulgares</option>
+                <option value="video19">Legs Extension</option>
+                <option value="video20">Presse Verticale</option>
+                <option value="video21">Soulevé de Terre</option>
+                <option value="video22">Squat</option>
+                <option value="video23">Élévations Latérales Machine</option>
+                <option value="video24">Élévations Frontales en Dégressif</option>
+                <option value="video25">Élévations Latérales Poulie</option>
+                <option value="video26">Développé Militaire Smith Guidé</option>
+                <option value="video27">Relevés de Buste</option>
+                <option value="video28">Tractions Assistées</option>
+                <option value="video29">Tirage Dorsaux</option>
+                <option value="video30">Tirage Horizontal Machine</option>
+                <option value="video31">Tirage Inversé</option>
+            </select>
+        </div>
+    </div>
+
 </div>
 
-<!-- Exercice 2 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 2</div>
-    <div class="exercise-slot" id="slot2"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise2">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise2" onchange="cloneVideoToSlot(2)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Same options as Exercice 1 -->
-            <option value="video1">Barre au front + Chaise</option>
-            <option value="video2">Extension Coudes Corde</option>
-            <option value="video3">Extension Coudes Banc Incliné</option>
-            <option value="video4">Triceps Unilatéral</option>
-            <option value="video5">Dips</option>
-            <option value="video6">Dips assistés</option>
-            <option value="video7">Extension de coudes</option>
-            <option value="video8">Biceps unilatéral</option>
-            <option value="video9">Curl Incliné + Dégressif</option>
-            <option value="video10">Curl Prise Marteaux</option>
-            <option value="video11">Curl Biceps Supination</option>
-            <option value="video12">Curl Supination Poulie</option>
-            <option value="video13">Curl Prise inverse</option>
-            <option value="video14">Écartés Poulies coudes rentrés</option>
-            <option value="video15">Écartés Poulies Hautes</option>
-            <option value="video16">Bench machine Tempo</option>
-            <option value="video17">Développé Couché haltere</option>
-            <option value="video18">Fentes Bulgares</option>
-            <option value="video19">Legs Extension</option>
-            <option value="video20">Presse Verticale</option>
-            <option value="video21">Soulevé de Terre</option>
-            <option value="video22">Squat</option>
-            <option value="video23">Élévations Latérales Machine</option>
-            <option value="video24">Élévations Frontales en Dégressif</option>
-            <option value="video25">Élévations Latérales Poulie</option>
-            <option value="video26">Développé Militaire Smith Guidé</option>
-            <option value="video27">Relevés de Buste</option>
-            <option value="video28">Tractions Assistées</option>
-            <option value="video29">Tirage Dorsaux</option>
-            <option value="video30">Tirage Horizontal Machine</option>
-            <option value="video31">Tirage Inversé</option>
-        </select>
-    </div>
-</div>
 
-<!-- Exercice 3 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 3</div>
-    <div class="exercise-slot" id="slot3"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise3">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise3" onchange="cloneVideoToSlot(3)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Same options as Exercice 1 -->
-            <!-- All video options here... -->
-        </select>
-    </div>
-</div>
-
-<!-- Exercice 4 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 4</div>
-    <div class="exercise-slot" id="slot4"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise4">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise4" onchange="cloneVideoToSlot(4)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Same options as Exercice 1 -->
-            <!-- All video options here... -->
-        </select>
-    </div>
-</div>
-
-<!-- Exercice 5 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 5</div>
-    <div class="exercise-slot" id="slot5"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise5">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise5" onchange="cloneVideoToSlot(5)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Same options as Exercice 1 -->
-            <!-- All video options here... -->
-        </select>
-    </div>
-</div>
-
-<!-- Exercice 6 -->
-<div class="exercise-row">
-    <div class="exercise-number">Exercice 6</div>
-    <div class="exercise-slot" id="slot6"></div>
-    <div class="mobile-video-select">
-        <label for="selectExercise6">Sélectionner une vidéo:</label>
-        <select class="video-select" id="selectExercise6" onchange="cloneVideoToSlot(6)">
-            <option value="" selected disabled>Choisir</option>
-            <!-- Same options as Exercice 1 -->
-            <!-- All video options here... -->
-        </select>
-    </div>
-</div>
 </script>
 
 </body>
@@ -1916,10 +2240,7 @@ function handleTouchMove(e) {
 }
 
 function handleTouchEnd(e) {
-    draggedElement = null;
-}
-
-        function cloneVideoToSlot(exerciseNumber) {
+    draggedElement =  function cloneVideoToSlot(exerciseNumber) {
         const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
         const selectedValue = selectElement.value;
 
@@ -1928,14 +2249,8 @@ function handleTouchEnd(e) {
             if (videoElement) {
                 const clonedElement = videoElement.cloneNode(true);
                 const slotElement = document.getElementById(`slot${exerciseNumber}`);
-                slotElement.innerHTML = ''; // Clear existing content
-                const clonedVideo = clonedElement.querySelector('video').cloneNode(true);
-                clonedVideo.controls = true;
-                slotElement.appendChild(clonedVideo);
-                const videoTitle = clonedElement.querySelector('p').textContent;
-                const titleElement = document.createElement('p');
-                titleElement.textContent = videoTitle;
-                slotElement.appendChild(titleElement);
+                slotElement.innerHTML = ''; // Clear current content
+                slotElement.appendChild(clonedElement); // Insert new video
             }
         }
     }
