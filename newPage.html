@@ -1681,6 +1681,23 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
+function nextSet() {
+    console.log("Current Set Before: " + currentSet);
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
+    currentSet = (currentSet % totalSets) + 1;
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
+    updateTitle();
+    console.log("Current Set After: " + currentSet);
+}
+
+function prevSet() {
+    console.log("Current Set Before: " + currentSet);
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
+    updateTitle();
+    console.log("Current Set After: " + currentSet);
+}
 </script>
 </body>
 </html>
