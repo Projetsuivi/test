@@ -242,9 +242,13 @@
 
 
 @media (max-width: 900px) {
+    /* Increase the space from the top for the exercise rows */
+    .workout-container {
+        margin-top: 600px; /* Adjust the margin to push the exercise rows further down */
+    }
+
     .main-container {
         flex-direction: column;
-        margin-top: 1000px; /* Increased margin to push exercises lower */
         overflow-y: visible; /* Ensure container allows for expanded height */
     }
 
@@ -254,7 +258,7 @@
         flex-grow: 1;
         height: auto;
         margin-bottom: 2px; /* Reduced margin between exercise rows */
-        padding-top: 35px; /* Reduced padding between exercises */
+        padding-top: 35px; /* Padding between exercises */
     }
 
     .exercise-number {
