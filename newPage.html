@@ -343,6 +343,46 @@
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
     }
+
+    /* Video selection and exercise assignment functionality for mobile */
+    .video-assign-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .video-assign-container select {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .assign-btn {
+        background-color: #FF8A65;
+        color: white;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .assign-btn:hover {
+        background-color: #e07453;
+    }
+
+    .assigned-video-list {
+        margin-top: 20px;
+    }
+
+    .assigned-video-item {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
 }
 
     /* Make the 'Sauvegarder ma séance' button fixed at the right bottom */
@@ -1424,6 +1464,27 @@ function handleTouchMove(e) {
 function handleTouchEnd(e) {
     draggedElement = null;
 }
+document.getElementById('assign-video-btn').addEventListener('click', function() {
+    const videoSelect = document.getElementById('video-select');
+    const exerciseSelect = document.getElementById('exercise-select');
+    const assignedVideos = document.getElementById('assigned-videos');
+    
+    const selectedVideo = videoSelect.value;
+    const selectedExercise = exerciseSelect.value;
+    
+    if (selectedVideo && selectedExercise) {
+        const assigned = document.createElement('p');
+        assigned.innerHTML = `Assigned <strong>${selectedVideo}</strong> to <strong>${selectedExercise}</strong>`;
+        assignedVideos.appendChild(assigned);
+        
+        // Reset the dropdowns after assigning
+        videoSelect.value = "";
+        exerciseSelect.value = "";
+    } else {
+        alert('Please select both a video and an exercise.');
+    }
+});
+
 </script>
 </body>
 </html>
