@@ -1711,7 +1711,7 @@ function handleTouchEnd(e) {
     const selectedValue = selectElement.value;  // Get the selected video ID
 
     if (selectedValue) {
-        // Get the corresponding video from the video bank using its ID
+        // Find the corresponding video in the video bank by its ID
         const videoElement = document.getElementById(selectedValue);
 
         if (videoElement) {
@@ -1730,7 +1730,7 @@ function handleTouchEnd(e) {
             clonedVideoElement.width = 270;      // Set the width of the video
             slotElement.appendChild(clonedVideoElement);  // Insert the new video
 
-            // Also, add the title below the video
+            // Add the title below the video
             const titleElement = document.createElement('p');
             titleElement.textContent = videoTitle;
             slotElement.appendChild(titleElement);
