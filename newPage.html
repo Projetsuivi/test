@@ -1420,10 +1420,6 @@ function displayCurrentDate() {
     dateElement.textContent = formattedDate;
 }
 
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-};
 
 // Drag and Drop functionality
 let draggedElement = null;
@@ -1728,6 +1724,21 @@ window.addEventListener('scroll', function() {
         ticking = true;
     }
 });
+window.onload = function() {
+    // Initialize the page functionalities
+    displayCurrentDate();
+    addDragAndDropListeners();
+
+    // Set the initial exercise set display
+    updateTitle();
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'flex';
+
+    // Add event listeners to arrows
+    document.querySelector(".arrow-left").addEventListener("click", prevSet);
+    document.querySelector(".arrow-right").addEventListener("click", nextSet);
+};
+
+// Drag and Drop functionality (rest of the code remains as-is)
 </script>
 </body>
 </html>
