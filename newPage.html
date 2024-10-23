@@ -298,6 +298,9 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
     }
+    .video-bank-container {
+    will-change: transform; /* Optimize scrolling performance */
+}
 
     .exercise-set {
         flex-direction: column;
@@ -1440,9 +1443,10 @@ function handleTouchStart(e) {
 }
 
 function handleTouchMove(e) {
-    e.preventDefault();
+    if (draggedElement) {
+        e.preventDefault();
+    }
 }
-
 function handleTouchEnd(e) {
     draggedElement = null;
 }
@@ -1713,7 +1717,21 @@ window.addEventListener('scroll', function() {
 
         ticking = true;
     }
-});
+});// Reduce the frequency of scroll events triggering operations
+function throttleScroll(fn, wait) {
+    let time = Date.now();
+    return function() {
+        if ((time + wait - Date.now()) < 0) {
+            fn();
+            time = Date.now();
+        }
+    }
+}
+
+window.addEventListener('scroll', throttleScroll(function() {
+    // Your scroll event logic here
+}, 100));  // Adjust the wait time to 100ms or your preference
+document.getElementById('exerciseSetsContainer').scrollTop = 0;
 </script>
 </body>
 </html>
