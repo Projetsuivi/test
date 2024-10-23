@@ -1702,37 +1702,38 @@ function handleTouchEnd(e) {
             }
         }
     }
+    <script>
     function cloneVideoToSlot(exerciseNumber) {
-    const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
-    const selectedValue = selectElement.value;  // Get the selected video ID
+        const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
+        const selectedValue = selectElement.value;  // Get the selected video ID
 
-    if (selectedValue) {
-        // Find the corresponding video in the video bank by its ID
-        const videoElement = document.getElementById(selectedValue);
+        if (selectedValue) {
+            // Find the corresponding video in the video bank by its ID
+            const videoElement = document.getElementById(selectedValue);
 
-        if (videoElement) {
-            // Clone the video element and the title
-            const clonedVideoElement = videoElement.querySelector('video').cloneNode(true);
-            const videoTitle = videoElement.querySelector('p').textContent;
+            if (videoElement) {
+                // Clone the video element and the title
+                const clonedVideoElement = videoElement.querySelector('video').cloneNode(true);
+                const videoTitle = videoElement.querySelector('p').textContent;
 
-            // Get the exercise slot where the video should be placed
-            const slotElement = document.getElementById(`slot${exerciseNumber}`);
+                // Get the exercise slot where the video should be placed
+                const slotElement = document.getElementById(`slot${exerciseNumber}`);
 
-            // Clear any previous content in the slot
-            slotElement.innerHTML = '';
+                // Clear any previous content in the slot
+                slotElement.innerHTML = '';
 
-            // Add the cloned video to the slot
-            clonedVideoElement.controls = true;  // Ensure video has controls
-            clonedVideoElement.width = 270;      // Set the width of the video
-            slotElement.appendChild(clonedVideoElement);  // Insert the new video
+                // Add the cloned video to the slot
+                clonedVideoElement.controls = true;  // Ensure video has controls
+                clonedVideoElement.width = 270;      // Set the width of the video
+                slotElement.appendChild(clonedVideoElement);  // Insert the new video
 
-            // Add the title below the video
-            const titleElement = document.createElement('p');
-            titleElement.textContent = videoTitle;
-            slotElement.appendChild(titleElement);
+                // Add the title below the video
+                const titleElement = document.createElement('p');
+                titleElement.textContent = videoTitle;
+                slotElement.appendChild(titleElement);
+            }
         }
     }
-}
 </script>
 </body>
 </html>
