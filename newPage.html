@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1376,7 +1377,7 @@ h2#setTitle {
 </div>
             
             <script>
-         let currentSet = 1;  // Start with Set 1
+        let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
@@ -1420,12 +1421,6 @@ h2#setTitle {
         ];
         document.getElementById("setTitle").textContent = titles[currentSet - 1];
     }
-
-    window.onload = function() {
-        updateTitle();
-        document.getElementById(`exerciseSet${currentSet}`).style.display = 'flex';
-        // Other initialization code if needed
-    };
 
     function displayCurrentDate() {
         const dateElement = document.getElementById("dateDisplay");
@@ -1743,26 +1738,6 @@ function handleTouchEnd(e) {
             }
         }
     }
-    // Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-function doSomethingOnScroll(scrollPos) {
-    // Add scroll-specific functionality here, if needed
-}
-
-window.addEventListener('scroll', function() {
-    lastKnownScrollPosition = window.scrollY;
-
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            doSomethingOnScroll(lastKnownScrollPosition);
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-console.log(currentSet);
 </script>
 </body>
 </html>
