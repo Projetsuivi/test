@@ -26,14 +26,8 @@
             box-sizing: border-box;
         }
 
-        body {
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
-                url('logo.png') no-repeat center center;
-    background-size: cover;
-    /* Remove background-attachment: fixed to improve performance on mobile */
+       body {
     background-attachment: scroll;
-    /* Remove the backdrop filter to avoid performance lag */
-    /* backdrop-filter: blur(0.1px); */
 }
 
         .container {
@@ -168,6 +162,7 @@
     padding: 15px; /* Reduced padding to make the container more compact */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    will-change: transform;;
 }
 
         .exercise-set {
