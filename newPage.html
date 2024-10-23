@@ -1714,6 +1714,67 @@ window.addEventListener('scroll', function() {
         ticking = true;
     }
 });
+// Adjust onload to remove previous sticky positioning and ensure scrolling works
+window.onload = function() {
+    displayCurrentDate();
+    addDragAndDropListeners();
+    // Make sure the first exercise set is visible
+    document.getElementById('exerciseSet1').classList.add('active');
+    enableScrollingInContainers();
+};
+
+// Ensure scrolling within the workout and video bank containers
+function enableScrollingInContainers() {
+    const mainContainer = document.querySelector('.main-container');
+    const workoutContainer = document.querySelector('.workout-container');
+    const videoBankContainer = document.querySelector('.video-bank-container');
+
+    // Make sure the workout and video bank containers scroll, not the main container
+    workoutContainer.style.overflowY = 'auto';
+    videoBankContainer.style.overflowY = 'auto';
+}
+
+// Function to properly switch between exercise sets
+function nextSet() {
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        currentElement.classList.remove('active');
+    }
+
+    currentSet = (currentSet % totalSets) + 1;
+    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (nextElement) {
+        nextElement.classList.add('active');
+    }
+
+    updateTitle();
+    scrollToTopOfContainer(); // Ensure scrolling works within container
+}
+
+function prevSet() {
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        currentElement.classList.remove('active');
+    }
+
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (prevElement) {
+        prevElement.classList.add('active');
+    }
+
+    updateTitle();
+    scrollToTopOfContainer(); // Ensure scrolling works within container
+}
+
+// Function to scroll to the top of the current active container
+function scrollToTopOfContainer() {
+    const workoutContainer = document.querySelector('.workout-container');
+    workoutContainer.scrollTop = 0; // Scroll to the top of the workout container
+}
+
+// Initialize event listeners and proper scrolling
+window.addEventListener('load', enableScrollingInContainers);
 </script>
 </body>
 </html>
