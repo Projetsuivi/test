@@ -1378,13 +1378,13 @@ const totalSets = 6; // Total number of sets
 function nextSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
-        currentElement.classList.remove('active');
+        currentElement.style.display = "none";  // Hide current set
     }
 
-    currentSet = (currentSet % totalSets) + 1;
+    currentSet = (currentSet % totalSets) + 1;  // Move to the next set
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
-        nextElement.classList.add('active');
+        nextElement.style.display = "block";  // Show next set
     }
 
     updateTitle();
@@ -1394,13 +1394,13 @@ function nextSet() {
 function prevSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
-        currentElement.classList.remove('active');
+        currentElement.style.display = "none";  // Hide current set
     }
 
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;  // Move to the previous set
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
-        prevElement.classList.add('active');
+        prevElement.style.display = "block";  // Show previous set
     }
 
     updateTitle();
@@ -1419,20 +1419,13 @@ function updateTitle() {
     document.getElementById("setTitle").textContent = titles[currentSet - 1];
 }
 
-function displayCurrentDate() {
-    const dateElement = document.getElementById("dateDisplay");
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = today.toLocaleDateString('fr-FR', options);
-    dateElement.textContent = formattedDate;
+function scrollToTopOfContainer() {
+    const workoutContainer = document.querySelector('.workout-container');
+    workoutContainer.scrollTop = 0;  // Scroll to the top of the workout container
 }
 
 window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-    // Make sure the first exercise set is visible on load
-    document.getElementById('exerciseSet1').classList.add('active');
-    enableScrollingInContainers();
+    document.getElementById('exerciseSet1').style.display = "block";  // Show the first set on load
 };
 
 function enableScrollingInContainers() {
