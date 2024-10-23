@@ -1372,36 +1372,34 @@ h2#setTitle {
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
-const totalSets = 6; // Total number of sets
+let currentSet = 1;
+const totalSets = 6;  // Total number of sets
 
 function nextSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
-    currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(exerciseSet${currentSet});
-    if (nextElement) {
-        nextElement.style.display = 'flex';
-    }
-
+    // Hide the current set
+    document.getElementById(exerciseSet${currentSet}).style.display = 'none';
+    
+    // Increment the set counter
+    currentSet = (currentSet % totalSets) + 1;  // Ensures looping to the first set after the last
+    
+    // Show the next set
+    document.getElementById(exerciseSet${currentSet}).style.display = 'block';
+    
+    // Update the set title
     updateTitle();
 }
 
 function prevSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
+    // Hide the current set
+    document.getElementById(exerciseSet${currentSet}).style.display = 'none';
+    
+    // Decrement the set counter, loop back to the last set if on the first
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(exerciseSet${currentSet});
-    if (prevElement) {
-        prevElement.style.display = 'flex';
-    }
-
+    
+    // Show the previous set
+    document.getElementById(exerciseSet${currentSet}).style.display = 'block';
+    
+    // Update the set title
     updateTitle();
 }
 
@@ -1428,7 +1426,25 @@ function displayCurrentDate() {
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
+    // Make sure the first exercise set is visible on load
+    document.getElementById('exerciseSet1').classList.add('active');
+    enableScrollingInContainers();
 };
+
+function enableScrollingInContainers() {
+    const workoutContainer = document.querySelector('.workout-container');
+    const videoBankContainer = document.querySelector('.video-bank-container');
+
+    // Ensure workout and video bank containers are scrollable
+    workoutContainer.style.overflowY = 'auto';
+    videoBankContainer.style.overflowY = 'auto';
+}
+
+// Function to scroll to the top of the current container when switching sets
+function scrollToTopOfContainer() {
+    const workoutContainer = document.querySelector('.workout-container');
+    workoutContainer.scrollTop = 0;  // Scroll to the top of the workout container
+}
 
 // Drag and Drop functionality
 let draggedElement = null;
@@ -1483,17 +1499,6 @@ function handleDropOnSlot(e) {
     }
 }
 
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
-    }
-}
-
 function addDragAndDropListeners() {
     const videoElements = document.querySelectorAll('.draggable');
     videoElements.forEach(video => {
@@ -1507,17 +1512,6 @@ function addDragAndDropListeners() {
     exerciseSlots.forEach(slot => {
         slot.addEventListener('dragover', handleDragOver);
         slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
-        });
-    });
-
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
     });
 }
 
@@ -1527,33 +1521,32 @@ function cloneVideoToSlot(exerciseNumber) {
     const selectedValue = selectElement.value;  // Get the selected video ID
 
     if (selectedValue) {
-        // Find the corresponding video in the video bank by its ID
         const videoElement = document.getElementById(selectedValue);
 
         if (videoElement) {
-            // Get the video details (source, poster, etc.)
             const draggedVideo = videoElement.querySelector('video');
             const videoSrc = draggedVideo.src;
             const videoPoster = draggedVideo.poster;
 
-            // Get the exercise slot where the video should be placed
             const slotElement = document.getElementById(slot${exerciseNumber});
 
-            // Clear any previous content in the slot
-            slotElement.innerHTML = '';
+            let videoTag = slotElement.querySelector('video');
+            let titleElement = slotElement.querySelector('p');
 
-            // Create a new video element and append it to the slot
-            const newVideo = document.createElement('video');
-            newVideo.controls = true;
-            newVideo.src = videoSrc;
-            newVideo.poster = videoPoster;
-            newVideo.width = 270;  // Set the width of the video
-            slotElement.appendChild(newVideo);
+            if (!videoTag) {
+                videoTag = document.createElement('video');
+                videoTag.controls = true;
+                slotElement.appendChild(videoTag);
+            }
 
-            // Add the title below the video
-            const titleElement = document.createElement('p');
+            if (!titleElement) {
+                titleElement = document.createElement('p');
+                slotElement.appendChild(titleElement);
+            }
+
+            videoTag.src = videoSrc;
+            videoTag.poster = videoPoster;
             titleElement.textContent = videoElement.querySelector('p').textContent;
-            slotElement.appendChild(titleElement);
         }
     }
 }
@@ -1629,7 +1622,7 @@ function exportSession() {
     ;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -1688,32 +1681,23 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-    displayCurrentDate();
-};
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-function doSomethingOnScroll(scrollPos) {
-    // Example: Add scroll-specific functionality here, if needed
+function nextSet() {
+    console.log("Current Set Before: " + currentSet);
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
+    currentSet = (currentSet % totalSets) + 1;
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
+    updateTitle();
+    console.log("Current Set After: " + currentSet);
 }
 
-window.addEventListener('scroll', function() {
-    lastKnownScrollPosition = window.scrollY;
-
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            doSomethingOnScroll(lastKnownScrollPosition);
-            ticking = false;
-        });
-
-        ticking = true;
-    }
-});
+function prevSet() {
+    console.log("Current Set Before: " + currentSet);
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
+    updateTitle();
+    console.log("Current Set After: " + currentSet);
+}
 </script>
 </body>
 </html>
