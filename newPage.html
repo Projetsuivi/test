@@ -1711,27 +1711,19 @@ function handleTouchEnd(e) {
     const selectedValue = selectElement.value;  // Get the selected video ID
 
     if (selectedValue) {
-        // Find the corresponding video in the video bank by its ID
-        const videoElement = document.getElementById(selectedValue);
-
+        const videoElement = document.getElementById(selectedValue);  // Find video in the bank
         if (videoElement) {
-            // Clone the video element and the title
             const clonedVideoElement = videoElement.querySelector('video').cloneNode(true);
             const videoTitle = videoElement.querySelector('p').textContent;
 
-            // Get the exercise slot where the video should be placed
             const slotElement = document.getElementById(`slot${exerciseNumber}`);
+            slotElement.innerHTML = '';  // Clear previous video if any
+            
+            clonedVideoElement.controls = true;  // Ensure controls for the video
+            clonedVideoElement.width = 270;      // Set video width
+            slotElement.appendChild(clonedVideoElement);  // Add video to slot
 
-            // Clear any previous content in the slot
-            slotElement.innerHTML = '';
-
-            // Add the cloned video to the slot
-            clonedVideoElement.controls = true;  // Ensure video has controls
-            clonedVideoElement.width = 270;      // Set the width of the video
-            slotElement.appendChild(clonedVideoElement);  // Insert the new video
-
-            // Add the title below the video
-            const titleElement = document.createElement('p');
+            const titleElement = document.createElement('p');  // Add title
             titleElement.textContent = videoTitle;
             slotElement.appendChild(titleElement);
         }
