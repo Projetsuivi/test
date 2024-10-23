@@ -1388,6 +1388,7 @@ function nextSet() {
     }
 
     updateTitle();
+    scrollToTopOfContainer(); // Scroll to top when switching sets
 }
 
 function prevSet() {
@@ -1403,6 +1404,7 @@ function prevSet() {
     }
 
     updateTitle();
+    scrollToTopOfContainer(); // Scroll to top when switching sets
 }
 
 function updateTitle() {
@@ -1428,7 +1430,25 @@ function displayCurrentDate() {
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
+    // Make sure the first exercise set is visible on load
+    document.getElementById('exerciseSet1').classList.add('active');
+    enableScrollingInContainers();
 };
+
+function enableScrollingInContainers() {
+    const workoutContainer = document.querySelector('.workout-container');
+    const videoBankContainer = document.querySelector('.video-bank-container');
+
+    // Ensure workout and video bank containers are scrollable
+    workoutContainer.style.overflowY = 'auto';
+    videoBankContainer.style.overflowY = 'auto';
+}
+
+// Function to scroll to the top of the current container when switching sets
+function scrollToTopOfContainer() {
+    const workoutContainer = document.querySelector('.workout-container');
+    workoutContainer.scrollTop = 0; // Scroll to the top of the workout container
+}
 
 // Drag and Drop functionality
 let draggedElement = null;
@@ -1483,17 +1503,6 @@ function handleDropOnSlot(e) {
     }
 }
 
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
-    }
-}
-
 function addDragAndDropListeners() {
     const videoElements = document.querySelectorAll('.draggable');
     videoElements.forEach(video => {
@@ -1507,17 +1516,6 @@ function addDragAndDropListeners() {
     exerciseSlots.forEach(slot => {
         slot.addEventListener('dragover', handleDragOver);
         slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
-        });
-    });
-
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
     });
 }
 
@@ -1628,7 +1626,7 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -1687,94 +1685,6 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-    displayCurrentDate();
-};
-
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-function doSomethingOnScroll(scrollPos) {
-    // Example: Add scroll-specific functionality here, if needed
-}
-
-window.addEventListener('scroll', function() {
-    lastKnownScrollPosition = window.scrollY;
-
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            doSomethingOnScroll(lastKnownScrollPosition);
-            ticking = false;
-        });
-
-        ticking = true;
-    }
-});
-// Adjust onload to remove previous sticky positioning and ensure scrolling works
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-    // Make sure the first exercise set is visible
-    document.getElementById('exerciseSet1').classList.add('active');
-    enableScrollingInContainers();
-};
-
-// Ensure scrolling within the workout and video bank containers
-function enableScrollingInContainers() {
-    const mainContainer = document.querySelector('.main-container');
-    const workoutContainer = document.querySelector('.workout-container');
-    const videoBankContainer = document.querySelector('.video-bank-container');
-
-    // Make sure the workout and video bank containers scroll, not the main container
-    workoutContainer.style.overflowY = 'auto';
-    videoBankContainer.style.overflowY = 'auto';
-}
-
-// Function to properly switch between exercise sets
-function nextSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.classList.remove('active');
-    }
-
-    currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (nextElement) {
-        nextElement.classList.add('active');
-    }
-
-    updateTitle();
-    scrollToTopOfContainer(); // Ensure scrolling works within container
-}
-
-function prevSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.classList.remove('active');
-    }
-
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (prevElement) {
-        prevElement.classList.add('active');
-    }
-
-    updateTitle();
-    scrollToTopOfContainer(); // Ensure scrolling works within container
-}
-
-// Function to scroll to the top of the current active container
-function scrollToTopOfContainer() {
-    const workoutContainer = document.querySelector('.workout-container');
-    workoutContainer.scrollTop = 0; // Scroll to the top of the workout container
-}
-
-// Initialize event listeners and proper scrolling
-window.addEventListener('load', enableScrollingInContainers);
 </script>
 </body>
 </html>
