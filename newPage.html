@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -568,7 +569,6 @@ h2#setTitle {
         <div class="rest-group">
             <label for="rest1">Repos</label>
             <select id="rest1" class="rest-dropdown">
-                <!-- Dropdown options for rest -->
                 <option value="5">15 sec</option>
                 <option value="10">30 sec</option>
                 <option value="15">45 sec</option>
@@ -587,11 +587,13 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise1">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise1" onchange="cloneVideoToSlot(1)">
-                <!-- Dropdown video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -664,11 +666,12 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise2">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise2" onchange="cloneVideoToSlot(2)">
-                <!-- Same video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -741,11 +744,12 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise3">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise3" onchange="cloneVideoToSlot(3)">
-                <!-- Same video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -780,9 +784,6 @@ h2#setTitle {
             </select>
         </div>
     </div>
-
-    <!-- Repeat the same pattern for Exercise Rows 4, 5, and 6 -->
-    <!-- Use unique IDs for series, reps, slots, and video selects -->
 
     <!-- Exercise Row 4 -->
     <div class="exercise-row">
@@ -821,11 +822,12 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise4">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise4" onchange="cloneVideoToSlot(4)">
-                <!-- Same video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -898,11 +900,12 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise5">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise5" onchange="cloneVideoToSlot(5)">
-                <!-- Same video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -975,11 +978,12 @@ h2#setTitle {
                 <option value="270">4 min</option>
             </select>
         </div>
+        <!-- Mobile dropdown for video selection -->
         <div class="mobile-video-select">
             <label for="selectExercise6">Sélectionner une vidéo:</label>
             <select class="video-select" id="selectExercise6" onchange="cloneVideoToSlot(6)">
-                <!-- Same video options -->
                 <option value="" selected disabled>Choisir</option>
+                <!-- List of all videos -->
                 <option value="video1">Barre au front + Chaise</option>
                 <option value="video2">Extension Coudes Corde</option>
                 <option value="video3">Extension Coudes Banc Incliné</option>
@@ -1014,6 +1018,7 @@ h2#setTitle {
             </select>
         </div>
     </div>
+
 </div>
 
 
@@ -1372,83 +1377,68 @@ h2#setTitle {
 </div>
             
             <script>
-let currentSet = 1;
-const totalSets = 6;  // Total number of sets
+        let currentSet = 1;  // Start with Set 1
+    const totalSets = 6; // Total number of sets
 
-function nextSet() {
-    // Hide the current set
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
-    
-    // Increment the set counter
-    currentSet = (currentSet % totalSets) + 1;  // Ensures looping to the first set after the last
-    
-    // Show the next set
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
-    
-    // Update the set title
-    updateTitle();
-}
+    function nextSet() {
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (currentElement) {
+            currentElement.style.display = 'none';
+        }
 
-function prevSet() {
-    // Hide the current set
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
-    
-    // Decrement the set counter, loop back to the last set if on the first
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    
-    // Show the previous set
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
-    
-    // Update the set title
-    updateTitle();
-}
+        currentSet = (currentSet % totalSets) + 1;
+        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (nextElement) {
+            nextElement.style.display = 'flex';
+        }
 
-function updateTitle() {
-    const titles = [
-        "Entrainements Triceps",
-        "Entrainements Biceps",
-        "Entrainements Pectoraux",
-        "Entrainements Jambes",
-        "Entrainements Épaules",
-        "Entrainements Dos"
-    ];
-    document.getElementById("setTitle").textContent = titles[currentSet - 1];
-}
+        updateTitle();
+    }
 
-function displayCurrentDate() {
-    const dateElement = document.getElementById("dateDisplay");
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = today.toLocaleDateString('fr-FR', options);
-    dateElement.textContent = formattedDate;
-}
+    function prevSet() {
+        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (currentElement) {
+            currentElement.style.display = 'none';
+        }
 
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-    // Make sure the first exercise set is visible on load
-    document.getElementById('exerciseSet1').classList.add('active');
-    enableScrollingInContainers();
-};
+        currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+        if (prevElement) {
+            prevElement.style.display = 'flex';
+        }
 
-function enableScrollingInContainers() {
-    const workoutContainer = document.querySelector('.workout-container');
-    const videoBankContainer = document.querySelector('.video-bank-container');
+        updateTitle();
+    }
 
-    // Ensure workout and video bank containers are scrollable
-    workoutContainer.style.overflowY = 'auto';
-    videoBankContainer.style.overflowY = 'auto';
-}
+    function updateTitle() {
+        const titles = [
+            "Entrainements Triceps",
+            "Entrainements Biceps",
+            "Entrainements Pectoraux",
+            "Entrainements Jambes",
+            "Entrainements Épaules",
+            "Entrainements Dos"
+        ];
+        document.getElementById("setTitle").textContent = titles[currentSet - 1];
+    }
 
-// Function to scroll to the top of the current container when switching sets
-function scrollToTopOfContainer() {
-    const workoutContainer = document.querySelector('.workout-container');
-    workoutContainer.scrollTop = 0;  // Scroll to the top of the workout container
-}
+    function displayCurrentDate() {
+        const dateElement = document.getElementById("dateDisplay");
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('fr-FR', options);
+        dateElement.textContent = formattedDate;
+    }
 
-// Drag and Drop functionality
-let draggedElement = null;
+    window.onload = function() {
+        displayCurrentDate();
+        addDragAndDropListeners();
+    };
 
+             // Drag and Drop functionality
+        let draggedElement = null;
+
+// Add touch event support for mobile drag and drop
 function handleTouchStart(e) {
     if (e.target.classList.contains('draggable')) {
         draggedElement = e.target;
@@ -1499,6 +1489,17 @@ function handleDropOnSlot(e) {
     }
 }
 
+function handleDropOnCell(e) {
+    e.preventDefault();
+    if (draggedElement) {
+        const clonedElement = draggedElement.cloneNode(true);
+        const video = clonedElement.querySelector('video');
+        e.target.innerHTML = '';  // Clear the cell
+        e.target.appendChild(video);  // Add the dragged video to the cell
+        video.draggable = false;  // Disable dragging inside the cell
+    }
+}
+
 function addDragAndDropListeners() {
     const videoElements = document.querySelectorAll('.draggable');
     videoElements.forEach(video => {
@@ -1512,48 +1513,23 @@ function addDragAndDropListeners() {
     exerciseSlots.forEach(slot => {
         slot.addEventListener('dragover', handleDragOver);
         slot.addEventListener('drop', handleDropOnSlot);
+        slot.addEventListener('touchmove', handleTouchMove);
+        slot.addEventListener('touchend', (e) => {
+            handleDropOnSlot(e);
+            handleTouchEnd(e);
+        });
     });
-}
 
-// Function to clone the selected video to the exercise slot
-function cloneVideoToSlot(exerciseNumber) {
-    const selectElement = document.getElementById(selectExercise${exerciseNumber});
-    const selectedValue = selectElement.value;  // Get the selected video ID
-
-    if (selectedValue) {
-        const videoElement = document.getElementById(selectedValue);
-
-        if (videoElement) {
-            const draggedVideo = videoElement.querySelector('video');
-            const videoSrc = draggedVideo.src;
-            const videoPoster = draggedVideo.poster;
-
-            const slotElement = document.getElementById(slot${exerciseNumber});
-
-            let videoTag = slotElement.querySelector('video');
-            let titleElement = slotElement.querySelector('p');
-
-            if (!videoTag) {
-                videoTag = document.createElement('video');
-                videoTag.controls = true;
-                slotElement.appendChild(videoTag);
-            }
-
-            if (!titleElement) {
-                titleElement = document.createElement('p');
-                slotElement.appendChild(titleElement);
-            }
-
-            videoTag.src = videoSrc;
-            videoTag.poster = videoPoster;
-            titleElement.textContent = videoElement.querySelector('p').textContent;
-        }
-    }
+    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
+    bandwidthCells.forEach(cell => {
+        cell.addEventListener('dragover', handleDragOver);
+        cell.addEventListener('drop', handleDropOnCell);
+    });
 }
 
 // Export session function
 function exportSession() {
-    let contentToExport = 
+    let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1619,10 +1595,10 @@ function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    ;
+    `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
+    exerciseRows.forEach((row, index) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -1635,40 +1611,40 @@ function exportSession() {
         let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        ;
+        `;
 
         if (videoSrc) {
-            contentToExport += 
+            contentToExport += `
                 <div>
                     Vidéo:<br>
                     <video controls src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
-            ;
+            `;
         } else {
-            contentToExport += <div>Aucune vidéo sélectionnée</div>;
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Dégressif:</strong> ${degressif}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>;
+        </div>`;
     });
 
-    contentToExport += 
+    contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    ;
+    `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
@@ -1681,23 +1657,87 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
-function nextSet() {
-    console.log("Current Set Before: " + currentSet);
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
-    currentSet = (currentSet % totalSets) + 1;
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
-    updateTitle();
-    console.log("Current Set After: " + currentSet);
+
+// Initialize listeners when the page loads
+window.onload = function() {
+    addDragAndDropListeners();
+};
+// Throttle scroll event to prevent performance lag
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+window.addEventListener('scroll', function(e) {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      // Perform scroll actions here (if any)
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+                // Add touch event support only when necessary
+function handleTouchStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
+    }
 }
 
-function prevSet() {
-    console.log("Current Set Before: " + currentSet);
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'none';
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    document.getElementById(`exerciseSet${currentSet}`).style.display = 'block';
-    updateTitle();
-    console.log("Current Set After: " + currentSet);
+// Avoid unnecessary touchmove handling if not dragging
+function handleTouchMove(e) {
+    if (draggedElement) {
+        e.preventDefault();  // Only prevent scrolling if dragging
+    }
 }
+
+function handleTouchEnd(e) {
+    draggedElement =  function cloneVideoToSlot(exerciseNumber) {
+        const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
+        const selectedValue = selectElement.value;
+
+        if (selectedValue) {
+            const videoElement = document.getElementById(selectedValue);
+            if (videoElement) {
+                const clonedElement = videoElement.cloneNode(true);
+                const slotElement = document.getElementById(`slot${exerciseNumber}`);
+                slotElement.innerHTML = ''; // Clear current content
+                slotElement.appendChild(clonedElement); // Insert new video
+            }
+        }
+    }
+    function cloneVideoToSlot(exerciseNumber) {
+        const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
+        const selectedValue = selectElement.value;  // Get the selected video ID
+
+        if (selectedValue) {
+            // Get the corresponding video from the video bank using its ID
+            const videoElement = document.getElementById(selectedValue);
+
+            if (videoElement) {
+                // Clone the video element
+                const clonedVideoElement = videoElement.querySelector('video').cloneNode(true);
+
+                // Get the slot where the video should be placed
+                const slotElement = document.getElementById(`slot${exerciseNumber}`);
+
+                // Clear any previous content in the slot
+                slotElement.innerHTML = '';
+
+                // Add the cloned video to the slot
+                clonedVideoElement.controls = true;  // Ensure video has controls
+                clonedVideoElement.width = 270;      // Set the width of the video
+                slotElement.appendChild(clonedVideoElement); // Insert the new video
+
+                // Also, add the title below the video
+                const videoTitle = videoElement.querySelector('p').textContent;
+                const titleElement = document.createElement('p');
+                titleElement.textContent = videoTitle;
+                slotElement.appendChild(titleElement);
+            }
+        }
+    }
 </script>
 </body>
 </html>
