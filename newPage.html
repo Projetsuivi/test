@@ -1709,6 +1709,25 @@ window.addEventListener('scroll', function() {
         ticking = true;
     }
 });
+// Throttle scroll event to prevent performance lag
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+function doSomethingOnScroll(scrollPos) {
+    // Add scroll-specific functionality here, if needed
+}
+
+window.addEventListener('scroll', function() {
+    lastKnownScrollPosition = window.scrollY;
+
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            doSomethingOnScroll(lastKnownScrollPosition);
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
 </script>
 </body>
 </html>
