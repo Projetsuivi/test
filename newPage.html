@@ -1376,7 +1376,7 @@ h2#setTitle {
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
+         let currentSet = 1;  // Start with Set 1
     const totalSets = 6; // Total number of sets
 
     function nextSet() {
@@ -1420,6 +1420,12 @@ h2#setTitle {
         ];
         document.getElementById("setTitle").textContent = titles[currentSet - 1];
     }
+
+    window.onload = function() {
+        updateTitle();
+        document.getElementById(`exerciseSet${currentSet}`).style.display = 'flex';
+        // Other initialization code if needed
+    };
 
     function displayCurrentDate() {
         const dateElement = document.getElementById("dateDisplay");
