@@ -261,21 +261,17 @@
         padding-top: 35px;
     }
 
-    /* Ensure the title is visible */
-    .title-container {
-        position: fixed; /* Keep it fixed at the top */
-        top: 50px; /* Adjust this to control vertical positioning */
-        left: 0;
-        right: 0;
-        z-index: 1000; /* Ensure it's above other content */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
-        padding: 10px 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        text-align: center;
+    .exercise-number {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    .exercise-slot {
+        width: 340px !important;
+        height: 175px !important;
+        background-color: lightgray;
+        border: 0.5px solid red;
+        margin-bottom: 5px;
     }
 
     /* Horizontal scrolling for the video bank */
@@ -286,20 +282,19 @@
         right: 0;
         width: 100vw;
         height: 250px;
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
         display: flex;
         flex-direction: row;
         background-color: #f7f7f7;
         padding: 20px;
         box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 999; /* Make sure the video bank stays below the title container */
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
+        z-index: 9999;
+        white-space: nowrap; /* Prevent wrapping */
+        scroll-snap-type: x mandatory; /* Smooth snapping */
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
-}
 
     .exercise-set {
         display: flex;
@@ -315,7 +310,7 @@
         margin-right: 10px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         border-radius: 10px;
-        background-color: #fff;
+        background-color: transparent;
         scroll-snap-align: start;
         padding: 10px;
         transition: transform 0.2s;
@@ -1274,17 +1269,17 @@
 </div>
             
             <script>
-       let currentSet = 1;  // Start with Set 1
+        let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 function nextSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    const currentElement = document.getElementById(exerciseSet${currentSet});
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+    const nextElement = document.getElementById(exerciseSet${currentSet});
     if (nextElement) {
         nextElement.style.display = 'flex';
     }
@@ -1293,13 +1288,13 @@ function nextSet() {
 }
 
 function prevSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    const currentElement = document.getElementById(exerciseSet${currentSet});
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+    const prevElement = document.getElementById(exerciseSet${currentSet});
     if (prevElement) {
         prevElement.style.display = 'flex';
     }
@@ -1330,9 +1325,6 @@ function displayCurrentDate() {
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
-    // Bind arrow buttons to the navigation functions
-    document.querySelector('.arrow-left').addEventListener('click', prevSet);
-    document.querySelector('.arrow-right').addEventListener('click', nextSet);
 };
 
 // Drag and Drop functionality
@@ -1427,8 +1419,9 @@ function addDragAndDropListeners() {
     });
 }
 
+// Function to clone the selected video to the exercise slot
 function cloneVideoToSlot(exerciseNumber) {
-    const selectElement = document.getElementById(`selectExercise${exerciseNumber}`);
+    const selectElement = document.getElementById(selectExercise${exerciseNumber});
     const selectedValue = selectElement.value;  // Get the selected video ID
 
     if (selectedValue) {
@@ -1442,7 +1435,7 @@ function cloneVideoToSlot(exerciseNumber) {
             const videoPoster = draggedVideo.poster;
 
             // Get the exercise slot where the video should be placed
-            const slotElement = document.getElementById(`slot${exerciseNumber}`);
+            const slotElement = document.getElementById(slot${exerciseNumber});
 
             // Clear any previous content in the slot
             slotElement.innerHTML = '';
@@ -1462,6 +1455,7 @@ function cloneVideoToSlot(exerciseNumber) {
         }
     }
 }
+
 // Export session function
 function exportSession() {
     let contentToExport = 
