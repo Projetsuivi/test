@@ -277,21 +277,23 @@
     /* Horizontal scrolling for the video bank */
     .video-bank-container {
         position: fixed;
-        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         width: 100vw;
-        height: 300px;
+        height: 250px;
         overflow-x: auto; /* Enable horizontal scrolling */
         overflow-y: hidden; /* Disable vertical scrolling */
         display: flex;
-        flex-direction: row; /* Arrange items horizontally */
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex-direction: row;
+        background-color: #f7f7f7;
+        padding: 20px;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
         z-index: 9999;
         white-space: nowrap; /* Prevent wrapping */
         scroll-snap-type: x mandatory; /* Smooth snapping */
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
     }
 
     .exercise-set {
@@ -306,34 +308,60 @@
         flex-shrink: 0; /* Prevent shrinking */
         width: 180px;
         margin-right: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
         background-color: #fff;
-        scroll-snap-align: start; /* Ensure smooth scrolling stops at each video */
+        scroll-snap-align: start;
+        padding: 10px;
+        transition: transform 0.2s;
+    }
+
+    .exercise-card:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .exercise-card video {
         width: 100%;
-        height: 170px;
+        height: 130px;
         object-fit: cover;
-        border-radius: 6px;
+        border-radius: 8px;
     }
 
     .exercise-card p {
         font-size: 1rem;
-        margin-top: 5px;
+        margin-top: 8px;
+        text-align: center;
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Center title and arrows */
+    .video-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .video-navigation h2#setTitle {
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: 600;
+        margin: 0;
+        flex-grow: 1;
         text-align: center;
     }
 
-    /* Navigation arrows */
     .arrow-left, .arrow-right {
         background-color: #FF8A65;
         color: white;
         border: none;
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 1.2rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
         cursor: pointer;
         display: flex;
         justify-content: center;
@@ -346,11 +374,19 @@
         background-color: #e07453;
     }
 
-    /* Button for saving session */
+    /* Navigation arrows at the bottom, below the videos */
+    .video-bank-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    /* Save button */
     #exportButton {
         width: auto;
         position: fixed;
-        bottom: 10px;
+        bottom: 60px; /* Positioned above the video bank */
         right: 10px;
         background-color: #FF8A65;
         color: white;
