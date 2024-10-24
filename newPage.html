@@ -297,22 +297,7 @@
     }
 
     /* Make the title-container visible above the video bank */
-    .title-container {
-        position: absolute; /* Change to absolute positioning */
-        bottom: 270px; /* Position it just above the video bank */
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.8);
-        z-index: 9999;  /* Higher than video bank to ensure visibility */
-        padding: 10px 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        margin: 0 auto; /* Center it horizontally */
-    }
-
+   
     .exercise-set {
         display: flex;
         flex-direction: row;
@@ -413,6 +398,20 @@
         z-index: 1000;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+     .title-container {
+        position: absolute; /* Change to absolute positioning */
+        bottom: 320px; /* Position it just above the video bank */
+        left: 10;
+        display: flex;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000;  /* Higher than video bank to ensure visibility */
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin: 0 auto; /* Center it horizontally */
+    }
+
 
     #exportButton:hover {
         background-color: #e07453;
