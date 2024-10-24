@@ -1,128 +1,151 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+<head>    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programme d'entraînement</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Inclusion des bibliothèques jsPDF et html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <div id="dateDisplay" class="date-style"></div>
     <style>
-    #dateDisplay {
-    font-size: 1rem;
-    color: #FF8A65;
-    font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: fit-content;
-    position: absolute;  /* Added for positioning */
-    top: 20px;           /* Aligns it at the top */
-    right: 10px;         /* Aligns it to the right */
+        /* Style for the Rest Time Dropdown */
+.rest-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8px; /* 20% reduction */
 }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
-                url('logo.png') no-repeat center center;
+.rest-dropdown {
+    width: 80px;  /* 20% reduction */
+    padding: 8px; /* 20% reduction */
+    font-size: 0.72rem; /* 20% reduction */
+    border-radius: 4px; /* 20% reduction */
+    border: 1px solid #FF8A65;
+    background-color: white;
+    color: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh; /* Ensure body height adapts to content */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items starting from the top */
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(250, 137, 0, 0.8) 100%), 
+                url('logo.png') no-repeat center center fixed;
     background-size: cover;
-    /* Remove background-attachment: fixed to improve performance on mobile */
-    background-attachment: scroll;
-    /* Remove the backdrop filter to avoid performance lag */
-    /* backdrop-filter: blur(0.1px); */
+    backdrop-filter: blur(0.1px); /* Adds blur effect on the background */
+    overflow: auto; /* Ensure the page can scroll if content overflows */
 }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 32px 48px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+.container {
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+    padding: 32px 48px; /* 20% reduction */
+    border-radius: 12px; /* 20% reduction */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* 20% reduction */
+    text-align: center;
+}
 
-        h1 {
-            font-size: 2.4rem;
-            color: #333;
-            margin-bottom: 32px;
-            font-weight: 600;
-        }
+h1 {
+    font-size: 2.4rem; /* 20% reduction */
+    color: #333;
+    margin-bottom: 32px; /* 20% reduction */
+    font-weight: 600;
+}
 
-        #exportButton {
-            background-color: #FF8A65;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 18px;
-            align-self: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.2s;
-        }
+#exportButton {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    padding: 8px 16px; 
+    border-radius: 8px; 
+    font-size: 0.8rem; 
+    cursor: pointer;
+    margin-top: 20px; /* Adds more space above the button */
+    margin-bottom: 18px; /* Optional: you can adjust this too */
+    align-self: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
 
-        #exportButton:hover {
-            background-color: #e07453;
-            transform: translateY(-2px);
-        }
+#exportButton:hover {
+    background-color: #e07453;
+    transform: translateY(-2px);
+}
+/* Styles for the Lock Button */
+#lockButton {
+    background-color: #ffffff;
+    color: #e07453;
+    border: none;
+    padding: 8px 16px; 
+    border-radius: 8px; 
+    font-size: 0.8rem; 
+    cursor: pointer;
+    margin-bottom: 16px; 
+    align-self: center; /* Center the lock button */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
 
-        /* Styles for the Lock Button */
-        .main-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            overflow: visible;
-            justify-content: space-between;
-        }
+#lockButton:hover {
+    background-color: #e07453;
+    transform: translateY(-2px);
+}
 
-        .workout-container {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            height: auto;
-        }
-
-        .exercise-row {
+.main-container {
     display: flex;
-    align-items: center; /* Ensure elements are aligned vertically */
-    justify-content: flex-start; /* Ensure they are aligned to the left */
-    padding: 02px;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.975) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    height: 250px;
-    gap: 1px; /* Adjust gap between Exercice and next elements */
+    width: 100%;
+    max-width: 1300px; /* 20% reduction */
+    height: auto; /* Allow the container to grow dynamically based on content */
+    overflow: visible; /* Ensure that the content is not cropped */
 }
 
-        .exercise-number {
+.workout-container {
+    flex: 3;
     display: flex;
-    justify-content: flex-start; /* Align to the left */
-    align-items: center; /* Vertically center the text */
-    font-size: 1rem; /* Adjust the font size as needed */
-    font-weight: bold; /* Bold text */
-    color: #FF8A65; /* Color of the text */
-    flex-shrink: 0;
-    margin-right: 10px; /* Space between the number and next element */
-    padding: 5px; /* Padding around the text */
-    text-transform: uppercase; /* Optional: make the text uppercase */
-    letter-spacing: 0.5px; /* Optional: increase letter spacing */
+    flex-direction: column;
+    background-color: white;
+    border-radius: 12px; /* 20% reduction */
+    padding: 20px; /* 20% reduction */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* 20% reduction */
+    height: auto; /* Allow dynamic height growth */
+    overflow: visible; /* Ensure the content is fully visible without scrolling */
 }
 
-       .exercise-slot {
-    width: 300px;
-    height: 190px;
-    border: 1.2px dashed #FF8A65;
+.exercise-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px; /* 20% reduction */
+    margin-bottom: 24px; /* 20% reduction */
+    background-color: #fafafa;
+    border-radius: 12px; /* 20% reduction */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05); /* 20% reduction */
+    height: 144px; /* 20% reduction */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 20% reduction */
+}
+
+.exercise-slot {
+    width: 200px; /* Increase the width */
+    height: 150px; /* Increase the height */
+    border: 2px dashed #FF8A65;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,92 +156,109 @@
     margin-right: 16px;
 }
 
-        .exercise-slot video {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
+.exercise-slot video {
+    width: 100%;
+    height: 120px; /* Adjust video height to fit the new slot size */
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
 
-        .slider-group label {
-    font-size: 1rem;       /* Increase font size for better readability */
-    color: #000000;        /* Change color to match the theme */
-    font-weight: bold;     /* Make the label text bold */
-    margin-bottom: 8px;    /* Increase margin to add more spacing */
+.exercise-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    margin-bottom: 24px;
+    background-color: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    height: 180px; /* Increase row height to match larger slots */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.slider-group label {
+    font-size: 0.8rem; /* 20% reduction */
+    color: #333;
+    margin-bottom: 4px; /* 20% reduction */
 }
 
 .slider {
-    width: 120px;          /* Increase the width of the slider */
-    accent-color: #e07453; /* Change the accent color of the slider */
-    cursor: pointer;       /* Show pointer cursor on hover */
-    transition: all 0.3s ease; /* Smooth transition when changing */
-
+    width: 120px; /* 20% reduction */
+    accent-color: #FF8A65;
 }
 
-        /* Sticky Video bank container */
-        .video-bank-container {
+/* Video bank container without the white background */
+.image-bank-container {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 16px;
+    height: auto;
     position: sticky;
     top: 20px;
-    width: 280px; /* Reduced width of the video bank */
-    max-height: 93vh; /* Keep the video bank taller if needed */
-    overflow-y: auto;
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 15px; /* Reduced padding to make the container more compact */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    z-index: 1000;
+    max-height: 100vh; /* Ensure it fits within the viewport height */
+    overflow-y: auto; /* Allow scrolling inside the image bank if necessary */
 }
 
-        .exercise-set {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-
-/* Adjust the size of each video card */
-.exercise-card {
-    background-size: cover; /* Make sure the background covers the entire card */
-    background-position: center; /* Center the background image */
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 20px;
-    text-align: center;
+/* The image bank itself will now scroll if it overflows, without a background */
+.image-bank {
+    position: sticky;
+    top: 16px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    width: 370px;
-    height: 230px;
-    max-width: 100%;
-}.exercise-card p {
-    font-size: 1rem; /* Increased for better visibility */
-    font-weight: 500; /* Bolder text for emphasis */
-    color: #444; /* Darker gray for a professional look */
-    margin-top: 8px; /* Add some spacing above the text */
-    text-align: center; /* Center the text below the video */
-    text-transform: capitalize; /* Capitalize the first letter of each word */
-    letter-spacing: 0.5px; /* Slightly increase letter spacing for a cleaner look */
+    /* Removed the background-color property */
+    border-radius: 8px; /* Adjusted for smaller radius */
+    padding: 16px;
+    width: 100%;
+    box-shadow: none; /* Removed shadow */
+    max-height: 100%; /* Prevents the container from overflowing */
+    overflow-y: auto; /* Allows the videos to scroll within the container */
 }
 
-
-/* Adjust the size of the video inside the card */
-.exercise-card video {
-    width: 270px; /* Width of the video, leaving a small padding */
-    height: 200px; /* Height of the video, adjusted to fit the card */
-    object-fit: cover; /* Ensures the video covers its container */
-    border-radius: 8px 8px 0 0; /* Rounded corners at the top */
-    margin-bottom: 10px; /* Space between the video and text */
+/* Styling for individual videos */
+.image-bank img,
+.image-bank video {
+    width: 250px; /* Reduced size */
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: grab;
+    border: 2px solid transparent;
+    transition: transform 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for each video */
+    margin-bottom: 12px;
 }
 
+.arrow:hover {
+    background-color: #e07453;
+}
+
+.date-style {
+    color: #FF8A65;
+    font-size: 0.96rem; /* 20% reduction */
+    font-weight: 600;
+    position: absolute;
+    top: 64px; /* 20% reduction */
+    right: 64px; /* 20% reduction */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 8px 16px; /* 20% reduction */
+    border-radius: 8px; /* 20% reduction */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Container for the title and arrows */
 .title-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
+    justify-content: center; /* Centers the entire group */
+    gap: 10px; /* Space between title and arrows */
+    margin-bottom: 20px; /* Adjust space below the title */
 }
+
+/* Styling for the arrows */
 .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
@@ -228,1404 +268,744 @@
     height: 30px;
     font-size: 1.2rem;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: background-color 0.3s;
-    margin: 0 10px; /* Space around the arrows */
 }
 
 .arrow-left:hover, .arrow-right:hover {
     background-color: #e07453;
 }
-        
 
-
-@media (max-width: 900px) {
-    /* Adjust workout-container spacing */
-    .workout-container {
-        margin-top: 310px;
+/* Optional: Smaller size for mobile */
+@media screen and (max-width: 600px) {
+    .arrow-left, .arrow-right {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
     }
-
+}
+/* Media Queries for responsiveness */
+@media screen and (max-width: 900px) {
     .main-container {
         flex-direction: column;
-        overflow-y: visible;
     }
 
-    .exercise-row {
-        flex-direction: column;
-        align-items: flex-start;
-        flex-grow: 1;
+    .workout-container {
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .image-bank-container {
+        width: 100%;
+        position: relative;
+        padding-left: 0;
         height: auto;
-        margin-bottom: 2px;
-        padding-top: 35px;
     }
 
-    .exercise-number {
-        font-size: 1.2rem;
-        margin-bottom: 5px;
+    .image-bank {
+        position: relative;
+        top: 0;
+        margin-top: 16px; /* 20% reduction */
+        flex-wrap: wrap;
+        width: 100%;
     }
 
-    .exercise-slot {
-        width: 340px !important;
-        height: 175px !important;
-        background-color: lightgray;
-        border: 0.5px solid red;
-        margin-bottom: 5px;
+    .arrow {
+        right: 4px; /* 20% reduction */
+        left: auto;
     }
+}
+     /* Styles for the date */
+.date-style {
+    color: #FF8A65;               /* Use the orange color */
+    font-size: 1.2rem;            /* Adjust the font size */
+    font-weight: 600;             /* Make it bold */
+    position: absolute;           /* Position it on the right */
+    top: 40px;                    /* Set some space from the top */
+    right: 80px;                  /* Set some space from the right */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    padding: 10px 20px;           /* Add some padding */
+    border-radius: 10px;          /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+}   
+        /* Style for the overall video card container */
+/* Modern and minimalist styling for the exercise card with thinner borders */
+.exercise-card {
+    width: 260px;
+    border: 0.5px solid rgba(255, 255, 255, 0.2); /* Thinner, subtle border */
+    border-radius: 16px; /* Smooth, rounded corners */
+    padding: 10px;
+    background: linear-gradient(145deg, #ffffff, #FF7043); /* Soft gradient */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Softer, smaller shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    /* Horizontal scrolling for the video bank */
-    .video-bank-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        height: 250px;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Disable vertical scrolling */
-        display: flex;
-        flex-direction: row;
-        background-color: #f7f7f7;
-        padding: 20px;
-        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
-        white-space: nowrap; /* Prevent wrapping */
-        scroll-snap-type: x mandatory; /* Smooth snapping */
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-    }
+/* Styling for the video */
+.exercise-card video {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px; /* Smooth corners for the video */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
 
-    .exercise-set {
-        display: flex;
-        flex-direction: row; /* Align sets horizontally */
-        gap: 20px;
-        text-align: center;
-        flex-wrap: nowrap; /* Prevent wrapping */
-    }
+/* Styling for the text below the video */
+.exercise-card p {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff; /* White text for contrast against the gradient */
+    margin-bottom: 0;
+    letter-spacing: 0.5px; /* Subtle letter spacing for a modern look */
+}
 
+/* Hover effect for the card */
+.exercise-card:hover {
+    transform: translateY(-5px); /* A gentle lift on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft, light shadow on hover */
+}
+
+.exercise-card:hover video {
+    transform: scale(1.03); /* Slight zoom effect for a more refined feel */
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 600px) {
     .exercise-card {
-        flex-shrink: 0; /* Prevent shrinking */
-        width: 180px;
-        margin-right: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        border-radius: 10px;
-        background-color: transparent;
-        scroll-snap-align: start;
-        padding: 10px;
-        transition: transform 0.2s;
-    }
-
-    .exercise-card:hover {
-        transform: scale(1.05); /* Slight zoom on hover */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 100%; /* Full width on smaller screens */
     }
 
     .exercise-card video {
+        height: auto;
+    }
+}
+
+/* Hover effect for the card */
+.exercise-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+    .exercise-card {
         width: 100%;
-        height: 130px;
-        object-fit: cover;
-        border-radius: 8px;
     }
 
-    .exercise-card p {
-        font-size: 1rem;
-        margin-top: 8px;
-        text-align: center;
-        color: #333;
-        font-weight: 500;
-    }
-
-    /* Center title and place it at the top */
-    .video-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px; /* Margin added to separate from the videos */
-        margin-top: 5px;
-    }
-
-    .video-navigation h2#setTitle {
-        font-size: 1.4rem;
-        color: #333;
-        font-weight: 600;
-        margin: 0;
-        text-align: center;
-    }
-
-    /* Navigation arrows below the videos */
-    .video-bank-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .arrow-left, .arrow-right {
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s;
-        margin: 0 10px;
-    }
-
-    .arrow-left:hover, .arrow-right:hover {
-        background-color: #e07453;
-    }
-
-    /* Save button */
-    #exportButton {
-        width: auto;
-        position: fixed;
-        bottom: 60px; /* Positioned above the video bank */
-        right: 10px;
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 1rem;
-        text-align: center;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    #exportButton:hover {
-        background-color: #e07453;
+    .exercise-card video {
+        height: auto;
     }
 }
     </style>
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Programme d'entraînement</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Include your styles here */
-        .exercise-row {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .exercise-slot {
-            width: 300px;
-            height: 190px;
-            border: 1.2px dashed #FF8A65;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            background-color: #fff;
-            overflow: hidden;
-            margin-right: 16px;
-        }
-
-        .exercise-slot video {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
-    </style>
-</head>
-<body>
-<div class="workout-container">
-    <!-- Exercise Row 1 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 1</div>
-        <div class="exercise-slot" id="slot1"></div>
-        <div class="slider-group">
-            <label for="series1">Séries: <span id="seriesValue1">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif1">Dégressif</label>
-            <input type="checkbox" id="degressif1">
-        </div>
-        <div class="rest-group">
-            <label for="rest1">Repos</label>
-            <select id="rest1" class="rest-dropdown">
-                <!-- Dropdown options for rest -->
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise1">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise1" onchange="cloneVideoToSlot(1)">
-                <!-- Dropdown video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
+    
+    <!-- Bouton d'exportation -->
+    <button id="exportButton">Sauvegarder ma séance</button>
+    <button id="lockButton" onclick="toggleLockPage()">Verrouiller ma séance avant d'exporter</button>
+    <div id="dateDisplay"></div>
+    <div class="main-container">
+        <!-- Workout Area with 6 Exercise Rows -->
+        <div class="workout-container">
+            <div class="workout-area">
+               <!-- Exercise Row 1 -->
+<div class="exercise-row">
+    <div class="exercise-number">Exercice 1</div>
+    <div class="exercise-slot" id="slot1"></div>
+    <div class="slider-group">
+        <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+        <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+    </div>
+    <div class="slider-group">
+        <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+        <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+    </div>
+    <div class="checkbox-group">
+        <label for="degressif1">Dégressif</label>
+        <input type="checkbox" id="degressif1">
     </div>
 
-    <!-- Exercise Row 2 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 2</div>
-        <div class="exercise-slot" id="slot2"></div>
-        <div class="slider-group">
-            <label for="series2">Séries: <span id="seriesValue2">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps2">Répétitions: <span id="repsValue2">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps2" oninput="document.getElementById('repsValue2').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif2">Dégressif</label>
-            <input type="checkbox" id="degressif2">
-        </div>
-        <div class="rest-group">
-            <label for="rest2">Repos</label>
-            <select id="rest2" class="rest-dropdown">
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise2">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise2" onchange="cloneVideoToSlot(2)">
-                <!-- Same video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Exercise Row 3 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 3</div>
-        <div class="exercise-slot" id="slot3"></div>
-        <div class="slider-group">
-            <label for="series3">Séries: <span id="seriesValue3">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series3" oninput="document.getElementById('seriesValue3').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps3">Répétitions: <span id="repsValue3">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps3" oninput="document.getElementById('repsValue3').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif3">Dégressif</label>
-            <input type="checkbox" id="degressif3">
-        </div>
-        <div class="rest-group">
-            <label for="rest3">Repos</label>
-            <select id="rest3" class="rest-dropdown">
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise3">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise3" onchange="cloneVideoToSlot(3)">
-                <!-- Same video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Repeat the same pattern for Exercise Rows 4, 5, and 6 -->
-    <!-- Use unique IDs for series, reps, slots, and video selects -->
-
-    <!-- Exercise Row 4 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 4</div>
-        <div class="exercise-slot" id="slot4"></div>
-        <div class="slider-group">
-            <label for="series4">Séries: <span id="seriesValue4">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series4" oninput="document.getElementById('seriesValue4').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps4">Répétitions: <span id="repsValue4">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps4" oninput="document.getElementById('repsValue4').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif4">Dégressif</label>
-            <input type="checkbox" id="degressif4">
-        </div>
-        <div class="rest-group">
-            <label for="rest4">Repos</label>
-            <select id="rest4" class="rest-dropdown">
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise4">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise4" onchange="cloneVideoToSlot(4)">
-                <!-- Same video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Exercise Row 5 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 5</div>
-        <div class="exercise-slot" id="slot5"></div>
-        <div class="slider-group">
-            <label for="series5">Séries: <span id="seriesValue5">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series5" oninput="document.getElementById('seriesValue5').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps5">Répétitions: <span id="repsValue5">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps5" oninput="document.getElementById('repsValue5').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif5">Dégressif</label>
-            <input type="checkbox" id="degressif5">
-        </div>
-        <div class="rest-group">
-            <label for="rest5">Repos</label>
-            <select id="rest5" class="rest-dropdown">
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise5">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise5" onchange="cloneVideoToSlot(5)">
-                <!-- Same video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Exercise Row 6 -->
-    <div class="exercise-row">
-        <div class="exercise-number">Exercice 6</div>
-        <div class="exercise-slot" id="slot6"></div>
-        <div class="slider-group">
-            <label for="series6">Séries: <span id="seriesValue6">3</span></label>
-            <input type="range" min="1" max="6" value="3" class="slider" id="series6" oninput="document.getElementById('seriesValue6').textContent = this.value;">
-        </div>
-        <div class="slider-group">
-            <label for="reps6">Répétitions: <span id="repsValue6">10</span></label>
-            <input type="range" min="1" max="30" value="10" class="slider" id="reps6" oninput="document.getElementById('repsValue6').textContent = this.value;">
-        </div>
-        <div class="checkbox-group">
-            <label for="degressif6">Dégressif</label>
-            <input type="checkbox" id="degressif6">
-        </div>
-        <div class="rest-group">
-            <label for="rest6">Repos</label>
-            <select id="rest6" class="rest-dropdown">
-                <option value="5">15 sec</option>
-                <option value="10">30 sec</option>
-                <option value="15">45 sec</option>
-                <option value="30">1 min</option>
-                <option value="45">1 min 15</option>
-                <option value="60">1 min 30 sec</option>
-                <option value="90">1 min 45 sec</option>
-                <option value="120">2 min</option>
-                <option value="150">2 min 15 sec</option>
-                <option value="180">2 min 30 sec</option>
-                <option value="195">2 min 45 sec</option>
-                <option value="210">3 min</option>
-                <option value="225">3 min 15 sec</option>
-                <option value="240">3 min 30 sec</option>
-                <option value="255">3 min 45 sec</option>
-                <option value="270">4 min</option>
-            </select>
-        </div>
-        <div class="mobile-video-select">
-            <label for="selectExercise6">Sélectionner une vidéo:</label>
-            <select class="video-select" id="selectExercise6" onchange="cloneVideoToSlot(6)">
-                <!-- Same video options -->
-                <option value="" selected disabled>Choisir</option>
-                <option value="video1">Barre au front + Chaise</option>
-                <option value="video2">Extension Coudes Corde</option>
-                <option value="video3">Extension Coudes Banc Incliné</option>
-                <option value="video4">Triceps Unilatéral</option>
-                <option value="video5">Dips</option>
-                <option value="video6">Dips assistés</option>
-                <option value="video7">Extension de coudes</option>
-                <option value="video8">Biceps unilatéral</option>
-                <option value="video9">Curl Incliné + Dégressif</option>
-                <option value="video10">Curl Prise Marteaux</option>
-                <option value="video11">Curl Biceps Supination</option>
-                <option value="video12">Curl Supination Poulie</option>
-                <option value="video13">Curl Prise inverse</option>
-                <option value="video14">Écartés Poulies coudes rentrés</option>
-                <option value="video15">Écartés Poulies Hautes</option>
-                <option value="video16">Bench machine Tempo</option>
-                <option value="video17">Développé Couché haltere</option>
-                <option value="video18">Fentes Bulgares</option>
-                <option value="video19">Legs Extension</option>
-                <option value="video20">Presse Verticale</option>
-                <option value="video21">Soulevé de Terre</option>
-                <option value="video22">Squat</option>
-                <option value="video23">Élévations Latérales Machine</option>
-                <option value="video24">Élévations Frontales en Dégressif</option>
-                <option value="video25">Élévations Latérales Poulie</option>
-                <option value="video26">Développé Militaire Smith Guidé</option>
-                <option value="video27">Relevés de Buste</option>
-                <option value="video28">Tractions Assistées</option>
-                <option value="video29">Tirage Dorsaux</option>
-                <option value="video30">Tirage Horizontal Machine</option>
-                <option value="video31">Tirage Inversé</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-
-</script>
-
-</body>
-</html>
+    <!-- Temps de Repos Dropdown -->
+    <div class="rest-group">
+        <label for="rest1">Repos</label>
+        <select id="rest1" class="rest-dropdown">
+            <option value="5">15 sec </option>
+            <option value="10">30 sec </option>
+            <option value="15">45 sec </option>
+            <option value="30">1 min </option>
+            <option value="45">1 min 15 </option>
+            <option value="60">1 min 30 sec </option>
+            <option value="90">1 min 45 sec </option>
+            <option value="120">2 min </option>
+            <option value="150">2 min 15 sec </option>
+            <option value="180">2 min 30 min </option>
+            <option value="180">2 min 45 min </option>
+            <option value="180">3 min </option>
+            <option value="180">3 min 15 min </option>
+            <option value="180">3 min 30 min </option>
+            <option value="180">3 min 45 min </option>
+            <option value="180">4 min </option>
         </select>
     </div>
 </div>
-    <!-- Bouton d'exportation -->
-    <button id="exportButton">Sauvegarder ma séance</button>
-    <div id="dateDisplay"></div>
- <div class="video-bank-container">
+
+               <!-- Exercise Row 2 -->
+<div class="exercise-row">
+    <div class="exercise-number">Exercice 2</div>
+    <div class="exercise-slot" id="slot2"></div> <!-- Unique ID for slot2 -->
+    
+    <div class="slider-group">
+        <label for="series2">Séries: <span id="seriesValue2">3</span></label> <!-- Unique ID for series2 -->
+        <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
+    </div>
+    
+    <div class="slider-group">
+        <label for="reps2">Répétitions: <span id="repsValue2">10</span></label> <!-- Unique ID for reps2 -->
+        <input type="range" min="1" max="30" value="10" class="slider" id="reps2" oninput="document.getElementById('repsValue2').textContent = this.value;">
+    </div>
+    
+    <div class="checkbox-group">
+        <label for="degressif2">Dégressif</label> <!-- Unique ID for degressif2 -->
+        <input type="checkbox" id="degressif2">
+    </div>
+
+    <!-- Temps de Repos Dropdown -->
+    <div class="rest-group">
+        <label for="rest2">Repos</label> <!-- Unique ID for rest2 -->
+        <select id="rest2" class="rest-dropdown">
+            <option value="5">15 sec </option>
+            <option value="10">30 sec </option>
+            <option value="15">45 sec </option>
+            <option value="30">1 min </option>
+            <option value="45">1 min 15 </option>
+            <option value="60">1 min 30 sec </option>
+            <option value="90">1 min 45 sec </option>
+            <option value="120">2 min </option>
+            <option value="150">2 min 15 sec </option>
+            <option value="180">2 min 30 min </option>
+            <option value="180">2 min 45 min </option>
+            <option value="180">3 min </option>
+            <option value="180">3 min 15 min </option>
+            <option value="180">3 min 30 min </option>
+            <option value="180">3 min 45 min </option>
+            <option value="180">4 min </option>
+        </select>
+    </div>
+</div>
+
+                <!-- Exercise Row 3 -->
+                <div class="exercise-row">
+                    <div class="exercise-number">Exercice 3</div>
+                    <div class="exercise-slot" id="slot1"></div>
+                    <div class="slider-group">
+                        <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+                        <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+                    </div>
+                    <div class="slider-group">
+                        <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+                        <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+                    </div>
+                    <div class="checkbox-group">
+                        <label for="degressif1">Dégressif</label>
+                        <input type="checkbox" id="degressif1">
+                    </div>
+                
+                    <!-- Temps de Repos Dropdown -->
+                    <div class="rest-group">
+                        <label for="rest1">Repos</label>
+                        <select id="rest1" class="rest-dropdown">
+                            <option value="5">15 sec </option>
+                            <option value="10">30 sec </option>
+                            <option value="15">45 sec </option>
+                            <option value="30">1 min </option>
+                            <option value="45">1 min 15 </option>
+                            <option value="60">1 min 30 sec </option>
+                            <option value="90">1 min 45 sec </option>
+                            <option value="120">2 min </option>
+                            <option value="150">2 min 15 sec </option>
+                            <option value="180">2 min 30 min </option>
+                            <option value="180">2 min 45 min </option>
+                            <option value="180">3 min </option>
+                            <option value="180">3 min 15 min </option>
+                            <option value="180">3 min 30 min </option>
+                            <option value="180">3 min 45 min </option>
+                            <option value="180">4 min </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Exercise Row 4 -->
+                <div class="exercise-row">
+                    <div class="exercise-number">Exercice 4</div>
+                    <div class="exercise-slot" id="slot1"></div>
+                    <div class="slider-group">
+                        <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+                        <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+                    </div>
+                    <div class="slider-group">
+                        <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+                        <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+                    </div>
+                    <div class="checkbox-group">
+                        <label for="degressif1">Dégressif</label>
+                        <input type="checkbox" id="degressif1">
+                    </div>
+                
+                    <!-- Temps de Repos Dropdown -->
+                    <div class="rest-group">
+                        <label for="rest1">Repos</label>
+                        <select id="rest1" class="rest-dropdown">
+                            <option value="5">15 sec </option>
+                            <option value="10">30 sec </option>
+                            <option value="15">45 sec </option>
+                            <option value="30">1 min </option>
+                            <option value="45">1 min 15 </option>
+                            <option value="60">1 min 30 sec </option>
+                            <option value="90">1 min 45 sec </option>
+                            <option value="120">2 min </option>
+                            <option value="150">2 min 15 sec </option>
+                            <option value="180">2 min 30 min </option>
+                            <option value="180">2 min 45 min </option>
+                            <option value="180">3 min </option>
+                            <option value="180">3 min 15 min </option>
+                            <option value="180">3 min 30 min </option>
+                            <option value="180">3 min 45 min </option>
+                            <option value="180">4 min </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Exercise Row 5 -->
+                <div class="exercise-row">
+                    <div class="exercise-number">Exercice 5</div>
+                    <div class="exercise-slot" id="slot1"></div>
+                    <div class="slider-group">
+                        <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+                        <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+                    </div>
+                    <div class="slider-group">
+                        <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+                        <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+                    </div>
+                    <div class="checkbox-group">
+                        <label for="degressif1">Dégressif</label>
+                        <input type="checkbox" id="degressif1">
+                    </div>
+                
+                    <!-- Temps de Repos Dropdown -->
+                    <div class="rest-group">
+                        <label for="rest1">Repos</label>
+                        <select id="rest1" class="rest-dropdown">
+                            <option value="5">15 sec </option>
+                            <option value="10">30 sec </option>
+                            <option value="15">45 sec </option>
+                            <option value="30">1 min </option>
+                            <option value="45">1 min 15 </option>
+                            <option value="60">1 min 30 sec </option>
+                            <option value="90">1 min 45 sec </option>
+                            <option value="120">2 min </option>
+                            <option value="150">2 min 15 sec </option>
+                            <option value="180">2 min 30 min </option>
+                            <option value="180">2 min 45 min </option>
+                            <option value="180">3 min </option>
+                            <option value="180">3 min 15 min </option>
+                            <option value="180">3 min 30 min </option>
+                            <option value="180">3 min 45 min </option>
+                            <option value="180">4 min </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Exercise Row 6 -->
+                <div class="exercise-row">
+                    <div class="exercise-number">Exercice 6</div>
+                    <div class="exercise-slot" id="slot1"></div>
+                    <div class="slider-group">
+                        <label for="series1">Séries: <span id="seriesValue1">3</span></label>
+                        <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
+                    </div>
+                    <div class="slider-group">
+                        <label for="reps1">Répétitions: <span id="repsValue1">10</span></label>
+                        <input type="range" min="1" max="30" value="10" class="slider" id="reps1" oninput="document.getElementById('repsValue1').textContent = this.value;">
+                    </div>
+                    <div class="checkbox-group">
+                        <label for="degressif1">Dégressif</label>
+                        <input type="checkbox" id="degressif1">
+                    </div>
+                
+                    <!-- Temps de Repos Dropdown -->
+                    <div class="rest-group">
+                        <label for="rest1">Repos</label>
+                        <select id="rest1" class="rest-dropdown">
+                            <option value="5">15 sec </option>
+                            <option value="10">30 sec </option>
+                            <option value="15">45 sec </option>
+                            <option value="30">1 min </option>
+                            <option value="45">1 min 15 </option>
+                            <option value="60">1 min 30 sec </option>
+                            <option value="90">1 min 45 sec </option>
+                            <option value="120">2 min </option>
+                            <option value="150">2 min 15 sec </option>
+                            <option value="180">2 min 30 min </option>
+                            <option value="180">2 min 45 min </option>
+                            <option value="180">3 min </option>
+                            <option value="180">3 min 15 min </option>
+                            <option value="180">3 min 30 min </option>
+                            <option value="180">3 min 45 min </option>
+                            <option value="180">4 min </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Image Bank with Arrows -->
+        <div class="image-bank-container">
+            <div class="image-bank" id="imageBank">
+<!-- First Set of Exercises -->
+<div class="video-bank-container">
+   <!-- Title and Navigation Arrows -->
+ </style>
+</head>
+<body>
+
+    <!-- Title and Arrows for Navigation -->
     <div class="title-container">
-        <button class="arrow arrow-left" onclick="prevSet()">&#8249;</button>
-        <h2 id="setTitle" style="font-size: 1rem;">Entrainements Triceps</h2>
-        <button class="arrow arrow-right" onclick="nextSet()">&#8250;</button>
+        <button class="arrow arrow-left" onclick="prevSet()">&#8249;</button> <!-- Left arrow -->
+        <h2 id="setTitle" style="font-size: 1rem; margin-top: -10px; text-align: center;">Entrainements Triceps</h2> <!-- Title that will change -->
+        <button class="arrow arrow-right" onclick="nextSet()">&#8250;</button> <!-- Right arrow -->
     </div>
-    <div class="video-bank" id="exerciseSetsContainer">
-      <!-- Set 1: Triceps -->
-<div class="exercise-set" id="exerciseSet1">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-            <video controls src="barre_au_front_chaise.mp4" width="180" alt="Bench press" poster="bar_au_front.png"></video>
-            <p>Barre au front + Chaise</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video2">
-            <video controls src="extension_coude_corde_dos_puis_face_a_la_poulie.mp4" width="180" alt="Extension Coudes Corde" poster="extension_coude.png"></video>
-            <p>Extension Coudes Corde</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video3">
-            <video controls src="extension_coudes_banc_incline.mp4" width="180" alt="Extension Coudes Banc Incliné" poster="extension_coude_banc_incline.png"></video>
-            <p>Extension Coudes Banc Incliné</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video4">
-            <video controls src="triceps_unilateral.mp4" width="180" alt="Triceps unilatéral" poster="triceps_unilateral.png"></video>
-            <p>Triceps Unilatéral</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
-            <video controls src="dips.mp4" width="180" alt="Pushdown à la poulie" poster="dips.png"></video>
-            <p>Dips</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
-            <video controls src="dips_assistes.mp4" width="180" alt="Dips assistés" poster="dips_assistes.png"></video>
-            <p>Dips assistés</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
-            <video controls src="extension_de_coudes.mp4" width="180" alt="Kickback haltères" poster="extensions_de_coude.png"></video>
-            <p>Extension de coudes</p>
-        </div>
-    </div>
-</div>
 
-<!-- Set 2: Biceps -->
-<div class="exercise-set" id="exerciseSet2" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
-            <video controls src="biceps_unilateral.mp4" width="180" alt="Biceps unilatéral" poster="biceps_unilateral.png"></video>
-            <p>Biceps unilatéral</p>
+    <!-- First Set of Exercises: Triceps -->
+    <div class="video-bank" id="exerciseSet1">
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video1">
+            <video controls src="Barre au front + Chaise !.mp4" alt="Barre au front"></video>
+            <p>Bar au front + Chaise</p>
         </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
-            <video controls src="curl_incline_degressif.mp4" width="180" alt="Curl Incliné + Dégressif" poster="curl_incline_degressif.png"></video>
-            <p>Curl Incliné + Dégressif</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
-            <video controls src="curl_prise_marteaux.mp4" width="180" alt="Curl Prise Marteaux" poster="curl_prise_marteaux.png"></video>
-            <p>Curl Prise Marteaux</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video8">
-            <video controls src="curl_biceps_supination.mp4" width="180" alt="Curl Biceps Supination" poster="biceps_supination.png"></video>
-            <p>Curl Biceps Supination</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
-            <video controls src="curl_supination_poulie.mp4" width="180" alt="Curl Supination Poulie" poster="curl_supination_poulie.png"></video>
-            <p>Curl Supination Poulie</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
-            <video controls src="curl_prise_inverse.mp4" width="180" alt="Cable Curl" poster="curl_prise_inverse.png"></video>
-            <p>Curl Prise inverse</p>
-        </div>
-    </div>
-</div>
 
-<!-- Set 3: Pectoraux -->
-<div class="exercise-set" id="exerciseSet3" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
-            <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
-            <p>Écartés Poulies coudes rentrés</p>
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video3">
+            <video controls src="Extension Coude Corde Dos puis Face a la poulie.mp4" alt="Extension coude corde"></video>
+            <p>Extension coude corde</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video3">
+            <video controls src="Extension Coudes banc Incliné.mp4" alt="Extension coude banc incline"></video>
+            <p>Extension coude banc incliné</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video4">
+            <video controls src="Triceps unilatéral.mp4" alt="Extension coude banc incline"></video>
+            <p>Extension coude banc incliné</p>
         </div>
     </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
-            <video controls src="ecart_poulies_hautes.mp4" width="180" alt="Écarté Poulies Hautes" poster="ecarte_poulie_haute.png"></video>
-            <p>Écartés Poulies Hautes</p>
+
+    <!-- Second Set of Exercises: Pecs -->
+    <div class="video-bank" id="exerciseSet2" style="display: none;">
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video7">
+            <video controls src="Ecarts Poulies Basses.mp4" alt="Chest Fly"></video>
+            <p>Ecarts Poulies Basses</p>
         </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video11">
-            <video controls src="bench_machine_tempo.mp4" width="180" alt="Bench machine Tempo" poster="bench_machine_tempo.png"></video>
-            <p>Bench machine Tempo</p>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video8">
+            <video controls src="Ecarts Poulies coudes rentrés.mp4" alt="Bicep Curl"></video>
+            <p>Ecarts Poulies coudes rentrés</p>
         </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video12">
-            <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
-            <p>Développé Couché haltere</p>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video9">
+            <video controls src="Ecart Poulies Hautes.mp4" alt="Lat Pulldown"></video>
+            <p>Ecart Poulies Hautes</p>
         </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video13">
-            <video controls src="butterfly_pompes.mp4" width="180" alt="Butterfly + Pompes" poster="butterfly.png"></video>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video10">
+            <video controls src="Bench machine _ Tempo.mp4" alt="Deadlift"></video>
+            <p>Bench machine tempo</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video10">
+            <video controls src="Butterfly + Pompes.mp4" alt="Deadlift"></video>
             <p>Butterfly + Pompes</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video14">
-            <video controls src="ecarte_poulie_basse.mp4" width="180" alt="Pec Fly Machine" poster="ecarte_poulie_basse.png"></video>
-            <p>Ecarte poulie basse</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video15">
-            <video controls src="dips_prise_large.mp4" width="180" alt="DIPS Prise Large" poster="dips_prise_large.png"></video>
-            <p>DIPS Prise Large</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video16">
-            <video controls src="smith_machine_tempo.mp4" width="180" alt="Incline Bench Press" poster="smith_machine_tempo.png"></video>
-            <p>Smith machine tempo</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video17">
-            <video controls src="pecs_au_butterfly.mp4" width="180" alt="Chest Dips" poster="uniquement_pec_butterfly.png"></video>
-            <p>Pecs au Butterfly</p>
-        </div>
-    </div>
-</div>
 
-<!-- Set 4: Jambes -->
-<div class="exercise-set" id="exerciseSet4" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video19">
-            <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
-            <p>Fentes Bulgares en détail !</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video20">
-            <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
-            <p>Legs Extension ! Dégressif</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video21">
-            <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
-            <p>Presse Verticale en détail !</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video22">
-            <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
-            <p>Soulevé de Terre Jambes Tendues !</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
-            <video controls src="squat.mp4" width="180" alt="Squat" poster="squat.png"></video>
-            <p>Squat</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
-            <video controls src="adducteur.mp4" width="180" alt="Hack Squat" poster="adducteur.png"></video>
-            <p>Adducteur</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
-            <video controls src="fentes_guides.mp4" width="180" alt="Lunges" poster="fentes_guides.png"></video>
-            <p>Fentes Guidés</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
-            <video controls src="hack_squat.mp4" width="180" alt="Glute Bridge" poster="hack_squat.png"></video>
-            <p>Hack Squat</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
-            <video controls src="leg_curl.mp4" width="180" alt="Leg Curl" poster="leg_curl.png"></video>
-            <p>Leg Curl</p>
-        </div>
-    </div>
-</div>
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video10">
+            <video controls src="Développé Couché haltere.mp4" alt="Deadlift"></video>
+            <p>Développé Couché haltere</p>
 
-<!-- Set 5: Épaules -->
-<div class="exercise-set" id="exerciseSet5" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
-            <video controls src="elevations_laterales_machine.mp4" alt="Élévations Latérales Machine" poster="elevation_machine_laterale.png"></video>
-            <p>Élévations latérales machine</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
-            <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
-            <p>Élévations Frontales en dégressif</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
-            <video controls src="elevations_laterales_poulie.mp4" alt="Élévations Latérales Poulie" poster="elevation_laterale_poulie.png"></video>
-            <p>Élévations latérales poulie</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
-            <video controls src="developpe_militaire_smith_guide.mp4" alt="Développé Militaire" poster="elevation_militaire_smith.png"></video>
-            <p>Développé Militaire Smith Guidé</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
-            <video controls src="ton_exo_butterfly_inverse.mp4" alt="Butterfly Inversé" poster="butterfly_inverse.png"></video>
-            <p>Butterfly Inversé</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
-            <video controls src="dev_militaire_machine.mp4" alt="Dev militaire machine" poster="dev_militaire.png"></video>
-            <p>Dev militaire machine</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
-            <video controls src="face_pull.mp4" alt="Face Pull" poster="face_pull.png"></video>
-            <p>Face Pull</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
-            <video controls src="elevations_laterales_degressif.mp4" alt="Élévations latérales + Dégressif" poster="elevations_laterales_degressif.png"></video>
-            <p>Élévations latérales + Dégressif</p>
-        </div>
-    </div>
-</div>
-
-<!-- Set 6: Dos -->
-<div class="exercise-set" id="exerciseSet6" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
-            <video controls src="releves_de_buste_en_detail.mp4" alt="Relevés de Buste" poster="releve_buste.png"></video>
-            <p>Relevés de Buste en Détail</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
-            <video controls src="tes_tractions_assistees_en_details.mp4" alt="Tractions Assitées" poster="traction_assistee.png"></video>
-            <p>Tes tractions assitées en Détails</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
-            <video controls src="tirage_dorsaux.mp4" alt="Tirage Dorsaux" poster="tirage_dorsaux.png"></video>
-            <p>Tirage Dorsaux</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video32">
-            <video controls src="tirage_horizontal_machine.mp4" alt="Tirage Horizontal Machine" poster="tirage_horizontal_machine.png"></video>
-            <p>Tirage horizontal machine</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video33">
-            <video controls src="tirage_inverse_meilleur_exo_dos.mp4" alt="Tirage Inversé" poster="tirage_inverse.png"></video>
-            <p>Tirage inversé, Meilleur exo dos</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video34">
-            <video controls src="tirage_menton.mp4" alt="Tirage Menton" poster="tirage_menton.png"></video>
-            <p>Tirage Menton</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video35">
-            <video controls src="tirage_poulie_vis_a_vis.mp4" alt="Tirage Poulie Vis à Vis" poster="tirage_poulie_vis_a_vis.png"></video>
-            <p>Tirage Poulie Vis à Vis</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video36">
-            <video controls src="tirage_trapeze.mp4" alt="Tirage Trapeze" poster="tirage_trapeze.png"></video>
-            <p>Tirage Trapeze</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video37">
-            <video controls src="tirage_unilateral_a_la_poulie.mp4" alt="Tirage unilatéral à la Poulie" poster="tirage_unilateral_poulie.png"></video>
-            <p>Tirage unilatéral à la Poulie</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video38">
-            <video controls src="tirage_verticale.mp4" alt="Tirage Verticale" poster="tirage_verticale.png"></video>
-            <p>Tirage verticale</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video39">
-            <video controls src="ton_exo_le_shrug.mp4" alt="Shrug" poster="shrug.png"></video>
-            <p>Ton Exo, Le Shrug</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video40">
-            <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
-            <p>Tirage Horizontale Trapèzes</p>
-        </div>
-            <!-- Bandwidth at the bottom for mobile -->
-    <div class="bandwidth-container">
-        <div class="bandwidth-cell" id="bandwidth-cell1"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell2"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell3"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell4"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell5"></div>
-    </div>
-</div>
+            <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video10">
+                <video controls src="DIPS Prise Large.mp4" alt="Deadlift"></video>
+                <p>DIPS Prise Large</p>
             
-            <script>
-        let currentSet = 1;  // Start with Set 1
-const totalSets = 6; // Total number of sets
+                <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video10">
+                <video controls src="Smith machine _ tempo.mp4" alt="Deadlift"></video>
+                <p>Smith machine tempo</p>
 
-function nextSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
-    if (currentElement) {
-        currentElement.style.display = 'none';
+            
+    </div>
+
+    <!-- Third Set of Exercises: Shoulders -->
+    <div class="video-bank" id="exerciseSet3" style="display: none;">
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video11">
+            <video controls src="Shoulder Press.mp4" alt="Shoulder Press"></video>
+            <p>Shoulder Press</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video12">
+            <video controls src="Lateral Raise.mp4" alt="Lateral Raise"></video>
+            <p>Lateral Raise</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video13">
+            <video controls src="Front Raise.mp4" alt="Front Raise"></video>
+            <p>Front Raise</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video14">
+            <video controls src="Reverse Fly.mp4" alt="Reverse Fly"></video>
+            <p>Reverse Fly</p>
+        </div>
+
+        <div class="draggable exercise-card" draggable="true" ondragstart="drag(event)" id="video15">
+            <video controls src="Shrugs.mp4" alt="Shrugs"></video>
+            <p>Shrugs</p>
+        </div>
+    </div>
+
+        </div>
+
+        <script>
+            let currentSet = 1; // Track the current set, starts at 1
+    const totalSets = 3; // Total number of sets
+
+    // Titles for each set of exercises
+    const setTitles = {
+        1: "Entrainements Triceps",
+        2: "Entrainements Pecs",
+        3: "Entrainements Épaules"
+    };
+
+    function showSet(setNumber) {
+        // Hide all sets
+        for (let i = 1; i <= totalSets; i++) {
+            document.getElementById('exerciseSet' + i).style.display = 'none';
+        }
+        // Show the desired set
+        document.getElementById('exerciseSet' + setNumber).style.display = 'block';
+
+        // Update the title to the corresponding set
+        document.getElementById('setTitle').textContent = setTitles[setNumber];
     }
 
-    currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(exerciseSet${currentSet});
-    if (nextElement) {
-        nextElement.style.display = 'flex';
+    function nextSet() {
+        currentSet = (currentSet % totalSets) + 1; // Increment set number, reset if it exceeds totalSets
+        showSet(currentSet);
     }
 
-    updateTitle();
-}
-
-function prevSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
-    if (currentElement) {
-        currentElement.style.display = 'none';
+    function prevSet() {
+        currentSet = (currentSet - 1 <= 0) ? totalSets : currentSet - 1; // Decrement, loop back if below 1
+        showSet(currentSet);
     }
 
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(exerciseSet${currentSet});
-    if (prevElement) {
-        prevElement.style.display = 'flex';
-    }
+    // Optional: Call showSet(1) initially if you want to reset the page state
+    showSet(1);
 
-    updateTitle();
-}
+        // Function to lock and unlock the page
+        function toggleLockPage() {
+            const lockButton = document.getElementById('lockButton');
+            const isLocked = lockButton.innerText === 'Séance verrouillée'; // Check if it's locked
 
-function updateTitle() {
-    const titles = [
-        "Entrainements Triceps",
-        "Entrainements Biceps",
-        "Entrainements Pectoraux",
-        "Entrainements Jambes",
-        "Entrainements Épaules",
-        "Entrainements Dos"
-    ];
-    document.getElementById("setTitle").textContent = titles[currentSet - 1];
-}
+            if (isLocked) {
+                unlockPage();
+            } else {
+                lockPage();
+            }
+        }
 
-function displayCurrentDate() {
-    const dateElement = document.getElementById("dateDisplay");
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = today.toLocaleDateString('fr-FR', options);
-    dateElement.textContent = formattedDate;
-}
+        // Function to lock the page and disable user inputs
+        function lockPage() {
+            const elements = document.querySelectorAll('input, select, textarea, button:not(#lockButton, #exportButton)');
 
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-};
+            // Disable all input, select, and textarea elements, except the export button
+            elements.forEach(element => {
+                element.disabled = true;
+            });
 
-// Drag and Drop functionality
-let draggedElement = null;
+            // Change the lock button text to indicate the page is locked
+            const lockButton = document.getElementById('lockButton');
+            lockButton.innerText = 'Séance verrouillée';
+        }
 
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
+        // Function to unlock the page and enable user inputs
+        function unlockPage() {
+            const elements = document.querySelectorAll('input, select, textarea, button:not(#lockButton, #exportButton)');
 
-function handleTouchMove(e) {
-    if (draggedElement) {
-        e.preventDefault();
-    }
-}
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
+            // Enable all input, select, and textarea elements
+            elements.forEach(element => {
+                element.disabled = false;
+            });
 
-document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-});
+            // Restore the lock button text to indicate the page is unlocked
+            const lockButton = document.getElementById('lockButton');
+            lockButton.innerText = 'Verrouiller ma séance';
+        }
 
-document.addEventListener('dragend', (e) => {
-    draggedElement = null;
-});
+        document.getElementById('exportButton').addEventListener('click', function () {
+    const workoutContainer = document.querySelector('.workout-container');
 
-function handleDragOver(e) {
-    e.preventDefault();
-}
+    // Temporarily set height to auto and remove overflow to capture full content
+    workoutContainer.style.height = 'auto';
+    workoutContainer.style.overflow = 'visible';
 
-function handleDropOnSlot(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        let clonedElement = draggedElement.cloneNode(true);
-        e.target.innerHTML = ''; 
-        const draggedVideo = draggedElement.querySelector('video');
-        const newVideo = document.createElement('video');
-        newVideo.controls = true;
-        newVideo.src = draggedVideo.src;
-        newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270; 
-        e.target.appendChild(newVideo);
-
-        let videoTitle = draggedElement.querySelector('p').textContent;
-        let titleElement = document.createElement('p');
-        titleElement.textContent = videoTitle;
-        e.target.appendChild(titleElement);
-
-        newVideo.draggable = false;
-    }
-}
-
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
-    }
-}
-
-function addDragAndDropListeners() {
-    const videoElements = document.querySelectorAll('.draggable');
-    videoElements.forEach(video => {
-        video.setAttribute('draggable', 'true');
-        video.addEventListener('touchstart', handleTouchStart);
-        video.addEventListener('touchmove', handleTouchMove);
-        video.addEventListener('touchend', handleTouchEnd);
+    // Ensure all dynamic content (like the values of sliders, dropdowns, checkboxes, and dropped images) are reflected
+    const seriesInputs = document.querySelectorAll('input[type="range"], select, input[type="checkbox"]');
+    
+    seriesInputs.forEach(input => {
+        if (input.tagName === 'SELECT') {
+            // Handle dropdowns (like 'Temps de Repos')
+            const options = input.querySelectorAll('option');
+            options.forEach(option => {
+                if (option.value === input.value) {
+                    option.setAttribute('selected', 'selected'); // Set selected option
+                } else {
+                    option.removeAttribute('selected'); // Remove 'selected' from non-selected options
+                }
+            });
+        } else if (input.type === 'checkbox') {
+            // Handle checkboxes (like 'Dégressif')
+            if (input.checked) {
+                input.setAttribute('checked', 'checked'); // Add 'checked' attribute if it's checked
+            } else {
+                input.removeAttribute('checked'); // Remove 'checked' attribute if it's not checked
+            }
+        } else {
+            // Handle sliders
+            input.setAttribute('value', input.value); // Ensure slider values are reflected
+        }
     });
 
+    // Handle images that have been dropped into the exercise slots
     const exerciseSlots = document.querySelectorAll('.exercise-slot');
     exerciseSlots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
-        });
-    });
-
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
-    });
-}
-
-// Function to clone the selected video to the exercise slot
-function cloneVideoToSlot(exerciseNumber) {
-    const selectElement = document.getElementById(selectExercise${exerciseNumber});
-    const selectedValue = selectElement.value;  // Get the selected video ID
-
-    if (selectedValue) {
-        // Find the corresponding video in the video bank by its ID
-        const videoElement = document.getElementById(selectedValue);
-
-        if (videoElement) {
-            // Get the video details (source, poster, etc.)
-            const draggedVideo = videoElement.querySelector('video');
-            const videoSrc = draggedVideo.src;
-            const videoPoster = draggedVideo.poster;
-
-            // Get the exercise slot where the video should be placed
-            const slotElement = document.getElementById(slot${exerciseNumber});
-
-            // Clear any previous content in the slot
-            slotElement.innerHTML = '';
-
-            // Create a new video element and append it to the slot
-            const newVideo = document.createElement('video');
-            newVideo.controls = true;
-            newVideo.src = videoSrc;
-            newVideo.poster = videoPoster;
-            newVideo.width = 270;  // Set the width of the video
-            slotElement.appendChild(newVideo);
-
-            // Add the title below the video
-            const titleElement = document.createElement('p');
-            titleElement.textContent = videoElement.querySelector('p').textContent;
-            slotElement.appendChild(titleElement);
+        const img = slot.querySelector('img'); // Get the image in the slot
+        if (img) {
+            const imgSrc = img.src; // Get the source of the image
+            img.setAttribute('src', imgSrc); // Ensure the src attribute is captured for export
         }
-    }
-}
+    });
 
-// Export session function
-function exportSession() {
-    let contentToExport = 
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Séance Enregistrée</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
-            }
-            .container {
-                width: 80%;
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-card {
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-            }
-            .exercise-card video {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    ;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
-        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
-
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-
-        contentToExport += 
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        ;
-
+    // Handle videos that are added
+    const videoElements = document.querySelectorAll('video');
+    videoElements.forEach(video => {
+        const videoSrc = video.src; // Get the source of the video
         if (videoSrc) {
-            contentToExport += 
-                <div>
-                    Vidéo:<br>
-                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            ;
-        } else {
-            contentToExport += <div>Aucune vidéo sélectionnée</div>;
+            video.setAttribute('src', videoSrc); // Ensure the src attribute is captured for export
         }
-
-        contentToExport += 
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Dégressif:</strong> ${degressif}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>;
+        
+        // Optionally, if you need to capture video attributes like controls, autoplay, etc.
+        if (video.hasAttribute('controls')) {
+            video.setAttribute('controls', 'controls');
+        }
+        if (video.hasAttribute('autoplay')) {
+            video.setAttribute('autoplay', 'autoplay');
+        }
     });
 
-    contentToExport += 
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    ;
+    // Capture the full HTML content, including current input values, images, and videos
+    const fullHTMLContent = document.documentElement.outerHTML;
 
-    const blob = new Blob([contentToExport], { type: 'text/html' });
+    // Create a Blob object with the HTML content
+    const blob = new Blob([fullHTMLContent], { type: 'text/html' });
+
+    // Create a download link and trigger the download
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
+    link.download = 'workout-page.html'; // Name of the downloaded file
     link.click();
-    document.body.removeChild(link);
-}
+});
+        // Function to get today's date and display it
+        function displayDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const year = today.getFullYear();
 
-document.getElementById('exportButton').addEventListener('click', exportSession);
+            const formattedDate = ${day}/${month}/${year};
+            document.getElementById('dateDisplay').innerText = ${formattedDate};
+        }
 
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-    displayCurrentDate();
-};
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
+        // Ensure the date is displayed when the page loads
+        window.onload = function() {
+            displayDate();
+        };
 
-function doSomethingOnScroll(scrollPos) {
-    // Example: Add scroll-specific functionality here, if needed
-}
 
-window.addEventListener('scroll', function() {
-    lastKnownScrollPosition = window.scrollY;
+    // Drag and Drop functionality
+    // Initialize the dragged element
+    let draggedElement = null;
 
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            doSomethingOnScroll(lastKnownScrollPosition);
-            ticking = false;
-        });
+    // Select all slots and the image bank container
+    const slots = document.querySelectorAll('.exercise-slot');
+    const imageBank = document.querySelector('.image-bank');
 
-        ticking = true;
+    // Drag start: Set the dragged element
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('draggable')) {
+            draggedElement = e.target;  // Save the dragged element (either img or video)
+        }
+    });
+
+    // Drag end: Clear the dragged element reference
+    document.addEventListener('dragend', (e) => {
+        draggedElement = null;  // Clear the dragged element
+    });
+
+    // Handle dragover for both slots and image bank
+    function handleDragOver(e) {
+        e.preventDefault();  // Prevent default to allow drop
     }
-});// Reduce the frequency of scroll events triggering operations
-function throttleScroll(fn, wait) {
-    let time = Date.now();
-    return function() {
-        if ((time + wait - Date.now()) < 0) {
-            fn();
-            time = Date.now();
+
+    // Handle drop on slots
+    function handleDropOnSlot(e) {
+        e.preventDefault();  // Prevent default action
+        if (draggedElement) {
+            e.target.innerHTML = '';  // Clear the slot
+            e.target.appendChild(draggedElement);  // Append the dragged video/image to the slot
+            fitMediaInSlot(draggedElement, e.target);  // Adjust size to fit the slot
         }
     }
-}
 
-window.addEventListener('scroll', throttleScroll(function() {
-    // Your scroll event logic here
-}, 100));  // Adjust the wait time to 100ms or your preference
-document.getElementById('exerciseSetsContainer').scrollTop = 0;
-</script>
+    // Handle drop on the image bank
+    function handleDropOnImageBank(e) {
+        e.preventDefault();  // Prevent default action
+        if (draggedElement) {
+            imageBank.appendChild(draggedElement);  // Return the video/image to the image bank
+            resetMediaSize(draggedElement);  // Reset its size
+        }
+    }
+
+    // Attach event listeners to each slot for dragging over and dropping
+    slots.forEach(slot => {
+        slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('drop', handleDropOnSlot);
+    });
+
+    // Attach event listeners to the image bank for dragging over and dropping
+    imageBank.addEventListener('dragover', handleDragOver);
+    imageBank.addEventListener('drop', handleDropOnImageBank);
+
+    // Function to ensure the media (video or image) fits properly inside the slot
+    function fitMediaInSlot(media, slot) {
+        media.style.width = '100%';  // Make media take up the full width of the slot
+        media.style.height = '100%';  // Make media take up the full height of the slot
+        media.style.objectFit = 'cover';  // Cover the slot without stretching
+    }
+
+    // Reset the media size when it is moved back to the image bank
+    function resetMediaSize(media) {
+        media.style.width = '';  // Reset the media width
+        media.style.height = '';  // Reset the media height
+        media.style.objectFit = '';  // Reset the object fit property
+    }   
+    </script>
 </body>
 </html>
