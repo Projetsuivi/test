@@ -336,22 +336,29 @@
         font-weight: 500;
     }
 
-    /* Center title and arrows */
+    /* Center title and place it at the top */
     .video-navigation {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Margin added to separate from the videos */
+        margin-top: 5px;
     }
 
     .video-navigation h2#setTitle {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         color: #333;
         font-weight: 600;
         margin: 0;
-        flex-grow: 1;
         text-align: center;
+    }
+
+    /* Navigation arrows below the videos */
+    .video-bank-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
     }
 
     .arrow-left, .arrow-right {
@@ -372,14 +379,6 @@
 
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
-    }
-
-    /* Navigation arrows at the bottom, below the videos */
-    .video-bank-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
     }
 
     /* Save button */
