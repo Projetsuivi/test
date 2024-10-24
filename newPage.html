@@ -257,7 +257,7 @@
         flex-grow: 1;
         height: auto;
         margin-bottom: 2px;
-        padding-top: 35px;
+        padding-top: 10px;
     }
 
     .exercise-number {
@@ -372,28 +372,27 @@
         background-color: #e07453;
     }
 
-    /* Button for saving session */
-    #exportButton {
-        width: auto;
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 1rem;
-        text-align: center;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+/* Button for saving session */
+#exportButton {
+    width: auto;
+    position: fixed;
+    bottom: -5px;
+    right: 10px;
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Further reduced padding */
+    border-radius: 4px; /* Further reduced border radius */
+    font-size: 0.75rem; /* Further reduced font size */
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+}
 
-    #exportButton:hover {
-        background-color: #e07453;
-    }
-
+#exportButton:hover {
+    background-color: #e07453;
+}
     /* Container for Repos */
     .repos-container {
         display: flex;
@@ -806,7 +805,7 @@
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
             <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
-            <p>Dev couché coudes rentrés</p>
+            <p>Écartés Poulies coudes rentrés</p>
         </div>
     </div>
     <div class="exercise-card">
@@ -824,7 +823,7 @@
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video12">
             <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
-            <p>Dev Couché haltere</p>
+            <p>Développé Couché haltere</p>
         </div>
     </div>
     <div class="exercise-card">
@@ -864,25 +863,25 @@
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video19">
             <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
-            <p>Fentes Bulgares</p>
+            <p>Fentes Bulgares en détail !</p>
         </div>
     </div>
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video20">
             <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
-            <p>Legs Extension Dégressif</p>
+            <p>Legs Extension ! Dégressif</p>
         </div>
     </div>
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video21">
             <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
-            <p>Presse Verticale</p>
+            <p>Presse Verticale en détail !</p>
         </div>
     </div>
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video22">
             <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
-            <p>Soulevé de Terre Jambes Tendues</p>
+            <p>Soulevé de Terre Jambes Tendues !</p>
         </div>
     </div>
     <div class="exercise-card">
@@ -928,7 +927,7 @@
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
             <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
-            <p>Élévations Frontales</p>
+            <p>Élévations Frontales en dégressif</p>
         </div>
     </div>
     <div class="exercise-card">
