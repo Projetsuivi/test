@@ -277,40 +277,40 @@
     /* Horizontal scrolling for the video bank */
     .video-bank-container {
         position: fixed;
-        bottom: 60px; /* Raise the video bank up to leave space for the title */
+        bottom: 0; /* Keep it at the bottom */
         left: 0;
         right: 0;
         width: 100vw;
         height: 250px;
-        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-x: auto;
         overflow-y: hidden;
         display: flex;
         flex-direction: row;
         background-color: #f7f7f7;
         padding: 20px;
         box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
+        z-index: 9998; /* Lower z-index to allow title-container to be visible above it */
         white-space: nowrap;
         scroll-snap-type: x mandatory;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
 
-    /* Move the title-container right above the video bank */
+    /* Make the title-container visible above the video bank */
     .title-container {
-        position: fixed;  /* Ensure it is fixed above the video bank */
-        bottom: 0;  /* Place it right above the video bank */
+        position: absolute; /* Change to absolute positioning */
+        bottom: 270px; /* Position it just above the video bank */
         left: 0;
         right: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0; /* Remove extra margin */
         background-color: rgba(255, 255, 255, 0.8);
-        z-index: 1001;  /* Slightly higher than video bank */
+        z-index: 9999;  /* Higher than video bank to ensure visibility */
         padding: 10px 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
+        margin: 0 auto; /* Center it horizontally */
     }
 
     .exercise-set {
@@ -400,7 +400,7 @@
     #exportButton {
         width: auto;
         position: fixed;
-        bottom: 320px; /* Adjusted to be above both the video bank and title */
+        bottom: 320px; /* Positioned above both the video bank and title */
         right: 10px;
         background-color: #FF8A65;
         color: white;
