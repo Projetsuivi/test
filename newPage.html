@@ -261,17 +261,21 @@
         padding-top: 35px;
     }
 
-    .exercise-number {
-        font-size: 1.2rem;
-        margin-bottom: 5px;
-    }
-
-    .exercise-slot {
-        width: 340px !important;
-        height: 175px !important;
-        background-color: lightgray;
-        border: 0.5px solid red;
-        margin-bottom: 5px;
+    /* Ensure the title is visible */
+    .title-container {
+        position: fixed; /* Keep it fixed at the top */
+        top: 50px; /* Adjust this to control vertical positioning */
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Ensure it's above other content */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
     }
 
     /* Horizontal scrolling for the video bank */
@@ -282,19 +286,20 @@
         right: 0;
         width: 100vw;
         height: 250px;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Disable vertical scrolling */
+        overflow-x: auto;
+        overflow-y: hidden;
         display: flex;
         flex-direction: row;
         background-color: #f7f7f7;
         padding: 20px;
         box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
-        white-space: nowrap; /* Prevent wrapping */
-        scroll-snap-type: x mandatory; /* Smooth snapping */
+        z-index: 999; /* Make sure the video bank stays below the title container */
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
+}
 
     .exercise-set {
         display: flex;
