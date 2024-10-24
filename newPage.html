@@ -277,12 +277,12 @@
     /* Horizontal scrolling for the video bank */
     .video-bank-container {
         position: fixed;
-        bottom: 0;
+        bottom: 60px; /* Raise the video bank up to leave space for the title */
         left: 0;
         right: 0;
         width: 100vw;
         height: 250px;
-        overflow-x: auto;
+        overflow-x: auto; /* Enable horizontal scrolling */
         overflow-y: hidden;
         display: flex;
         flex-direction: row;
@@ -296,14 +296,18 @@
         border-top-right-radius: 15px;
     }
 
+    /* Move the title-container right above the video bank */
     .title-container {
-        order: 2; /* Ensure it appears between video bank and the first exercise */
+        position: fixed;  /* Ensure it is fixed above the video bank */
+        bottom: 0;  /* Place it right above the video bank */
+        left: 0;
+        right: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 10px 0; /* Space between video bank and exercise row */
-        background-color: rgba(255, 255, 255, 0.8); /* Add semi-transparent background */
-        z-index: 1000;
+        margin: 0; /* Remove extra margin */
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1001;  /* Slightly higher than video bank */
         padding: 10px 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -392,10 +396,11 @@
         background-color: #e07453;
     }
 
+    /* Save button */
     #exportButton {
         width: auto;
         position: fixed;
-        bottom: 60px;
+        bottom: 320px; /* Adjusted to be above both the video bank and title */
         right: 10px;
         background-color: #FF8A65;
         color: white;
