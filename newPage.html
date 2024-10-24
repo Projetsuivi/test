@@ -242,14 +242,14 @@
 
 
 @media (max-width: 900px) {
-    /* Increase the space from the top for the exercise rows */
+    /* Adjust workout-container spacing */
     .workout-container {
-        margin-top: 310px; /* Adjust the margin to push the exercise rows further down */
+        margin-top: 310px;
     }
 
     .main-container {
         flex-direction: column;
-        overflow-y: visible; /* Ensure container allows for expanded height */
+        overflow-y: visible;
     }
 
     .exercise-row {
@@ -257,13 +257,13 @@
         align-items: flex-start;
         flex-grow: 1;
         height: auto;
-        margin-bottom: 2px; /* Reduced margin between exercise rows */
-        padding-top: 35px; /* Padding between exercises */
+        margin-bottom: 2px;
+        padding-top: 35px;
     }
 
     .exercise-number {
-        font-size: 1.2rem; /* Make "EXERCICE" more prominent */
-        margin-bottom: 5px; /* Reduced space below the exercise number */
+        font-size: 1.2rem;
+        margin-bottom: 5px;
     }
 
     .exercise-slot {
@@ -271,17 +271,10 @@
         height: 175px !important;
         background-color: lightgray;
         border: 0.5px solid red;
-        margin-bottom: 5px; /* Reduced space between the slot and other elements */
+        margin-bottom: 5px;
     }
 
-    /* Show dropdown in mobile view */
-    .video-select {
-        display: block;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    /* Sticky video bank at the top of the page */
+    /* Horizontal scrolling for the video bank */
     .video-bank-container {
         position: fixed;
         top: 0;
@@ -289,33 +282,34 @@
         right: 0;
         width: 100vw;
         height: 300px;
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* Arrange items horizontally */
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
+        white-space: nowrap; /* Prevent wrapping */
+        scroll-snap-type: x mandatory; /* Smooth snapping */
     }
-    .video-bank-container {
-    will-change: transform; /* Optimize scrolling performance */
-}
 
     .exercise-set {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row; /* Align sets horizontally */
         gap: 20px;
         text-align: center;
+        flex-wrap: nowrap; /* Prevent wrapping */
     }
 
-    /* Increase size for each exercise container */
     .exercise-card {
-        min-height: 200px; /* Adjusted to reduce card size */
-        width: 100%;
-        padding: 10px; /* Reduced padding */
+        flex-shrink: 0; /* Prevent shrinking */
+        width: 180px;
+        margin-right: 10px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         background-color: #fff;
+        scroll-snap-align: start; /* Ensure smooth scrolling stops at each video */
     }
 
     .exercise-card video {
@@ -327,10 +321,11 @@
 
     .exercise-card p {
         font-size: 1rem;
-        margin-top: 5px; /* Reduced margin in text */
+        margin-top: 5px;
         text-align: center;
     }
 
+    /* Navigation arrows */
     .arrow-left, .arrow-right {
         background-color: #FF8A65;
         color: white;
@@ -350,9 +345,8 @@
     .arrow-left:hover, .arrow-right:hover {
         background-color: #e07453;
     }
-}
 
-    /* Make the 'Sauvegarder ma séance' button fixed at the right bottom */
+    /* Button for saving session */
     #exportButton {
         width: auto;
         position: fixed;
@@ -374,141 +368,6 @@
         background-color: #e07453;
     }
 }
-}
-h2#setTitle {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 600;
-    margin: 0;
-    flex-grow: 1; /* Ensures the title takes up the space between the arrows */
-    text-align: center; /* Center the text inside the title element */
-}
-/* Container for Degressif */
-.degressif-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    margin-right: 20px;
-    padding: 10px;
-    border: 1px line #FF8A65; /* Dashed border to indicate option selection */
-    border-radius: 8px;
-    background-color: rgba(255, 245, 235, 0.7); /* Light background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Hover effect for Degressif */
-.degressif-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
-}
-
-/* Container for Repos */
-.repos-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 10px;
-    border: 2px solid #FF8A65; /* Solid border for Repos */
-    border-radius: 8px;
-    background-color: rgba(235, 245, 255, 0.7); /* Light blue background for contrast */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Hover effect for Repos */
-.repos-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
-}
-
-/* Parent container for Degressif and Repos to add space between them */
-.exercise-controls {
-    display: flex;
-    flex-direction: row; /* Align Degressif and Repos in a row */
-    justify-content: space-between; /* Ensure space between them */
-    align-items: center;
-    gap: 40px; /* Adjust the gap between Degressif and Repos containers */
-    margin-top: 20px;
-}
-
-/* Container for Degressif */
-.degressif-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 10px;
-    border: 2px dashed #FF8A65;
-    border-radius: 8px;
-    background-color: rgba(255, 245, 235, 0.7);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Hover effect for Degressif */
-.degressif-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Container for Repos */
-.repos-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 10px;
-    border: 2px solid #FF8A65;
-    border-radius: 8px;
-    background-color: rgba(235, 245, 255, 0.7);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Adjust spacing and styling around checkbox and dropdown */
-.checkbox-group label, .rest-group label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.checkbox-group input[type="checkbox"] {
-    transform: scale(1.2); /* Increase the size of the checkbox */
-    accent-color: #FF8A65;
-}
-
-.rest-group {
-    display: flex;
-    flex-direction: column;  
-    align-items: flex-start;  /* Align content to the left */
-    justify-content: center;  
-    height: 100%;             
-    margin-left: -10px;  /* Use negative margin to push it left beyond its container */
-    margin-right: 0px;        
-}
-
-.rest-group select {
-    padding: 5px 3px;
-    font-size: 0.9rem;
-    border-radius: 3px;
-    border: 2px solid #FF8A65;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: border-color 0.3s ease;
-    width: 90px;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-direction: column;  /* Stack label and checkbox vertically */
-    align-items: center;     /* Horizontally center the content */
-    justify-content: center;  /* Vertically center the content */
-    margin-left: 10px;        /* Adjust left margin as needed */
-    margin-right: 50px;       /* Adjust right margin as needed */
-    height: 100%;             /* Ensure it takes up the full height of its container */
-}
-
-
     </style>
 </head>
 <body>
