@@ -282,30 +282,43 @@
         right: 0;
         width: 100vw;
         height: 250px;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Disable vertical scrolling */
+        overflow-x: auto;
+        overflow-y: hidden;
         display: flex;
         flex-direction: row;
         background-color: #f7f7f7;
         padding: 20px;
         box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        white-space: nowrap; /* Prevent wrapping */
-        scroll-snap-type: x mandatory; /* Smooth snapping */
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
 
+    .title-container {
+        order: 2; /* Ensure it appears between video bank and the first exercise */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0; /* Space between video bank and exercise row */
+        background-color: rgba(255, 255, 255, 0.8); /* Add semi-transparent background */
+        z-index: 1000;
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
     .exercise-set {
         display: flex;
-        flex-direction: row; /* Align sets horizontally */
+        flex-direction: row;
         gap: 20px;
         text-align: center;
-        flex-wrap: nowrap; /* Prevent wrapping */
+        flex-wrap: nowrap;
     }
 
     .exercise-card {
-        flex-shrink: 0; /* Prevent shrinking */
+        flex-shrink: 0;
         width: 180px;
         margin-right: 10px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -317,7 +330,7 @@
     }
 
     .exercise-card:hover {
-        transform: scale(1.05); /* Slight zoom on hover */
+        transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
@@ -336,12 +349,11 @@
         font-weight: 500;
     }
 
-    /* Center title and place it at the top */
     .video-navigation {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 10px; /* Margin added to separate from the videos */
+        margin-bottom: 10px;
         margin-top: 5px;
     }
 
@@ -353,7 +365,6 @@
         text-align: center;
     }
 
-    /* Navigation arrows below the videos */
     .video-bank-navigation {
         display: flex;
         justify-content: center;
@@ -381,11 +392,10 @@
         background-color: #e07453;
     }
 
-    /* Save button */
     #exportButton {
         width: auto;
         position: fixed;
-        bottom: 60px; /* Positioned above the video bank */
+        bottom: 60px;
         right: 10px;
         background-color: #FF8A65;
         color: white;
