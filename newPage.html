@@ -274,30 +274,24 @@
         margin-bottom: 5px;
     }
 
-    /* Horizontal scrolling for the video bank */
-    .video-bank-container {
-        position: fixed;
-        bottom: 0; /* Keep it at the bottom */
-        left: 0;
-        right: 0;
-        width: 100vw;
-        height: 250px;
-        overflow-x: auto;
-        overflow-y: hidden;
+    /* Title container above the exercise rows */
+    .title-container {
+        position: relative; /* Change to relative to position it above the exercise rows */
+        top: 0; /* Ensure it stays at the top */
+        width: 100%; /* Ensure it spans the full width */
         display: flex;
-        flex-direction: row;
-        background-color: #f7f7f7;
-        padding: 20px;
-        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 9998; /* Lower z-index to allow title-container to be visible above it */
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000; /* Higher than other elements */
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-bottom: 20px; /* Space below the title container */
+        text-align: center;
     }
 
-    /* Make the title-container visible above the video bank */
-   
+    /* Exercise Set adjustments */
     .exercise-set {
         display: flex;
         flex-direction: row;
@@ -338,54 +332,11 @@
         font-weight: 500;
     }
 
-    .video-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px;
-        margin-top: 5px;
-    }
-
-    .video-navigation h2#setTitle {
-        font-size: 1.4rem;
-        color: #333;
-        font-weight: 600;
-        margin: 0;
-        text-align: center;
-    }
-
-    .video-bank-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .arrow-left, .arrow-right {
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s;
-        margin: 0 10px;
-    }
-
-    .arrow-left:hover, .arrow-right:hover {
-        background-color: #e07453;
-    }
-
     /* Save button */
     #exportButton {
         width: auto;
         position: fixed;
-        bottom: 320px; /* Positioned above both the video bank and title */
+        bottom: 60px; /* Positioned above the video bank */
         right: 10px;
         background-color: #FF8A65;
         color: white;
@@ -397,24 +348,6 @@
         cursor: pointer;
         z-index: 1000;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-     .title-container {
-        position: absolute; /* Change to absolute positioning */
-        bottom: 320px; /* Position it just above the video bank */
-        left: 10;
-        display: flex;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.8);
-        z-index: 1000;  /* Higher than video bank to ensure visibility */
-        padding: 10px 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        margin: 0 auto; /* Center it horizontally */
-    }
-
-
-    #exportButton:hover {
-        background-color: #e07453;
     }
 }
     </style>
