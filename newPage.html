@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -269,7 +270,7 @@
     .exercise-slot {
         width: 340px !important;
         height: 175px !important;
-        background-color: transparent;
+        background-color: transparent; /* Transparent background */
         border: 0.5px solid red;
         margin-bottom: 5px;
     }
@@ -283,42 +284,42 @@
         right: 0;
         width: 100vw;
         height: 300px;
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
         display: flex;
-        flex-direction: row;
+        flex-direction: row; /* Arrange items horizontally */
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
         url('logo.png') no-repeat center center;
         padding: 70px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
+        white-space: nowrap; /* Prevent wrapping */
+        scroll-snap-type: x mandatory; /* Smooth snapping */
     }
 
     .exercise-set {
         display: flex;
-        flex-direction: row;
-        gap: 5px;
+        flex-direction: row; /* Align sets horizontally */
+        gap: 5px; /* Reduced gap between videos */
         text-align: center;
-        flex-wrap: nowrap;
+        flex-wrap: nowrap; /* Prevent wrapping */
     }
 
     .exercise-card {
-        flex-shrink: 0;
-        width: 180px;
-        margin-right: 5px;
-        scroll-snap-align: start;
-        background: none;
-        box-shadow: none;
-        border-radius: 0;
-    }
+    flex-shrink: 0;
+    width: 180px;
+    margin-right: 5px; /* Reduce space between the cards */
+    scroll-snap-align: start;
+    background: none; /* Ensure there's no background */
+    box-shadow: none; /* Remove any shadow */
+    border-radius: 0; /* Remove any rounded corners */
+}
 
     /* Ensure all videos have consistent size */
     .exercise-card video {
-        width: 180px;
-        height: 150px;
-        object-fit: cover;
+        width: 180px; /* Set consistent width */
+        height: 150px; /* Set consistent height */
+        object-fit: cover; /* Ensures the video covers its container */
         border-radius: 6px;
     }
 
@@ -332,14 +333,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
+        position: fixed; /* Make it fixed */
+        top: 0; /* Stick to the top of the screen */
+        left: 0; /* Stick to the left of the screen */
+        width: 100%; /* Make it full-width */
         background-color: transparent;
-        z-index: 1000;
-        padding: 30px 0;
-        margin: 0;
+        z-index: 1000; /* Ensure it stays above other elements */
+        padding: 30px 0; /* Add padding for visual spacing */
+        margin: 0; /* Reset margins */
     }
 
     h2#setTitle {
@@ -374,28 +375,27 @@
         background-color: #e07453;
     }
 
-    /* Button for saving session */
-    #exportButton {
-        width: auto;
-        position: fixed;
-        bottom: -5px;
-        right: 10px;
-        background-color: #FF8A65;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        text-align: center;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    }
+/* Button for saving session */
+#exportButton {
+    width: auto;
+    position: fixed;
+    bottom: -5px;
+    right: 10px;
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Further reduced padding */
+    border-radius: 4px; /* Further reduced border radius */
+    font-size: 0.75rem; /* Further reduced font size */
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+}
 
-    #exportButton:hover {
-        background-color: #e07453;
-    }
-
+#exportButton:hover {
+    background-color: #e07453;
+}
     /* Container for Repos */
     .repos-container {
         display: flex;
@@ -461,11 +461,6 @@
         margin-left: 10px;
         margin-right: 50px;
         height: 100%;
-    }
-
-    /* Show mobile-dropdown on mobile */
-    .mobile-dropdown {
-        display: block;
     }
 }
     </style>
@@ -728,18 +723,6 @@
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
             <video controls src="barre_au_front_chaise.mp4" width="180" alt="Bench press" poster="bar_au_front.png"></video>
             <p>Barre au front + Chaise</p>
-                    <!-- Dropdown Menu for Exercise Selection (Mobile Only) -->
-        <div class="mobile-dropdown">
-            <label for="exerciseSelect1">Choisir comme exercice:</label>
-            <select id="exerciseSelect1" onchange="seekToExercise('videoPlayer1', this.value)">
-                <option value="0">Exercise 1</option>
-                <option value="10">Exercise 2</option>
-                <option value="20">Exercise 3</option>
-                <option value="30">Exercise 4</option>
-                <option value="40">Exercise 5</option>
-                <option value="50">Exercise 6</option>
-            </select>
-        </div>
         </div>
     </div>
     <div class="exercise-card">
@@ -1387,12 +1370,6 @@ function handleTouchMove(e) {
 
 function handleTouchEnd(e) {
     draggedElement = null;
-}
-function seekToExercise(videoId, time) {
-    const video = document.getElementById(videoId);
-    if (video) {
-        video.currentTime = time;
-    }
 }
 </script>
 </body>
