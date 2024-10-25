@@ -1154,223 +1154,7 @@
 </div>
             
             <script>
-        let currentSet = 1;  // Start with Set 1
-    const totalSets = 6; // Total number of sets
-
-    function nextSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (currentElement) {
-            currentElement.style.display = 'none';
-        }
-
-        currentSet = (currentSet % totalSets) + 1;
-        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (nextElement) {
-            nextElement.style.display = 'flex';
-        }
-
-        updateTitle();
-    }
-
-    function prevSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (currentElement) {
-            currentElement.style.display = 'none';
-        }
-
-        currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (prevElement) {
-            prevElement.style.display = 'flex';
-        }
-
-        updateTitle();
-    }
-
-    function updateTitle() {
-        const titles = [
-            "Entrainements Triceps",
-            "Entrainements Biceps",
-            "Entrainements Pectoraux",
-            "Entrainements Jambes",
-            "Entrainements Épaules",
-            "Entrainements Dos"
-        ];
-        document.getElementById("setTitle").textContent = titles[currentSet - 1];
-    }
-
-    function displayCurrentDate() {
-        const dateElement = document.getElementById("dateDisplay");
-        const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString('fr-FR', options);
-        dateElement.textContent = formattedDate;
-    }
-
-    window.onload = function() {
-        displayCurrentDate();
-        addDragAndDropListeners();
-    };
-
-             // Drag and Drop functionality
-        let draggedElement = null;
-
-// Add touch event support for mobile drag and drop
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
-
-function handleTouchMove(e) {
-    e.preventDefault();
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
-
-document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-});
-
-document.addEventListener('dragend', (e) => {
-    draggedElement = null;
-});
-
-function handleDragOver(e) {
-    e.preventDefault();
-}
-
-function handleDropOnSlot(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        let clonedElement = draggedElement.cloneNode(true);
-        e.target.innerHTML = ''; 
-        const draggedVideo = draggedElement.querySelector('video');
-        const newVideo = document.createElement('video');
-        newVideo.controls = true;
-        newVideo.src = draggedVideo.src;
-        newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270; 
-        e.target.appendChild(newVideo);
-
-        let videoTitle = draggedElement.querySelector('p').textContent;
-        let titleElement = document.createElement('p');
-        titleElement.textContent = videoTitle;
-        e.target.appendChild(titleElement);
-
-        newVideo.draggable = false;
-    }
-}
-
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
-    }
-}
-
-function addDragAndDropListeners() {
-    const videoElements = document.querySelectorAll('.draggable');
-    videoElements.forEach(video => {
-        video.setAttribute('draggable', 'true');
-        video.addEventListener('touchstart', handleTouchStart);
-        video.addEventListener('touchmove', handleTouchMove);
-        video.addEventListener('touchend', handleTouchEnd);
-    });
-
-    const exerciseSlots = document.querySelectorAll('.exercise-slot');
-    exerciseSlots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
-        });
-    });
-
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
-    });
-}
-
-// Export session function
-function exportSession() {
-    let contentToExport = `
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Séance Enregistrée</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
-            }
-            .container {
-                width: 80%;
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-card {
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-            }
-            .exercise-card video {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
+ <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
     `;
 
@@ -1385,6 +1169,7 @@ function exportSession() {
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
+        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
         contentToExport += `
@@ -1407,6 +1192,7 @@ function exportSession() {
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
+                <div><strong>Dégressif:</strong> ${degressif}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
         </div>`;
@@ -1459,36 +1245,118 @@ function handleTouchStart(e) {
         draggedElement = e.target;
     }
 }
-// Add this function to your script section
-function moveVideoToRow(dropdown, videoId) {
-    const selectedSlotId = dropdown.value;  // Get the selected slot ID from the dropdown
-    const slotElement = document.getElementById(selectedSlotId);  // Get the target slot element
 
-    if (slotElement) {
-        // Clear any existing content in the slot
-        slotElement.innerHTML = '';
-
-        // Find the video element to move
-        const videoElement = document.getElementById(videoId).querySelector('video');
-        if (videoElement) {
-            // Clone the video and append it to the selected slot
-            const clonedVideo = videoElement.cloneNode(true);
-            clonedVideo.controls = true;
-            clonedVideo.width = 270;
-
-            // Add video and title to the slot
-            slotElement.appendChild(clonedVideo);
-
-            // Add video title
-            const videoTitle = document.getElementById(videoId).querySelector('p').textContent;
-            const titleElement = document.createElement('p');
-            titleElement.textContent = videoTitle;
-            slotElement.appendChild(titleElement);
-        }
+// Avoid unnecessary touchmove handling if not dragging
+function handleTouchMove(e) {
+    if (draggedElement) {
+        e.preventDefault();  // Only prevent scrolling if dragging
     }
+}
 
-    // Reset dropdown to default after move
-    dropdown.selectedIndex = 0;
+function handleTouchEnd(e) {
+    draggedElement = null;
+}
+ <div class="container">
+            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
+    `;
+
+    const exerciseRows = document.querySelectorAll('.exercise-row');
+    exerciseRows.forEach((row, index) => {
+        let exerciseNumber = row.querySelector('.exercise-number').textContent;
+        let slot = row.querySelector('.exercise-slot');
+        let videoElement = slot.querySelector('video');
+
+        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
+        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
+
+        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
+        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
+        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
+        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
+
+        contentToExport += `
+            <div class="exercise-card">
+                <h3>${exerciseNumber}</h3>
+        `;
+
+        if (videoSrc) {
+            contentToExport += `
+                <div>
+                    Vidéo:<br>
+                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
+                </div>
+            `;
+        } else {
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+        }
+
+        contentToExport += `
+            <div class="exercise-details">
+                <div><strong>Séries:</strong> ${seriesValue}</div>
+                <div><strong>Répétitions:</strong> ${repsValue}</div>
+                <div><strong>Dégressif:</strong> ${degressif}</div>
+                <div><strong>Repos:</strong> ${restPeriod}</div>
+            </div>
+        </div>`;
+    });
+
+    contentToExport += `
+        </div>
+        <div class="footer">
+            <p>Séance d'entraînement enregistrée avec succès.</p>
+        </div>
+    </body>
+    </html>
+    `;
+
+    const blob = new Blob([contentToExport], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'seance.html';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+document.getElementById('exportButton').addEventListener('click', exportSession);
+
+// Initialize listeners when the page loads
+window.onload = function() {
+    addDragAndDropListeners();
+};
+// Throttle scroll event to prevent performance lag
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+window.addEventListener('scroll', function(e) {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      // Perform scroll actions here (if any)
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+                // Add touch event support only when necessary
+function handleTouchStart(e) {
+    if (e.target.classList.contains('draggable')) {
+        draggedElement = e.target;
+    }
+}
+
+// Avoid unnecessary touchmove handling if not dragging
+function handleTouchMove(e) {
+    if (draggedElement) {
+        e.preventDefault();  // Only prevent scrolling if dragging
+    }
+}
+
+function handleTouchEnd(e) {
+    draggedElement = null;
 }
 </script>
 </body>
