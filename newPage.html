@@ -461,6 +461,9 @@
         margin-right: 50px;
         height: 100%;
     }
+       .mobile-dropdown {
+        display: none;
+    }
 }
     </style>
 </head>
@@ -722,6 +725,18 @@
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
             <video controls src="barre_au_front_chaise.mp4" width="180" alt="Bench press" poster="bar_au_front.png"></video>
             <p>Barre au front + Chaise</p>
+                    <!-- Dropdown Menu for Exercise Selection (Mobile Only) -->
+        <div class="mobile-dropdown">
+            <label for="exerciseSelect1">Choose Exercise:</label>
+            <select id="exerciseSelect1" onchange="seekToExercise('videoPlayer1', this.value)">
+                <option value="0">Exercise 1</option>
+                <option value="10">Exercise 2</option>
+                <option value="20">Exercise 3</option>
+                <option value="30">Exercise 4</option>
+                <option value="40">Exercise 5</option>
+                <option value="50">Exercise 6</option>
+            </select>
+        </div>
         </div>
     </div>
     <div class="exercise-card">
@@ -1369,6 +1384,12 @@ function handleTouchMove(e) {
 
 function handleTouchEnd(e) {
     draggedElement = null;
+}
+function seekToExercise(videoId, time) {
+    const video = document.getElementById(videoId);
+    if (video) {
+        video.currentTime = time;
+    }
 }
 </script>
 </body>
