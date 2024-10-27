@@ -171,12 +171,12 @@
     z-index: 10;
 }
 
-        .exercise-set {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+.exercise-set {
+    display: none;
+}
+#exerciseSet1 {
+    display: block;
+}
 
 
 /* Adjust the size of each video card */
@@ -185,7 +185,7 @@
     background-position: center; /* Center the background image */
     border-radius: 8px;
     padding: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -208,7 +208,7 @@
 
 /* Adjust the size of the video inside the card */
 .exercise-card video {
-    width: 270px; /* Width of the video, leaving a small padding */
+    width: 250px; /* Width of the video, leaving a small padding */
     height: 200px; /* Height of the video, adjusted to fit the card */
     object-fit: cover; /* Ensures the video covers its container */
     border-radius: 8px 8px 0 0; /* Rounded corners at the top */
@@ -248,9 +248,9 @@
         width: 100%;
         margin-top: 10px;
     }
-    /* Adjust workout-container spacing */
+
     .workout-container {
-        margin-top: 310px;
+        margin-top: 270px;
     }
 
     .main-container {
@@ -261,7 +261,6 @@
     .exercise-row {
         flex-direction: column;
         align-items: flex-start;
-        flex-grow: 1;
         height: auto;
         margin-bottom: 2px;
         padding-top: 10px;
@@ -275,86 +274,76 @@
     .exercise-slot {
         width: 340px !important;
         height: 175px !important;
-        background-color: transparent; /* Transparent background */
+        background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
     }
-    
 
-    /* Horizontal scrolling for the video bank */
+    /* Horizontal scrolling setup for the video bank container */
     .video-bank-container {
         position: fixed;
-        top: 0;
-        left: 7px;
-        margin-left: 2px;
-        right: 5px;
+        top: 05px;
+        left: 0;
+        right: 0;
         width: 100vw;
-        height: 300px;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Disable vertical scrolling */
+        height: 240px;
+        overflow-x: auto;
+        overflow-y: hidden;
         display: flex;
-        flex-direction: row; /* Arrange items horizontally */
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
-        url('logo.png') no-repeat center center;
-        padding: 70px;
+        flex-direction: row;
+        padding: 30px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.9);
         z-index: 9999;
-        white-space: nowrap; /* Prevent wrapping */
-        scroll-snap-type: x mandatory; /* Smooth snapping */
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
     }
 
+    /* Align exercise sets in a horizontal row */
     .exercise-set {
-        display: flex;
-        flex-direction: row; /* Align sets horizontally */
-        gap: 4px; /* Reduced gap between videos */
-        text-align: center;
-        flex-wrap: nowrap; /* Prevent wrapping */
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: nowrap;
     }
 
+    /* Style for each exercise card */
     .exercise-card {
-    flex-shrink: 0;
-    width: 180px;
-    margin-left: 20px; /* Left margin to shift videos to the right */
-    margin-right: 5px; /* Maintain gap between cards */
-    scroll-snap-align: start;
-    background: none;
-    box-shadow: none;
-    border-radius: 0;
-}
+        flex-shrink: 0;
+        display: inline-flex;
+        width: 180px;
+        scroll-snap-align: start;
+        margin: 0 -3px;
+    }
 
-    /* Ensure all videos have consistent size */
+    /* Ensure videos are consistently sized */
     .exercise-card video {
-    width: 180px; /* Set consistent width */
-    height: 150px; /* Set consistent height */
-    object-fit: cover; /* Ensures the video covers its container */
-    margin-left: 15spx;
-    border-radius: 6px;
-    margin-bottom: 2px; /* Reduced gap between video and title */
-}
+        width: 170px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
 
-.exercise-card p {
-    font-size: 1rem; /* Increased for better visibility */
-    font-weight: bold; /* Make the text bold */
-    color: #444; /* Darker gray for a professional look */
-    margin-top: 2px; /* Reduced gap above the text */
-    margin-left: 10px;
-    text-align: center; /* Center the text below the video */
-    text-transform: capitalize; /* Capitalize the first letter of each word */
-    letter-spacing: 0.5px; /* Slightly increase letter spacing for a cleaner look */
-}
+    /* Style for exercise names */
+    .exercise-card p {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #444;
+        margin: 4px 0;
+        text-align: center;
+        letter-spacing: 0.5px;
+    }
 
     .title-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        position: fixed; /* Make it fixed */
-        top: 0; /* Stick to the top of the screen */
-        left: 0; /* Stick to the left of the screen */
-        width: 100%; /* Make it full-width */
+        position: fixed;
+        top: -15px;
+        left: 0;
+        width: 100%;
         background-color: transparent;
-        z-index: 1000; /* Ensure it stays above other elements */
-        padding: 30px 0; /* Add padding for visual spacing */
-        margin: 0; /* Reset margins */
+        z-index: 1000;
+        padding: 30px 0;
     }
 
     h2#setTitle {
@@ -363,16 +352,8 @@
     }
 
     .arrow-left, .arrow-right {
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem;
-    }
-
-    /* Navigation arrows */
-    .arrow-left, .arrow-right {
         background-color: #FF8A65;
         color: white;
-        border: none;
         border-radius: 50%;
         width: 30px;
         height: 30px;
@@ -389,28 +370,24 @@
         background-color: #e07453;
     }
 
-/* Button for saving session */
-#exportButton {
-    width: auto;
-    position: fixed;
-    bottom: -5px;
-    right: 10px;
-    background-color: #FF8A65;
-    color: white;
-    border: none;
-    padding: 5px 10px; /* Further reduced padding */
-    border-radius: 4px; /* Further reduced border radius */
-    font-size: 0.75rem; /* Further reduced font size */
-    text-align: center;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow */
-}
+    #exportButton {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #FF8A65;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        z-index: 1000;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
 
-#exportButton:hover {
-    background-color: #e07453;
-}
-    /* Container for Repos */
+    #exportButton:hover {
+        background-color: #e07453;
+    }
+
+    /* Other adjustments for controls */
     .repos-container {
         display: flex;
         flex-direction: column;
@@ -421,10 +398,8 @@
         border-radius: 8px;
         background-color: rgba(235, 245, 255, 0.7);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease-in-out;
     }
 
-    /* Parent container for Degressif and Repos to add space between them */
     .exercise-controls {
         display: flex;
         flex-direction: row;
@@ -434,7 +409,6 @@
         margin-top: 20px;
     }
 
-    /* Adjust spacing and styling around checkbox and dropdown */
     .checkbox-group label, .rest-group label {
         font-size: 0.9rem;
         font-weight: 600;
@@ -451,9 +425,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        height: 100%;
         margin-left: -10px;
-        margin-right: 0px;
     }
 
     .rest-group select {
@@ -462,8 +434,6 @@
         border-radius: 3px;
         border: 2px solid #FF8A65;
         background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: border-color 0.3s ease;
         width: 90px;
     }
 
@@ -471,28 +441,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         margin-left: 10px;
         margin-right: 50px;
-        height: 100%;
     }
 }
-.exercise-dropdown {
-        font-size: 0.9rem;
-        padding: 5px;
-        border-radius: 6px;
-        background-color: #FFF5F5;
-        color: #333;
-        border: 1px solid #FF8A65;
-        width: 100%;
-        margin-top: 0.5px;
-    }
 
-    /* Highlight the selected slot with a background color */
-    .exercise-slot.selected {
-        border-color: #FF8A65;
-        background-color: rgba(255, 138, 101, 0.1);
-    }
+.exercise-dropdown {
+    font-size: 0.9rem;
+    padding: 5px;
+    border-radius: 6px;
+    background-color: #FFF5F5;
+    color: #333;
+    border: 1px solid #FF8A65;
+    width: 100%;
+    margin-top: 0.5px;
+}
+
+.exercise-slot.selected {
+    border-color: #FF8A65;
+    background-color: rgba(255, 138, 101, 0.1);
+}
     </style>
 </head>
 <body>
@@ -740,623 +708,938 @@
             </div>
         </div>
     </div>
- <div class="video-bank-container">
-    <div class="title-container">
-        <button class="arrow arrow-left" onclick="prevSet()">&#8249;</button>
-        <h2 id="setTitle" style="font-size: 1rem;">Entrainements Triceps</h2>
-        <button class="arrow arrow-right" onclick="nextSet()">&#8250;</button>
-    </div>
-    <div class="video-bank" id="exerciseSetsContainer">
-      <!-- Set 1: Triceps -->
-<div class="exercise-set" id="exerciseSet1">
+    <div class="video-bank-container">
+        <div class="title-container">
+            <button class="arrow arrow-left" onclick="prevSet()">&#8249;</button>
+            <h2 id="setTitle" style="font-size: 1rem;">Entrainements Triceps</h2>
+            <button class="arrow arrow-right" onclick="nextSet()">&#8250;</button>
+        </div>
+        <div class="video-bank" id="exerciseSetsContainer">
+            <!-- Set 1: Triceps -->
+            <div class="exercise-set" id="exerciseSet1" style="display: block;">
+    <!-- Exercise 1: Barre au front + Chaise -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-            <video controls src="barre_au_front_chaise.mp4" width="180" alt="Bench press" poster="bar_au_front.png"></video>
+            <video controls src="barre_au_front_chaise.mp4" width="180" alt="Barre au front + Chaise" poster="bar_au_front.png"></video>
             <p>Barre au front + Chaise</p>
-        <!-- Dropdown for mobile -->
-        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-            <option value="">Selectionner exercice</option>
-            <option value="slot1">Exercice 1</option>
-            <option value="slot2">Exercice 2</option>
-            <option value="slot3">Exercice 3</option>
-            <option value="slot4">Exercice 4</option>
-            <option value="slot5">Exercice 5</option>
-            <option value="slot6">Exercice 6</option>
-        </select>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
     </div>
-</div>
+
+    <!-- Exercise 2: Extension Corde -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video2">
             <video controls src="extension_coude_corde_dos_puis_face_a_la_poulie.mp4" width="180" alt="Extension Coudes Corde" poster="extension_coude.png"></video>
             <p>Extension Corde</p>
-       <!-- Dropdown for mobile -->
-       <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-        <option value="">Selectionner exercice</option>
-        <option value="slot1">Exercice 1</option>
-        <option value="slot2">Exercice 2</option>
-        <option value="slot3">Exercice 3</option>
-        <option value="slot4">Exercice 4</option>
-        <option value="slot5">Exercice 5</option>
-        <option value="slot6">Exercice 6</option>
-    </select>
-</div>
-</div>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video2')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Extension Banc Incliné -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video3">
             <video controls src="extension_coudes_banc_incline.mp4" width="180" alt="Extension Coudes Banc Incliné" poster="extension_coude_banc_incline.png"></video>
             <p>Extension Banc Incliné</p>
-        <!-- Dropdown for mobile -->
-        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-            <option value="">Selectionner exercice</option>
-            <option value="slot1">Exercice 1</option>
-            <option value="slot2">Exercice 2</option>
-            <option value="slot3">Exercice 3</option>
-            <option value="slot4">Exercice 4</option>
-            <option value="slot5">Exercice 5</option>
-            <option value="slot6">Exercice 6</option>
-        </select>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video3')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
     </div>
-</div>
+
+    <!-- Exercise 4: Triceps Unilatéral -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video4">
-            <video controls src="triceps_unilateral.mp4" width="180" alt="Triceps unilatéral" poster="triceps_unilateral.png"></video>
+            <video controls src="triceps_unilateral.mp4" width="180" alt="Triceps Unilatéral" poster="triceps_unilateral.png"></video>
             <p>Triceps Unilatéral</p>
-        <!-- Dropdown for mobile -->
-        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-            <option value="">Selectionner exercice</option>
-            <option value="slot1">Exercice 1</option>
-            <option value="slot2">Exercice 2</option>
-            <option value="slot3">Exercice 3</option>
-            <option value="slot4">Exercice 4</option>
-            <option value="slot5">Exercice 5</option>
-            <option value="slot6">Exercice 6</option>
-        </select>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video4')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
     </div>
-</div>
+
+    <!-- Exercise 5: Dips -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
-            <video controls src="dips.mp4" width="180" alt="Pushdown à la poulie" poster="dips.png"></video>
+            <video controls src="dips.mp4" width="180" alt="Dips" poster="dips.png"></video>
             <p>Dips</p>
-       <!-- Dropdown for mobile -->
-       <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-        <option value="">Selectionner exercice</option>
-        <option value="slot1">Exercice 1</option>
-        <option value="slot2">Exercice 2</option>
-        <option value="slot3">Exercice 3</option>
-        <option value="slot4">Exercice 4</option>
-        <option value="slot5">Exercice 5</option>
-        <option value="slot6">Exercice 6</option>
-    </select>
-</div>
-</div>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video5')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 6: Dips assistés -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
             <video controls src="dips_assistes.mp4" width="180" alt="Dips assistés" poster="dips_assistes.png"></video>
             <p>Dips assistés</p>
-        <!-- Dropdown for mobile -->
-        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-            <option value="">Selectionner exercice</option>
-            <option value="slot1">Exercice 1</option>
-            <option value="slot2">Exercice 2</option>
-            <option value="slot3">Exercice 3</option>
-            <option value="slot4">Exercice 4</option>
-            <option value="slot5">Exercice 5</option>
-            <option value="slot6">Exercice 6</option>
-        </select>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video6')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
     </div>
-</div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
-            <video controls src="extension_de_coudes.mp4" width="180" alt="Kickback haltères" poster="extensions_de_coude.png"></video>
-            <p>Extension de coudes</p>
-        <!-- Dropdown for mobile -->
-        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-            <option value="">Selectionner exercice</option>
-            <option value="slot1">Exercice 1</option>
-            <option value="slot2">Exercice 2</option>
-            <option value="slot3">Exercice 3</option>
-            <option value="slot4">Exercice 4</option>
-            <option value="slot5">Exercice 5</option>
-            <option value="slot6">Exercice 6</option>
-        </select>
-    </div>
-</div>
 
-<!-- Set 2: Biceps -->
-<div class="exercise-set" id="exerciseSet2" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video5">
-            <video controls src="biceps_unilateral.mp4" width="180" alt="Biceps unilatéral" poster="biceps_unilateral.png"></video>
-            <p>Biceps unilatéral</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video6">
-            <video controls src="curl_incline_degressif.mp4" width="180" alt="Curl Incliné + Dégressif" poster="curl_incline_degressif.png"></video>
-            <p>Curl Incliné + Dégressif</p>
-        </div>
-    </div>
+    <!-- Exercise 7: Extension de coudes -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video7">
-            <video controls src="curl_prise_marteaux.mp4" width="180" alt="Curl Prise Marteaux" poster="curl_prise_marteaux.png"></video>
-            <p>Curl Prise Marteaux</p>
+            <video controls src="extension_de_coudes.mp4" width="180" alt="Extension de coudes" poster="extensions_de_coude.png"></video>
+            <p>Extension de coudes</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video7')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+</div>
+   <!-- Set 2: Biceps -->
+<div class="exercise-set" id="exerciseSet2" style="display: none;">
+    <!-- Exercise 1: Biceps unilatéral -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video8">
-            <video controls src="curl_biceps_supination.mp4" width="180" alt="Curl Biceps Supination" poster="biceps_supination.png"></video>
-            <p>Curl Biceps Supination</p>
+            <video controls src="biceps_unilateral.mp4" width="180" alt="Biceps unilatéral" poster="biceps_unilateral.png"></video>
+            <p>Biceps unilatéral</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video8')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
-            <video controls src="curl_supination_poulie.mp4" width="180" alt="Curl Supination Poulie" poster="curl_supination_poulie.png"></video>
-            <p>Curl Supination Poulie</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
-            <video controls src="curl_prise_inverse.mp4" width="180" alt="Cable Curl" poster="curl_prise_inverse.png"></video>
-            <p>Curl Prise inverse</p>
-        </div>
-    </div>
-</div>
 
-<!-- Set 3: Pectoraux -->
-<div class="exercise-set" id="exerciseSet3" style="display:none;">
+    <!-- Exercise 2: Curl Incliné + Dégressif -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video9">
-            <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
-            <p>Écartés Poulies coudes rentrés</p>
+            <video controls src="curl_incline_degressif.mp4" width="180" alt="Curl Incliné + Dégressif" poster="curl_incline_degressif.png"></video>
+            <p>Curl Incliné + Dégressif</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video9')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 3: Curl Prise Marteaux -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video10">
-            <video controls src="ecart_poulies_hautes.mp4" width="180" alt="Écarté Poulies Hautes" poster="ecarte_poulie_haute.png"></video>
-            <p>Écartés Poulies Hautes</p>
+            <video controls src="curl_prise_marteaux.mp4" width="180" alt="Curl Prise Marteaux" poster="curl_prise_marteaux.png"></video>
+            <p>Curl Prise Marteaux</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video10')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 4: Curl Biceps Supination -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video11">
-            <video controls src="bench_machine_tempo.mp4" width="180" alt="Bench machine Tempo" poster="bench_machine_tempo.png"></video>
-            <p>Bench machine Tempo</p>
+            <video controls src="curl_biceps_supination.mp4" width="180" alt="Curl Biceps Supination" poster="biceps_supination.png"></video>
+            <p>Curl Biceps Supination</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video11')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 5: Curl Supination Poulie -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video12">
-            <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
-            <p>Développé Couché haltere</p>
+            <video controls src="curl_supination_poulie.mp4" width="180" alt="Curl Supination Poulie" poster="curl_supination_poulie.png"></video>
+            <p>Curl Supination Poulie</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video12')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 6: Curl Prise Inverse -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video13">
-            <video controls src="butterfly_pompes.mp4" width="180" alt="Butterfly + Pompes" poster="butterfly.png"></video>
-            <p>Butterfly + Pompes</p>
+            <video controls src="curl_prise_inverse.mp4" width="180" alt="Curl Prise Inverse" poster="curl_prise_inverse.png"></video>
+            <p>Curl Prise Inverse</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video13')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+</div>
+
+
+<!-- Set 3: Pectoraux -->
+<div class="exercise-set" id="exerciseSet3" style="display: none;">
+    <!-- Exercise 1: Écartés Poulies coudes rentrés -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video14">
-            <video controls src="ecarte_poulie_basse.mp4" width="180" alt="Pec Fly Machine" poster="ecarte_poulie_basse.png"></video>
-            <p>Ecarte poulie basse</p>
+            <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
+            <p>Écartés coudes rentrés</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video14')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 2: Écartés Poulies Hautes -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video15">
-            <video controls src="dips_prise_large.mp4" width="180" alt="DIPS Prise Large" poster="dips_prise_large.png"></video>
-            <p>DIPS Prise Large</p>
+            <video controls src="ecart_poulies_hautes.mp4" width="180" alt="Écarté Poulies Hautes" poster="ecarte_poulie_haute.png"></video>
+            <p>Écartés Poulies Hautes</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video15')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 3: Bench machine Tempo -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video16">
-            <video controls src="smith_machine_tempo.mp4" width="180" alt="Incline Bench Press" poster="smith_machine_tempo.png"></video>
-            <p>Smith machine tempo</p>
+            <video controls src="bench_machine_tempo.mp4" width="180" alt="Bench machine Tempo" poster="bench_machine_tempo.png"></video>
+            <p>Bench machine Tempo</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video16')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 4: Développé Couché haltere -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video17">
-            <video controls src="pecs_au_butterfly.mp4" width="180" alt="Chest Dips" poster="uniquement_pec_butterfly.png"></video>
-            <p>Pecs au Butterfly</p>
+            <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
+            <p>Dev Couché haltere</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video17')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
-</div>
 
-<!-- Set 4: Jambes -->
-<div class="exercise-set" id="exerciseSet4" style="display:none;">
+    <!-- Exercise 5: Butterfly + Pompes -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video18">
+            <video controls src="butterfly_pompes.mp4" width="180" alt="Butterfly + Pompes" poster="butterfly.png"></video>
+            <p>Butterfly + Pompes</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video18')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 6: Ecarte poulie basse -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video19">
-            <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
-            <p>Fentes Bulgares en détail !</p>
+            <video controls src="ecarte_poulie_basse.mp4" width="180" alt="Pec Fly Machine" poster="ecarte_poulie_basse.png"></video>
+            <p>Ecarte poulie basse</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video19')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 7: DIPS Prise Large -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video20">
-            <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
-            <p>Legs Extension ! Dégressif</p>
+            <video controls src="dips_prise_large.mp4" width="180" alt="DIPS Prise Large" poster="dips_prise_large.png"></video>
+            <p>DIPS Prise Large</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video20')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 8: Smith machine tempo -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video21">
-            <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
-            <p>Presse Verticale en détail !</p>
+            <video controls src="smith_machine_tempo.mp4" width="180" alt="Incline Bench Press" poster="smith_machine_tempo.png"></video>
+            <p>Smith machine tempo</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video21')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 9: Pecs au Butterfly -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video22">
-            <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
-            <p>Soulevé de Terre Jambes Tendues !</p>
+            <video controls src="pecs_au_butterfly.mp4" width="180" alt="Chest Dips" poster="uniquement_pec_butterfly.png"></video>
+            <p>Pecs au Butterfly</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video22')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+</div>
+
+
+<!-- Set 4: Jambes (Legs) -->
+<div class="exercise-set" id="exerciseSet4" style="display: none;">
+    <!-- Exercise 1: Fentes Bulgares -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video23">
+            <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
+            <p>Fentes Bulgares</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video23')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 2: Legs Extension -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
+            <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
+            <p>Legs Extension</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video24')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Presse Verticale -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
+            <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
+            <p>Presse Verticale</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video25')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 4: Soulevé de Terre -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
+            <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
+            <p>Soulevé de Terre</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video26')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 5: Squat -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
             <video controls src="squat.mp4" width="180" alt="Squat" poster="squat.png"></video>
             <p>Squat</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video27')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 6: Adducteur -->
     <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
             <video controls src="adducteur.mp4" width="180" alt="Hack Squat" poster="adducteur.png"></video>
             <p>Adducteur</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video28')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 7: Fentes Guidés -->
     <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
             <video controls src="fentes_guides.mp4" width="180" alt="Lunges" poster="fentes_guides.png"></video>
-            <p>Fentes Guidés</p>
+            <p>Fentes Guidés</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video29')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 8: Hack Squat -->
     <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
             <video controls src="hack_squat.mp4" width="180" alt="Glute Bridge" poster="hack_squat.png"></video>
             <p>Hack Squat</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video30')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 9: Leg Curl -->
     <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
             <video controls src="leg_curl.mp4" width="180" alt="Leg Curl" poster="leg_curl.png"></video>
             <p>Leg Curl</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video31')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
 </div>
-
 <!-- Set 5: Épaules -->
-<div class="exercise-set" id="exerciseSet5" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video24">
-            <video controls src="elevations_laterales_machine.mp4" alt="Élévations Latérales Machine" poster="elevation_machine_laterale.png"></video>
-            <p>Élévations latérales machine</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video25">
-            <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
-            <p>Élévations Frontales en dégressif</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video26">
-            <video controls src="elevations_laterales_poulie.mp4" alt="Élévations Latérales Poulie" poster="elevation_laterale_poulie.png"></video>
-            <p>Élévations latérales poulie</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video27">
-            <video controls src="developpe_militaire_smith_guide.mp4" alt="Développé Militaire" poster="elevation_militaire_smith.png"></video>
-            <p>Développé Militaire Smith Guidé</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video28">
-            <video controls src="ton_exo_butterfly_inverse.mp4" alt="Butterfly Inversé" poster="butterfly_inverse.png"></video>
-            <p>Butterfly Inversé</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
-            <video controls src="dev_militaire_machine.mp4" alt="Dev militaire machine" poster="dev_militaire.png"></video>
-            <p>Dev militaire machine</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
-            <video controls src="face_pull.mp4" alt="Face Pull" poster="face_pull.png"></video>
-            <p>Face Pull</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
-            <video controls src="elevations_laterales_degressif.mp4" alt="Élévations latérales + Dégressif" poster="elevations_laterales_degressif.png"></video>
-            <p>Élévations latérales + Dégressif</p>
-        </div>
-    </div>
-</div>
-
-<!-- Set 6: Dos -->
-<div class="exercise-set" id="exerciseSet6" style="display:none;">
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video29">
-            <video controls src="releves_de_buste_en_detail.mp4" alt="Relevés de Buste" poster="releve_buste.png"></video>
-            <p>Relevés de Buste</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video30">
-            <video controls src="tes_tractions_assistees_en_details.mp4" alt="Tractions Assitées" poster="traction_assistee.png"></video>
-            <p>Tractions assitées</p>
-        </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video31">
-            <video controls src="tirage_dorsaux.mp4" alt="Tirage Dorsaux" poster="tirage_dorsaux.png"></video>
-            <p>Tirage Dorsaux</p>
-        </div>
-    </div>
+<div class="exercise-set" id="exerciseSet5" style="display: none;">
+    <!-- Exercise 1: Élévations Latérales Machine -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video32">
-            <video controls src="tirage_horizontal_machine.mp4" alt="Tirage Horizontal Machine" poster="tirage_horizontal_machine.png"></video>
-            <p>Tirage horizontal machine</p>
+            <video controls src="elevations_laterales_machine.mp4" alt="Élévations Latérales Machine" poster="elevation_machine_laterale.png"></video>
+            <p>Élévations machine</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video32')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 2: Élévations Frontales en Dégressif -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video33">
-            <video controls src="tirage_inverse_meilleur_exo_dos.mp4" alt="Tirage Inversé" poster="tirage_inverse.png"></video>
-            <p>Tirage inversé</p>
+            <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
+            <p>Élévations Frontales</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video33')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 3: Élévations Latérales Poulie -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video34">
-            <video controls src="tirage_menton.mp4" alt="Tirage Menton" poster="tirage_menton.png"></video>
-            <p>Tirage Menton</p>
+            <video controls src="elevations_laterales_poulie.mp4" alt="Élévations Latérales Poulie" poster="elevation_laterale_poulie.png"></video>
+            <p>Élévations poulie</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video34')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 4: Développé Militaire Smith Guidé -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video35">
-            <video controls src="tirage_poulie_vis_a_vis.mp4" alt="Tirage Poulie Vis à Vis" poster="tirage_poulie_vis_a_vis.png"></video>
-            <p>Tirage Poulie</p>
+            <video controls src="developpe_militaire_smith_guide.mp4" alt="Développé Militaire" poster="elevation_militaire_smith.png"></video>
+            <p>Dev Militaire Smith Guidé</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video35')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 5: Butterfly Inversé -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video36">
-            <video controls src="tirage_trapeze.mp4" alt="Tirage Trapeze" poster="tirage_trapeze.png"></video>
-            <p>Tirage Trapeze</p>
+            <video controls src="ton_exo_butterfly_inverse.mp4" alt="Butterfly Inversé" poster="butterfly_inverse.png"></video>
+            <p>Butterfly Inversé</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video36')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 6: Dev Militaire Machine -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video37">
-            <video controls src="tirage_unilateral_a_la_poulie.mp4" alt="Tirage unilatéral à la Poulie" poster="tirage_unilateral_poulie.png"></video>
-            <p>Tirage unilatéral Poulie</p>
+            <video controls src="dev_militaire_machine.mp4" alt="Dev militaire machine" poster="dev_militaire.png"></video>
+            <p>Dev militaire machine</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video37')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 7: Face Pull -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video38">
-            <video controls src="tirage_verticale.mp4" alt="Tirage Verticale" poster="tirage_verticale.png"></video>
-            <p>Tirage verticale</p>
+            <video controls src="face_pull.mp4" alt="Face Pull" poster="face_pull.png"></video>
+            <p>Face Pull</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video38')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
     </div>
+
+    <!-- Exercise 8: Élévations Latérales + Dégressif -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video39">
-            <video controls src="ton_exo_le_shrug.mp4" alt="Shrug" poster="shrug.png"></video>
-            <p>Le Shrug</p>
+            <video controls src="elevations_laterales_degressif.mp4" alt="Élévations latérales + Dégressif" poster="elevations_laterales_degressif.png"></video>
+            <p>Élévations latérales</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video39')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
         </div>
-    </div>
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video40">
-            <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
-            <p>Tirage Horizontale Trapèzes</p>
-        </div>
-            <!-- Bandwidth at the bottom for mobile -->
-    <div class="bandwidth-container">
-        <div class="bandwidth-cell" id="bandwidth-cell1"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell2"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell3"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell4"></div>
-        <div class="bandwidth-cell" id="bandwidth-cell5"></div>
     </div>
 </div>
+
+
+<!-- Set 6: Dos -->
+<div class="exercise-set" id="exerciseSet6" style="display: none;">
+    <!-- Exercise 1: Relevés de Buste -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video40">
+            <video controls src="releves_de_buste_en_detail.mp4" alt="Relevés de Buste" poster="releve_buste.png"></video>
+            <p>Relevés de Buste</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video40')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 2: Tractions Assitées -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video41">
+            <video controls src="tes_tractions_assistees_en_details.mp4" alt="Tractions Assitées" poster="traction_assistee.png"></video>
+            <p>Tractions assitées</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video41')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 3: Tirage Dorsaux -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video42">
+            <video controls src="tirage_dorsaux.mp4" alt="Tirage Dorsaux" poster="tirage_dorsaux.png"></video>
+            <p>Tirage Dorsaux</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video42')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 4: Tirage Horizontal Machine -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video43">
+            <video controls src="tirage_horizontal_machine.mp4" alt="Tirage Horizontal Machine" poster="tirage_horizontal_machine.png"></video>
+            <p>Tirage horizontal machine</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video43')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 5: Tirage Inversé -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video44">
+            <video controls src="tirage_inverse_meilleur_exo_dos.mp4" alt="Tirage Inversé" poster="tirage_inverse.png"></video>
+            <p>Tirage inversé</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video44')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 6: Tirage Menton -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video45">
+            <video controls src="tirage_menton.mp4" alt="Tirage Menton" poster="tirage_menton.png"></video>
+            <p>Tirage Menton</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video45')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 7: Tirage Poulie Vis à Vis -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video46">
+            <video controls src="tirage_poulie_vis_a_vis.mp4" alt="Tirage Poulie Vis à Vis" poster="tirage_poulie_vis_a_vis.png"></video>
+            <p>Tirage Poulie</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video46')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 8: Tirage Trapeze -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video47">
+            <video controls src="tirage_trapeze.mp4" alt="Tirage Trapeze" poster="tirage_trapeze.png"></video>
+            <p>Tirage Trapeze</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video47')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 9: Tirage unilatéral Poulie -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video48">
+            <video controls src="tirage_unilateral_a_la_poulie.mp4" alt="Tirage unilatéral à la Poulie" poster="tirage_unilateral_poulie.png"></video>
+            <p>Tirage unilatéral Poulie</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video48')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 10: Tirage Verticale -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video49">
+            <video controls src="tirage_verticale.mp4" alt="Tirage Verticale" poster="tirage_verticale.png"></video>
+            <p>Tirage verticale</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video49')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 11: Shrug -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video50">
+            <video controls src="ton_exo_le_shrug.mp4" alt="Shrug" poster="shrug.png"></video>
+            <p>Le Shrug</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video50')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Exercise 12: Tirage Horizontale Trapèzes -->
+    <div class="exercise-card">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video51">
+            <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
+            <p>Tirage Horizontale Trapèzes</p>
+            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video51')">
+                <option value="">Selectionner exercice</option>
+                <option value="slot1">Exercice 1</option>
+                <option value="slot2">Exercice 2</option>
+                <option value="slot3">Exercice 3</option>
+                <option value="slot4">Exercice 4</option>
+                <option value="slot5">Exercice 5</option>
+                <option value="slot6">Exercice 6</option>
+            </select>
+        </div>
+    </div>
+</div>
+
             
-            <script>
- <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
+<script>
+let currentSetIndex = 1;
+const totalSets = 6;
 
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
-        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
-
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoSrc) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+// Function to display the current set and update the title
+function showSet(index) {
+    console.log(`Displaying set index: ${index}`);  // Log current index for debugging
+    for (let i = 1; i <= totalSets; i++) {
+        const exerciseSet = document.getElementById(`exerciseSet${i}`);
+        if (exerciseSet) {
+            exerciseSet.style.display = (i === index) ? 'block' : 'none';
         }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Dégressif:</strong> ${degressif}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
-    });
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
-
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-};
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-window.addEventListener('scroll', function(e) {
-  lastKnownScrollPosition = window.scrollY;
-
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      // Perform scroll actions here (if any)
-      ticking = false;
-    });
-
-    ticking = true;
-  }
-});
-                // Add touch event support only when necessary
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
     }
+
+    const setTitles = [
+        'Entrainements Triceps',
+        'Entrainements Biceps',
+        'Entrainements Pectoraux',
+        'Entrainements Jambes',
+        'Entrainements Épaules',
+        'Entrainements Dos'
+    ];
+    const titleElement = document.getElementById("setTitle");
+    titleElement.textContent = setTitles[index - 1];
 }
 
-// Avoid unnecessary touchmove handling if not dragging
-function handleTouchMove(e) {
-    if (draggedElement) {
-        e.preventDefault();  // Only prevent scrolling if dragging
-    }
+// Navigate to the previous set (loop back from 1 to 6)
+function prevSet() {
+    currentSetIndex = (currentSetIndex - 1 < 1) ? totalSets : currentSetIndex - 1;
+    console.log(`Prev button clicked. Current set index: ${currentSetIndex}`);  // Log current index
+    showSet(currentSetIndex);
 }
 
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
- <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
-        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
-
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let degressif = row.querySelector('.checkbox-group input[type="checkbox"]').checked ? 'Oui' : 'Non';
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoSrc) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Dégressif:</strong> ${degressif}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
-    });
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
-
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    addDragAndDropListeners();
-};
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-window.addEventListener('scroll', function(e) {
-  lastKnownScrollPosition = window.scrollY;
-
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      // Perform scroll actions here (if any)
-      ticking = false;
-    });
-
-    ticking = true;
-  }
-});
-                // Add touch event support only when necessary
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
-
-// Avoid unnecessary touchmove handling if not dragging
-function handleTouchMove(e) {
-    if (draggedElement) {
-        e.preventDefault();  // Only prevent scrolling if dragging
-    }
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
+// Navigate to the next set (loop forward from 6 to 1)
+function nextSet() {
+    currentSetIndex = (currentSetIndex + 1 > totalSets) ? 1 : currentSetIndex + 1;
+    console.log(`Next button clicked. Current set index: ${currentSetIndex}`);  // Log current index
+    showSet(currentSetIndex);
 }
 </script>
 </body>
