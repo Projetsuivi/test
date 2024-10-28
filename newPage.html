@@ -122,7 +122,7 @@
 
        .exercise-slot {
     width: 300px;
-    height: 190px;
+    height: 200px;
     border: 1.2px dashed #FF8A65;
     display: flex;
     flex-direction: column;
@@ -136,7 +136,7 @@
 
         .exercise-slot video {
             width: 100%;
-            height: 160px;
+            height: 150px;
             object-fit: cover;
             border-radius: 8px 8px 0 0;
         }
@@ -159,8 +159,8 @@
         /* Sticky Video bank container */
         .video-bank-container {
     position: sticky;
-    top: 20px;
-    width: 280px; /* Reduced width of the video bank */
+    top: 40px;
+    width: 300px; /* Reduced width of the video bank */
     max-height: 93vh; /* Keep the video bank taller if needed */
     overflow-y: auto;
     background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
@@ -184,7 +184,7 @@
     background-size: cover; /* Make sure the background covers the entire card */
     background-position: center; /* Center the background image */
     border-radius: 8px;
-    padding: 16px;
+    padding: 20px;
     margin-bottom: 40px;
     text-align: center;
     display: flex;
@@ -192,7 +192,7 @@
     justify-content: flex-start;
     align-items: center;
     width: 370px;
-    height: 230px;
+    height: 260px;
     max-width: 100%;
 }
 .exercise-card p {
@@ -1640,6 +1640,42 @@ function nextSet() {
     currentSetIndex = (currentSetIndex + 1 > totalSets) ? 1 : currentSetIndex + 1;
     console.log(`Next button clicked. Current set index: ${currentSetIndex}`);  // Log current index
     showSet(currentSetIndex);
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const dateElement = document.getElementById("dateDisplay");
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    dateElement.textContent = today.toLocaleDateString('fr-FR', options);
+});
+function moveVideoToRow(selectElement, videoId) {
+    const selectedSlotId = selectElement.value; // Get the ID of the selected slot
+    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
+
+    // Retrieve the last slot where this specific video was placed
+    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
+
+    // Clear the previous slot of this specific video, if it differs from the selected slot
+    if (previousSlotId && previousSlotId !== selectedSlotId) {
+        const previousSlot = document.getElementById(previousSlotId);
+        if (previousSlot) {
+            previousSlot.innerHTML = ''; // Clear the previous slot of this video only
+        }
+    }
+
+    // Clone the video element from the video bank
+    const clonedVideo = videoBankElement.cloneNode(true); // Clone the video element
+    clonedVideo.removeAttribute("id"); // Remove the original ID to avoid duplicate IDs
+    clonedVideo.querySelector("select")?.remove(); // Remove the dropdown from the clone
+
+    // Place the cloned video in the selected slot
+    const targetSlot = document.getElementById(selectedSlotId);
+    if (targetSlot) {
+        targetSlot.innerHTML = ''; // Clear the target slot for this video
+        targetSlot.appendChild(clonedVideo); // Place the cloned video in the target slot
+    }
+
+    // Update the `data-current-slot` on the original video bank element
+    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 </script>
 </body>
