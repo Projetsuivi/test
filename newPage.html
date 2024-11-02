@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programme d'entraînement</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
     #dateDisplay {
     font-size: 1rem;
@@ -26,7 +27,9 @@
             box-sizing: border-box;
         }
 
-        body {
+body {
+    font-family: 'Segoe Print', sans-serif; /* Apply Segoe Print */
+    font-weight: bold; /* Make text bold */
     background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
                 url('logo.png') no-repeat center center;
     background-size: cover;
@@ -98,8 +101,10 @@
     justify-content: flex-start; /* Ensure they are aligned to the left */
     padding: 02px;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
+background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%), /* Adds depth with subtle gradient variation */
     url('logo.png') no-repeat center center;
+    background-position: center 65px; /* Moves the image 20px from the center upwards */
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
     height: 250px;
@@ -221,6 +226,13 @@
     align-items: center;
     margin-bottom: 15px;
 }
+
+h2#setTitle {
+    margin: 0 10px;
+    text-align: center; /* Centers the text within the element */
+    flex-grow: 1; /* Ensures it takes up available space */
+}
+
 .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
@@ -235,18 +247,145 @@
     align-items: center;
     transition: background-color 0.3s;
     margin: 0 10px; /* Space around the arrows */
+    
 }
 
 .arrow-left:hover, .arrow-right:hover {
     background-color: #e07453;
 }
+.exercise-dropdown {
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 100%;
+        margin-top: 0.5px;
+    }
+    .rest-group label {
+        font-size: 1rem !important; /* Adjust size as necessary */
+        margin-left: 9px; /* Adjust as needed */
+    }
+
+    .rest-dropdown label {
+        font-size: 2rem; /* Ensure the dropdown font matches */
+        margin-left: 2px; /* Adjust as needed */
+    }
+        .checkbox-group label, .rest-group label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        transform: scale(1.2);
+        accent-color: #FF8A65;
+    }
+
+    .rest-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-left: -10px;
+    }
+
+    .rest-group select {
+    padding: 5px 3px;
+    font-size: 0.9rem;
+    border-radius: 6px; /* Slightly more rounded corners */
+    border: 2px solid #FF8A65;
+    background-color: #fff;
+    width: 100px;
+    margin-left: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    cursor: pointer;
+}
+    
         
 @media (max-width: 900px) {
+    body, .exercise-dropdown, .exercise-row, .exercise-card, .title-container, h1, h2, p, label, button, select, input {
+        font-family: 'Caveat', 'Patrick Hand', sans-serif !important;
+        font-weight: bold;
+    }
+    .arrow-left, .arrow-right {
+    background-color: #FF8A65;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Space around the arrows */
+    margin-top: -10px; /* Moves the arrows closer to the top */
+    position: relative; /* Enables top adjustment */
+    top: -30px; /* Adjusts the position vertically */
+}
+    
+    .title-container {
+        padding: 60px 0 !important; /* Increase padding and add !important */
+        width: 100% !important; /* Ensure it takes up the full width */
+        font-size: 1.8rem !important; /* Increase font size */
+        background-color: rgba(255, 138, 101, 0.1); /* Temporary color for visual check */
+    }
+
+h2#setTitle {
+    font-size: 2rem !important; /* Adjust font size */
+    font-weight: bold !important; /* Make it more prominent */
+    padding: 0 !important; /* Remove padding */
+    margin-top: -10px !important; /* Move it closer to the top */
+    position: relative; /* Ensure it can be adjusted */
+    top: -25px; /* Adjusts the vertical position */
+}
+
+
+    #setTitle {
+        font-size: 8rem; /* Increase title font size */
+    }
+
+    .slider-group label {
+        font-size: 1.5rem !important; /* Adjust size as necessary */
+        color: rgb(0, 0, 0); /* Optional: temporary color to confirm changes */
+    }
+    .rest-group label {
+        font-size: 1.5rem !important; /* Adjust size as necessary */
+        color: red; /* Optional: temporary color to confirm changes */
+        margin-left: 9px; /* Adjust as needed */
+    }
+
+    .rest-dropdown label {
+        font-size: 2rem; /* Ensure the dropdown font matches */
+        margin-left: 9px; /* Adjust as needed */
+    }
+
+
     .exercise-dropdown {
-        display: block;
-        margin-left: 10px;
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 0.5px;
+    }
+
+    .exercise-dropdown {
+        font-size: 0.9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 100%;
+        margin-top: 0.5px;
     }
 
     .workout-container {
@@ -282,11 +421,11 @@
     /* Horizontal scrolling setup for the video bank container */
     .video-bank-container {
         position: fixed;
-        top: 05px;
+        top: 0px;
         left: 0;
         right: 0;
         width: 100vw;
-        height: 240px;
+        height: 270px;
         overflow-x: auto;
         overflow-y: hidden;
         display: flex;
@@ -325,7 +464,7 @@
 
     /* Style for exercise names */
     .exercise-card p {
-        font-size: 0.9rem;
+        font-size: 1.2rem;
         font-weight: bold;
         color: #444;
         margin: 4px 0;
@@ -376,11 +515,11 @@
         right: 10px;
         background-color: #FF8A65;
         color: white;
-        padding: 5px 10px;
+        padding: 12px 28px;
         border-radius: 4px;
         font-size: 0.75rem;
         z-index: 1000;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 3px rgba(0, 0, 0, 0.297);
     }
 
     #exportButton:hover {
@@ -429,12 +568,17 @@
     }
 
     .rest-group select {
-        padding: 5px 3px;
-        font-size: 0.9rem;
-        border-radius: 3px;
-        border: 2px solid #FF8A65;
-        background-color: #fff;
-        width: 90px;
+    padding: 5px 3px;
+    font-size: 0.9rem;
+    border-radius: 6px; /* Slightly more rounded corners */
+    border: 2px solid #FF8A65;
+    background-color: #fff;
+    width: 100px;
+    margin-left: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    cursor: pointer;
+}
     }
 
     .checkbox-group {
@@ -444,7 +588,7 @@
         margin-left: 10px;
         margin-right: 50px;
     }
-}
+
 
 .exercise-dropdown {
     font-size: 0.9rem;
@@ -723,7 +867,7 @@
             <video controls src="barre_au_front_chaise.mp4" width="180" alt="Barre au front + Chaise" poster="bar_au_front.png"></video>
             <p>Barre au front + Chaise</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -740,7 +884,7 @@
             <video controls src="extension_coude_corde_dos_puis_face_a_la_poulie.mp4" width="180" alt="Extension Coudes Corde" poster="extension_coude.png"></video>
             <p>Extension Corde</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video2')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -757,7 +901,7 @@
             <video controls src="extension_coudes_banc_incline.mp4" width="180" alt="Extension Coudes Banc Incliné" poster="extension_coude_banc_incline.png"></video>
             <p>Extension Banc Incliné</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video3')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -774,7 +918,7 @@
             <video controls src="triceps_unilateral.mp4" width="180" alt="Triceps Unilatéral" poster="triceps_unilateral.png"></video>
             <p>Triceps Unilatéral</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video4')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -791,7 +935,7 @@
             <video controls src="dips.mp4" width="180" alt="Dips" poster="dips.png"></video>
             <p>Dips</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video5')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -808,7 +952,7 @@
             <video controls src="dips_assistes.mp4" width="180" alt="Dips assistés" poster="dips_assistes.png"></video>
             <p>Dips assistés</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video6')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -825,7 +969,7 @@
             <video controls src="extension_de_coudes.mp4" width="180" alt="Extension de coudes" poster="extensions_de_coude.png"></video>
             <p>Extension de coudes</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video7')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -844,7 +988,7 @@
             <video controls src="biceps_unilateral.mp4" width="180" alt="Biceps unilatéral" poster="biceps_unilateral.png"></video>
             <p>Biceps unilatéral</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video8')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -861,7 +1005,7 @@
             <video controls src="curl_incline_degressif.mp4" width="180" alt="Curl Incliné + Dégressif" poster="curl_incline_degressif.png"></video>
             <p>Curl Incliné + Dégressif</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video9')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -878,7 +1022,7 @@
             <video controls src="curl_prise_marteaux.mp4" width="180" alt="Curl Prise Marteaux" poster="curl_prise_marteaux.png"></video>
             <p>Curl Prise Marteaux</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video10')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -895,7 +1039,7 @@
             <video controls src="curl_biceps_supination.mp4" width="180" alt="Curl Biceps Supination" poster="biceps_supination.png"></video>
             <p>Curl Biceps Supination</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video11')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -912,7 +1056,7 @@
             <video controls src="curl_supination_poulie.mp4" width="180" alt="Curl Supination Poulie" poster="curl_supination_poulie.png"></video>
             <p>Curl Supination Poulie</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video12')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -929,7 +1073,7 @@
             <video controls src="curl_prise_inverse.mp4" width="180" alt="Curl Prise Inverse" poster="curl_prise_inverse.png"></video>
             <p>Curl Prise Inverse</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video13')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -950,7 +1094,7 @@
             <video controls src="dev_couche_haltere_coude_rentre.mp4" width="180" alt="dev couché haltere coude rentré" poster="dev_couche_haltere_coude_rentre.png"></video>
             <p>Écartés coudes rentrés</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video14')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -967,7 +1111,7 @@
             <video controls src="ecart_poulies_hautes.mp4" width="180" alt="Écarté Poulies Hautes" poster="ecarte_poulie_haute.png"></video>
             <p>Écartés Poulies Hautes</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video15')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -984,7 +1128,7 @@
             <video controls src="bench_machine_tempo.mp4" width="180" alt="Bench machine Tempo" poster="bench_machine_tempo.png"></video>
             <p>Bench machine Tempo</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video16')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1001,7 +1145,7 @@
             <video controls src="developpe_couche_haltere.mp4" width="180" alt="Développé Couché haltere" poster="dev_couche_haltere_normal.png"></video>
             <p>Dev Couché haltere</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video17')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1018,7 +1162,7 @@
             <video controls src="butterfly_pompes.mp4" width="180" alt="Butterfly + Pompes" poster="butterfly.png"></video>
             <p>Butterfly + Pompes</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video18')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1035,7 +1179,7 @@
             <video controls src="ecarte_poulie_basse.mp4" width="180" alt="Pec Fly Machine" poster="ecarte_poulie_basse.png"></video>
             <p>Ecarte poulie basse</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video19')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1052,7 +1196,7 @@
             <video controls src="dips_prise_large.mp4" width="180" alt="DIPS Prise Large" poster="dips_prise_large.png"></video>
             <p>DIPS Prise Large</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video20')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1069,7 +1213,7 @@
             <video controls src="smith_machine_tempo.mp4" width="180" alt="Incline Bench Press" poster="smith_machine_tempo.png"></video>
             <p>Smith machine tempo</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video21')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1086,7 +1230,7 @@
             <video controls src="pecs_au_butterfly.mp4" width="180" alt="Chest Dips" poster="uniquement_pec_butterfly.png"></video>
             <p>Pecs au Butterfly</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video22')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1107,7 +1251,7 @@
             <video controls src="fentes_bulgares_en_detail.mp4" alt="Fentes Bulgares" poster="fente_bulgare_degressif.png"></video>
             <p>Fentes Bulgares</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video23')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1124,7 +1268,7 @@
             <video controls src="legs_extension_degressif.mp4" alt="Legs Extension" poster="leg_extension.png"></video>
             <p>Legs Extension</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video24')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1141,7 +1285,7 @@
             <video controls src="presse_verticale_en_detail.mp4" alt="Presse Verticale" poster="press_verticale.png"></video>
             <p>Presse Verticale</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video25')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1158,7 +1302,7 @@
             <video controls src="souleve_de_terre_jambes_tendues.mp4" alt="Soulevé de Terre" poster="souleve_de_terre_jambes_tendues.png"></video>
             <p>Soulevé de Terre</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video26')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1175,7 +1319,7 @@
             <video controls src="squat.mp4" width="180" alt="Squat" poster="squat.png"></video>
             <p>Squat</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video27')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1192,7 +1336,7 @@
             <video controls src="adducteur.mp4" width="180" alt="Hack Squat" poster="adducteur.png"></video>
             <p>Adducteur</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video28')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1209,7 +1353,7 @@
             <video controls src="fentes_guides.mp4" width="180" alt="Lunges" poster="fentes_guides.png"></video>
             <p>Fentes Guidés</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video29')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1226,7 +1370,7 @@
             <video controls src="hack_squat.mp4" width="180" alt="Glute Bridge" poster="hack_squat.png"></video>
             <p>Hack Squat</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video30')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1243,7 +1387,7 @@
             <video controls src="leg_curl.mp4" width="180" alt="Leg Curl" poster="leg_curl.png"></video>
             <p>Leg Curl</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video31')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1262,7 +1406,7 @@
             <video controls src="elevations_laterales_machine.mp4" alt="Élévations Latérales Machine" poster="elevation_machine_laterale.png"></video>
             <p>Élévations machine</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video32')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1279,7 +1423,7 @@
             <video controls src="elevations_frontales_en_degressif.mp4" alt="Élévations Frontales" poster="elevation_frontale_degressif.png"></video>
             <p>Élévations Frontales</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video33')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1296,7 +1440,7 @@
             <video controls src="elevations_laterales_poulie.mp4" alt="Élévations Latérales Poulie" poster="elevation_laterale_poulie.png"></video>
             <p>Élévations poulie</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video34')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1313,7 +1457,7 @@
             <video controls src="developpe_militaire_smith_guide.mp4" alt="Développé Militaire" poster="elevation_militaire_smith.png"></video>
             <p>Dev Militaire Smith Guidé</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video35')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1330,7 +1474,7 @@
             <video controls src="ton_exo_butterfly_inverse.mp4" alt="Butterfly Inversé" poster="butterfly_inverse.png"></video>
             <p>Butterfly Inversé</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video36')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1347,7 +1491,7 @@
             <video controls src="dev_militaire_machine.mp4" alt="Dev militaire machine" poster="dev_militaire.png"></video>
             <p>Dev militaire machine</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video37')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1364,7 +1508,7 @@
             <video controls src="face_pull.mp4" alt="Face Pull" poster="face_pull.png"></video>
             <p>Face Pull</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video38')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1381,7 +1525,7 @@
             <video controls src="elevations_laterales_degressif.mp4" alt="Élévations latérales + Dégressif" poster="elevations_laterales_degressif.png"></video>
             <p>Élévations latérales</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video39')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1402,7 +1546,7 @@
             <video controls src="releves_de_buste_en_detail.mp4" alt="Relevés de Buste" poster="releve_buste.png"></video>
             <p>Relevés de Buste</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video40')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1419,7 +1563,7 @@
             <video controls src="tes_tractions_assistees_en_details.mp4" alt="Tractions Assitées" poster="traction_assistee.png"></video>
             <p>Tractions assitées</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video41')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1436,7 +1580,7 @@
             <video controls src="tirage_dorsaux.mp4" alt="Tirage Dorsaux" poster="tirage_dorsaux.png"></video>
             <p>Tirage Dorsaux</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video42')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1453,7 +1597,7 @@
             <video controls src="tirage_horizontal_machine.mp4" alt="Tirage Horizontal Machine" poster="tirage_horizontal_machine.png"></video>
             <p>Tirage horizontal machine</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video43')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1470,7 +1614,7 @@
             <video controls src="tirage_inverse_meilleur_exo_dos.mp4" alt="Tirage Inversé" poster="tirage_inverse.png"></video>
             <p>Tirage inversé</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video44')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1487,7 +1631,7 @@
             <video controls src="tirage_menton.mp4" alt="Tirage Menton" poster="tirage_menton.png"></video>
             <p>Tirage Menton</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video45')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1504,7 +1648,7 @@
             <video controls src="tirage_poulie_vis_a_vis.mp4" alt="Tirage Poulie Vis à Vis" poster="tirage_poulie_vis_a_vis.png"></video>
             <p>Tirage Poulie</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video46')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1521,7 +1665,7 @@
             <video controls src="tirage_trapeze.mp4" alt="Tirage Trapeze" poster="tirage_trapeze.png"></video>
             <p>Tirage Trapeze</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video47')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1538,7 +1682,7 @@
             <video controls src="tirage_unilateral_a_la_poulie.mp4" alt="Tirage unilatéral à la Poulie" poster="tirage_unilateral_poulie.png"></video>
             <p>Tirage unilatéral Poulie</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video48')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1555,7 +1699,7 @@
             <video controls src="tirage_verticale.mp4" alt="Tirage Verticale" poster="tirage_verticale.png"></video>
             <p>Tirage verticale</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video49')">
-                <option value="">Selectionner exercice</option>
+                <option value="">SExercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1572,7 +1716,7 @@
             <video controls src="ton_exo_le_shrug.mp4" alt="Shrug" poster="shrug.png"></video>
             <p>Le Shrug</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video50')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
@@ -1589,7 +1733,7 @@
             <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
             <p>Tirage Horizontale Trapèzes</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video51')">
-                <option value="">Selectionner exercice</option>
+                <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
                 <option value="slot2">Exercice 2</option>
                 <option value="slot3">Exercice 3</option>
