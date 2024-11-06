@@ -1608,12 +1608,9 @@ const totalSets = 6;
 
 // Function to display the current set and update the title
 function showSet(index) {
-    console.log(`Displaying set index: ${index}`);  // Log current index for debugging
     for (let i = 1; i <= totalSets; i++) {
         const exerciseSet = document.getElementById(`exerciseSet${i}`);
-        if (exerciseSet) {
-            exerciseSet.style.display = (i === index) ? 'block' : 'none';
-        }
+        exerciseSet.style.display = (i === index) ? 'block' : 'none';
     }
 
     const setTitles = [
@@ -1624,61 +1621,30 @@ function showSet(index) {
         'Entrainements Épaules',
         'Entrainements Dos'
     ];
-    const titleElement = document.getElementById("setTitle");
-    titleElement.textContent = setTitles[index - 1];
+    document.getElementById("setTitle").textContent = setTitles[index - 1];
 }
 
-// Navigate to the previous set (loop back from 1 to 6)
+// Navigate to the previous set
 function prevSet() {
     currentSetIndex = (currentSetIndex - 1 < 1) ? totalSets : currentSetIndex - 1;
-    console.log(`Prev button clicked. Current set index: ${currentSetIndex}`);  // Log current index
     showSet(currentSetIndex);
 }
 
-// Navigate to the next set (loop forward from 6 to 1)
+// Navigate to the next set
 function nextSet() {
     currentSetIndex = (currentSetIndex + 1 > totalSets) ? 1 : currentSetIndex + 1;
-    console.log(`Next button clicked. Current set index: ${currentSetIndex}`);  // Log current index
     showSet(currentSetIndex);
 }
 
+// Load the current date and initial set on page load
 document.addEventListener("DOMContentLoaded", function () {
     const dateElement = document.getElementById("dateDisplay");
     const today = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
+
+    showSet(currentSetIndex); // Load the first set by default
 });
-
-function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // Get the ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-
-    // Retrieve the last slot where this specific video was placed
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
-
-    // Clear the previous slot of this specific video, if it differs from the selected slot
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot of this video only
-        }
-    }
-
-    // Clone the video element from the video bank
-    const clonedVideo = videoBankElement.cloneNode(true); // Clone the video element
-    clonedVideo.removeAttribute("id"); // Remove the original ID to avoid duplicate IDs
-    clonedVideo.querySelector("select")?.remove(); // Remove the dropdown from the clone
-
-    // Place the cloned video in the selected slot
-    const targetSlot = document.getElementById(selectedSlotId);
-    if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot for this video
-        targetSlot.appendChild(clonedVideo); // Place the cloned video in the target slot
-    }
-
-    // Update the `data-current-slot` on the original video bank element
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
-}
 
 // Function to convert video file to Base64
 function convertVideoToBase64(videoSrc, callback) {
@@ -1692,7 +1658,7 @@ function convertVideoToBase64(videoSrc, callback) {
         .catch(error => console.error("Video loading failed:", error));
 }
 
-// Updated exportSession function
+// Function to export session with Base64 videos embedded
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1713,7 +1679,7 @@ function exportSession() {
     const exerciseRows = document.querySelectorAll('.exercise-row');
     let videosToEmbed = [];
 
-    exerciseRows.forEach((row, index) => {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -1758,30 +1724,41 @@ function exportSession() {
     </html>
     `;
 
-    // Embed each video in Base64 format
-    let videosProcessed = 0;
-    videosToEmbed.forEach(video => {
-        convertVideoToBase64(video.src, base64 => {
-            // Embed the video in the HTML content
-            contentToExport = contentToExport.replace(
-                `<video controls src="${video.src}"`,
-                `<video controls src="${base64}" poster="${video.poster}"`
-            );
+    if (videosToEmbed.length === 0) {
+        // Direct export if no videos to process
+        downloadHTML(contentToExport);
+    } else {
+        // Embed each video in Base64 format
+        let videosProcessed = 0;
+        videosToEmbed.forEach(video => {
+            convertVideoToBase64(video.src, base64 => {
+                // Embed the video in the HTML content
+                contentToExport = contentToExport.replace(
+                    `<video controls src="${video.src}"`,
+                    `<video controls src="${base64}" poster="${video.poster}"`
+                );
 
-            // After all videos are processed, export the HTML
-            videosProcessed++;
-            if (videosProcessed === videosToEmbed.length) {
-                const blob = new Blob([contentToExport], { type: 'text/html' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'seance.html';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
+                // After all videos are processed, export the HTML
+                videosProcessed++;
+                if (videosProcessed === videosToEmbed.length) {
+                    downloadHTML(contentToExport);
+                }
+            });
         });
-    });
+    }
 }
-</script>
+
+// Helper function to download the HTML content as a file
+function downloadHTML(content) {
+    const blob = new Blob([content], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'seance.html';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+document.getElementById('exportButton').addEventListener('click', exportSession);
 </body>
 </html>
