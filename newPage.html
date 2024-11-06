@@ -1967,6 +1967,7 @@ function exportSession() {
         `;
 
         if (videoSrc) {
+            // Using data URL if videoSrc is a base64-encoded string
             contentToExport += `
                 <div>
                     Vidéo:<br>
@@ -2004,9 +2005,6 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
-// Event listener for the export button
-document.getElementById('exportButton').addEventListener('click', exportSession);
 </script>
 </body>
 </html>
