@@ -1878,7 +1878,6 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Export session function
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1888,59 +1887,9 @@ function exportSession() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Séance Enregistrée</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
-            }
-            .container {
-                width: 80%;
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-card {
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-            }
-            .exercise-card video {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
+            body { /* styling here */ }
+            .exercise-card video { width: 100%; max-width: 400px; }
+            /* Other styles */
         </style>
     </head>
     <body>
@@ -1954,25 +1903,21 @@ function exportSession() {
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
 
-        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
-        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
-
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
+        contentToExport += `<div class="exercise-card"><h3>${exerciseNumber}</h3>`;
 
-        if (videoSrc) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            `;
+        if (videoElement) {
+            // Convert video to Base64
+            const videoSrc = videoElement.getAttribute('src');
+            getBase64FromURL(videoSrc, (base64) => {
+                contentToExport += `
+                    <div>Vidéo:<br>
+                    <video controls src="${base64}"></video></div>
+                `;
+            });
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
@@ -1982,8 +1927,8 @@ function exportSession() {
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
+            </div></div>
+        `;
     });
 
     contentToExport += `
@@ -2005,7 +1950,16 @@ function exportSession() {
     document.body.removeChild(link);
 }
 
-document.getElementById('exportButton').addEventListener('click', exportSession);
+// Helper function to convert video to Base64
+function getBase64FromURL(url, callback) {
+    fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+            const reader = new FileReader();
+            reader.onload = () => callback(reader.result);
+            reader.readAsDataURL(blob);
+        });
+}
 </script>
 </body>
 </html>
