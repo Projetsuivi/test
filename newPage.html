@@ -1788,10 +1788,10 @@ h2#setTitle {
 
             
 <script>
-       let currentSet = 1;  // Start with Set 1
-const totalSets = 6; // Total number of sets
+      let currentSetIndex = 1;
+const totalSets = 6;
 
-// Function to show a specific set by index
+// Function to display the current set and update the title
 function showSet(index) {
     for (let i = 1; i <= totalSets; i++) {
         const exerciseSet = document.getElementById(`exerciseSet${i}`);
@@ -1800,126 +1800,82 @@ function showSet(index) {
         }
     }
 
-    const titles = [
-        "Entrainements Triceps",
-        "Entrainements Biceps",
-        "Entrainements Pectoraux",
-        "Entrainements Jambes",
-        "Entrainements Épaules",
-        "Entrainements Dos"
+    const setTitles = [
+        'Entrainements Triceps',
+        'Entrainements Biceps',
+        'Entrainements Pecs',
+        'Entrainements Jambes',
+        'Entrainements Épaules',
+        'Entrainements Dos'
     ];
-    document.getElementById("setTitle").textContent = titles[index - 1];
+    const titleElement = document.getElementById("setTitle");
+    titleElement.textContent = setTitles[index - 1];
 }
 
 // Navigate to the previous set (loop back from 1 to 6)
 function prevSet() {
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    showSet(currentSet);
+    currentSetIndex = (currentSetIndex - 1 < 1) ? totalSets : currentSetIndex - 1;
+    showSet(currentSetIndex);
 }
 
 // Navigate to the next set (loop forward from 6 to 1)
 function nextSet() {
-    currentSet = (currentSet % totalSets) + 1;
-    showSet(currentSet);
+    currentSetIndex = (currentSetIndex + 1 > totalSets) ? 1 : currentSetIndex + 1;
+    showSet(currentSetIndex);
 }
 
 // Display the current date
-function displayCurrentDate() {
+document.addEventListener("DOMContentLoaded", function () {
     const dateElement = document.getElementById("dateDisplay");
     const today = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
-}
-
-// Drag and Drop functionality
-let draggedElement = null;
-
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
-
-function handleTouchMove(e) {
-    e.preventDefault();
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
-
-document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
 });
 
-document.addEventListener('dragend', (e) => {
-    draggedElement = null;
-});
+// Function to move video to selected exercise slot based on dropdown selection
+function moveVideoToRow(selectElement, videoId) {
+    const selectedSlotId = selectElement.value; // Get the ID of the selected slot
+    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
+    const videoTitle = videoBankElement.querySelector('p').textContent; // Get the title of the video
 
-function handleDragOver(e) {
-    e.preventDefault();
-}
+    // Retrieve the last slot where this specific video was placed
+    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
 
-function handleDropOnSlot(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        let clonedElement = draggedElement.cloneNode(true);
-        e.target.innerHTML = ''; 
-        const draggedVideo = draggedElement.querySelector('video');
-        const newVideo = document.createElement('video');
-        newVideo.controls = true;
-        newVideo.src = draggedVideo.src;
-        newVideo.poster = draggedVideo.poster;
-        newVideo.width = 270; 
-        e.target.appendChild(newVideo);
-
-        let videoTitle = draggedElement.querySelector('p').textContent;
-        let titleElement = document.createElement('p');
-        titleElement.textContent = videoTitle;
-        e.target.appendChild(titleElement);
-
-        newVideo.draggable = false;
+    // Clear the previous slot of this specific video, if it differs from the selected slot
+    if (previousSlotId && previousSlotId !== selectedSlotId) {
+        const previousSlot = document.getElementById(previousSlotId);
+        if (previousSlot) {
+            previousSlot.innerHTML = ''; // Clear the previous slot of this video only
+            const previousExerciseNumber = previousSlot.previousElementSibling; // Get the "Exercice X" label
+            if (previousExerciseNumber) {
+                // Reset the label text to "Exercice X"
+                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
+            }
+        }
     }
-}
 
-function handleDropOnCell(e) {
-    e.preventDefault();
-    if (draggedElement) {
-        const clonedElement = draggedElement.cloneNode(true);
-        const video = clonedElement.querySelector('video');
-        e.target.innerHTML = '';  // Clear the cell
-        e.target.appendChild(video);  // Add the dragged video to the cell
-        video.draggable = false;  // Disable dragging inside the cell
+    // Clone the video element from the video bank
+    const clonedVideo = videoBankElement.cloneNode(true); // Clone the video element
+    clonedVideo.removeAttribute("id"); // Remove the original ID to avoid duplicate IDs
+    clonedVideo.querySelector("select")?.remove(); // Remove the dropdown from the clone
+
+    // Place the cloned video in the selected slot
+    const targetSlot = document.getElementById(selectedSlotId);
+    if (targetSlot) {
+        targetSlot.innerHTML = ''; // Clear the target slot for this video
+        targetSlot.appendChild(clonedVideo); // Place the cloned video in the target slot
+
+        // Update the label with the video title only on mobile devices
+        if (window.innerWidth <= 768) {
+            const exerciseNumber = targetSlot.previousElementSibling; // Get the "Exercice X" label
+            if (exerciseNumber) {
+                exerciseNumber.textContent = exerciseNumber.textContent.split(":")[0] + `: ${videoTitle}`; // Update the label with the video title
+            }
+        }
     }
-}
 
-function addDragAndDropListeners() {
-    const videoElements = document.querySelectorAll('.draggable');
-    videoElements.forEach(video => {
-        video.setAttribute('draggable', 'true');
-        video.addEventListener('touchstart', handleTouchStart);
-        video.addEventListener('touchmove', handleTouchMove);
-        video.addEventListener('touchend', handleTouchEnd);
-    });
-
-    const exerciseSlots = document.querySelectorAll('.exercise-slot');
-    exerciseSlots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDropOnSlot);
-        slot.addEventListener('touchmove', handleTouchMove);
-        slot.addEventListener('touchend', (e) => {
-            handleDropOnSlot(e);
-            handleTouchEnd(e);
-        });
-    });
-
-    const bandwidthCells = document.querySelectorAll('.bandwidth-cell');
-    bandwidthCells.forEach(cell => {
-        cell.addEventListener('dragover', handleDragOver);
-        cell.addEventListener('drop', handleDropOnCell);
-    });
+    // Update the `data-current-slot` on the original video bank element
+    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
 // Export session function
@@ -1993,7 +1949,7 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -2050,30 +2006,6 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
-// Initialize listeners when the page loads
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-    showSet(currentSet);
-};
-
-// Throttle scroll event to prevent performance lag
-let lastKnownScrollPosition = 0;
-let ticking = false;
-
-window.addEventListener('scroll', function(e) {
-    lastKnownScrollPosition = window.scrollY;
-
-    if (!ticking) {
-        window.requestAnimationFrame(function() {
-            // Perform scroll actions here (if any)
-            ticking = false;
-        });
-
-        ticking = true;
-    }
-});
 </script>
 </body>
 </html>
