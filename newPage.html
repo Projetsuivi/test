@@ -1788,105 +1788,6 @@ h2#setTitle {
 
             
 <script>
-let currentSet = 1;  // Start with Set 1
-const totalSets = 6; // Total number of sets
-
-// Function to navigate to the next set
-function nextSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
-    currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (nextElement) {
-        nextElement.style.display = 'flex';
-    }
-
-    updateTitle();
-}
-
-// Function to navigate to the previous set
-function prevSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (prevElement) {
-        prevElement.style.display = 'flex';
-    }
-
-    updateTitle();
-}
-
-// Function to update the title of the current set
-function updateTitle() {
-    const titles = [
-        "Entrainements Triceps",
-        "Entrainements Biceps",
-        "Entrainements Pectoraux",
-        "Entrainements Jambes",
-        "Entrainements Épaules",
-        "Entrainements Dos"
-    ];
-    document.getElementById("setTitle").textContent = titles[currentSet - 1];
-}
-
-// Function to display the current date
-function displayCurrentDate() {
-    const dateElement = document.getElementById("dateDisplay");
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    dateElement.textContent = today.toLocaleDateString('fr-FR', options);
-}
-
-// Function to handle dropdown selection and move video to the selected exercise slot
-function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Video title
-
-    // Retrieve the last slot where this specific video was placed
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
-
-    // Clear the previous slot if it differs from the selected slot
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot
-            const previousExerciseNumber = previousSlot.previousElementSibling; // Get "Exercice X" label
-            if (previousExerciseNumber) {
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
-            }
-        }
-    }
-
-    // Clone the video element and place it in the selected slot
-    const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id");
-    clonedVideo.querySelector("select")?.remove();
-
-    const targetSlot = document.getElementById(selectedSlotId);
-    if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot
-        targetSlot.appendChild(clonedVideo); // Place the cloned video
-
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling;
-            if (exerciseNumber) {
-                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
-            }
-        }
-    }
-
-    // Update the `data-current-slot` on the original video bank element
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
-}
-
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -2009,8 +1910,13 @@ function exportSession() {
     link.download = 'seance.html';
 
     document.body.appendChild(link);
+
+    // Start download and delay removal for mobile compatibility
     link.click();
-    document.body.removeChild(link);
+    setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }, 100);
 }
 </script>
 </body>
