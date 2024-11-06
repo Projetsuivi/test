@@ -1879,6 +1879,7 @@ function moveVideoToRow(selectElement, videoId) {
 }
 
 // Export session function
+// Export session function
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -2005,10 +2006,7 @@ function exportSession() {
     document.body.removeChild(link);
 }
 
-// Event listeners for navigation buttons and export button
 document.getElementById('exportButton').addEventListener('click', exportSession);
-document.getElementById("prevSet").addEventListener("click", prevSet);
-document.getElementById("nextSet").addEventListener("click", nextSet);
 </script>
 </body>
 </html>
