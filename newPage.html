@@ -1788,68 +1788,52 @@ h2#setTitle {
 
             
 <script>
-        let currentSet = 1;  // Start with Set 1
-    const totalSets = 6; // Total number of sets
+       let currentSet = 1;  // Start with Set 1
+const totalSets = 6; // Total number of sets
 
-    function nextSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (currentElement) {
-            currentElement.style.display = 'none';
+// Function to show a specific set by index
+function showSet(index) {
+    for (let i = 1; i <= totalSets; i++) {
+        const exerciseSet = document.getElementById(`exerciseSet${i}`);
+        if (exerciseSet) {
+            exerciseSet.style.display = (i === index) ? 'block' : 'none';
         }
-
-        currentSet = (currentSet % totalSets) + 1;
-        const nextElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (nextElement) {
-            nextElement.style.display = 'flex';
-        }
-
-        updateTitle();
     }
 
-    function prevSet() {
-        const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (currentElement) {
-            currentElement.style.display = 'none';
-        }
+    const titles = [
+        "Entrainements Triceps",
+        "Entrainements Biceps",
+        "Entrainements Pectoraux",
+        "Entrainements Jambes",
+        "Entrainements Épaules",
+        "Entrainements Dos"
+    ];
+    document.getElementById("setTitle").textContent = titles[index - 1];
+}
 
-        currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-        const prevElement = document.getElementById(`exerciseSet${currentSet}`);
-        if (prevElement) {
-            prevElement.style.display = 'flex';
-        }
+// Navigate to the previous set (loop back from 1 to 6)
+function prevSet() {
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    showSet(currentSet);
+}
 
-        updateTitle();
-    }
+// Navigate to the next set (loop forward from 6 to 1)
+function nextSet() {
+    currentSet = (currentSet % totalSets) + 1;
+    showSet(currentSet);
+}
 
-    function updateTitle() {
-        const titles = [
-            "Entrainements Triceps",
-            "Entrainements Biceps",
-            "Entrainements Pectoraux",
-            "Entrainements Jambes",
-            "Entrainements Épaules",
-            "Entrainements Dos"
-        ];
-        document.getElementById("setTitle").textContent = titles[currentSet - 1];
-    }
+// Display the current date
+function displayCurrentDate() {
+    const dateElement = document.getElementById("dateDisplay");
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    dateElement.textContent = today.toLocaleDateString('fr-FR', options);
+}
 
-    function displayCurrentDate() {
-        const dateElement = document.getElementById("dateDisplay");
-        const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString('fr-FR', options);
-        dateElement.textContent = formattedDate;
-    }
+// Drag and Drop functionality
+let draggedElement = null;
 
-    window.onload = function() {
-        displayCurrentDate();
-        addDragAndDropListeners();
-    };
-
-             // Drag and Drop functionality
-        let draggedElement = null;
-
-// Add touch event support for mobile drag and drop
 function handleTouchStart(e) {
     if (e.target.classList.contains('draggable')) {
         draggedElement = e.target;
@@ -2069,41 +2053,27 @@ document.getElementById('exportButton').addEventListener('click', exportSession)
 
 // Initialize listeners when the page loads
 window.onload = function() {
+    displayCurrentDate();
     addDragAndDropListeners();
+    showSet(currentSet);
 };
+
 // Throttle scroll event to prevent performance lag
 let lastKnownScrollPosition = 0;
 let ticking = false;
 
 window.addEventListener('scroll', function(e) {
-  lastKnownScrollPosition = window.scrollY;
+    lastKnownScrollPosition = window.scrollY;
 
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      // Perform scroll actions here (if any)
-      ticking = false;
-    });
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            // Perform scroll actions here (if any)
+            ticking = false;
+        });
 
-    ticking = true;
-  }
+        ticking = true;
+    }
 });
-                // Add touch event support only when necessary
-function handleTouchStart(e) {
-    if (e.target.classList.contains('draggable')) {
-        draggedElement = e.target;
-    }
-}
-
-// Avoid unnecessary touchmove handling if not dragging
-function handleTouchMove(e) {
-    if (draggedElement) {
-        e.preventDefault();  // Only prevent scrolling if dragging
-    }
-}
-
-function handleTouchEnd(e) {
-    draggedElement = null;
-}
 </script>
 </body>
 </html>
