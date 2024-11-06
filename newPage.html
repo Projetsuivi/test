@@ -1949,7 +1949,7 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
+    exerciseRows.forEach((row, index) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -1967,7 +1967,6 @@ function exportSession() {
         `;
 
         if (videoSrc) {
-            // Using data URL if videoSrc is a base64-encoded string
             contentToExport += `
                 <div>
                     Vidéo:<br>
@@ -2005,6 +2004,8 @@ function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
+
+document.getElementById('exportButton').addEventListener('click', exportSession);
 </script>
 </body>
 </html>
