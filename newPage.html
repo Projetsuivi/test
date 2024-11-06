@@ -1879,7 +1879,6 @@ function moveVideoToRow(selectElement, videoId) {
 }
 
 // Export session function
-// Export session function
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1950,7 +1949,7 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row, index) => {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
@@ -2006,6 +2005,7 @@ function exportSession() {
     document.body.removeChild(link);
 }
 
+// Event listener for the export button
 document.getElementById('exportButton').addEventListener('click', exportSession);
 </script>
 </body>
