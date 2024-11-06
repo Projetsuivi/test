@@ -1788,98 +1788,75 @@ h2#setTitle {
 
             
 <script>
-      let currentSetIndex = 1;
-const totalSets = 6;
+let currentSet = 1;  // Start with Set 1
+const totalSets = 6; // Total number of sets
 
-// Function to display the current set and update the title
-function showSet(index) {
-    for (let i = 1; i <= totalSets; i++) {
-        const exerciseSet = document.getElementById(`exerciseSet${i}`);
-        if (exerciseSet) {
-            exerciseSet.style.display = (i === index) ? 'block' : 'none';
-        }
+function nextSet() {
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        currentElement.style.display = 'none';
     }
 
-    const setTitles = [
-        'Entrainements Triceps',
-        'Entrainements Biceps',
-        'Entrainements Pecs',
-        'Entrainements Jambes',
-        'Entrainements Épaules',
-        'Entrainements Dos'
-    ];
-    const titleElement = document.getElementById("setTitle");
-    titleElement.textContent = setTitles[index - 1];
+    currentSet = (currentSet % totalSets) + 1;
+    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (nextElement) {
+        nextElement.style.display = 'flex';
+    }
+
+    updateTitle();
 }
 
-// Navigate to the previous set (loop back from 1 to 6)
 function prevSet() {
-    currentSetIndex = (currentSetIndex - 1 < 1) ? totalSets : currentSetIndex - 1;
-    showSet(currentSetIndex);
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        currentElement.style.display = 'none';
+    }
+
+    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
+    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (prevElement) {
+        prevElement.style.display = 'flex';
+    }
+
+    updateTitle();
 }
 
-// Navigate to the next set (loop forward from 6 to 1)
-function nextSet() {
-    currentSetIndex = (currentSetIndex + 1 > totalSets) ? 1 : currentSetIndex + 1;
-    showSet(currentSetIndex);
+function updateTitle() {
+    const titles = [
+        "Entrainements Triceps",
+        "Entrainements Biceps",
+        "Entrainements Pectoraux",
+        "Entrainements Jambes",
+        "Entrainements Épaules",
+        "Entrainements Dos"
+    ];
+    document.getElementById("setTitle").textContent = titles[currentSet - 1];
 }
 
-// Display the current date
-document.addEventListener("DOMContentLoaded", function () {
+function displayCurrentDate() {
     const dateElement = document.getElementById("dateDisplay");
     const today = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
-});
+}
 
-// Function to move video to selected exercise slot based on dropdown selection
-function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // Get the ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Get the title of the video
-
-    // Retrieve the last slot where this specific video was placed
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
-
-    // Clear the previous slot of this specific video, if it differs from the selected slot
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot of this video only
-            const previousExerciseNumber = previousSlot.previousElementSibling; // Get the "Exercice X" label
-            if (previousExerciseNumber) {
-                // Reset the label text to "Exercice X"
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
-            }
-        }
+// Helper function to convert video to base64
+async function getBase64Video(videoElement) {
+    const videoSrc = videoElement.src;
+    if (!videoSrc.startsWith("data:")) { 
+        const response = await fetch(videoSrc);
+        const blob = await response.blob();
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
     }
-
-    // Clone the video element from the video bank
-    const clonedVideo = videoBankElement.cloneNode(true); // Clone the video element
-    clonedVideo.removeAttribute("id"); // Remove the original ID to avoid duplicate IDs
-    clonedVideo.querySelector("select")?.remove(); // Remove the dropdown from the clone
-
-    // Place the cloned video in the selected slot
-    const targetSlot = document.getElementById(selectedSlotId);
-    if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot for this video
-        targetSlot.appendChild(clonedVideo); // Place the cloned video in the target slot
-
-        // Update the label with the video title only on mobile devices
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling; // Get the "Exercice X" label
-            if (exerciseNumber) {
-                exerciseNumber.textContent = exerciseNumber.textContent.split(":")[0] + `: ${videoTitle}`; // Update the label with the video title
-            }
-        }
-    }
-
-    // Update the `data-current-slot` on the original video bank element
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
+    return videoSrc;
 }
 
 // Export session function
-function exportSession() {
+async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
@@ -1949,13 +1926,15 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
+    for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
+        let videoDataUri = '';
 
-        let videoSrc = videoElement ? videoElement.getAttribute('src') : '';
-        let videoPoster = videoElement ? videoElement.getAttribute('poster') : '';
+        if (videoElement) {
+            videoDataUri = await getBase64Video(videoElement);
+        }
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
@@ -1966,11 +1945,11 @@ function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (videoSrc) {
+        if (videoDataUri) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls src="${videoSrc}" poster="${videoPoster}"></video>
+                    <video controls src="${videoDataUri}"></video>
                 </div>
             `;
         } else {
@@ -1984,7 +1963,7 @@ function exportSession() {
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
         </div>`;
-    });
+    }
 
     contentToExport += `
         </div>
@@ -2006,6 +1985,12 @@ function exportSession() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
+
+// Initialize listeners when the page loads
+window.onload = function() {
+    displayCurrentDate();
+    addDragAndDropListeners();
+};
 </script>
 </body>
 </html>
