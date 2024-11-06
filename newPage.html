@@ -1887,8 +1887,7 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Function to export session with embedded videos
-async function exportSession() {
+function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
@@ -1958,11 +1957,13 @@ async function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    for (const row of exerciseRows) {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-        let videoDataUri = videoElement ? videoElement.src : '';
+
+        let videoSrc = videoElement ? videoElement.src : '';
+        let videoPoster = videoElement ? videoElement.poster : '';
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
@@ -1973,11 +1974,11 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (videoDataUri) {
+        if (videoSrc) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls src="${videoDataUri}"></video>
+                    <video controls preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
             `;
         } else {
@@ -1991,7 +1992,7 @@ async function exportSession() {
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
         </div>`;
-    }
+    });
 
     contentToExport += `
         </div>
@@ -2011,7 +2012,6 @@ async function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
 document.getElementById('exportButton').addEventListener('click', exportSession);
 
 window.onload = function() {
