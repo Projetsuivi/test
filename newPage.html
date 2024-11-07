@@ -1965,7 +1965,7 @@ async function exportSession() {
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let blobVideoUrl = '';
+                let blobVideoUrl = '';
 
         if (videoElement && videoElement.src) {
             blobVideoUrl = await convertVideoToBlobURL(videoElement.src);
@@ -2002,6 +2002,7 @@ async function exportSession() {
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
         <script>
+            // Add a click event to play the video when the user taps on it
             document.querySelectorAll('video').forEach(video => {
                 video.addEventListener('click', () => {
                     if (video.paused) {
@@ -2028,11 +2029,17 @@ async function exportSession() {
 async function convertVideoToBlobURL(videoUrl) {
     return fetch(videoUrl)
         .then(response => response.blob())
-        .then(blob => URL.createObjectURL(blob));
+        .then(blob => URL.createObjectURL(blob))
+        .catch(error => {
+            console.error('Error converting video to Blob URL:', error);
+            return '';
+        });
 }
 
+// Add event listener to the export button
 document.getElementById('exportButton').addEventListener('click', exportSession);
 
+// Additional initialization functions
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
