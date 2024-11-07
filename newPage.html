@@ -1,3 +1,8 @@
+0711 
+Fares NAIT
+​
+vous
+​
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1950,6 +1955,23 @@ async function exportSession() {
                 color: #777;
             }
         </style>
+        <script>
+            // JavaScript to enable Picture-in-Picture mode automatically on play
+            document.addEventListener("DOMContentLoaded", function() {
+                const videos = document.querySelectorAll("video");
+                videos.forEach(video => {
+                    video.addEventListener("play", async function() {
+                        if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
+                            try {
+                                await video.requestPictureInPicture();
+                            } catch (error) {
+                                console.error("Picture-in-Picture error:", error);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
@@ -1981,12 +2003,6 @@ async function exportSession() {
                 <div>
                     Vidéo:<br>
                     <video controls preload="metadata" src="${base64Video}"></video>
-                    <select onchange="moveVideoToRow(this, '${exerciseNumber}')">
-                        <option value="">Sélectionnez un slot</option>
-                        <option value="slot1">Slot 1</option>
-                        <option value="slot2">Slot 2</option>
-                        <!-- Add more slots as needed -->
-                    </select>
                 </div>
             `;
         } else {
@@ -2007,33 +2023,6 @@ async function exportSession() {
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
-        <script>
-            async function triggerPiPOnLoad() {
-                const videos = document.querySelectorAll('video');
-                for (const video of videos) {
-                    try {
-                        await video.play();
-                        await video.pause();
-                        if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
-                            await video.requestPictureInPicture();
-                        }
-                    } catch (error) {
-                        console.error("Error entering PiP mode:", error);
-                    }
-                }
-            }
-            window.onload = triggerPiPOnLoad;
-
-            // Function to move video to the selected row based on dropdown
-            function moveVideoToRow(selectElement, videoId) {
-                const selectedSlotId = selectElement.value;
-                const videoElement = document.querySelector(\`video[src="\${selectElement.parentElement.querySelector('video').src}"]\`);
-                if (selectedSlotId) {
-                    document.getElementById(selectedSlotId).innerHTML = '';
-                    document.getElementById(selectedSlotId).appendChild(videoElement.cloneNode(true));
-                }
-            }
-        </script>
     </body>
     </html>
     `;
