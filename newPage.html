@@ -2000,11 +2000,30 @@ async function exportSession() {
         </div>`;
     }
 
+    // Add PiP trigger script at the end
     contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
+        <script>
+            // Automatically trigger PiP mode for all videos on load
+            async function triggerPiPOnLoad() {
+                const videos = document.querySelectorAll('video');
+                for (const video of videos) {
+                    try {
+                        await video.play();
+                        await video.pause();
+                        if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
+                            await video.requestPictureInPicture();
+                        }
+                    } catch (error) {
+                        console.error("Error entering PiP mode:", error);
+                    }
+                }
+            }
+            window.onload = triggerPiPOnLoad;
+        </script>
     </body>
     </html>
     `;
@@ -2018,30 +2037,6 @@ async function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
-// Helper function to convert video to base64
-async function convertVideoToBase64(videoUrl) {
-    try {
-        const response = await fetch(videoUrl);
-        const blob = await response.blob();
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-        });
-    } catch (error) {
-        console.error("Failed to fetch video:", error);
-        return ''; // Return empty string if the conversion fails
-    }
-}
-
-document.getElementById('exportButton').addEventListener('click', exportSession);
-
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-};
 </script>
 </body>
 </html>
