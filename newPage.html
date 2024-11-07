@@ -38,7 +38,7 @@
 
 body {
     font-weight: bold; /* Make text bold */
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), 
+    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%),
                 url('logo.png') no-repeat center center;
     background-size: cover;
     /* Remove background-attachment: fixed to improve performance on mobile */
@@ -109,7 +109,7 @@ body {
     justify-content: flex-start; /* Ensure they are aligned to the left */
     padding: 02px;
     margin-bottom: 10px;
-background: 
+background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%), /* Adds depth with subtle gradient variation */
     url('logo.png') no-repeat center center;
     background-position: center 65px; /* Moves the image 20px from the center upwards */
@@ -255,7 +255,7 @@ h2#setTitle {
     align-items: center;
     transition: background-color 0.3s;
     margin: 0 10px; /* Space around the arrows */
-    
+   
 }
 
 .arrow-left:hover, .arrow-right:hover {
@@ -331,7 +331,7 @@ body {
     background-size: cover;
     background-attachment: scroll;
 }
-            
+           
 @media (max-width: 900px) {
     body, .container, .exercise-card p, .exercise-number, h1, h2, .slider-group label, .rest-group label, .exercise-dropdown {
         font-family: 'Lato', Tahoma, sans-serif;
@@ -354,7 +354,7 @@ body {
     position: relative; /* Enables top adjustment */
     top: -30px; /* Adjusts the position vertically */
 }
-    
+   
     .title-container {
         padding: 60px 0 !important; /* Increase padding and add !important */
         width: 100% !important; /* Ensure it takes up the full width */
@@ -1768,11 +1768,11 @@ h2#setTitle {
         </div>
     </div>
 
-    <!-- Exercise 12: Tirage Horizontale Trapèzes -->
+    <!-- Exercise 12: Tirage Horizontale Trapèzes -->
     <div class="exercise-card">
         <div class="draggable" draggable="true" ondragstart="drag(event)" id="video51">
             <video controls src="tirage_horizontale_trapezes.mp4" alt="Rack Pull" poster="tirage_horizontale_trapezes.png"></video>
-            <p>Tirage Horizontale Trapèzes</p>
+            <p>Tirage Horizontale Trapèzes</p>
             <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video51')">
                 <option value="">Exercice numéro</option>
                 <option value="slot1">Exercice 1</option>
@@ -1786,7 +1786,7 @@ h2#setTitle {
     </div>
 </div>
 
-            
+           
 <script>
 let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
@@ -1965,10 +1965,10 @@ async function exportSession() {
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-                let blobVideoUrl = '';
+        let base64Video = '';
 
         if (videoElement && videoElement.src) {
-            blobVideoUrl = await convertVideoToBlobURL(videoElement.src);
+            base64Video = await convertVideoToBase64(videoElement.src);
         }
 
         contentToExport += `
@@ -1976,11 +1976,11 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (blobVideoUrl) {
+        if (base64Video) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls autoplay muted playsinline src="${blobVideoUrl}"></video>
+                    <video controls preload="metadata" src="${base64Video}"></video>
                 </div>
             `;
         } else {
@@ -2001,16 +2001,6 @@ async function exportSession() {
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
-        <script>
-            // Add a click event to play the video when the user taps on it
-            document.querySelectorAll('video').forEach(video => {
-                video.addEventListener('click', () => {
-                    if (video.paused) {
-                        video.play();
-                    }
-                });
-            });
-        </script>
     </body>
     </html>
     `;
@@ -2025,21 +2015,23 @@ async function exportSession() {
     document.body.removeChild(link);
 }
 
-// Helper function to convert video to Blob URL
-async function convertVideoToBlobURL(videoUrl) {
-    return fetch(videoUrl)
-        .then(response => response.blob())
-        .then(blob => URL.createObjectURL(blob))
-        .catch(error => {
-            console.error('Error converting video to Blob URL:', error);
-            return '';
-        });
+// Helper function to convert video to base64
+async function convertVideoToBase64(videoUrl) {
+    return new Promise((resolve, reject) => {
+        fetch(videoUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            })
+            .catch(reject);
+    });
 }
 
-// Add event listener to the export button
 document.getElementById('exportButton').addEventListener('click', exportSession);
 
-// Additional initialization functions
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
@@ -2047,3 +2039,6 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
+
+Sent from Outlook for iOS
