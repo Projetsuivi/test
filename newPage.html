@@ -1887,6 +1887,7 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
+// Function to export session with embedded videos
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1957,30 +1958,29 @@ async function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-
     for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
+        let videoDataUri = videoElement ? videoElement.src : '';
+
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let base64Video = '';
-
-        if (videoElement && videoElement.src) {
-            base64Video = await convertVideoToBase64(videoElement.src);
-        }
 
         contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (base64Video) {
+        // Embed video with explicit controls, no autoplay
+        if (videoDataUri) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls preload="metadata" src="${base64Video}"></video>
+                    <video controls preload="metadata" src="${videoDataUri}">
+                        Votre navigateur ne supporte pas les vidéos.
+                    </video>
                 </div>
             `;
         } else {
@@ -2013,21 +2013,6 @@ async function exportSession() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-}
-
-// Helper function to convert video to base64
-async function convertVideoToBase64(videoUrl) {
-    return new Promise((resolve, reject) => {
-        fetch(videoUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            })
-            .catch(reject);
-    });
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
