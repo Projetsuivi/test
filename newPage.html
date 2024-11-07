@@ -1950,23 +1950,6 @@ async function exportSession() {
                 color: #777;
             }
         </style>
-        <script>
-            // JavaScript to enable Picture-in-Picture mode automatically on play
-            document.addEventListener("DOMContentLoaded", function() {
-                const videos = document.querySelectorAll("video");
-                videos.forEach(video => {
-                    video.addEventListener("play", async function() {
-                        if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
-                            try {
-                                await video.requestPictureInPicture();
-                            } catch (error) {
-                                console.error("Picture-in-Picture error:", error);
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
     </head>
     <body>
         <div class="container">
@@ -2053,20 +2036,6 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
-            document.addEventListener("DOMContentLoaded", function() {
-    const videos = document.querySelectorAll("video");
-    videos.forEach(video => {
-        video.addEventListener("play", async function() {
-            if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
-                try {
-                    await video.requestPictureInPicture();
-                } catch (error) {
-                    console.error("Error entering Picture-in-Picture:", error);
-                }
-            }
-        });
-    });
-});
 </script>
 </body>
 </html>
