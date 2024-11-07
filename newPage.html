@@ -1965,10 +1965,10 @@ async function exportSession() {
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let base64Video = '';
+        let blobVideoUrl = '';
 
         if (videoElement && videoElement.src) {
-            base64Video = await convertVideoToBase64(videoElement.src);
+            blobVideoUrl = await convertVideoToBlobURL(videoElement.src);
         }
 
         contentToExport += `
@@ -1976,13 +1976,13 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (base64Video) {
+        if (blobVideoUrl) {
             contentToExport += `
-    <div>
-        Vidéo:<br>
-        <video controls src="${base64Video}"></video>
-    </div>
-`;
+                <div>
+                    Vidéo:<br>
+                    <video controls autoplay muted playsinline src="${blobVideoUrl}"></video>
+                </div>
+            `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
@@ -2001,6 +2001,15 @@ async function exportSession() {
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
+        <script>
+            document.querySelectorAll('video').forEach(video => {
+                video.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                    }
+                });
+            });
+        </script>
     </body>
     </html>
     `;
@@ -2015,19 +2024,11 @@ async function exportSession() {
     document.body.removeChild(link);
 }
 
-// Helper function to convert video to base64
-async function convertVideoToBase64(videoUrl) {
-    return new Promise((resolve, reject) => {
-        fetch(videoUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            })
-            .catch(reject);
-    });
+// Helper function to convert video to Blob URL
+async function convertVideoToBlobURL(videoUrl) {
+    return fetch(videoUrl)
+        .then(response => response.blob())
+        .then(blob => URL.createObjectURL(blob));
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
