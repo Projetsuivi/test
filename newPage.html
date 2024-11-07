@@ -1978,11 +1978,11 @@ async function exportSession() {
 
         if (base64Video) {
             contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls preload="metadata" src="${base64Video}"></video>
-                </div>
-            `;
+    <div>
+        Vidéo:<br>
+        <video controls preload="auto" src="${base64Video}"></video>
+    </div>
+`;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
