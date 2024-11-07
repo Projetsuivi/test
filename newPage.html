@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1788,241 +1789,7 @@ h2#setTitle {
 
             
 <script>
-function exportSession() {
-    let contentToExport = `
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Séance Enregistrée</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
-            }
-            .container {
-                width: 80%;
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-card {
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-            }
-            .exercise-card video {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.src : '';
-        let videoPoster = videoElement ? videoElement.poster : '';
-
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoSrc) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls autoplay loop preload="auto" src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
-    });
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
-
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
-
-    // Start download and add slight delay for mobile compatibility
-    link.click();
-    setTimeout(() => {
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-    }, 100);
-}
-Updates Made:
-Autoplay and Loop Attributes: Added autoplay and loop attributes to the <video> tag, allowing videos to start automatically and keep playing without stopping after a second on mobile devices.
-Preload Attribute: Set preload="auto" to improve playback smoothness on mobile devices.
-Download Compatibility: Retained the slight delay after clicking the link to enhance compatibility across various mobile browsers.
-
-
-
-
-
-Vous avez dit :
-dropdown exercice selection?
-ChatGPT a dit :
-ChatGPT
-To make sure the dropdown selection for moving exercises works correctly, we need to ensure that the dropdown is effectively wired to update the video slot based on the user's selection. Here’s how we can integrate a dropdown function into your existing setup.
-
-Code Update with Dropdown Functionality
-Below is the code snippet for adding dropdown functionality, ensuring the video moves to the selected exercise slot based on dropdown selection. This will include event handling to update the video slot as needed.
-
-javascript
-Copier le code
-// Function to move video to selected exercise slot based on dropdown selection
-function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // Get the ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Get the title of the video
-
-    // Retrieve the last slot where this specific video was placed
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
-
-    // Clear the previous slot of this specific video, if it differs from the selected slot
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot of this video only
-            const previousExerciseNumber = previousSlot.previousElementSibling; // Get the "Exercice X" label
-            if (previousExerciseNumber) {
-                // Reset the label text to "Exercice X"
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
-            }
-        }
-    }
-
-    // Clone the video element from the video bank
-    const clonedVideo = videoBankElement.cloneNode(true); // Clone the video element
-    clonedVideo.removeAttribute("id"); // Remove the original ID to avoid duplicate IDs
-    clonedVideo.querySelector("select")?.remove(); // Remove the dropdown from the clone
-
-    // Place the cloned video in the selected slot
-    const targetSlot = document.getElementById(selectedSlotId);
-    if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot for this video
-        targetSlot.appendChild(clonedVideo); // Place the cloned video in the target slot
-
-        // Update the label with the video title only on mobile devices
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling; // Get the "Exercice X" label
-            if (exerciseNumber) {
-                exerciseNumber.textContent = exerciseNumber.textContent.split(":")[0] + `: ${videoTitle}`; // Update the label with the video title
-            }
-        }
-    }
-
-    // Update the `data-current-slot` on the original video bank element
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
-}
-
-// Example HTML structure for dropdown
-// Ensure each video element has a dropdown selection like below within the video bank or exercise slot
-/*
-<div id="video1" class="video-bank-item">
-    <p>Exercice Title</p>
-    <video src="video1.mp4" controls></video>
-    <select onchange="moveVideoToRow(this, 'video1')">
-        <option value="">-- Select Slot --</option>
-        <option value="exerciseSlot1">Exercise Slot 1</option>
-        <option value="exerciseSlot2">Exercise Slot 2</option>
-        <option value="exerciseSlot3">Exercise Slot 3</option>
-    </select>
-</div>
-*/
-
-Explanation
-Dropdown <select> Element: In the HTML, each video element includes a dropdown <select> element with options pointing to available exercise slots (like exerciseSlot1, exerciseSlot2, etc.).
-moveVideoToRow Function: This function takes the selected slot ID from the dropdown and moves the specified video to that slot.
-Previous Slot Cleanup: If a video is moved to a new slot, the old slot is cleared, and any labels are reset accordingly.
-Responsive Label Update: On mobile devices, the exercise label updates with the video title for quick identification.
-Usage
-For each video, ensure you have a dropdown <select> menu as shown in the HTML snippet.
-Each option within the <select> menu should have a unique slot ID matching a div with that ID in your HTML (e.g., exerciseSlot1, exerciseSlot2).
-This should allow you to select an exercise slot from the dropdown, and the video will move accordingly.
-
-
-
-
-
-
-Vous avez dit :
-give me the entire javascript 
-ChatGPT a dit :
-ChatGPT
-Here's the full JavaScript code, incorporating the dropdown functionality and ensuring compatibility for exporting HTML with mobile-playable videos.
-
-javascript
-Copier le code
-let currentSet = 1; // Start with Set 1
+let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
@@ -2078,7 +1845,7 @@ function displayCurrentDate() {
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
 }
 
-// Function to move video to the selected exercise slot based on dropdown selection
+// Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotId = selectElement.value; // ID of the selected slot
     const videoBankElement = document.getElementById(videoId); // Original video in the video bank
@@ -2121,8 +1888,8 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Export session function with mobile video compatibility
-function exportSession() {
+// Function to export session with embedded videos
+async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
@@ -2192,13 +1959,11 @@ function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
+    for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.src : '';
-        let videoPoster = videoElement ? videoElement.poster : '';
+        let videoDataUri = videoElement ? videoElement.src : '';
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
@@ -2209,11 +1974,11 @@ function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (videoSrc) {
+        if (videoDataUri) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls playsinline autoplay muted preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
+                    <video controls src="${videoDataUri}"></video>
                 </div>
             `;
         } else {
@@ -2227,7 +1992,7 @@ function exportSession() {
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
         </div>`;
-    });
+    }
 
     contentToExport += `
         </div>
@@ -2244,278 +2009,17 @@ function exportSession() {
     link.download = 'seance.html';
 
     document.body.appendChild(link);
-    // Start download and delay removal for mobile compatibility
     link.click();
-    setTimeout(() => {
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-    }, 100);
+    document.body.removeChild(link);
 }
 
-// Call displayCurrentDate on load
-window.onload = function() {
-    displayCurrentDate();
-};
-Explanation of Changes
-Dropdown Functionality: moveVideoToRow() function allows moving a video to the selected exercise slot when chosen in the dropdown menu.
-Export Session Compatibility: To ensure videos keep playing on mobile devices, the exportSession function uses playsinline and muted attributes in the <video> element.
-Mobile Compatibility: Ensures that the download link is removed after a short delay to prevent issues on mobile devices.
-This script should integrate the dropdown functionality smoothly and provide a mobile-compatible video export.
-
-
-
-
-
-
-Vous avez dit :
-sauvegarder button does not export the file
-ChatGPT a dit :
-ChatGPT
-To make sure the "Sauvegarder" (Save) button triggers the file download correctly, ensure that:
-
-The button has the correct ID, exportButton, in your HTML.
-The exportSession function is called when the button is clicked.
-Here is the complete JavaScript code, including the setup to link the "Sauvegarder" button with the exportSession function:
-
-javascript
-Copier le code
-let currentSet = 1; // Start with Set 1
-const totalSets = 6; // Total number of sets
-
-// Function to navigate to the next set
-function nextSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
-    currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (nextElement) {
-        nextElement.style.display = 'flex';
-    }
-
-    updateTitle();
-}
-
-// Function to navigate to the previous set
-function prevSet() {
-    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (currentElement) {
-        currentElement.style.display = 'none';
-    }
-
-    currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
-    if (prevElement) {
-        prevElement.style.display = 'flex';
-    }
-
-    updateTitle();
-}
-
-// Function to update the title of the current set
-function updateTitle() {
-    const titles = [
-        "Entrainements Triceps",
-        "Entrainements Biceps",
-        "Entrainements Pectoraux",
-        "Entrainements Jambes",
-        "Entrainements Épaules",
-        "Entrainements Dos"
-    ];
-    document.getElementById("setTitle").textContent = titles[currentSet - 1];
-}
-
-// Function to display the current date
-function displayCurrentDate() {
-    const dateElement = document.getElementById("dateDisplay");
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    dateElement.textContent = today.toLocaleDateString('fr-FR', options);
-}
-
-// Function to move video to the selected exercise slot based on dropdown selection
-function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Video title
-
-    // Retrieve the last slot where this specific video was placed
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
-
-    // Clear the previous slot if it differs from the selected slot
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot
-            const previousExerciseNumber = previousSlot.previousElementSibling; // Get "Exercice X" label
-            if (previousExerciseNumber) {
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
-            }
-        }
-    }
-
-    // Clone the video element and place it in the selected slot
-    const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id");
-    clonedVideo.querySelector("select")?.remove();
-
-    const targetSlot = document.getElementById(selectedSlotId);
-    if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot
-        targetSlot.appendChild(clonedVideo); // Place the cloned video
-
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling;
-            if (exerciseNumber) {
-                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
-            }
-        }
-    }
-
-    // Update the `data-current-slot` on the original video bank element
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
-}
-
-// Export session function with mobile video compatibility
-function exportSession() {
-    let contentToExport = `
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Séance Enregistrée</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
-            }
-            .container {
-                width: 80%;
-                max-width: 1000px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-card {
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-            }
-            .exercise-card video {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-    exerciseRows.forEach((row) => {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-
-        let videoSrc = videoElement ? videoElement.src : '';
-        let videoPoster = videoElement ? videoElement.poster : '';
-
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoSrc) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls playsinline autoplay muted preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
-    });
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
-
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
-    // Start download and delay removal for mobile compatibility
-    link.click();
-    setTimeout(() => {
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-    }, 100);
-}
-
-// Set up the button to trigger export when clicked
 document.getElementById('exportButton').addEventListener('click', exportSession);
 
-// Call displayCurrentDate on load
 window.onload = function() {
     displayCurrentDate();
+    addDragAndDropListeners();
 };
+
 </script>
 </body>
 </html>
