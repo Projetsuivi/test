@@ -1889,8 +1889,7 @@ function moveVideoToRow(selectElement, videoId) {
 }
 
 // Function to export session with embedded videos
-async function exportSession() {
-    let contentToExport = `
+ let contentToExport = 
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1956,52 +1955,54 @@ async function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
+    ;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    for (const row of exerciseRows) {
+    exerciseRows.forEach((row) => {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-        let videoDataUri = videoElement ? videoElement.src : '';
+
+        let videoSrc = videoElement ? videoElement.src : '';
+        let videoPoster = videoElement ? videoElement.poster : '';
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        `;
+        ;
 
-        if (videoDataUri) {
-            contentToExport += `
+        if (videoSrc) {
+            contentToExport += 
                 <div>
                     Vidéo:<br>
-                    <video controls src="${videoDataUri}"></video>
+                    <video controls preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
-            `;
+            ;
         } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+            contentToExport += <div>Aucune vidéo sélectionnée</div>;
         }
 
-        contentToExport += `
+        contentToExport += 
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>`;
-    }
+        </div>;
+    });
 
-    contentToExport += `
+    contentToExport += 
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    `;
+    ;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
@@ -2009,17 +2010,14 @@ async function exportSession() {
     link.download = 'seance.html';
 
     document.body.appendChild(link);
+
+    // Start download and delay removal for mobile compatibility
     link.click();
-    document.body.removeChild(link);
+    setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }, 100);
 }
-
-document.getElementById('exportButton').addEventListener('click', exportSession);
-
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-};
-
 </script>
 </body>
 </html>
