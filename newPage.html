@@ -1846,34 +1846,37 @@ function displayCurrentDate() {
 
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // ID of the selected slot
-    const videoBankElement = document.getElementById(videoId); // Original video in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Video title
+    const selectedSlotId = selectElement.value;
+    const videoBankElement = document.getElementById(videoId);
+    const videoTitle = videoBankElement.querySelector('p').textContent;
 
-    // Retrieve the last slot where this specific video was placed
+    // Get the last slot where this video was placed
     const previousSlotId = videoBankElement.getAttribute("data-current-slot");
 
-    // Clear the previous slot if it differs from the selected slot
     if (previousSlotId && previousSlotId !== selectedSlotId) {
         const previousSlot = document.getElementById(previousSlotId);
         if (previousSlot) {
-            previousSlot.innerHTML = ''; // Clear the previous slot
-            const previousExerciseNumber = previousSlot.previousElementSibling; // Get "Exercice X" label
+            previousSlot.innerHTML = '';
+            const previousExerciseNumber = previousSlot.previousElementSibling;
             if (previousExerciseNumber) {
                 previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
             }
         }
     }
 
-    // Clone the video element and place it in the selected slot
+    // Clone the video element and hide the title
     const clonedVideo = videoBankElement.cloneNode(true);
     clonedVideo.removeAttribute("id");
+    const titleElement = clonedVideo.querySelector("p");
+    if (titleElement) {
+        titleElement.style.display = "none"; // Hide the title
+    }
     clonedVideo.querySelector("select")?.remove();
 
     const targetSlot = document.getElementById(selectedSlotId);
     if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear the target slot
-        targetSlot.appendChild(clonedVideo); // Place the cloned video
+        targetSlot.innerHTML = '';
+        targetSlot.appendChild(clonedVideo);
 
         if (window.innerWidth <= 768) {
             const exerciseNumber = targetSlot.previousElementSibling;
@@ -1883,7 +1886,6 @@ function moveVideoToRow(selectElement, videoId) {
         }
     }
 
-    // Update the `data-current-slot` on the original video bank element
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
