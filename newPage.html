@@ -1887,7 +1887,6 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Function to export session with embedded videos as Blob URLs
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1969,7 +1968,7 @@ async function exportSession() {
         let base64Video = '';
 
         if (videoElement && videoElement.src) {
-            base64Video = await convertVideoToBlobURL(videoElement.src);
+            base64Video = await convertVideoToBase64(videoElement.src);
         }
 
         contentToExport += `
@@ -2016,14 +2015,16 @@ async function exportSession() {
     document.body.removeChild(link);
 }
 
-// Helper function to convert video URL to a Blob URL
-async function convertVideoToBlobURL(videoUrl) {
+// Helper function to convert video to base64
+async function convertVideoToBase64(videoUrl) {
     return new Promise((resolve, reject) => {
         fetch(videoUrl)
             .then(response => response.blob())
             .then(blob => {
-                const blobURL = URL.createObjectURL(blob);
-                resolve(blobURL);
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
             })
             .catch(reject);
     });
@@ -2035,3 +2036,6 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
+</script>
+</body>
+</html>
