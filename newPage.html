@@ -1887,21 +1887,6 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Helper function to convert video to Base64 Data URI
-async function getVideoDataUri(videoElement) {
-    if (!videoElement) return '';
-    
-    const response = await fetch(videoElement.src);
-    const blob = await response.blob();
-    
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(blob);
-    });
-}
-
-// Function to export session with embedded videos as Base64 Data URIs
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1951,7 +1936,6 @@ async function exportSession() {
                 max-width: 400px;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                display: block;
             }
             .exercise-details {
                 margin-top: 15px;
@@ -1973,27 +1957,30 @@ async function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
+
     for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-        
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
+        let base64Video = '';
+
+        if (videoElement && videoElement.src) {
+            base64Video = await convertVideoToBase64(videoElement.src);
+        }
 
         contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (videoElement) {
-            const videoDataUri = await getVideoDataUri(videoElement);
-
+        if (base64Video) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls src="${videoDataUri}"></video>
+                    <video controls preload="metadata" src="${base64Video}"></video>
                 </div>
             `;
         } else {
@@ -2026,6 +2013,21 @@ async function exportSession() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+// Helper function to convert video to base64
+async function convertVideoToBase64(videoUrl) {
+    return new Promise((resolve, reject) => {
+        fetch(videoUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            })
+            .catch(reject);
+    });
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
