@@ -1788,7 +1788,7 @@ h2#setTitle {
 
             
 <script>
-let currentSet = 1;  // Start with Set 1
+let currentSet = 1; // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
@@ -1844,7 +1844,7 @@ function displayCurrentDate() {
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
 }
 
-// Function to handle dropdown selection and move video to the selected exercise slot
+// Function to move video to the selected exercise slot based on dropdown selection
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotId = selectElement.value; // ID of the selected slot
     const videoBankElement = document.getElementById(videoId); // Original video in the video bank
@@ -1887,6 +1887,7 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
+// Export session function with mobile video compatibility
 function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1978,7 +1979,7 @@ function exportSession() {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
+                    <video controls playsinline autoplay muted preload="metadata" src="${videoSrc}" poster="${videoPoster}"></video>
                 </div>
             `;
         } else {
@@ -2009,9 +2010,18 @@ function exportSession() {
     link.download = 'seance.html';
 
     document.body.appendChild(link);
+    // Start download and delay removal for mobile compatibility
     link.click();
-    document.body.removeChild(link);
+    setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }, 100);
 }
+
+// Call displayCurrentDate on load
+window.onload = function() {
+    displayCurrentDate();
+};
 </script>
 </body>
 </html>
