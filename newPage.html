@@ -1887,7 +1887,21 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Function to export session with embedded videos
+// Helper function to convert video to Data URI
+async function getVideoDataUri(videoElement) {
+    if (!videoElement) return '';
+    
+    const response = await fetch(videoElement.src);
+    const blob = await response.blob();
+    
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
+
+// Function to export session with embedded videos as Data URIs
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1962,7 +1976,7 @@ async function exportSession() {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-        let videoDataUri = videoElement ? videoElement.src : '';
+        let videoDataUri = videoElement ? await getVideoDataUri(videoElement) : '';
 
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
@@ -1973,14 +1987,11 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-        // Embed video with explicit controls, no autoplay
         if (videoDataUri) {
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls preload="metadata" src="${videoDataUri}">
-                        Votre navigateur ne supporte pas les vidéos.
-                    </video>
+                    <video controls src="${videoDataUri}"></video>
                 </div>
             `;
         } else {
