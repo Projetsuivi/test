@@ -1,3 +1,8 @@
+0711 
+Fares NAIT
+​
+vous
+​
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1967,12 +1972,8 @@ async function exportSession() {
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
         let base64Video = '';
 
-        try {
-            if (videoElement && videoElement.src) {
-                base64Video = await convertVideoToBase64(videoElement.src);
-            }
-        } catch (error) {
-            console.error("Error converting video to base64:", error);
+        if (videoElement && videoElement.src) {
+            base64Video = await convertVideoToBase64(videoElement.src);
         }
 
         contentToExport += `
@@ -1985,6 +1986,12 @@ async function exportSession() {
                 <div>
                     Vidéo:<br>
                     <video controls preload="metadata" src="${base64Video}"></video>
+                    <select onchange="moveVideoToRow(this, '${exerciseNumber}')">
+                        <option value="">Sélectionnez un slot</option>
+                        <option value="slot1">Slot 1</option>
+                        <option value="slot2">Slot 2</option>
+                        <!-- Add more slots as needed -->
+                    </select>
                 </div>
             `;
         } else {
@@ -2000,14 +2007,12 @@ async function exportSession() {
         </div>`;
     }
 
-    // Add PiP trigger script at the end
     contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
         <script>
-            // Automatically trigger PiP mode for all videos on load
             async function triggerPiPOnLoad() {
                 const videos = document.querySelectorAll('video');
                 for (const video of videos) {
@@ -2023,6 +2028,16 @@ async function exportSession() {
                 }
             }
             window.onload = triggerPiPOnLoad;
+
+            // Function to move video to the selected row based on dropdown
+            function moveVideoToRow(selectElement, videoId) {
+                const selectedSlotId = selectElement.value;
+                const videoElement = document.querySelector(\`video[src="\${selectElement.parentElement.querySelector('video').src}"]\`);
+                if (selectedSlotId) {
+                    document.getElementById(selectedSlotId).innerHTML = '';
+                    document.getElementById(selectedSlotId).appendChild(videoElement.cloneNode(true));
+                }
+            }
         </script>
     </body>
     </html>
@@ -2037,6 +2052,28 @@ async function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
+
+// Helper function to convert video to base64
+async function convertVideoToBase64(videoUrl) {
+    return new Promise((resolve, reject) => {
+        fetch(videoUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            })
+            .catch(reject);
+    });
+}
+
+document.getElementById('exportButton').addEventListener('click', exportSession);
+
+window.onload = function() {
+    displayCurrentDate();
+    addDragAndDropListeners();
+};
 </script>
 </body>
 </html>
