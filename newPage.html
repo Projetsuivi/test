@@ -1887,7 +1887,7 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
-// Helper function to convert video to Data URI
+// Helper function to convert video to Base64 Data URI
 async function getVideoDataUri(videoElement) {
     if (!videoElement) return '';
     
@@ -1901,7 +1901,7 @@ async function getVideoDataUri(videoElement) {
     });
 }
 
-// Function to export session with embedded videos using Blob URLs
+// Function to export session with embedded videos as Base64 Data URIs
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1972,8 +1972,6 @@ async function exportSession() {
     `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
-    let videoUrls = [];
-
     for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
@@ -1989,15 +1987,12 @@ async function exportSession() {
         `;
 
         if (videoElement) {
-            const response = await fetch(videoElement.src);
-            const blob = await response.blob();
-            const videoBlobUrl = URL.createObjectURL(blob);
-            videoUrls.push(videoBlobUrl);
+            const videoDataUri = await getVideoDataUri(videoElement);
 
             contentToExport += `
                 <div>
                     Vidéo:<br>
-                    <video controls preload="metadata" src="${videoBlobUrl}"></video>
+                    <video controls preload="metadata" src="${videoDataUri}"></video>
                 </div>
             `;
         } else {
@@ -2022,7 +2017,6 @@ async function exportSession() {
     </html>
     `;
 
-    // Generate the final downloadable file
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -2031,9 +2025,6 @@ async function exportSession() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Clean up Blob URLs
-    videoUrls.forEach(url => URL.revokeObjectURL(url));
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
