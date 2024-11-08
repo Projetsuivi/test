@@ -2043,6 +2043,18 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
+document.addEventListener("DOMContentLoaded", function () {
+    const videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+        video.addEventListener("click", () => {
+            if (!video.paused) {
+                video.pause();
+            } else {
+                video.play();
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
