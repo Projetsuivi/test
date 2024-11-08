@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -458,7 +458,7 @@ h2#setTitle {
 
     .exercise-slot {
         width: 340px !important;
-        height: 125px !important;
+        height: 175px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
@@ -502,8 +502,8 @@ h2#setTitle {
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
-        width: 200px;
-        height: 180px;
+        width: 170px;
+        height: 120px;
         object-fit: cover;
         border-radius: 6px;
     }
@@ -635,7 +635,7 @@ h2#setTitle {
 .slider-group label,
     .rest-group label {
         font-size: 1rem !important; /* Decreased font size */
-        font-weight: bold !important; /* Make the labels bold */
+        font-weight: bold !important; /* Make the labels bold */`
         font-weight: 500; /* Adjust font weight for better readability */
     }
 
@@ -1793,13 +1793,13 @@ const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
 function nextSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(exerciseSet${currentSet});
+    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
         nextElement.style.display = 'flex';
     }
@@ -1809,13 +1809,13 @@ function nextSet() {
 
 // Function to navigate to the previous set
 function prevSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(exerciseSet${currentSet});
+    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
         prevElement.style.display = 'flex';
     }
@@ -1867,29 +1867,28 @@ function moveVideoToRow(selectElement, videoId) {
 
     // Clone the video element and place it in the selected slot
     const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id"); // Remove ID to avoid duplicates
-    clonedVideo.querySelector("select")?.remove(); // Remove dropdown from cloned video
+    clonedVideo.removeAttribute("id");
+    clonedVideo.querySelector("select")?.remove();
 
     const targetSlot = document.getElementById(selectedSlotId);
     if (targetSlot) {
         targetSlot.innerHTML = ''; // Clear the target slot
-        targetSlot.appendChild(clonedVideo); // Place the cloned video in the selected slot
-    }
+        targetSlot.appendChild(clonedVideo); // Place the cloned video
 
-    // Update the exercise number text only for mobile (window width <= 768px)
-    if (window.innerWidth <= 768) {
-        const exerciseNumber = targetSlot.previousElementSibling;
-        if (exerciseNumber) {
-            exerciseNumber.textContent = ${exerciseNumber.textContent.split(":")[0]}: ${videoTitle};
+        if (window.innerWidth <= 768) {
+            const exerciseNumber = targetSlot.previousElementSibling;
+            if (exerciseNumber) {
+                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
+            }
         }
     }
 
-    // Update the data-current-slot on the original video bank element
+    // Update the `data-current-slot` on the original video bank element
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 
 async function exportSession() {
-    let contentToExport = 
+    let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1955,7 +1954,7 @@ async function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    ;
+    `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
 
@@ -1972,39 +1971,39 @@ async function exportSession() {
             base64Video = await convertVideoToBase64(videoElement.src);
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        ;
+        `;
 
         if (base64Video) {
-            contentToExport += 
+            contentToExport += `
                 <div>
                     Vidéo:<br>
                     <video controls preload="metadata" src="${base64Video}"></video>
                 </div>
-            ;
+            `;
         } else {
-            contentToExport += <div>Aucune vidéo sélectionnée</div>;
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>;
+        </div>`;
     }
 
-    contentToExport += 
+    contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    ;
+    `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
