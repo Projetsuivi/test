@@ -1918,7 +1918,7 @@ async function exportSession() {
                 color: #FF8A65;
             }
             .container {
-                width: 80%;
+                width: 100%;
                 max-width: 1000px;
                 margin: 20px auto;
                 padding: 20px;
@@ -1941,7 +1941,8 @@ async function exportSession() {
             }
             .exercise-card video {
                 width: 100%;
-                max-width: 400px;
+                max-width: 600px; /* Increase max-width for larger display */
+                height: auto; /* Ensure aspect ratio is maintained */
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -1985,13 +1986,12 @@ async function exportSession() {
         `;
 
         if (base64Video) {
-    contentToExport += `
-        <div>
-            Vidéo:<br>
-            <video controls preload="metadata" src="${base64Video}" style="width: 500px; max-width: 100%; height: auto; border-radius: 8px;"></video>
-        </div>
-    `;
-
+            contentToExport += `
+                <div>
+                    Vidéo:<br>
+                    <video controls autoplay loop muted preload="metadata" src="${base64Video}"></video>
+                </div>
+            `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
