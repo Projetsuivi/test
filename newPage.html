@@ -466,46 +466,32 @@ h2#setTitle {
 
     /* Horizontal scrolling setup for the video bank container */
     .video-bank-container {
-        position: fixed;
-        top: 0px;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        height: 270px;
-        overflow-x: auto;
-        overflow-y: hidden;
         display: flex;
-        flex-direction: row;
-        padding: 30px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: rgba(255, 255, 255, 0.9);
-        z-index: 9999;
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
+        flex-direction: column; /* Arranges videos vertically */
+        align-items: center;
+        overflow-y: auto; /* Enables vertical scrolling if needed */
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+        padding: 10px; /* Adjust padding for appearance */
     }
 
     /* Align exercise sets in a horizontal row */
     .exercise-set {
-        display: inline-flex;
-        gap: 8px;
-        flex-wrap: nowrap;
+        display: flex;
+        flex-direction: column; /* Ensures exercise cards stay vertical */
+        gap: 10px; /* Adds spacing between videos */
     }
 
-    /* Style for each exercise card */
     .exercise-card {
-        flex-shrink: 0;
-        display: inline-flex;
-        width: 180px;
-        scroll-snap-align: start;
-        margin: 0 -3px;
+        width: 100%; /* Ensures the card takes up the full width */
+        max-width: 300px; /* Sets a reasonable max width */
+        margin: 0 auto; /* Centers each card */
     }
 
-    /* Ensure videos are consistently sized */
-    .exercise-card video {
-        width: 170px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 6px;
+      /* Adjust video dimensions within the exercise cards */
+      .exercise-card video {
+        width: 100%; /* Makes video fit the card width */
+        height: auto; /* Maintains aspect ratio */
+        max-width: 250px;
     }
 
     /* Style for exercise names */
@@ -2005,37 +1991,6 @@ async function exportSession() {
     </html>
     `;
 
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// Helper function to convert video to base64
-async function convertVideoToBase64(videoUrl) {
-    return new Promise((resolve, reject) => {
-        fetch(videoUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            })
-            .catch(reject);
-    });
-}
-
-document.getElementById('exportButton').addEventListener('click', exportSession);
-
-window.onload = function() {
-    displayCurrentDate();
-    addDragAndDropListeners();
-};
 </script>
 </body>
 </html>
