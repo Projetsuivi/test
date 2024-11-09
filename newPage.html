@@ -148,11 +148,12 @@ background:
 }
 
         .exercise-slot video {
-     width: 300px;
-    height: 220px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
+    width: 100%;  /* Make the video adapt to the slot's width */
+    height: auto; /* Keep the aspect ratio consistent */
+    max-width: 400px; /* Optional: set a maximum width */
+    max-height: 250px; /* Optional: set a maximum height */
+    object-fit: cover; /* Ensures the video covers the slot without distortion */
+}
 
         .slider-group label {
     font-size: 0.5rem;       /* Increase font size for better readability */
@@ -1875,10 +1876,13 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id");
    
     // Set the specific video size when dropped (e.g., 300px by 200px)
-    const videoElement = clonedVideo.querySelector("video");
+   const videoElement = clonedVideo.querySelector("video");
 if (videoElement) {
-    videoElement.style.width = "400px";
-    videoElement.style.height = "250px"; // Adjusted height
+    videoElement.style.width = "100%";
+    videoElement.style.height = "auto";
+    videoElement.style.maxWidth = "400px";
+    videoElement.style.maxHeight = "250px";
+    videoElement.style.objectFit = "cover";
 }
 
     const titleElement = clonedVideo.querySelector("p");
