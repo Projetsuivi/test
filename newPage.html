@@ -174,7 +174,7 @@ background:
         .video-bank-container {
     position: sticky;
     top: 40px;
-    width: 320px; /* Reduced width of the video bank */
+    width: 300px; /* Reduced width of the video bank */
     max-height: 93vh; /* Keep the video bank taller if needed */
     overflow-y: auto;
     background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
@@ -472,7 +472,7 @@ h2#setTitle {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 300px;
+        height: 270px;
         overflow-x: auto;
         overflow-y: hidden;
         display: flex;
@@ -496,7 +496,7 @@ h2#setTitle {
     .exercise-card {
     flex-shrink: 0;
     display: inline-flex;
-    width: 220px; /* Increase width for larger display */
+    width: 180px;
     scroll-snap-align: start;
     margin-right: 20px; /* Increased margin to add more space between videos */
 }
@@ -504,7 +504,7 @@ h2#setTitle {
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
-        width: 220px; /* Make video width match the card */
+        width: 190px;
         height: 140px;
         object-fit: cover;
         border-radius: 6px;
@@ -637,7 +637,7 @@ h2#setTitle {
 .slider-group label,
     .rest-group label {
         font-size: 1rem !important; /* Decreased font size */
-        font-weight: bold !important; /* Make the labels bold */
+        font-weight: bold !important; /* Make the labels bold */`
         font-weight: 500; /* Adjust font weight for better readability */
     }
 
@@ -1796,13 +1796,13 @@ const totalSets = 6; // Total number of sets
 // Function to navigate to the next set
 // Function to navigate to the next set and maintain vertical layout on desktop
 function nextSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet % totalSets) + 1;
-    const nextElement = document.getElementById(exerciseSet${currentSet});
+    const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
         nextElement.style.display = 'flex';
         if (window.innerWidth > 900) {
@@ -1815,13 +1815,13 @@ function nextSet() {
 
 // Function to navigate to the previous set and maintain vertical layout on desktop
 function prevSet() {
-    const currentElement = document.getElementById(exerciseSet${currentSet});
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
         currentElement.style.display = 'none';
     }
 
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
-    const prevElement = document.getElementById(exerciseSet${currentSet});
+    const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
         prevElement.style.display = 'flex';
         if (window.innerWidth > 900) {
@@ -1874,28 +1874,21 @@ function moveVideoToRow(selectElement, videoId) {
 
     const clonedVideo = videoBankElement.cloneNode(true);
     clonedVideo.removeAttribute("id");
-
+   
     // Set the specific video size when dropped (e.g., 300px by 200px)
-    const videoElement = clonedVideo.querySelector("video");
-    if (videoElement) {
-        videoElement.style.width = "100%";
-        videoElement.style.height = "auto";
-        videoElement.style.maxWidth = "400px";
-        videoElement.style.maxHeight = "250px";
-        videoElement.style.objectFit = "cover";
-    }
+   const videoElement = clonedVideo.querySelector("video");
+if (videoElement) {
+    videoElement.style.width = "100%";
+    videoElement.style.height = "auto";
+    videoElement.style.maxWidth = "400px";
+    videoElement.style.maxHeight = "250px";
+    videoElement.style.objectFit = "cover";
+}
 
-    // Add the title only for large devices (e.g., screens wider than 900px)
-    if (window.innerWidth > 900) {
-        const titleElement = document.createElement("p");
-        titleElement.textContent = videoTitle;
-        titleElement.style.marginTop = "5px";
-        titleElement.style.fontSize = "0.9rem";
-        titleElement.style.color = "#444";
-        titleElement.style.textAlign = "center";
-        clonedVideo.appendChild(titleElement); // Append the title below the video
+    const titleElement = clonedVideo.querySelector("p");
+    if (titleElement) {
+        titleElement.style.display = "none"; // Hide the title
     }
-
     clonedVideo.querySelector("select")?.remove();
 
     const targetSlot = document.getElementById(selectedSlotId);
@@ -1903,10 +1896,10 @@ function moveVideoToRow(selectElement, videoId) {
         targetSlot.innerHTML = '';
         targetSlot.appendChild(clonedVideo);
 
-        if (window.innerWidth <= 900) {
+        if (window.innerWidth <= 768) {
             const exerciseNumber = targetSlot.previousElementSibling;
             if (exerciseNumber) {
-                exerciseNumber.textContent = ${exerciseNumber.textContent.split(":")[0]}: ${videoTitle};
+                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
             }
         }
     }
@@ -1914,7 +1907,7 @@ function moveVideoToRow(selectElement, videoId) {
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 async function exportSession() {
-    let contentToExport = 
+    let contentToExport = `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -1959,8 +1952,8 @@ async function exportSession() {
             }
             .exercise-card video {
                 width: 100%;
-                max-width: 600px;
-                height: auto;
+                max-width: 600px; /* Increase max-width for larger display */
+                height: auto; /* Ensure aspect ratio is maintained */
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -1970,16 +1963,6 @@ async function exportSession() {
             }
             .exercise-details div {
                 margin-bottom: 5px;
-            }
-            /* Only show video title below video on large screens */
-            @media (min-width: 900px) {
-                .exercise-title {
-                    display: block;
-                    font-size: 1rem;
-                    color: #444;
-                    text-align: center;
-                    margin-top: 8px;
-                }
             }
             .footer {
                 text-align: center;
@@ -1991,7 +1974,7 @@ async function exportSession() {
     <body>
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    ;
+    `;
 
     const exerciseRows = document.querySelectorAll('.exercise-row');
 
@@ -1999,7 +1982,6 @@ async function exportSession() {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
-        let videoTitle = slot.querySelector('p')?.textContent || "Aucune vidéo sélectionnée";
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
@@ -2009,39 +1991,39 @@ async function exportSession() {
             base64Video = await convertVideoToBase64(videoElement.src);
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
-        ;
+        `;
 
         if (base64Video) {
-            contentToExport += 
+            contentToExport += `
                 <div>
+                    Vidéo:<br>
                     <video controls autoplay loop muted preload="metadata" src="${base64Video}"></video>
                 </div>
-                <div class="exercise-title"><strong>${videoTitle}</strong></div> <!-- Title visible only on large screens -->
-            ;
+            `;
         } else {
-            contentToExport += <div>Aucune vidéo sélectionnée</div>;
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
 
-        contentToExport += 
+        contentToExport += `
             <div class="exercise-details">
                 <div><strong>Séries:</strong> ${seriesValue}</div>
                 <div><strong>Répétitions:</strong> ${repsValue}</div>
                 <div><strong>Repos:</strong> ${restPeriod}</div>
             </div>
-        </div>;
+        </div>`;
     }
 
-    contentToExport += 
+    contentToExport += `
         </div>
         <div class="footer">
             <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
-    ;
+    `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
