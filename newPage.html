@@ -173,22 +173,28 @@ background:
 /* Default column layout for large screens */
 .video-bank-container {
     display: flex;
-    flex-direction: column;
-    width: 300px;
+    flex-direction: column; /* Change from row to column */
+    align-items: center;    /* Center items horizontally */
+    width: 100vw;
     max-height: 93vh;
     overflow-y: auto;
-    overflow-x: hidden;
-    position: sticky;
-    top: 40px;
-    background: linear-gradient(135deg, rgba(255, 222, 233, 0.8), rgba(255, 255, 255, 0.8));
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
+.exercise-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;           /* Make each video card full-width */
+    max-width: 400px;      /* Optional: Set a max-width to control size */
+    margin-bottom: 20px;   /* Space between items */
+}
 
-.exercise-set {
-    display: none;
+.exercise-card video {
+    width: 100%;           /* Full width within the card */
+    height: auto;          /* Maintain aspect ratio */
 }
 #exerciseSet1 {
     display: block;
