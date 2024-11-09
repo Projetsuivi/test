@@ -332,34 +332,10 @@ body {
     background-attachment: scroll;
 }
            
-/* Adjust the video bank container layout for larger screens */
-@media (min-width: 900px) {
-    .video-bank-container {
-        width: auto;
-        max-height: 100vh; /* Adjust height as necessary */
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column; /* Arrange videos vertically */
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
-        position: fixed;
-        right: 10px; /* Position on the right for accessibility */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
+@media (max-width: 900px) {
+    body, .container, .exercise-card p, .exercise-number, h1, h2, .slider-group label, .rest-group label, .exercise-dropdown {
+        font-family: 'Lato', Tahoma, sans-serif;
     }
-
-    /* Adjust exercise set layout for vertical video bank */
-    .exercise-set {
-        display: block; /* Ensure exercises are stacked vertically */
-        gap: 15px;
-    }
-
-    .exercise-card {
-        width: 100%;
-        max-width: 280px; /* Adjust the size as needed */
-        margin-bottom: 20px;
-    }
-
     .arrow-left, .arrow-right {
     background-color: #FF8A65;
     color: white;
@@ -486,7 +462,44 @@ h2#setTitle {
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
-    }   
+    }
+
+    /* Horizontal scrolling setup for the video bank container */
+    .video-bank-container {
+        position: fixed;
+        top: 0px;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: 270px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 9999;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
+    }
+
+    /* Align exercise sets in a horizontal row */
+    .exercise-set {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+
+    /* Style for each exercise card */
+    .exercise-card {
+    flex-shrink: 0;
+    display: inline-flex;
+    width: 180px;
+    scroll-snap-align: start;
+    margin-right: 20px; /* Increased margin to add more space between videos */
+}
+   
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
