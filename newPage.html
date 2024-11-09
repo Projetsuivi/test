@@ -457,8 +457,8 @@ h2#setTitle {
     }
 
     .exercise-slot {
-        width: 350px !important;
-        height: 200px !important;
+        width: 340px !important;
+        height: 185px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
@@ -499,7 +499,7 @@ h2#setTitle {
     scroll-snap-align: start;
     margin-right: 20px; /* Increased margin to add more space between videos */
 }
-    
+   
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
@@ -1866,7 +1866,7 @@ function moveVideoToRow(selectElement, videoId) {
 
     const clonedVideo = videoBankElement.cloneNode(true);
     clonedVideo.removeAttribute("id");
-    
+   
     // Set the specific video size when dropped (e.g., 300px by 200px)
     const videoElement = clonedVideo.querySelector("video");
 if (videoElement) {
