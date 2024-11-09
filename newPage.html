@@ -134,7 +134,7 @@ body {
 }
 
        .exercise-slot {
-    width: 340px;
+    width: 350px;
     height: 220px;
     border: 1.2px dashed #FF8A65;
     display: flex;
@@ -144,7 +144,7 @@ body {
     border-radius: 8px;
     background-color: #fff;
     overflow: hidden;
-    margin-right: 8px;
+    margin-right: 16px;
 }
 
         .exercise-slot video {
@@ -412,15 +412,28 @@ h2#setTitle {
 }
 
 
-.exercise-dropdown {
-        max-width: 180px !important; /* Force max-width */
-        width: 100%; /* Ensure it doesn't expand */
-        font-size: 0.7rem; /* Smaller font for mobile */
-        padding: 3px; /* Reduced padding */
-        margin-left: 20px; /* Remove left margin */
-        flex-shrink: 1; /* Allow it to shrink in flex containers */
+    .exercise-dropdown {
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 100%;
+        margin-top: 0.5px;
     }
-    
+
+    .exercise-dropdown {
+        font-size: 0.9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 100%;
+        margin-top: 0.5px;
+    }
+
     .workout-container {
         margin-top: 270px;
     }
@@ -444,8 +457,8 @@ h2#setTitle {
     }
 
     .exercise-slot {
-        width: 370px !important;
-        height: 255px !important;
+        width: 340px !important;
+        height: 210px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
@@ -456,7 +469,8 @@ h2#setTitle {
         position: fixed;
         top: 0px;
         left: 0;
-        width: 100%;
+        right: 0;
+        width: 100vw;
         height: 270px;
         overflow-x: auto;
         overflow-y: hidden;
@@ -484,18 +498,15 @@ h2#setTitle {
     width: 180px;
     scroll-snap-align: start;
     margin-right: 20px; /* Increased margin to add more space between videos */
-    margin-left: 20px; /* Adjust this value as needed */
-}
 }
    
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
-        width: 210px;
+        width: 190px;
         height: 140px;
         object-fit: cover;
         border-radius: 6px;
-        margin-left:40px
     }
 
     /* Style for exercise names */
@@ -596,7 +607,7 @@ h2#setTitle {
         accent-color: #FF8A65;
     }
 
-    
+    }
 
     .checkbox-group {
         display: flex;
@@ -607,16 +618,17 @@ h2#setTitle {
     }
 
 
-.exercise-dropdown {
-    font-size: 0.9rem;
-    padding: 5px;
-    border-radius: 6px;
-    background-color: #FFF5F5;
-    color: #333;
-    border: 1px solid #FF8A65;
-    width: 100%;
-    margin-top: 0.5px;
-}
+    .exercise-dropdown {
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 170px;
+        margin-top: 0.5px;
+        margin-left:5px
+    }
 
 .exercise-slot.selected {
     border-color: #FF8A65;
