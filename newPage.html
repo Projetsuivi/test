@@ -1793,6 +1793,7 @@ let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
+// Function to navigate to the next set and maintain vertical layout on desktop
 function nextSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
@@ -1803,12 +1804,15 @@ function nextSet() {
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
         nextElement.style.display = 'flex';
+        if (window.innerWidth > 900) {
+            nextElement.style.flexDirection = 'column'; // Ensure vertical layout
+        }
     }
 
     updateTitle();
 }
 
-// Function to navigate to the previous set
+// Function to navigate to the previous set and maintain vertical layout on desktop
 function prevSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
@@ -1819,6 +1823,9 @@ function prevSet() {
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
         prevElement.style.display = 'flex';
+        if (window.innerWidth > 900) {
+            prevElement.style.flexDirection = 'column'; // Ensure vertical layout
+        }
     }
 
     updateTitle();
