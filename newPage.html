@@ -1959,8 +1959,8 @@ async function exportSession() {
             }
             .exercise-card video {
                 width: 100%;
-                max-width: 600px; /* Increase max-width for larger display */
-                height: auto; /* Ensure aspect ratio is maintained */
+                max-width: 600px;
+                height: auto;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -1970,6 +1970,16 @@ async function exportSession() {
             }
             .exercise-details div {
                 margin-bottom: 5px;
+            }
+            /* Only show video title below video on large screens */
+            @media (min-width: 900px) {
+                .exercise-title {
+                    display: block;
+                    font-size: 1rem;
+                    color: #444;
+                    text-align: center;
+                    margin-top: 8px;
+                }
             }
             .footer {
                 text-align: center;
@@ -1989,6 +1999,7 @@ async function exportSession() {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
         let slot = row.querySelector('.exercise-slot');
         let videoElement = slot.querySelector('video');
+        let videoTitle = slot.querySelector('p')?.textContent || "Aucune vidéo sélectionnée";
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
@@ -2006,9 +2017,9 @@ async function exportSession() {
         if (base64Video) {
             contentToExport += `
                 <div>
-                    Vidéo:<br>
                     <video controls autoplay loop muted preload="metadata" src="${base64Video}"></video>
                 </div>
+                <div class="exercise-title"><strong>${videoTitle}</strong></div> <!-- Title visible only on large screens -->
             `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
