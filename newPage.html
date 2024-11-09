@@ -1874,21 +1874,28 @@ function moveVideoToRow(selectElement, videoId) {
 
     const clonedVideo = videoBankElement.cloneNode(true);
     clonedVideo.removeAttribute("id");
-   
-    // Set the specific video size when dropped (e.g., 300px by 200px)
-   const videoElement = clonedVideo.querySelector("video");
-if (videoElement) {
-    videoElement.style.width = "100%";
-    videoElement.style.height = "auto";
-    videoElement.style.maxWidth = "400px";
-    videoElement.style.maxHeight = "250px";
-    videoElement.style.objectFit = "cover";
-}
 
-    const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) {
-        titleElement.style.display = "none"; // Hide the title
+    // Set the specific video size when dropped (e.g., 300px by 200px)
+    const videoElement = clonedVideo.querySelector("video");
+    if (videoElement) {
+        videoElement.style.width = "100%";
+        videoElement.style.height = "auto";
+        videoElement.style.maxWidth = "400px";
+        videoElement.style.maxHeight = "250px";
+        videoElement.style.objectFit = "cover";
     }
+
+    // Add the title only for large devices (e.g., screens wider than 900px)
+    if (window.innerWidth > 900) {
+        const titleElement = document.createElement("p");
+        titleElement.textContent = videoTitle;
+        titleElement.style.marginTop = "5px";
+        titleElement.style.fontSize = "0.9rem";
+        titleElement.style.color = "#444";
+        titleElement.style.textAlign = "center";
+        clonedVideo.appendChild(titleElement); // Append the title below the video
+    }
+
     clonedVideo.querySelector("select")?.remove();
 
     const targetSlot = document.getElementById(selectedSlotId);
@@ -1896,7 +1903,7 @@ if (videoElement) {
         targetSlot.innerHTML = '';
         targetSlot.appendChild(clonedVideo);
 
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 900) {
             const exerciseNumber = targetSlot.previousElementSibling;
             if (exerciseNumber) {
                 exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
