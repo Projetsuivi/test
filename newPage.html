@@ -184,10 +184,6 @@ background:
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
-         .video-bank {
-        margin-left: 5px; /* Adjust this value as needed */
-        margin-right: 5px; /* Adjust this value as needed */
-    }
 
 .exercise-set {
     display: none;
@@ -487,7 +483,12 @@ h2#setTitle {
         z-index: 9999;
         white-space: nowrap;
         scroll-snap-type: x mandatory;
+        padding-left: 10px; /* Increase this value to control the left margin */
+        }
+    .video-bank .exercise-card:first-child {
+        margin-left: 10px;
     }
+}
 
     /* Align exercise sets in a horizontal row */
     .exercise-set {
