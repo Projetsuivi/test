@@ -1910,16 +1910,11 @@ async function exportSession() {
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
+                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
                 margin: 0;
                 padding: 0;
                 color: #333;
                 line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
             }
             .container {
                 width: 100%;
@@ -1945,17 +1940,13 @@ async function exportSession() {
             }
             .exercise-card video {
                 width: 100%;
-                max-width: 600px; /* Increase max-width for larger display */
-                height: auto; /* Ensure aspect ratio is maintained */
+                max-width: 600px;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
             .exercise-details {
                 margin-top: 15px;
                 font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
             }
             .footer {
                 text-align: center;
@@ -1978,11 +1969,7 @@ async function exportSession() {
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let videoURL = '';
-
-        if (videoElement && videoElement.src) {
-            videoURL = videoElement.src;
-        }
+        let videoURL = videoElement ? videoElement.src : '';
 
         contentToExport += `
             <div class="exercise-card">
@@ -1992,9 +1979,7 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    Vidéo:<br>
-                    <video controls autoplay loop muted preload="metadata" src="${videoURL}"></video>
-                    <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
+                    <video controls autoplay loop muted playsinline preload="metadata" src="${videoURL}"></video>
                 </div>
             `;
         } else {
