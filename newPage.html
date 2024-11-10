@@ -455,16 +455,16 @@ h2#setTitle {
     }
 
     .exercise-slot {
-        width: 320px !important;
-        height: 170px !important;
+        width: 280px !important;
+        height: 160px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
     }
       .exercise-slot video {
-        width: 100%;
-        height: auto; /* Ensure it maintains its aspect ratio on smaller screens */
-        object-fit: contain;
+        width: 100%; /* Make the video fill the slot */
+        height: 100%; /* Ensure the video maintains the slot dimensions */
+        object-fit: cover;
     }
 
     /* Horizontal scrolling setup for the video bank container */
