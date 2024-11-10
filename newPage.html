@@ -108,12 +108,12 @@ body {
     display: flex;
     align-items: center; /* Ensure elements are aligned vertically */
     justify-content: flex-start; /* Ensure they are aligned to the left */
-    padding: 02px;
+    padding: 2px;
     margin-bottom: 10px;
     background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%), /* Adds depth with subtle gradient variation */
-    url('logo.png') no-repeat center center;
-    background-position: center 65px; /* Moves the image 20px from the center upwards */
+    url('logo.png') no-repeat;
+    background-position: 65px 53px; /* Adjusted to move the logo left and slightly down */
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
     height: 250px;
@@ -506,7 +506,7 @@ h2#setTitle {
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
-        width: 150px;
+        width: 200px;
         height: 130px;
         object-fit: cover;
         border-radius: 6px;
