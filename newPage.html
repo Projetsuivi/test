@@ -145,10 +145,9 @@ body {
 }
 
 .exercise-slot video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures video fills the slot while maintaining aspect ratio */
-    border-radius: inherit;
+    width: 100%;         /* Make video fill container width */
+    height: auto;        /* Maintain aspect ratio */
+    max-width: 400px;    /* Set a maximum width for desktop */
 }
 
         .slider-group label {
@@ -460,11 +459,8 @@ h2#setTitle {
         border: 0.5px solid red;
         margin-bottom: 5px;
     }
-      .exercise-slot video {
-        width: 100%;
-        height: auto; /* Ensure it maintains its aspect ratio on smaller screens */
-        object-fit: contain;
-    }
+ .exercise-slot video {
+        max-width: 200px; /* Smaller maximum width for mobile */
 
     /* Horizontal scrolling setup for the video bank container */
     .video-bank-container {
@@ -1869,13 +1865,6 @@ function moveVideoToRow(selectElement, videoId) {
 
     const clonedVideo = videoBankElement.cloneNode(true);
     clonedVideo.removeAttribute("id");
-   
-    // Set the specific video size when dropped (e.g., 300px by 200px)
-    const videoElement = clonedVideo.querySelector("video");
-if (videoElement) {
-    videoElement.style.width = "270px";
-    videoElement.style.height = "150px"; // Adjusted height
-}    
 
     const titleElement = clonedVideo.querySelector("p");
     if (titleElement) {
