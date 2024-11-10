@@ -109,7 +109,7 @@ body {
     justify-content: flex-start; /* Ensure they are aligned to the left */
     padding: 02px;
     margin-bottom: 10px;
-background:
+    background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%), /* Adds depth with subtle gradient variation */
     url('logo.png') no-repeat center center;
     background-position: center 65px; /* Moves the image 20px from the center upwards */
@@ -133,26 +133,20 @@ background:
     letter-spacing: 0.5px; /* Optional: increase letter spacing */
 }
 
-       .exercise-slot {
-    width: 300px;
-    height: 200px;
-    border: 1.2px dashed #FF8A65;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background-color: #fff;
-    overflow: hidden;
-    margin-right: 16px;
-}
+.exercise-slot {
+        width: 350px !important;
+        height: 200px !important;
+        background-color: transparent;
+        border: 0.5px solid red;
+        margin-bottom: 5px;
+    }
 
-        .exercise-slot video {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
+.exercise-slot video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video fills the slot while maintaining aspect ratio */
+    border-radius: inherit;
+}
 
         .slider-group label {
     font-size: 0.5rem;       /* Increase font size for better readability */
@@ -173,13 +167,13 @@ background:
         .video-bank-container {
     position: sticky;
     top: 40px;
-    width: 300px; /* Reduced width of the video bank */
+    width: 600px; /* Reduced width of the video bank */
     max-height: 93vh; /* Keep the video bank taller if needed */
     overflow-y: auto;
     background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
     border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 15px; /* Reduced padding to make the container more compact */
+    padding: 10px; /* Reduced padding to make the container more compact */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
@@ -221,8 +215,8 @@ background:
 
 /* Adjust the size of the video inside the card */
 .exercise-card video {
-    width: 250px; /* Width of the video, leaving a small padding */
-    height: 200px; /* Height of the video, adjusted to fit the card */
+    width: 270px; /* Width of the video, leaving a small padding */
+    height: 100%; /* Height of the video, adjusted to fit the card */
     object-fit: cover; /* Ensures the video covers its container */
     border-radius: 8px 8px 0 0; /* Rounded corners at the top */
     margin-bottom: 10px; /* Space between the video and text */
@@ -297,7 +291,7 @@ h2#setTitle {
     padding: 0;
     margin: -10px 0 0 0; /* Adjust the top margin to move it higher */
     position: relative; /* Ensure positioning can be controlled */
-    top: 5px; /* Optionally use this to move it higher */
+    top: 1px; /* Optionally use this to move it higher */
 }
 
 .rest-group select {
@@ -458,10 +452,15 @@ h2#setTitle {
 
     .exercise-slot {
         width: 340px !important;
-        height: 185px !important;
+        height: 250px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
+    }
+      .exercise-slot video {
+        width: 100%;
+        height: auto; /* Ensure it maintains its aspect ratio on smaller screens */
+        object-fit: contain;
     }
 
     /* Horizontal scrolling setup for the video bank container */
@@ -618,16 +617,17 @@ h2#setTitle {
     }
 
 
-.exercise-dropdown {
-    font-size: 0.9rem;
-    padding: 5px;
-    border-radius: 6px;
-    background-color: #FFF5F5;
-    color: #333;
-    border: 1px solid #FF8A65;
-    width: 100%;
-    margin-top: 0.5px;
-}
+    .exercise-dropdown {
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 170px;
+        margin-top: 0.5px;
+        margin-left:5px
+    }
 
 .exercise-slot.selected {
     border-color: #FF8A65;
@@ -640,11 +640,19 @@ h2#setTitle {
         font-weight: 500; /* Adjust font weight for better readability */
     }
 
+    .slider-group {
+    margin-bottom: 10px; /* Adjust this value as needed */
+    margin-left: 7px; /* Adjust this value as needed */
+
+}
+
+
     /* Adjust the font size of select dropdowns */
     .rest-group select {
         font-size: 0.75rem; /* Decreased size for mobile */
         padding: 3px; /* Reduce padding to fit better on smaller screens */
         margin-left: 60px; /* Optionnel : pour l'aligner avec plus de précision */
+        top: 0px;
     }
 
     </style>
@@ -1964,56 +1972,6 @@ async function exportSession() {
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
     `;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-
-    for (const row of exerciseRows) {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let base64Video = '';
-
-        if (videoElement && videoElement.src) {
-            base64Video = await convertVideoToBase64(videoElement.src);
-        }
-
-        contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (base64Video) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls autoplay loop muted preload="metadata" src="${base64Video}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
-            </div>
-        </div>`;
-    }
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
-
     const blob = new Blob([contentToExport], { type: 'text/html' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
