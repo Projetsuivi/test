@@ -1993,10 +1993,10 @@ async function exportSession() {
         `;
 
         if (videoURL) {
+            // Here, we set the video URL as the source for the video player
             contentToExport += `
                 <div>
-                    <video controls playsinline muted style="width:100%; max-width:600px; height:auto; object-fit:cover;">
-                        <source src="${videoURL}" type="video/mp4">
+                    <video controls playsinline muted src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;">
                         Your browser does not support the video tag.
                     </video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
