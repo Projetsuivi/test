@@ -1961,8 +1961,7 @@ async function exportSession() {
                 padding: 10px 0;
                 color: #777;
             }
-
-            /* Enhanced Responsive styling for mobile */
+            /* Responsive styling for mobile */
             @media (max-width: 768px) {
                 .container {
                     padding: 10px;
@@ -2003,7 +2002,7 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    <video controls muted playsinline src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
+                    <video controls src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
