@@ -1993,10 +1993,11 @@ async function exportSession() {
         `;
 
         if (videoURL) {
-            // Here, we set the video URL as the source for the video player
+            // Adding crossorigin attribute to allow access to cross-origin hosted videos
             contentToExport += `
                 <div>
-                    <video controls playsinline muted src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;">
+                    <video controls playsinline muted crossorigin="anonymous" style="width:100%; max-width:600px; height:auto; object-fit:cover;">
+                        <source src="${videoURL}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
