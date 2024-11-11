@@ -1979,7 +1979,7 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    <video controls autoplay loop muted playsinline preload="metadata" src="${videoURL}"></video>
+                   <video controls playsinline preload="metadata" src="${videoURL}"></video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
