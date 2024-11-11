@@ -1908,7 +1908,6 @@ async function exportSession() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Séance Enregistrée</title>
         <style>
-            /* Base styling */
             body {
                 font-family: Arial, sans-serif;
                 background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
@@ -1918,7 +1917,6 @@ async function exportSession() {
                 line-height: 1.6;
             }
             .container {
-                width: 100%;
                 max-width: 1000px;
                 margin: 20px auto;
                 padding: 20px;
@@ -1961,14 +1959,9 @@ async function exportSession() {
                 padding: 10px 0;
                 color: #777;
             }
-            /* Responsive styling for mobile */
             @media (max-width: 768px) {
                 .container {
                     padding: 10px;
-                }
-                .exercise-card video {
-                    max-width: 100%;
-                    height: auto;
                 }
                 .exercise-card {
                     padding: 10px;
@@ -2002,7 +1995,10 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    <video controls src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
+                    <video controls playsinline muted style="width:100%; max-width:600px; height:auto; object-fit:cover;">
+                        <source src="${videoURL}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
