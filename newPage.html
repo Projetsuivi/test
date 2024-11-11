@@ -1933,11 +1933,15 @@ async function exportSession() {
                 padding: 15px;
                 background-color: #fafafa;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .exercise-card h3 {
                 margin-bottom: 10px;
                 color: #FF8A65;
                 text-transform: uppercase;
+                text-align: center;
             }
             .exercise-card video {
                 width: 100%;
@@ -1950,6 +1954,7 @@ async function exportSession() {
             .exercise-details {
                 margin-top: 15px;
                 font-size: 0.9rem;
+                text-align: center;
             }
             .footer {
                 text-align: center;
@@ -1957,8 +1962,11 @@ async function exportSession() {
                 color: #777;
             }
 
-            /* Responsive styling for mobile */
+            /* Enhanced Responsive styling for mobile */
             @media (max-width: 768px) {
+                .container {
+                    padding: 10px;
+                }
                 .exercise-card video {
                     max-width: 100%; /* Full width for mobile */
                     height: auto;
@@ -1966,6 +1974,7 @@ async function exportSession() {
                 .exercise-card {
                     padding: 10px;
                     margin-bottom: 15px;
+                    width: 100%;
                 }
             }
         </style>
@@ -1994,7 +2003,7 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    <video controls playsinline preload="metadata" src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit: cover;"></video>
+                    <video controls playsinline preload="metadata" src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
