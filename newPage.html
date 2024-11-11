@@ -1910,17 +1910,15 @@ async function exportSession() {
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
                 margin: 0;
                 padding: 0;
                 color: #333;
-                line-height: 1.6;
             }
             .container {
-                max-width: 1000px;
+                max-width: 800px;
                 margin: 20px auto;
                 padding: 20px;
-                background-color: #fff;
+                background-color: #fafafa;
                 border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
@@ -1929,95 +1927,28 @@ async function exportSession() {
                 border-radius: 8px;
                 margin-bottom: 20px;
                 padding: 15px;
-                background-color: #fafafa;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-            }
-            .exercise-card h3 {
-                margin-bottom: 10px;
-                color: #FF8A65;
-                text-transform: uppercase;
-                text-align: center;
             }
             .exercise-card video {
                 width: 100%;
                 max-width: 600px;
                 height: auto;
                 border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 object-fit: cover;
-            }
-            .exercise-details {
-                margin-top: 15px;
-                font-size: 0.9rem;
-                text-align: center;
-            }
-            .footer {
-                text-align: center;
-                padding: 10px 0;
-                color: #777;
-            }
-            @media (max-width: 768px) {
-                .container {
-                    padding: 10px;
-                }
-                .exercise-card {
-                    padding: 10px;
-                    margin-bottom: 15px;
-                    width: 100%;
-                }
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
-    `;
-
-    const exerciseRows = document.querySelectorAll('.exercise-row');
-
-    for (const row of exerciseRows) {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let videoURL = videoElement ? videoElement.src : '';
-
-        contentToExport += `
+            <h2>Séance d'entraînement</h2>
             <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoURL) {
-            // Assign the video URL directly to the src attribute of the <video> tag for direct playback
-            contentToExport += `
-                <div>
-                    <video src="${videoURL}" controls crossorigin="anonymous" style="width:100%; max-width:600px; height:auto; object-fit:cover;">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
+                <h3>Exemple Vidéo</h3>
+                <video src="https://suppersept.s3.eu-west-3.amazonaws.com/adducteur.mp4" controls crossorigin="anonymous">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-        </div>`;
-    }
-
-    contentToExport += `
-        </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
         </div>
     </body>
     </html>
@@ -2032,7 +1963,6 @@ async function exportSession() {
     link.click();
     document.body.removeChild(link);
 }
-
 document.getElementById('exportButton').addEventListener('click', exportSession);
 window.onload = function() {
     displayCurrentDate();
