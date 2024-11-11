@@ -1949,7 +1949,7 @@ async function exportSession() {
                 height: auto;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                object-fit: cover; /* Ensures video fills container proportionally */
+                object-fit: cover;
             }
             .exercise-details {
                 margin-top: 15px;
@@ -1968,7 +1968,7 @@ async function exportSession() {
                     padding: 10px;
                 }
                 .exercise-card video {
-                    max-width: 100%; /* Full width for mobile */
+                    max-width: 100%;
                     height: auto;
                 }
                 .exercise-card {
@@ -2003,7 +2003,7 @@ async function exportSession() {
         if (videoURL) {
             contentToExport += `
                 <div>
-                    <video controls playsinline preload="metadata" src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
+                    <video controls muted playsinline src="${videoURL}" style="width:100%; max-width:600px; height:auto; object-fit:cover;"></video>
                     <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
