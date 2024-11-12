@@ -1978,12 +1978,13 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-       if (videoURL) {
-    contentToExport += `
-        <div>
-            <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-        </div>
-    `;
+        if (videoURL) {
+            contentToExport += `
+                <div>
+                    <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
+                    <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
+                </div>
+            `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
