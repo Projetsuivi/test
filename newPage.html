@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1919,7 +1920,7 @@ async function exportSession() {
             }
             .container {
                 width: 100%;
-                max-width: 800px;
+                max-width: 1000px;
                 margin: 20px auto;
                 padding: 20px;
                 background-color: #fff;
@@ -1940,8 +1941,8 @@ async function exportSession() {
                 text-transform: uppercase;
             }
             .exercise-card video {
-                width: 300px;
-                height: 200px;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -1971,20 +1972,18 @@ async function exportSession() {
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
         let videoURL = videoElement ? videoElement.src : '';
-        let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
 
         contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (videoURL) {
-            contentToExport += `
-                <div>
-                    ${posterImage ? `<img src="${posterImage}" alt="Preview Image" style="width:300px; height:200px; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1);"/>` : ''}
-                    <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-                </div>
-            `;
+       if (videoURL) {
+    contentToExport += `
+        <div>
+            <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
+        </div>
+    `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
