@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -500,7 +501,6 @@ h2#setTitle {
     width: 180px;
     scroll-snap-align: start;
     margin-right: 20px; /* Increased margin to add more space between videos */
-    z-index: 2; /* Higher z-index for image containers */    
 }
    
 
@@ -510,7 +510,6 @@ h2#setTitle {
         height: 130px;
         object-fit: cover;
         border-radius: 6px;
-        z-index: 1; /* Lower z-index for videos */
     }
 
     /* Style for exercise names */
@@ -911,9 +910,9 @@ h2#setTitle {
    <!-- Exercise 1 / Barre au front & Chaise -->
 <div class="exercise-card">
     <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-      <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4"
-       poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front_optimized.jpg" width="180" alt="Barre au front + Chaise">
-</video>
+        <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
+                alt="Barre au front + Chaise"
+                poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front.png"></video>
         <p>Barre au front + Chaise</p>
         <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
             <option value="">Exercice numéro</option>
@@ -1921,7 +1920,7 @@ async function exportSession() {
             }
             .container {
                 width: 100%;
-                max-width: 1000px;
+                max-width: 800px;
                 margin: 20px auto;
                 padding: 20px;
                 background-color: #fff;
@@ -1941,9 +1940,30 @@ async function exportSession() {
                 color: #FF8A65;
                 text-transform: uppercase;
             }
-            .exercise-card video {
+            .video-container {
+                position: relative;
+                display: inline-block;
+                width: 300px;
+                height: 200px;
+            }
+            .overlay-image {
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                max-width: 600px;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.5;
+                transition: opacity 0.3s ease;
+                border-radius: 8px;
+            }
+            .video-container:hover .overlay-image {
+                opacity: 1;
+            }
+            .video-container video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -1973,6 +1993,7 @@ async function exportSession() {
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
         let videoURL = videoElement ? videoElement.src : '';
+        let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
 
         contentToExport += `
             <div class="exercise-card">
@@ -1981,9 +2002,9 @@ async function exportSession() {
 
         if (videoURL) {
             contentToExport += `
-                <div>
+                <div class="video-container">
+                    <img src="${posterImage}" class="overlay-image" alt="Overlay Image">
                     <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-                    <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
                 </div>
             `;
         } else {
