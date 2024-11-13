@@ -489,7 +489,7 @@ h2#setTitle {
     .video-bank-container .exercise-card {
         width: 260px; /* Further increased width for larger clickable area */
         height: 180px; /* Adjusted height to match new width */
-        margin-right: 20px; /* Increased gap between videos */
+        margin-right: 50px; /* Increased space between video cards */
         scroll-snap-type: none;
         display: inline-flex;
         flex-shrink: 0;
@@ -497,15 +497,17 @@ h2#setTitle {
     }
 
     .video-bank-container .exercise-card video {
-        width: 285px; /* Further increased width of video for easier clicking */
-        height: 170px; /* Adjusted height to fit within card */
+        width: 240px; /* Further increased width of video for easier clicking */
+        height: 160px; /* Adjusted height to fit within card */
         object-fit: cover;
         border-radius: 8px;
+        margin-left: 50px; /* Increased space between video cards */
+
     }
     /* Align exercise sets in a horizontal row */
     .exercise-set {
         display: inline-flex;
-        gap: 15px;
+        gap: 8px;
         flex-wrap: nowrap;
     }
 
@@ -1869,16 +1871,8 @@ function displayCurrentDate() {
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotId = selectElement.value;
-    const videoBankContainer = document.querySelector('.video-bank-container');
+    const videoBankElement = document.getElementById(videoId);
     const videoTitle = videoBankElement.querySelector('p').textContent;
-
-    // Listen for the end of dragging on desktop and mobile
-videoBankContainer.addEventListener('mouseup', () => {
-    videoBankContainer.style.scrollSnapType = 'none';
-});
-videoBankContainer.addEventListener('touchend', () => {
-    videoBankContainer.style.scrollSnapType = 'none';
-});
 
     const previousSlotId = videoBankElement.getAttribute("data-current-slot");
 
