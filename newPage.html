@@ -494,10 +494,11 @@ h2#setTitle {
 
     /* Align exercise sets in a horizontal row */
     .exercise-set {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: nowrap;
     }
+
     /* Style for each exercise card */
     .exercise-card {
     flex-shrink: 0;
@@ -510,8 +511,8 @@ h2#setTitle {
 
     /* Ensure videos are consistently sized */
     .exercise-card video {
-    width: 100%; /* Ensure full-width within the card */
-    height: auto; /* Maintain aspect ratio */
+        width: 200px;
+        height: 130px;
         object-fit: cover;
         border-radius: 6px;
     }
