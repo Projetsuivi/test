@@ -454,11 +454,13 @@ h2#setTitle {
     }
 
     .exercise-slot {
-        width: 380px !important;
-        height: 250px !important; /* Adjust height to ensure enough space for controls */
+        width: 360px !important;
+        height: 170px !important;
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
+        margin-left: -10px; /* Ensures the slot aligns with the left edge */
+        padding-left: -10px; /* Ensures there is no padding within the slot */
     }
       .exercise-slot video {
         width: 360px; /* Make the video fill the slot */
