@@ -1926,10 +1926,10 @@ async function exportSession() {
                 border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-                .video-container {
+            .video-container {
                 text-align: left;
                 padding-left: 0;
-            } 
+            }
             .exercise-card {
                 border: 1px solid #ddd;
                 border-radius: 8px;
@@ -1982,12 +1982,12 @@ async function exportSession() {
                 <h3>${exerciseNumber}</h3>
         `;
 
-      if (videoURL) {
-    contentToExport += `
-    <div class="video-container" style="text-align: left; padding-left: 0;">
-        <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}" width="300" height="180"></video>
-    </div>
-    `;
+        if (videoURL) {
+            contentToExport += `
+            <div class="video-container">
+                <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}" width="300" height="180"></video>
+            </div>
+            `;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
