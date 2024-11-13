@@ -1946,20 +1946,7 @@ async function exportSession() {
                 width: 300px;
                 height: 200px;
             }
-            .overlay-image {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0.5;
-                transition: opacity 0.3s ease;
-                border-radius: 8px;
-            }
-            .video-container:hover .overlay-image {
-                opacity: 1;
-            }
+
             .video-container video {
                 width: 100%;
                 height: 100%;
@@ -1983,57 +1970,56 @@ async function exportSession() {
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
     `;
 
-    const exerciseRows = document.querySelectorAll('.exercise-row');
+  const exerciseRows = document.querySelectorAll('.exercise-row');
 
-    for (const row of exerciseRows) {
-        let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
-        let videoElement = slot.querySelector('video');
-        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let videoURL = videoElement ? videoElement.src : '';
-        let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
+for (const row of exerciseRows) {
+    let exerciseNumber = row.querySelector('.exercise-number').textContent;
+    let slot = row.querySelector('.exercise-slot');
+    let videoElement = slot.querySelector('video');
+    let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
+    let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
+    let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
+    let videoURL = videoElement ? videoElement.src : '';
+    let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
 
+    contentToExport += `
+        <div class="exercise-card">
+            <h3>${exerciseNumber}</h3>
+    `;
+
+    if (videoURL) {
         contentToExport += `
-            <div class="exercise-card">
-                <h3>${exerciseNumber}</h3>
-        `;
-
-        if (videoURL) {
-            contentToExport += `
-                <div class="video-container">
-                    <img src="${posterImage}" class="overlay-image" alt="Overlay Image">
-                    <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
-
-        contentToExport += `
-            <div class="exercise-details">
-                <div><strong>Séries:</strong> ${seriesValue}</div>
-                <div><strong>Répétitions:</strong> ${repsValue}</div>
-                <div><strong>Repos:</strong> ${restPeriod}</div>
+            <div class="video-container">
+                <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
             </div>
-        </div>`;
+        `;
+    } else {
+        contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
     }
 
     contentToExport += `
+        <div class="exercise-details">
+            <div><strong>Séries:</strong> ${seriesValue}</div>
+            <div><strong>Répétitions:</strong> ${repsValue}</div>
+            <div><strong>Repos:</strong> ${restPeriod}</div>
         </div>
-        <div class="footer">
-            <p>Séance d'entraînement enregistrée avec succès.</p>
-        </div>
-    </body>
-    </html>
-    `;
+    </div>`;
+}
 
-    const blob = new Blob([contentToExport], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
+contentToExport += `
+    </div>
+    <div class="footer">
+        <p>Séance d'entraînement enregistrée avec succès.</p>
+    </div>
+</body>
+</html>
+`;
 
-    // Open the content in a new tab
-    window.open(url, '_blank');
+const blob = new Blob([contentToExport], { type: 'text/html' });
+const url = URL.createObjectURL(blob);
+
+// Open the content in a new tab
+window.open(url, '_blank');
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
@@ -2041,6 +2027,7 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
+
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll("video");
     videos.forEach(video => {
