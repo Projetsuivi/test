@@ -1979,10 +1979,9 @@ async function exportSession() {
         `;
 
         if (videoURL) {
-          contentToExport += `
+        contentToExport += `
     <div>
         <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}"></video>
-        <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
     </div>
 `;
         } else {
