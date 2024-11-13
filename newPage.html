@@ -133,18 +133,20 @@ body {
     letter-spacing: 0.5px; /* Optional: increase letter spacing */
 }
 
-.exercise-slot {
+.exercise-slot-placeholder {
     width: 100%;
-    height: 100%;
+    height: 250px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px dashed #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #fff;
+    color: #ccc;
+    font-size: 1rem;
 }
 
-.exercise-slot video {
+.exercise-slot-placeholder video {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -453,16 +455,15 @@ h2#setTitle {
         margin-bottom: 5px;
     }
 
-    .exercise-slot {
+   .exercise-slot-placeholder {
         width: 360px !important;
         height: 170px !important;
         background-color: transparent;
-        border: 0.5px solid red;
         margin-bottom: 5px;
         margin-left: 30px; /* Ensures the slot aligns with the left edge */
         padding-left: 30px; /* Ensures there is no padding within the slot */
     }
-.exercise-slot video {
+.exercise-slot-placeholder video {
     width: 150px;  /* Set fixed width */
     height: 100px; /* Set fixed height */
     object-fit: contain;;
@@ -659,7 +660,7 @@ h2#setTitle {
         margin-left:5px
     }
 
-.exercise-slot.selected {
+.exercise-slot-placeholder.selected {
     border-color: #FF8A65;
     background-color: rgba(255, 138, 101, 0.1);
 }
@@ -692,7 +693,7 @@ h2#setTitle {
               <!-- Exercise Row 1 -->
               <div class="exercise-row">
                 <div class="exercise-number">Exercice 1</div>
-                <div class="exercise-slot" id="slot1"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series1">Séries: <span id="seriesValue1">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
@@ -731,7 +732,7 @@ h2#setTitle {
             <!-- Exercise Row 2 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 2</div>
-                <div class="exercise-slot" id="slot2"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series2">Séries: <span id="seriesValue2">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
@@ -770,7 +771,7 @@ h2#setTitle {
             <!-- Exercise Row 3 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 3</div>
-                <div class="exercise-slot" id="slot3"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series3">Séries: <span id="seriesValue3">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series3" oninput="document.getElementById('seriesValue3').textContent = this.value;">
@@ -809,7 +810,7 @@ h2#setTitle {
             <!-- Exercise Row 4 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 4</div>
-                <div class="exercise-slot" id="slot4"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series4">Séries: <span id="seriesValue4">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series4" oninput="document.getElementById('seriesValue4').textContent = this.value;">
@@ -848,7 +849,7 @@ h2#setTitle {
             <!-- Exercise Row 5 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 5</div>
-                <div class="exercise-slot" id="slot5"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series5">Séries: <span id="seriesValue5">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series5" oninput="document.getElementById('seriesValue5').textContent = this.value;">
@@ -887,7 +888,7 @@ h2#setTitle {
             <!-- Exercise Row 6 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 6</div>
-                <div class="exercise-slot" id="slot6"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series6">Séries: <span id="seriesValue6">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series6" oninput="document.getElementById('seriesValue6').textContent = this.value;">
@@ -1991,7 +1992,7 @@ async function exportSession() {
 
     for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
+        let slot = row.querySelector('.exercise-slot-placeholder');
         let videoElement = slot.querySelector('video');
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
