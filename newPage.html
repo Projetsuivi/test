@@ -487,15 +487,20 @@ h2#setTitle {
     }
 
     .video-bank-container .exercise-card {
-        flex-shrink: 0;
-        display: inline-flex;
-        width: 420px; /* Adjust width as needed */
-        height: 180px; /* Adjust height as needed */
+        width: 220px; /* Increased width */
+        height: 150px; /* Adjusted height to fit the new size */
+        margin-right: 8px; /* Reduced margin-right to decrease gap */
         scroll-snap-align: start;
-        margin-right: 10px; /* Increase this value to widen the gap */
+        display: inline-flex;
+        flex-shrink: 0;
+        border-radius: 6px;
+    }
+
+    .video-bank-container .exercise-card video {
+        width: 200px; /* Increased width of video */
+        height: 130px; /* Adjusted height to match container */
         object-fit: cover;
         border-radius: 6px;
-        margin-left: 0px;
     }
 
     /* Align exercise sets in a horizontal row */
