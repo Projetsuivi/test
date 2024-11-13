@@ -1920,7 +1920,7 @@ async function exportSession() {
             }
             .container {
                 width: 100%;
-                max-width: 800px;
+                max-width: 1000px;
                 margin: 20px auto;
                 padding: 20px;
                 background-color: #fff;
@@ -1940,39 +1940,12 @@ async function exportSession() {
                 color: #FF8A65;
                 text-transform: uppercase;
             }
-            .video-container {
-                position: relative;
-                display: inline-block;
-                width: 300px;
-                height: 200px;
-            }
-            .overlay-image {
-                position: absolute;
-                top: 0;
-                left: 0;
+            .exercise-card video {
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0.5;
-                transition: opacity 0.3s ease;
+                max-width: 600px;
                 border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
-            .video-container {
-    position: relative;
-    width: 100%;           /* Ensures full width on mobile */
-    max-width: 300px;       /* Sets a max width for larger screens */
-    height: 180px;          /* Adjust height as needed */
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-}
-
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-}
             .exercise-details {
                 margin-top: 15px;
                 font-size: 0.9rem;
@@ -1999,7 +1972,6 @@ async function exportSession() {
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
         let videoURL = videoElement ? videoElement.src : '';
-        let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
 
         contentToExport += `
             <div class="exercise-card">
@@ -2007,15 +1979,15 @@ async function exportSession() {
         `;
 
         if (videoURL) {
-            contentToExport += `
-                <div class="video-container">
-                    <img src="${posterImage}" class="overlay-image" alt="Overlay Image">
-                    <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-                </div>
-            `;
-        } else {
-            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
-        }
+    contentToExport += `
+    <div>
+        <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
+        <p>URL: <a href="${videoURL}" target="_blank">${videoURL}</a></p>
+    </div>
+`;
+} else {
+    contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+}
 
         contentToExport += `
             <div class="exercise-details">
@@ -2036,10 +2008,13 @@ async function exportSession() {
     `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'seance.html';
 
-    // Open the content in a new tab
-    window.open(url, '_blank');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
@@ -2047,11 +2022,12 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
-document.querySelectorAll('.video-container').forEach(container => {
-    const video = container.querySelector('video');
-    const posterImage = video.getAttribute('poster');
-    if (posterImage) {
-        container.style.backgroundImage = `url(${posterImage})`;
+document.addEventListener("DOMContentLoaded", function () {
+    const videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+        video.addEventListener("click", () => {
+            if (!video.paused) {
+                video.pause();
             } else {
                 video.play();
             }
