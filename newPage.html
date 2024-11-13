@@ -1880,43 +1880,48 @@ function displayCurrentDate() {
 
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value;
-    const videoBankElement = document.getElementById(videoId);
-    const videoTitle = videoBankElement.querySelector('p').textContent;
+    const selectedSlotId = selectElement.value; // ID of the selected exercise slot
+    const videoBankElement = document.getElementById(videoId); // Original video element in the video bank
+    const videoTitle = videoBankElement.querySelector('p').textContent; // Title of the video
 
+    // Retrieve the previous slot if the video was already placed in another slot
     const previousSlotId = videoBankElement.getAttribute("data-current-slot");
 
+    // Clear the previous slot if necessary
     if (previousSlotId && previousSlotId !== selectedSlotId) {
         const previousSlot = document.getElementById(previousSlotId);
         if (previousSlot) {
-            previousSlot.innerHTML = '';
+            previousSlot.innerHTML = ''; // Remove the video from the previous slot
             const previousExerciseNumber = previousSlot.previousElementSibling;
             if (previousExerciseNumber) {
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
+                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
             }
         }
     }
 
+    // Clone the video element to place in the selected exercise slot
     const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id");
-   
-    // Set the specific video size when dropped (e.g., 300px by 200px)
+    clonedVideo.removeAttribute("id"); // Remove ID to avoid duplicate IDs in the DOM
+    clonedVideo.classList.add("cloned-video"); // Add custom class for cloned videos
+
+    // Set the cloned video’s size and hide its dropdown and title
     const videoElement = clonedVideo.querySelector("video");
     if (videoElement) {
-    clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
-}
+        videoElement.style.width = "300px"; // Adjust width as needed
+        videoElement.style.height = "200px"; // Adjust height as needed
+    }
 
     const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) {
-        titleElement.style.display = "none"; // Hide the title
-    }
-    clonedVideo.querySelector("select")?.remove();
+    if (titleElement) titleElement.style.display = "none"; // Hide the title
+    clonedVideo.querySelector("select")?.remove(); // Remove dropdown in the cloned video
 
+    // Place the cloned video into the selected slot
     const targetSlot = document.getElementById(selectedSlotId);
     if (targetSlot) {
-        targetSlot.innerHTML = '';
-        targetSlot.appendChild(clonedVideo);
+        targetSlot.innerHTML = ''; // Clear any previous content in the target slot
+        targetSlot.appendChild(clonedVideo); // Add the cloned video
 
+        // Update exercise number with the video title on smaller screens
         if (window.innerWidth <= 768) {
             const exerciseNumber = targetSlot.previousElementSibling;
             if (exerciseNumber) {
@@ -1925,6 +1930,7 @@ function moveVideoToRow(selectElement, videoId) {
         }
     }
 
+    // Update data attribute to track the current slot where the video is placed
     videoBankElement.setAttribute("data-current-slot", selectedSlotId);
 }
 async function exportSession() {
