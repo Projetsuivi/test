@@ -486,6 +486,12 @@ h2#setTitle {
         scroll-snap-type: x mandatory;
     }
 
+    .video-bank-container .exercise-card video {
+    width: 200px; /* Adjust to your desired width */
+    height: 130px; /* Adjust to your desired height */    
+    margin-left: 25px; /* Adjust this value as desired */
+}
+
     /* Align exercise sets in a horizontal row */
     .exercise-set {
         display: inline-flex;
@@ -1926,10 +1932,6 @@ async function exportSession() {
                 border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-            .video-container {
-                text-align: left;
-                padding-left: 0;
-            }
             .exercise-card {
                 border: 1px solid #ddd;
                 border-radius: 8px;
@@ -1983,11 +1985,11 @@ async function exportSession() {
         `;
 
         if (videoURL) {
-            contentToExport += `
-            <div class="video-container">
-                <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}" width="300" height="180"></video>
-            </div>
-            `;
+        contentToExport += `
+    <div>
+        <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}"></video>
+    </div>
+`;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
