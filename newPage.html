@@ -1880,48 +1880,47 @@ function displayCurrentDate() {
 
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value; // ID of the selected exercise slot
-    const videoBankElement = document.getElementById(videoId); // Original video element in the video bank
-    const videoTitle = videoBankElement.querySelector('p').textContent; // Title of the video
+    const selectedSlotIndex = parseInt(selectElement.value.replace("slot", "")) - 1; // Get the slot index (0-based)
+    const videoBankElement = document.getElementById(videoId); // Original video element in the bank
+    const videoTitle = videoBankElement.querySelector('p').textContent; // Get video title
+    const previousSlotIndex = videoBankElement.getAttribute("data-current-slot");
 
-    // Retrieve the previous slot if the video was already placed in another slot
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
+    const exerciseSlots = document.querySelectorAll(".exercise-slot-placeholder"); // Get all exercise slots
+    const previousSlot = exerciseSlots[previousSlotIndex]; // Get previous slot if any
 
-    // Clear the previous slot if necessary
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = ''; // Remove the video from the previous slot
-            const previousExerciseNumber = previousSlot.previousElementSibling;
-            if (previousExerciseNumber) {
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
-            }
+    // Clear the previous slot if it exists and differs from the selected slot
+    if (previousSlot && previousSlotIndex != selectedSlotIndex) {
+        previousSlot.innerHTML = ''; // Clear the previous slot
+        const previousExerciseNumber = previousSlot.previousElementSibling;
+        if (previousExerciseNumber) {
+            previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
         }
     }
 
-    // Clone the video element to place in the selected exercise slot
+    // Clone the video element for the selected slot
     const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id"); // Remove ID to avoid duplicate IDs in the DOM
-    clonedVideo.classList.add("cloned-video"); // Add custom class for cloned videos
+    clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
+    clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
-    // Set the cloned video’s size and hide its dropdown and title
-    const videoElement = clonedVideo.querySelector("video");
-    if (videoElement) {
-        videoElement.style.width = "300px"; // Adjust width as needed
-        videoElement.style.height = "200px"; // Adjust height as needed
-    }
-
+    // Hide dropdown and title in the cloned element
     const titleElement = clonedVideo.querySelector("p");
     if (titleElement) titleElement.style.display = "none"; // Hide the title
-    clonedVideo.querySelector("select")?.remove(); // Remove dropdown in the cloned video
+    clonedVideo.querySelector("select")?.remove(); // Remove dropdown
+
+    // Set video size
+    const videoElement = clonedVideo.querySelector("video");
+    if (videoElement) {
+        videoElement.style.width = "100%";
+        videoElement.style.height = "100%";
+    }
 
     // Place the cloned video into the selected slot
-    const targetSlot = document.getElementById(selectedSlotId);
+    const targetSlot = exerciseSlots[selectedSlotIndex];
     if (targetSlot) {
-        targetSlot.innerHTML = ''; // Clear any previous content in the target slot
+        targetSlot.innerHTML = ''; // Clear any previous content in the slot
         targetSlot.appendChild(clonedVideo); // Add the cloned video
 
-        // Update exercise number with the video title on smaller screens
+        // Update exercise number with video title on smaller screens
         if (window.innerWidth <= 768) {
             const exerciseNumber = targetSlot.previousElementSibling;
             if (exerciseNumber) {
@@ -1931,7 +1930,7 @@ function moveVideoToRow(selectElement, videoId) {
     }
 
     // Update data attribute to track the current slot where the video is placed
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
+    videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
 }
 async function exportSession() {
     let contentToExport = `
