@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programme d'entraînement</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">.video
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -487,12 +487,15 @@ h2#setTitle {
     }
 
     .video-bank-container .exercise-card video {
-    width: 320px; /* Increase width */
-    height: 150px; /* Increase height */
-    object-fit: cover; /* Keeps aspect ratio and covers the video card */
+    flex-shrink: 0;
+    display: inline-flex;
+    width: 320px; /* Updated width */
+    height: 150px; /* Updated height */
+    scroll-snap-align: start;
+    margin-right: 40px; /* Increase this value as desired */
+    object-fit: cover;
     border-radius: 6px;
-    margin-left: 170px; /* Adjust this value as desired */
-    margin-right: 200px;    
+    margin-left: 0px;
 }
 
     /* Align exercise sets in a horizontal row */
