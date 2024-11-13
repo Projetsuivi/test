@@ -455,7 +455,7 @@ h2#setTitle {
 
     .exercise-slot {
         width: 380px !important;
-        height: 170px !important;
+        height: 250px !important; /* Adjust height to ensure enough space for controls */
         background-color: transparent;
         border: 0.5px solid red;
         margin-bottom: 5px;
@@ -464,7 +464,9 @@ h2#setTitle {
         width: 360px; /* Make the video fill the slot */
         height: 170px; /* Ensure the video maintains the slot dimensions */
         object-fit: cover;
-        margin-left:20px;  
+        margin-left:20px;
+        z-index: 10; /* Ensures video controls are above other elements */
+        position: relative;  
     }
 
     /* Horizontal scrolling setup for the video bank container */
