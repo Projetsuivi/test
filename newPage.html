@@ -490,7 +490,7 @@ h2#setTitle {
         width: 260px; /* Further increased width for larger clickable area */
         height: 180px; /* Adjusted height to match new width */
         margin-right: 20px; /* Increased gap between videos */
-        scroll-snap-align: start;
+        scroll-snap-type: none;
         display: inline-flex;
         flex-shrink: 0;
         border-radius: 8px;
@@ -1869,8 +1869,16 @@ function displayCurrentDate() {
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotId = selectElement.value;
-    const videoBankElement = document.getElementById(videoId);
+    const videoBankContainer = document.querySelector('.video-bank-container');
     const videoTitle = videoBankElement.querySelector('p').textContent;
+
+    // Listen for the end of dragging on desktop and mobile
+videoBankContainer.addEventListener('mouseup', () => {
+    videoBankContainer.style.scrollSnapType = 'none';
+});
+videoBankContainer.addEventListener('touchend', () => {
+    videoBankContainer.style.scrollSnapType = 'none';
+});
 
     const previousSlotId = videoBankElement.getAttribute("data-current-slot");
 
