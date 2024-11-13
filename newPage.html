@@ -622,6 +622,11 @@ h2#setTitle {
         color: #333;
     }
 
+    .cloned-video video {
+    width: 450px;
+    height: 180px;
+}
+
     .checkbox-group input[type="checkbox"] {
         transform: scale(1.2);
         accent-color: #FF8A65;
@@ -1892,9 +1897,8 @@ function moveVideoToRow(selectElement, videoId) {
    
     // Set the specific video size when dropped (e.g., 300px by 200px)
     const videoElement = clonedVideo.querySelector("video");
-if (videoElement) {
-    videoElement.style.width = "450px";
-    videoElement.style.height = "180px"; // Adjusted height
+    if (videoElement) {
+    clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 }
 
     const titleElement = clonedVideo.querySelector("p");
