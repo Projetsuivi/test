@@ -1913,24 +1913,10 @@ async function exportSession() {
             body {
                 font-family: Arial, sans-serif;
                 background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
-                background-attachment: scroll;
                 margin: 0;
                 padding: 0;
                 color: #333;
                 line-height: 1.6;
-            }
-            /* Mobile specific styling */
-            @media (max-width: 768px) {
-                .video-container {
-                    width: 100%; /* Full width on mobile */
-                    height: auto;
-                }
-                .exercise-card h3 {
-                    font-size: 1.2rem;
-                }
-                .exercise-details {
-                    font-size: 0.8rem;
-                }
             }
             .container {
                 width: 100%;
@@ -1949,15 +1935,52 @@ async function exportSession() {
                 background-color: #fafafa;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             }
-            /* Video container styles for desktop and mobile */
+            .exercise-card h3 {
+                margin-bottom: 10px;
+                color: #FF8A65;
+                text-transform: uppercase;
+            }
             .video-container {
                 position: relative;
+                display: inline-block;
                 width: 300px;
                 height: 200px;
-                overflow: hidden;
-                background-size: cover;
+            }
+            .overlay-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.5;
+                transition: opacity 0.3s ease;
                 border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .video-container {
+    position: relative;
+    width: 100%;           /* Ensures full width on mobile */
+    max-width: 300px;       /* Sets a max width for larger screens */
+    height: 180px;          /* Adjust height as needed */
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+            .exercise-details {
+                margin-top: 15px;
+                font-size: 0.9rem;
+            }
+            .footer {
+                text-align: center;
+                padding: 10px 0;
+                color: #777;
             }
         </style>
     </head>
@@ -1965,57 +1988,58 @@ async function exportSession() {
         <div class="container">
             <h2>Date de la séance: ${new Date().toLocaleDateString('fr-FR')}</h2>
     `;
-    
-  const exerciseRows = document.querySelectorAll('.exercise-row');
 
-for (const row of exerciseRows) {
-    let exerciseNumber = row.querySelector('.exercise-number').textContent;
-    let slot = row.querySelector('.exercise-slot');
-    let videoElement = slot.querySelector('video');
-    let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
-    let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
-    let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-    let videoURL = videoElement ? videoElement.src : '';
-    let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
+    const exerciseRows = document.querySelectorAll('.exercise-row');
 
-    contentToExport += `
-        <div class="exercise-card">
-            <h3>${exerciseNumber}</h3>
-    `;
+    for (const row of exerciseRows) {
+        let exerciseNumber = row.querySelector('.exercise-number').textContent;
+        let slot = row.querySelector('.exercise-slot');
+        let videoElement = slot.querySelector('video');
+        let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
+        let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
+        let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
+        let videoURL = videoElement ? videoElement.src : '';
+        let posterImage = videoElement ? videoElement.getAttribute('poster') : '';
 
-    if (videoURL) {
         contentToExport += `
-            <div class="video-container">
-                <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
-            </div>
+            <div class="exercise-card">
+                <h3>${exerciseNumber}</h3>
         `;
-    } else {
-        contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+
+        if (videoURL) {
+            contentToExport += `
+                <div class="video-container">
+                    <img src="${posterImage}" class="overlay-image" alt="Overlay Image">
+                    <video controls playsinline muted preload="metadata" src="${videoURL}"></video>
+                </div>
+            `;
+        } else {
+            contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
+        }
+
+        contentToExport += `
+            <div class="exercise-details">
+                <div><strong>Séries:</strong> ${seriesValue}</div>
+                <div><strong>Répétitions:</strong> ${repsValue}</div>
+                <div><strong>Repos:</strong> ${restPeriod}</div>
+            </div>
+        </div>`;
     }
 
     contentToExport += `
-        <div class="exercise-details">
-            <div><strong>Séries:</strong> ${seriesValue}</div>
-            <div><strong>Répétitions:</strong> ${repsValue}</div>
-            <div><strong>Repos:</strong> ${restPeriod}</div>
         </div>
-    </div>`;
-}
+        <div class="footer">
+            <p>Séance d'entraînement enregistrée avec succès.</p>
+        </div>
+    </body>
+    </html>
+    `;
 
-contentToExport += `
-    </div>
-    <div class="footer">
-        <p>Séance d'entraînement enregistrée avec succès.</p>
-    </div>
-</body>
-</html>
-`;
+    const blob = new Blob([contentToExport], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
 
-const blob = new Blob([contentToExport], { type: 'text/html' });
-const url = URL.createObjectURL(blob);
-
-// Open the content in a new tab
-window.open(url, '_blank');
+    // Open the content in a new tab
+    window.open(url, '_blank');
 }
 
 document.getElementById('exportButton').addEventListener('click', exportSession);
@@ -2023,13 +2047,11 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll("video");
-    videos.forEach(video => {
-        video.addEventListener("click", () => {
-            if (!video.paused) {
-                video.pause();
+document.querySelectorAll('.video-container').forEach(container => {
+    const video = container.querySelector('video');
+    const posterImage = video.getAttribute('poster');
+    if (posterImage) {
+        container.style.backgroundImage = `url(${posterImage})`;
             } else {
                 video.play();
             }
