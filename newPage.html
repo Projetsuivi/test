@@ -487,8 +487,8 @@ h2#setTitle {
     }
 
     .video-bank-container .exercise-card video {
-     width: 320px; /* Adjust to your desired width */
-    height: 200px; /* Adjust to your desired height */    
+    width: 200px; /* Adjust to your desired width */
+    height: 130px; /* Adjust to your desired height */    
     margin-left: 25px; /* Adjust this value as desired */
 }
 
@@ -500,20 +500,12 @@ h2#setTitle {
     }
 
     /* Style for each exercise card */
-.exercise-card {
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 40px; /* Adjust this value to increase or decrease the gap */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 370px;
-    height: 260px;
-    max-width: 100%;
+    .exercise-card {
+    flex-shrink: 0;
+    display: inline-flex;
+    width: 180px;
+    scroll-snap-align: start;
+    margin-right: 20px; /* Increased margin to add more space between videos */
 }
    
 
