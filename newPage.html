@@ -473,9 +473,10 @@ h2#setTitle {
 }
 
 .exercise-slot-placeholder video {
-    width: 400px !important;  /* Set a smaller width */
-    height: 160px !important;  /* Set a smaller height */
-    margin-left: 30px; /* Aligns placeholder more to the left */
+    width: 100%; /* Ensures the video fits the container width */
+    height: 100%; /* Ensures the video fits the container height */
+    object-fit: cover; /* Scales the video to cover the entire area without leaving gaps */
+    border: none; /* Removes any border */
 }
 
     /* Horizontal scrolling setup for the video bank container */
