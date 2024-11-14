@@ -534,12 +534,11 @@ h2#setTitle {
    
 
     /* Ensure videos are consistently sized */
-    .exercise-card video {
-        width: 200px;
-        height: 130px;
-        object-fit: cover;
-        border-radius: 6px;
-    }
+  .exercise-card video {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures no grey bars */
+}
 
     /* Style for exercise names */
     .exercise-card p {
