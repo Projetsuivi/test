@@ -2076,8 +2076,8 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
-    // Select all video elements
-    const videos = document.querySelectorAll(".video-card video");
+    // Select all video elements in the video bank and placeholders
+    const videos = document.querySelectorAll(".exercise-card video, .exercise-slot-placeholder video");
 
     videos.forEach((video) => {
         // Handle play event
@@ -2103,8 +2103,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Toggle play/pause on click
+        // Toggle play/pause on click or touch
         video.addEventListener("click", () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+
+        // Ensure videos react instantly to touch on mobile
+        video.addEventListener("touchstart", () => {
             if (video.paused) {
                 video.play();
             } else {
@@ -2114,17 +2123,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Adjust video responsiveness dynamically on window resize
-    window.addEventListener("resize", () => {
+    window.addEventListener("resize", adjustVideoSize);
+    adjustVideoSize(); // Initial adjustment
+
+    function adjustVideoSize() {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
-                video.style.width = "90%";
-                video.style.height = "auto";
-            } else {
                 video.style.width = "100%";
                 video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "160px";
             }
         });
-    });
+    }
 });
 </script>
 </body>
