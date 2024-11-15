@@ -2074,36 +2074,31 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
+    let currentlyPlayingVideo = null; // Track the currently playing video
 
     // Select all video elements
-    const videos = document.querySelectorAll(".video-card video");
+    const videos = document.querySelectorAll("video");
 
     videos.forEach((video) => {
-        // Handle play event
+        // Play event: ensure only one video plays at a time
         video.addEventListener("play", () => {
-            // Pause the currently playing video, if any
             if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                 currentlyPlayingVideo.pause();
                 currentlyPlayingVideo.classList.remove("playing");
             }
-
-            // Set the new currently playing video
             currentlyPlayingVideo = video;
             video.classList.add("playing");
         });
 
-        // Handle pause event
+        // Pause event: clear playing state
         video.addEventListener("pause", () => {
-            video.classList.remove("playing");
-
-            // Clear the current video reference if paused
             if (currentlyPlayingVideo === video) {
                 currentlyPlayingVideo = null;
             }
+            video.classList.remove("playing");
         });
 
-        // Toggle play/pause on click
+        // Click event: toggle play/pause
         video.addEventListener("click", () => {
             if (video.paused) {
                 video.play();
@@ -2114,7 +2109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Adjust video responsiveness dynamically on window resize
-    window.addEventListener("resize", () => {
+    const adjustVideoSizes = () => {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
                 video.style.width = "90%";
@@ -2124,7 +2119,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 video.style.height = "auto";
             }
         });
-    });
+    };
+
+    adjustVideoSizes(); // Initial adjustment
+    window.addEventListener("resize", adjustVideoSizes); // Adjust on resize
 });
 </script>
 </body>
