@@ -2080,20 +2080,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-card video");
 
     videos.forEach((video) => {
-        // Play/Pause toggle on pointerdown (ensures first-touch response)
-        video.addEventListener("pointerdown", () => {
+        // Handle play/pause on pointerdown for immediate response
+        video.addEventListener("pointerdown", (event) => {
+            event.preventDefault(); // Prevent any additional delays from default behavior
+
             if (video.paused) {
                 // Pause the currently playing video, if any
                 if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                     currentlyPlayingVideo.pause();
                     currentlyPlayingVideo.classList.remove("playing");
                 }
+
                 // Play the clicked video
                 video.play();
-                currentlyPlayingVideo = video; // Update the current video
+                currentlyPlayingVideo = video; // Set as the currently playing video
             } else {
+                // Pause the video
                 video.pause();
-                currentlyPlayingVideo = null; // Clear if paused
+                currentlyPlayingVideo = null; // Clear the current video
             }
         });
 
@@ -2105,6 +2109,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Remove "playing" class when video is paused
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
+        });
+
+        // Ensure touch and mouse interactions do not overlap
+        video.addEventListener("click", (event) => {
+            event.preventDefault(); // Avoid duplicate events from click and pointerdown
         });
     });
 
