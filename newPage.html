@@ -352,6 +352,7 @@ body {
     position: relative; /* Enables top adjustment */
     top: -30px; /* Adjusts the position vertically */
 }
+    
    
     .title-container {
         padding: 60px 0 !important; /* Increase padding and add !important */
@@ -359,6 +360,19 @@ body {
         font-size: 1.8rem !important; /* Increase font size */
         background-color: rgba(255, 138, 101, 0.1); /* Temporary color for visual check */
     }
+
+    .video-card video {
+    touch-action: manipulation; /* Enable direct touch control */
+    width: 100%; /* Adjust to fit container */
+    height: auto; /* Maintain aspect ratio */
+    outline: none; /* Remove focus outline */
+    cursor: pointer; /* Make the video look interactive */
+}
+
+    .video-card video.playing {
+    transform: scale(1.03); /* Subtle zoom to indicate active state */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add emphasis */
+}
 
 h2#setTitle {
     font-size: 1.7rem !important; /* Adjust font size */
@@ -2076,14 +2090,15 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
-    // Select all video elements in the video bank
-    const videos = document.querySelectorAll(".video-bank .video-card video");
+    // Get all video elements
+    const videos = document.querySelectorAll(".video-bank video");
 
+    // Add touchstart event for instant response on mobile
     videos.forEach((video) => {
-        // Handle play/pause on pointerdown for immediate response
-        video.addEventListener("pointerdown", (event) => {
-            event.preventDefault(); // Prevent any delay from default behavior
+        video.addEventListener("touchstart", (event) => {
+            event.preventDefault(); // Prevent default behavior for better responsiveness
 
+            // If the video is paused, play it
             if (video.paused) {
                 // Pause any currently playing video
                 if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
@@ -2093,41 +2108,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Play the touched video
                 video.play();
-                currentlyPlayingVideo = video; // Update the currently playing video
+                currentlyPlayingVideo = video; // Set this video as the currently playing one
                 video.classList.add("playing");
             } else {
                 // Pause the video
                 video.pause();
                 video.classList.remove("playing");
-                currentlyPlayingVideo = null;
+                currentlyPlayingVideo = null; // Clear the currently playing reference
             }
         });
 
-        // Prevent conflicts with the click event on mobile
-        video.addEventListener("click", (event) => {
-            event.preventDefault();
-        });
-
-        // Ensure a playing class is added for active video
+        // Handle play event
         video.addEventListener("play", () => {
             video.classList.add("playing");
         });
 
+        // Handle pause event
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
-        });
-    });
-
-    // Adjust responsiveness dynamically on resize
-    window.addEventListener("resize", () => {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "90%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "100%";
-                video.style.height = "auto";
-            }
         });
     });
 });
