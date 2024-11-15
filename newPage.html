@@ -2072,53 +2072,57 @@ window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
+
 document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll("video");
-    videos.forEach(video => {
-        video.addEventListener("click", () => {
-            if (!video.paused) {
-                video.pause();
-            } else {
-                video.play();
+    let currentlyPlayingVideo = null;
+
+    // Select all video elements
+    const videos = document.querySelectorAll(".video-card video");
+
+    videos.forEach((video) => {
+        // Handle play event
+        video.addEventListener("play", () => {
+            // Pause the currently playing video, if any
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+                currentlyPlayingVideo.classList.remove("playing");
             }
 
- // Handle Play/Pause Smoothly
-document.addEventListener("DOMContentLoaded", () => {
-    const videoCards = document.querySelectorAll(".exercise-card video");
+            // Set the new currently playing video
+            currentlyPlayingVideo = video;
+            video.classList.add("playing");
+        });
 
-    videoCards.forEach((video) => {
-        video.addEventListener("click", (e) => {
+        // Handle pause event
+        video.addEventListener("pause", () => {
+            video.classList.remove("playing");
+
+            // Clear the current video reference if paused
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null;
+            }
+        });
+
+        // Toggle play/pause on click
+        video.addEventListener("click", () => {
             if (video.paused) {
                 video.play();
             } else {
                 video.pause();
             }
         });
-
-        // Add indicator for video playing
-        video.addEventListener("play", () => {
-            video.classList.add("playing");
-        });
-
-        video.addEventListener("pause", () => {
-            video.classList.remove("playing");
-        });
     });
-});
 
-// Adjust Video Responsiveness Dynamically
-window.addEventListener("resize", () => {
-    const videos = document.querySelectorAll(".exercise-card video");
-    videos.forEach((video) => {
-        if (window.innerWidth < 768) {
-            video.style.width = "90%";
-            video.style.height = "auto";
-        } else {
-            video.style.width = "100%";
-            video.style.height = "auto";
-        }
-    });
-});           
+    // Adjust video responsiveness dynamically on window resize
+    window.addEventListener("resize", () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "90%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            }
         });
     });
 });
