@@ -2080,36 +2080,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-card video");
 
     videos.forEach((video) => {
-        // Handle play event
-        video.addEventListener("play", () => {
-            // Pause the currently playing video, if any
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-                currentlyPlayingVideo.classList.remove("playing");
+        // Play/Pause toggle on pointerdown (ensures first-touch response)
+        video.addEventListener("pointerdown", () => {
+            if (video.paused) {
+                // Pause the currently playing video, if any
+                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                    currentlyPlayingVideo.pause();
+                    currentlyPlayingVideo.classList.remove("playing");
+                }
+                // Play the clicked video
+                video.play();
+                currentlyPlayingVideo = video; // Update the current video
+            } else {
+                video.pause();
+                currentlyPlayingVideo = null; // Clear if paused
             }
+        });
 
-            // Set the new currently playing video
-            currentlyPlayingVideo = video;
+        // Add "playing" class when video is played
+        video.addEventListener("play", () => {
             video.classList.add("playing");
         });
 
-        // Handle pause event
+        // Remove "playing" class when video is paused
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
-
-            // Clear the current video reference if paused
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
-        });
-
-        // Toggle play/pause on click
-        video.addEventListener("click", () => {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
         });
     });
 
