@@ -472,6 +472,19 @@ h2#setTitle {
     justify-content: flex-start; /* Aligns video to the left */
 }
 
+    .video-bank-container video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.video-bank-container video.playing {
+    transform: scale(1.05); /* Slight zoom-in effect when playing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .exercise-slot-placeholder video {
     width: 100%; /* Ensures the video fits the container width */
     height: 200px; /* Ensures the video fits the container height */
@@ -2077,7 +2090,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
     // Select all video elements
-    const videos = document.querySelectorAll(".video-card video");
+    const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
         // Handle play event
