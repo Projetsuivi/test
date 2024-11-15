@@ -2076,48 +2076,49 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
-    // Select all video elements
-    const videos = document.querySelectorAll(".video-card video");
+    // Select all video elements in the video bank
+    const videos = document.querySelectorAll(".video-bank .video-card video");
 
     videos.forEach((video) => {
         // Handle play/pause on pointerdown for immediate response
         video.addEventListener("pointerdown", (event) => {
-            event.preventDefault(); // Prevent any additional delays from default behavior
+            event.preventDefault(); // Prevent any delay from default behavior
 
             if (video.paused) {
-                // Pause the currently playing video, if any
+                // Pause any currently playing video
                 if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                     currentlyPlayingVideo.pause();
                     currentlyPlayingVideo.classList.remove("playing");
                 }
 
-                // Play the clicked video
+                // Play the touched video
                 video.play();
-                currentlyPlayingVideo = video; // Set as the currently playing video
+                currentlyPlayingVideo = video; // Update the currently playing video
+                video.classList.add("playing");
             } else {
                 // Pause the video
                 video.pause();
-                currentlyPlayingVideo = null; // Clear the current video
+                video.classList.remove("playing");
+                currentlyPlayingVideo = null;
             }
         });
 
-        // Add "playing" class when video is played
+        // Prevent conflicts with the click event on mobile
+        video.addEventListener("click", (event) => {
+            event.preventDefault();
+        });
+
+        // Ensure a playing class is added for active video
         video.addEventListener("play", () => {
             video.classList.add("playing");
         });
 
-        // Remove "playing" class when video is paused
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
         });
-
-        // Ensure touch and mouse interactions do not overlap
-        video.addEventListener("click", (event) => {
-            event.preventDefault(); // Avoid duplicate events from click and pointerdown
-        });
     });
 
-    // Adjust video responsiveness dynamically on window resize
+    // Adjust responsiveness dynamically on resize
     window.addEventListener("resize", () => {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
