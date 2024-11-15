@@ -518,12 +518,6 @@ h2#setTitle {
         border-radius: 8px;
     }
 
-    .video {
-    position: relative;
-    z-index: 1; /* Ensure it does not interfere with the fullscreen layer */
-}
-
-
     .video-bank-container .exercise-card video {
         width: 240px; /* Further increased width of video for easier clicking */
         height: 160px; /* Adjusted height to fit within card */
@@ -541,17 +535,20 @@ h2#setTitle {
 
     /* Style for each exercise card */
     .exercise-card {
-    width: auto; /* Allow flexible width */
-    height: auto; /* Dynamic height */
+    flex-shrink: 0;
+    display: inline-flex;
+    width: 180px;
+    scroll-snap-align: start;
+    margin-right: 20px; /* Increased margin to add more space between videos */
 }
    
 
     /* Ensure videos are consistently sized */
-    .exercise-card video {
-    width: 100%; /* Allow videos to scale dynamically */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Prevent distortions */
-    max-width: 100%; /* Prevent overflow */
+.exercise-card video {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
 }
 
 .exercise-card video.playing {
@@ -963,7 +960,7 @@ h2#setTitle {
    <!-- Exercise 1 / Barre au front & Chaise -->
 <div class="exercise-card">
     <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-        <video controls playsinline allowfullscreen src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
+        <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
                 alt="Barre au front + Chaise"
                 poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front.png"></video>
         <p>Barre au front + Chaise</p>
@@ -2077,60 +2074,28 @@ window.onload = function() {
 };
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll("video");
-
-    // Function to pause all other videos
-    const pauseOtherVideos = (currentVideo) => {
-        videos.forEach(video => {
-            if (video !== currentVideo) {
-                video.pause();
-                video.currentTime = 0; // Reset time for a seamless user experience
-                video.classList.remove("playing");
-            }
-        });
-    };
-
-    // Function to handle fullscreen toggle
-    const toggleFullscreen = (element) => {
-        if (!document.fullscreenElement) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) {
-                element.msRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
-        }
-    };
-
     videos.forEach(video => {
-        // Play/pause functionality on click or touch
-        const playPauseVideo = () => {
+        video.addEventListener("click", () => {
+            if (!video.paused) {
+                video.pause();
+            } else {
+                video.play();
+            }
+
+ // Handle Play/Pause Smoothly
+document.addEventListener("DOMContentLoaded", () => {
+    const videoCards = document.querySelectorAll(".exercise-card video");
+
+    videoCards.forEach((video) => {
+        video.addEventListener("click", (e) => {
             if (video.paused) {
-                pauseOtherVideos(video); // Pause other videos before playing
                 video.play();
             } else {
                 video.pause();
             }
-        };
-
-        // Click event for play/pause
-        video.addEventListener("click", playPauseVideo);
-
-        // Touchstart event for play/pause (mobile)
-        video.addEventListener("touchstart", (e) => {
-            e.preventDefault(); // Prevent default touch behavior
-            playPauseVideo();
         });
 
-        // Visual feedback for play state
+        // Add indicator for video playing
         video.addEventListener("play", () => {
             video.classList.add("playing");
         });
@@ -2138,48 +2103,24 @@ document.addEventListener("DOMContentLoaded", function () {
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
         });
-
-        // Add expand button
-        const expandButton = document.createElement("button");
-        expandButton.innerHTML = "⤢"; // Unicode for expand arrows
-        expandButton.style.position = "absolute";
-        expandButton.style.bottom = "10px";
-        expandButton.style.right = "10px";
-        expandButton.style.background = "rgba(0, 0, 0, 0.5)";
-        expandButton.style.color = "#fff";
-        expandButton.style.border = "none";
-        expandButton.style.padding = "5px 10px";
-        expandButton.style.borderRadius = "5px";
-        expandButton.style.cursor = "pointer";
-        expandButton.style.zIndex = "1000";
-
-        // Append button to the video container
-        const videoContainer = video.parentElement;
-        videoContainer.style.position = "relative"; // Ensure parent is positioned
-        videoContainer.appendChild(expandButton);
-
-        // Handle fullscreen toggle on expand button click
-        expandButton.addEventListener("click", (e) => {
-            e.stopPropagation(); // Prevent triggering video play/pause
-            toggleFullscreen(videoContainer);
-        });
-
-        // Preload videos to reduce lag
-        video.preload = "metadata";
     });
+});
 
-    // Adjust video dimensions dynamically
-    const adjustVideoDimensions = () => {
-        const isMobile = window.innerWidth < 768;
-        videos.forEach(video => {
-            video.style.width = isMobile ? "95%" : "100%";
+// Adjust Video Responsiveness Dynamically
+window.addEventListener("resize", () => {
+    const videos = document.querySelectorAll(".exercise-card video");
+    videos.forEach((video) => {
+        if (window.innerWidth < 768) {
+            video.style.width = "90%";
             video.style.height = "auto";
+        } else {
+            video.style.width = "100%";
+            video.style.height = "auto";
+        }
+    });
+});           
         });
-    };
-
-    // Adjust on load and resize
-    adjustVideoDimensions();
-    window.addEventListener("resize", adjustVideoDimensions);
+    });
 });
 </script>
 </body>
