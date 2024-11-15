@@ -2075,16 +2075,34 @@ window.onload = function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null; // Track the currently playing video
+    let isTouchEvent = false; // Track if a touch event occurred
 
     // Select all video elements
     const videos = document.querySelectorAll("video");
+
+    const playVideo = (video) => {
+        if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+            currentlyPlayingVideo.pause(); // Pause any currently playing video
+            currentlyPlayingVideo.classList.remove("playing");
+        }
+        video.play();
+        video.classList.add("playing");
+        currentlyPlayingVideo = video;
+    };
+
+    const pauseVideo = (video) => {
+        video.pause();
+        video.classList.remove("playing");
+        if (currentlyPlayingVideo === video) {
+            currentlyPlayingVideo = null;
+        }
+    };
 
     videos.forEach((video) => {
         // Play event: ensure only one video plays at a time
         video.addEventListener("play", () => {
             if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-                currentlyPlayingVideo.classList.remove("playing");
+                pauseVideo(currentlyPlayingVideo);
             }
             currentlyPlayingVideo = video;
             video.classList.add("playing");
@@ -2098,17 +2116,24 @@ document.addEventListener("DOMContentLoaded", function () {
             video.classList.remove("playing");
         });
 
-        // Click event: toggle play/pause
-        video.addEventListener("click", () => {
+        // Click or touch event: toggle play/pause
+        const handleInteraction = () => {
             if (video.paused) {
-                video.play();
+                playVideo(video);
             } else {
-                video.pause();
+                pauseVideo(video);
             }
+        };
+
+        video.addEventListener("click", handleInteraction);
+        video.addEventListener("touchstart", (e) => {
+            isTouchEvent = true;
+            handleInteraction();
+            e.preventDefault(); // Prevent additional click events
         });
     });
 
-    // Adjust video responsiveness dynamically on window resize
+    // Adjust video responsiveness dynamically
     const adjustVideoSizes = () => {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
@@ -2123,6 +2148,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     adjustVideoSizes(); // Initial adjustment
     window.addEventListener("resize", adjustVideoSizes); // Adjust on resize
+
+    // Add visual feedback for touch events
+    videos.forEach((video) => {
+        video.addEventListener("touchstart", () => {
+            video.style.transition = "transform 0.2s ease";
+            video.style.transform = "scale(1.05)"; // Slight zoom on touch
+        });
+        video.addEventListener("touchend", () => {
+            video.style.transform = "scale(1)";
+        });
+    });
 });
 </script>
 </body>
