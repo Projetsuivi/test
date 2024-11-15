@@ -2074,47 +2074,13 @@ window.onload = function() {
 };
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll("video");
-
-    videos.forEach((video) => {
-        // Event listener for play
-        video.addEventListener("play", () => {
-            // Pause all other videos
-            videos.forEach((otherVideo) => {
-                if (otherVideo !== video) {
-                    otherVideo.pause();
-                }
-            });
-
-            // Add playing indicator
-            video.classList.add("playing");
-        });
-
-        // Event listener for pause
-        video.addEventListener("pause", () => {
-            video.classList.remove("playing");
-        });
-
-        // Adjust video responsiveness dynamically
-        const resizeVideo = () => {
-            if (window.innerWidth < 768) {
-                video.style.width = "90%";
-                video.style.height = "auto";
+    videos.forEach(video => {
+        video.addEventListener("click", () => {
+            if (!video.paused) {
+                video.pause();
             } else {
-                video.style.width = "100%";
-                video.style.height = "auto";
+                video.play();
             }
-        };
-
-        // Call on load and on resize
-        resizeVideo();
-        window.addEventListener("resize", resizeVideo);
-    });
-});
-
-// Ensure videos start quickly
-document.querySelectorAll("video").forEach((video) => {
-    video.preload = "metadata";
-});
 
  // Handle Play/Pause Smoothly
 document.addEventListener("DOMContentLoaded", () => {
