@@ -2082,19 +2082,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 video.play();
             }
 
-// Handle Play/Pause Smoothly
+ // Handle Play/Pause Smoothly
 document.addEventListener("DOMContentLoaded", () => {
     const videoCards = document.querySelectorAll(".exercise-card video");
 
     videoCards.forEach((video) => {
-        // Ensure 'playsinline' is set for all videos
-        video.setAttribute("playsinline", true);
-
-        // Play/pause functionality on click
-        video.addEventListener("click", () => {
-            // Pause any other playing videos
-            pauseOtherVideos(videoCards, video);
-
+        video.addEventListener("click", (e) => {
             if (video.paused) {
                 video.play();
             } else {
@@ -2102,7 +2095,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Add 'playing' class for visual feedback
+        // Add indicator for video playing
         video.addEventListener("play", () => {
             video.classList.add("playing");
         });
@@ -2111,34 +2104,24 @@ document.addEventListener("DOMContentLoaded", () => {
             video.classList.remove("playing");
         });
     });
-
-    // Responsive resizing for videos
-    adjustVideoSizes(videoCards);
-    window.addEventListener("resize", () => adjustVideoSizes(videoCards));
 });
 
-// Pause all other videos when one starts playing
-function pauseOtherVideos(allVideos, currentVideo) {
-    allVideos.forEach((video) => {
-        if (video !== currentVideo && !video.paused) {
-            video.pause();
-        }
-    });
-}
-
-// Dynamically adjust video sizes based on screen width
-function adjustVideoSizes(videos) {
-    const isMobile = window.innerWidth < 768;
+// Adjust Video Responsiveness Dynamically
+window.addEventListener("resize", () => {
+    const videos = document.querySelectorAll(".exercise-card video");
     videos.forEach((video) => {
-        if (isMobile) {
-            video.style.width = "100%"; // Full width for mobile
+        if (window.innerWidth < 768) {
+            video.style.width = "90%";
             video.style.height = "auto";
         } else {
-            video.style.width = "100%"; // Default to full width for desktop too
-            video.style.height = "260px"; // Fixed height for larger screens
+            video.style.width = "100%";
+            video.style.height = "auto";
         }
     });
-}
+});           
+        });
+    });
+});
 </script>
 </body>
 </html>
