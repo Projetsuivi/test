@@ -2075,22 +2075,22 @@ window.onload = function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
-    let isTouchDevice = false;
 
     const cloneAndReplaceVideo = (originalVideo) => {
-        // Clone the video
+        // Clone the video element
         const clonedVideo = originalVideo.cloneNode(true);
+
+        // Ensure the cloned video is visible and plays seamlessly
+        clonedVideo.addEventListener("canplay", () => {
+            clonedVideo.play();
+        });
 
         // Replace the original video with the cloned one
         originalVideo.parentNode.replaceChild(clonedVideo, originalVideo);
 
-        // Continue playing the cloned video
-        clonedVideo.play();
-
-        // Attach play/pause event listeners to the cloned video
+        // Attach event listeners to the cloned video
         clonedVideo.addEventListener("play", () => {
             console.log("Playing cloned video:", clonedVideo.src);
-            cloneAndReplaceVideo(clonedVideo); // Clone on every play action
         });
 
         clonedVideo.addEventListener("pause", () => {
@@ -2101,49 +2101,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     videos.forEach((video) => {
-        let isTouch = false;
-
-        // Handle play action for both click and touch
-        const handlePlay = () => {
+        video.addEventListener("play", () => {
             cloneAndReplaceVideo(video);
-        };
-
-        // Touch handling for mobile devices
-        video.addEventListener("touchstart", (event) => {
-            isTouchDevice = true; // Mark as touch device
-            event.preventDefault(); // Prevent default scrolling
-            isTouch = true;
-            handlePlay();
-        });
-
-        // Debounce touch actions
-        video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100); // Short debounce
-        });
-
-        // Mouse click handling
-        video.addEventListener("click", () => {
-            if (!isTouch) {
-                handlePlay();
-            }
         });
     });
-
-    // Adjust video sizes dynamically for better touch accessibility
-    const adjustVideoSize = () => {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "100%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "280px";
-                video.style.height = "180px";
-            }
-        });
-    };
-
-    adjustVideoSize();
-    window.addEventListener("resize", adjustVideoSize);
 });
 </script>
 </body>
