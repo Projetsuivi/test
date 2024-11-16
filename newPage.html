@@ -2077,47 +2077,55 @@ document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
     let isTouchDevice = false;
 
+    const cloneAndReplaceVideo = (originalVideo) => {
+        // Clone the video
+        const clonedVideo = originalVideo.cloneNode(true);
+
+        // Replace the original video with the cloned one
+        originalVideo.parentNode.replaceChild(clonedVideo, originalVideo);
+
+        // Continue playing the cloned video
+        clonedVideo.play();
+
+        // Attach play/pause event listeners to the cloned video
+        clonedVideo.addEventListener("play", () => {
+            console.log("Playing cloned video:", clonedVideo.src);
+            cloneAndReplaceVideo(clonedVideo); // Clone on every play action
+        });
+
+        clonedVideo.addEventListener("pause", () => {
+            console.log("Paused cloned video:", clonedVideo.src);
+        });
+
+        return clonedVideo;
+    };
+
     videos.forEach((video) => {
         let isTouch = false;
 
-        // Function to handle play/pause
-        const togglePlayPause = () => {
-            if (video.paused) {
-                video.play();
-                console.log("Playing:", video.src);
-            } else {
-                video.pause();
-                console.log("Paused:", video.src);
-            }
+        // Handle play action for both click and touch
+        const handlePlay = () => {
+            cloneAndReplaceVideo(video);
         };
 
-        // Handle touchstart event
+        // Touch handling for mobile devices
         video.addEventListener("touchstart", (event) => {
-            isTouchDevice = true; // Mark as a touch device
+            isTouchDevice = true; // Mark as touch device
             event.preventDefault(); // Prevent default scrolling
             isTouch = true;
-            togglePlayPause();
+            handlePlay();
         });
 
-        // Handle touchend to debounce touch interactions
+        // Debounce touch actions
         video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100); // Debounce touch
+            setTimeout(() => (isTouch = false), 100); // Short debounce
         });
 
-        // Handle click event only if it's not a touch interaction
+        // Mouse click handling
         video.addEventListener("click", () => {
             if (!isTouch) {
-                togglePlayPause();
+                handlePlay();
             }
-        });
-
-        // Ensure only one video plays at a time
-        video.addEventListener("play", () => {
-            videos.forEach((otherVideo) => {
-                if (otherVideo !== video && !otherVideo.paused) {
-                    otherVideo.pause();
-                }
-            });
         });
     });
 
@@ -2137,9 +2145,6 @@ document.addEventListener("DOMContentLoaded", function () {
     adjustVideoSize();
     window.addEventListener("resize", adjustVideoSize);
 });
-
-video.addEventListener("play", () => console.log("Playing:", video.src));
-video.addEventListener("pause", () => console.log("Paused:", video.src));
 </script>
 </body>
 </html>
