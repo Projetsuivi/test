@@ -2073,28 +2073,28 @@ window.onload = function() {
     addDragAndDropListeners();
 };
 
-   document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         const videoBankVideos = document.querySelectorAll(".video-bank-container video");
 
         videoBankVideos.forEach((video) => {
             video.addEventListener("click", function () {
                 // Clone the video element
                 const clonedVideo = video.cloneNode(true);
-                clonedVideo.classList.add("cloned-video"); // Add a custom class to identify cloned videos
 
-                // Insert the cloned video after the original one
-                video.parentElement.appendChild(clonedVideo);
-
-                // Automatically play the cloned video
+                // Démarre automatiquement la vidéo clonée
                 clonedVideo.play();
 
-                // Optional: Add an event listener to remove the cloned video when it finishes playing
+                // Remplace la vidéo initiale par le clone
+                video.parentElement.replaceChild(clonedVideo, video);
+
+                // Optionnel : Ajouter un événement pour détecter quand la vidéo est terminée
                 clonedVideo.addEventListener("ended", () => {
-                    clonedVideo.remove();
+                    console.log("Vidéo terminée :", clonedVideo.src);
                 });
             });
         });
     });
+</script>
 </script>
 </body>
 </html>
