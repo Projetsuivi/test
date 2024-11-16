@@ -2074,23 +2074,71 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+    let currentlyPlayingVideo = null;
+
     const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
+        let isTouch = false;
+
+        // Handle play/pause on first interaction (click or touch)
+        const togglePlayPause = () => {
+            if (video.paused) {
+                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                    currentlyPlayingVideo.pause();
+                }
+                video.play();
+                currentlyPlayingVideo = video;
+            } else {
+                video.pause();
+                currentlyPlayingVideo = null;
+            }
+        };
+
+        // Attach event listeners for both click and touchstart
+        video.addEventListener("click", togglePlayPause);
+        video.addEventListener("touchstart", (event) => {
+            event.preventDefault(); // Prevent default scrolling behavior
+            isTouch = true;
+            togglePlayPause();
+        });
+
+        // Ensure only one video plays at a time
         video.addEventListener("play", () => {
-            // Clone the video
-            const clonedVideo = video.cloneNode(true);
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+            }
+            currentlyPlayingVideo = video;
+        });
 
-            // Replace the original video with the cloned video
-            video.parentNode.replaceChild(clonedVideo, video);
+        // Clear reference when video pauses
+        video.addEventListener("pause", () => {
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null;
+            }
+        });
 
-            // Add event listeners to the cloned video to handle future play/pause events
-            clonedVideo.addEventListener("play", () => {
-                const newClone = clonedVideo.cloneNode(true);
-                clonedVideo.parentNode.replaceChild(newClone, clonedVideo);
-            });
+        // Reset touch state to prevent overlap with clicks
+        video.addEventListener("touchend", () => {
+            setTimeout(() => (isTouch = false), 100); // Short debounce
         });
     });
+
+    // Dynamically adjust video sizes for responsiveness
+    const adjustVideoSize = () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "180px";
+            }
+        });
+    };
+
+    adjustVideoSize();
+    window.addEventListener("resize", adjustVideoSize);
 });
 
 video.addEventListener("play", () => console.log("Playing:", video.src));
