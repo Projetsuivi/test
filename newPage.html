@@ -2076,31 +2076,32 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    videos.forEach((video) => {
-        // S'assurer que la vidéo est prête à lire
-        video.preload = "metadata"; // Charger uniquement les métadonnées pour éviter des délais excessifs
+    // Vérifier si l'appareil est mobile
+    const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-        // Assurer une lecture inline sur mobile
-        video.playsInline = true;
+    // Fonction pour basculer entre lecture et pause
+    const togglePlayPause = (video) => {
+        if (video.paused) {
+            video.play().catch((err) => console.error("Erreur lors de la lecture:", err));
+        } else {
+            video.pause();
+        }
+    };
 
-        // Ajout d'un comportement de play/pause fluide
-        video.addEventListener("click", function () {
-            if (video.paused) {
-                // Pause les autres vidéos avant de lire la vidéo actuelle
-                videos.forEach((v) => {
-                    if (v !== video) v.pause();
-                });
-                video.play();
-            } else {
-                video.pause();
-            }
+    if (isMobile) {
+        videos.forEach((video) => {
+            // Configurations optimisées pour mobile
+            video.setAttribute("playsinline", ""); // Assurer une lecture en ligne sur mobile
+            video.setAttribute("muted", ""); // Lecture silencieuse par défaut pour compatibilité
+            video.setAttribute("preload", "auto"); // Précharger les vidéos pour éviter les lags
+
+            // Ajouter l'événement tactile pour lecture/pause
+            video.addEventListener("touchstart", () => togglePlayPause(video));
+
+            // Ajouter l'événement clic pour lecture/pause
+            video.addEventListener("click", () => togglePlayPause(video));
         });
-
-        // Gestion d'erreur pour la lecture
-        video.addEventListener("error", function (event) {
-            console.error("Erreur de lecture de la vidéo : ", event, video.src);
-        });
-    });
+    }
 });
 </script>
 </body>
