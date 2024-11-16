@@ -2074,69 +2074,80 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
-    let touchTimeout = null;
+    const videos = document.querySelectorAll("video");
 
-    // Function to toggle play/pause
-    function togglePlayPause(video) {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-    }
+    videos.forEach((video) => {
+        // Preload video data for faster playback
+        video.preload = "auto"; // Ensure preloading is enabled
+        video.playsInline = true; // Prevent fullscreen on mobile
+        video.muted = true; // Mute videos for autoplay compatibility
+        video.load(); // Load video data immediately
 
-    // Function to handle touch and click events
-    function handleVideoInteraction(event, video) {
-        event.preventDefault(); // Prevent default touch behavior
-        clearTimeout(touchTimeout); // Clear any pending double-tap detection
+        // Handle the play event to ensure only one video plays at a time
+        let currentlyPlayingVideo = null;
 
-        touchTimeout = setTimeout(() => {
-            // Toggle play/pause
-            togglePlayPause(video);
-
-            // Manage currently playing video
-            if (!video.paused) {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
-                currentlyPlayingVideo = video;
-            } else {
-                currentlyPlayingVideo = null;
+        video.addEventListener("play", () => {
+            // Pause other videos if currently playing
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+                currentlyPlayingVideo.classList.remove("playing");
             }
-        }, 150); // Debounce delay (150ms to allow quick touch events)
-    }
-
-    // Add event listeners to all video elements
-    function setupVideoListeners() {
-        const videos = document.querySelectorAll("video");
-
-        videos.forEach((video) => {
-            // Touch event for mobile
-            video.addEventListener("touchstart", (event) => handleVideoInteraction(event, video));
-
-            // Click event for desktop
-            video.addEventListener("click", (event) => handleVideoInteraction(event, video));
-
-            // Play event to track the active video
-            video.addEventListener("play", () => {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
-                currentlyPlayingVideo = video;
-            });
-
-            // Pause event to clear the active video
-            video.addEventListener("pause", () => {
-                if (currentlyPlayingVideo === video) {
-                    currentlyPlayingVideo = null;
-                }
-            });
+            currentlyPlayingVideo = video; // Set the current video as playing
+            video.classList.add("playing");
         });
-    }
 
-    // Initialize video listeners on page load
-    setupVideoListeners();
+        // Remove the 'playing' class when paused
+        video.addEventListener("pause", () => {
+            video.classList.remove("playing");
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null; // Clear reference if paused
+            }
+        });
+
+        // Play or pause the video on click
+        video.addEventListener("click", () => {
+            if (video.readyState >= 2) {
+                // Ready to play immediately
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            } else {
+                // Wait for video to be ready if not fully loaded
+                video.addEventListener(
+                    "canplay",
+                    () => {
+                        video.play();
+                    },
+                    { once: true }
+                );
+            }
+        });
+
+        // Prefetch a small portion of the video for immediate playback
+        video.addEventListener("canplay", () => {
+            video.currentTime = 0.01; // Buffer a small segment
+        });
+    });
+
+    // Lazy-loading for better performance (optional for many videos)
+    const lazyVideos = document.querySelectorAll("video[data-src]");
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const lazyVideo = entry.target;
+                if (lazyVideo.dataset.src) {
+                    lazyVideo.src = lazyVideo.dataset.src;
+                    lazyVideo.load(); // Start loading the video
+                    observer.unobserve(lazyVideo); // Stop observing once loaded
+                }
+            }
+        });
+    });
+
+    lazyVideos.forEach((video) => observer.observe(video));
 });
 </script>
 </body>
