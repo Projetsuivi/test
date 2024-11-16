@@ -2074,67 +2074,23 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
-
     const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
-        // Function to toggle play/pause
-        const togglePlayPause = (video) => {
-            if (video.paused) {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
-                video.play();
-                currentlyPlayingVideo = video;
-            } else {
-                video.pause();
-            }
-        };
-
-        // Handle touchstart for instant play/pause
-        video.addEventListener("touchstart", (event) => {
-            event.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
-            togglePlayPause(video);
-        });
-
-        // Handle click for non-touch devices
-        video.addEventListener("click", () => {
-            togglePlayPause(video);
-        });
-
-        // Ensure only one video plays at a time
         video.addEventListener("play", () => {
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-            }
-            currentlyPlayingVideo = video;
-        });
+            // Clone the video
+            const clonedVideo = video.cloneNode(true);
 
-        // Clear the currently playing reference when a video pauses
-        video.addEventListener("pause", () => {
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
+            // Replace the original video with the cloned video
+            video.parentNode.replaceChild(clonedVideo, video);
+
+            // Add event listeners to the cloned video to handle future play/pause events
+            clonedVideo.addEventListener("play", () => {
+                const newClone = clonedVideo.cloneNode(true);
+                clonedVideo.parentNode.replaceChild(newClone, clonedVideo);
+            });
         });
     });
-
-    // Resize videos dynamically for better responsiveness
-    function adjustVideoSize() {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "100%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "280px";
-                video.style.height = "180px";
-            }
-        });
-    }
-
-    // Adjust video size on load and window resize
-    adjustVideoSize();
-    window.addEventListener("resize", adjustVideoSize);
 });
 
 video.addEventListener("play", () => console.log("Playing:", video.src));
