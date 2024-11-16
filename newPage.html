@@ -494,8 +494,8 @@ h2#setTitle {
         top: 0px;
         left: 0;
         right: 0;
-        width: 100%;
-        height: auto;
+        width: 100vw;
+        height: 285px;
         overflow-x: auto;
         overflow-y: hidden;
         display: flex;
@@ -2079,10 +2079,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
-        // Track touch interaction
         let isTouch = false;
 
-        // Fonction pour basculer play/pause
+        // Handle play/pause on first interaction (click or touch)
         const togglePlayPause = () => {
             if (video.paused) {
                 if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
@@ -2096,26 +2095,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-        // Gérer les événements tactiles
+        // Attach event listeners for both click and touchstart
+        video.addEventListener("click", togglePlayPause);
         video.addEventListener("touchstart", (event) => {
-            event.preventDefault(); // Évite le défilement pendant l'interaction
+            event.preventDefault(); // Prevent default scrolling behavior
             isTouch = true;
             togglePlayPause();
         });
 
-        // Gérer les clics de souris
-        video.addEventListener("click", () => {
-            if (!isTouch) {
-                togglePlayPause();
-            }
-        });
-
-        // Réinitialiser l'état tactile après un bref délai
-        video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100);
-        });
-
-        // Assurer qu'une seule vidéo est en lecture à la fois
+        // Ensure only one video plays at a time
         video.addEventListener("play", () => {
             if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                 currentlyPlayingVideo.pause();
@@ -2123,18 +2111,38 @@ document.addEventListener("DOMContentLoaded", function () {
             currentlyPlayingVideo = video;
         });
 
+        // Clear reference when video pauses
         video.addEventListener("pause", () => {
             if (currentlyPlayingVideo === video) {
                 currentlyPlayingVideo = null;
             }
         });
+
+        // Reset touch state to prevent overlap with clicks
+        video.addEventListener("touchend", () => {
+            setTimeout(() => (isTouch = false), 100); // Short debounce
+        });
     });
+
+    // Dynamically adjust video sizes for responsiveness
+    const adjustVideoSize = () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "180px";
+            }
+        });
+    };
+
+    adjustVideoSize();
+    window.addEventListener("resize", adjustVideoSize);
 });
 
-    video.addEventListener("touchstart", (event) => {
-    event.preventDefault();
-    togglePlayPause();
-}, { passive: false });
+video.addEventListener("play", () => console.log("Playing:", video.src));
+video.addEventListener("pause", () => console.log("Paused:", video.src));
 </script>
 </body>
 </html>
