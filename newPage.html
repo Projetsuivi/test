@@ -375,7 +375,13 @@ h2#setTitle {
         object-fit: contain;
         border-radius: 4px;
     }
-
+.video-bank-container video {
+    width: 100%; /* Adapter la largeur à l'écran */
+    max-width: 300px; /* Limiter la taille si nécessaire */
+    height: auto; /* Maintenir le ratio */
+    display: block;
+    object-fit: contain; /* Préserve les proportions */
+}
 
     #setTitle {
         font-size: 3rem; /* Increase title font size */
@@ -2073,76 +2079,25 @@ window.onload = function() {
     addDragAndDropListeners();
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
+const videos = document.querySelectorAll(".video-bank-container video");
 
-    const videos = document.querySelectorAll(".video-bank-container video");
-
-    videos.forEach((video) => {
-        let isTouch = false;
-
-        // Handle play/pause on first interaction (click or touch)
-        const togglePlayPause = () => {
-            if (video.paused) {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
-                video.play();
-                currentlyPlayingVideo = video;
-            } else {
-                video.pause();
-                currentlyPlayingVideo = null;
-            }
-        };
-
-        // Attach event listeners for both click and touchstart
-        video.addEventListener("click", togglePlayPause);
-        video.addEventListener("touchstart", (event) => {
-            event.preventDefault(); // Prevent default scrolling behavior
-            isTouch = true;
-            togglePlayPause();
-        });
-
-        // Ensure only one video plays at a time
-        video.addEventListener("play", () => {
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-            }
-            currentlyPlayingVideo = video;
-        });
-
-        // Clear reference when video pauses
-        video.addEventListener("pause", () => {
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
-        });
-
-        // Reset touch state to prevent overlap with clicks
-        video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100); // Short debounce
-        });
+videos.forEach((video) => {
+    video.addEventListener("touchstart", (event) => {
+        event.preventDefault(); // Évite les comportements par défaut
+        if (video.paused) {
+            video.play().catch((err) => console.log("Erreur de lecture :", err));
+        } else {
+            video.pause();
+        }
     });
 
-    // Dynamically adjust video sizes for responsiveness
-    const adjustVideoSize = () => {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "100%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "280px";
-                video.style.height = "180px";
-            }
-        });
-    };
+    video.addEventListener("play", () => {
+        console.log("Lecture commencée :", video.src);
+    });
 
-    adjustVideoSize();
-    window.addEventListener("resize", adjustVideoSize);
-});
-
-video.addEventListener("play", () => console.log("Playing:", video.src));
-video.addEventListener("pause", () => console.log("Paused:", video.src));
+    video.addEventListener("pause", () => {
+        console.log("Lecture en pause :", video.src);
+    });
 </script>
 </body>
 </html>
