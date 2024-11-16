@@ -960,7 +960,7 @@ h2#setTitle {
    <!-- Exercise 1 / Barre au front & Chaise -->
 <div class="exercise-card">
     <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-        <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
+        <video playsinline muted preload="auto" src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
                 alt="Barre au front + Chaise"
                 poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front.png"></video>
         <p>Barre au front + Chaise</p>
@@ -2076,29 +2076,28 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    // Fonction pour basculer lecture/pause
-    const togglePlayPause = (video) => {
-        if (video.paused) {
-            video.play().catch((err) => {
-                console.error("Erreur de lecture : ", err);
-                video.muted = true; // Réactive le mode muet si nécessaire pour mobile
-                video.play(); // Essaye de rejouer la vidéo
-            });
-        } else {
-            video.pause();
-        }
-    };
-
+    // Précharger toutes les vidéos
     videos.forEach((video) => {
-        // Assurer la compatibilité mobile
-        video.setAttribute("playsinline", ""); // Lecture en ligne (évite la lecture plein écran sur iOS)
-        video.setAttribute("muted", ""); // Silencieux par défaut pour éviter les restrictions
-        video.setAttribute("preload", "auto"); // Précharge la vidéo pour un démarrage instantané
-        video.setAttribute("autoplay", ""); // Active le démarrage automatique (si autorisé)
+        // Précharger les métadonnées pour garantir que la vidéo est prête
+        video.load();
+        
+        // Forcer un préchargement actif pour s'assurer que la vidéo est prête à jouer
+        video.addEventListener("canplaythrough", () => {
+            console.log(`Vidéo prête : ${video.src}`);
+        });
 
-        // Gérer les événements "touchstart" (mobile) et "click" (desktop)
-        video.addEventListener("touchstart", () => togglePlayPause(video));
-        video.addEventListener("click", () => togglePlayPause(video));
+        // Activer la lecture dès le premier touché
+        const togglePlayPause = () => {
+            if (video.paused) {
+                video.play().catch((err) => console.error("Erreur lors de la lecture:", err));
+            } else {
+                video.pause();
+            }
+        };
+
+        // Gérer les clics et touchés
+        video.addEventListener("click", togglePlayPause);
+        video.addEventListener("touchstart", togglePlayPause);
     });
 });
 </script>
