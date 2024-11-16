@@ -960,7 +960,7 @@ h2#setTitle {
    <!-- Exercise 1 / Barre au front & Chaise -->
 <div class="exercise-card">
     <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-        <video playsinline muted preload="auto" src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
+        <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
                 alt="Barre au front + Chaise"
                 poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front.png"></video>
         <p>Barre au front + Chaise</p>
@@ -2074,32 +2074,75 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+    let currentlyPlayingVideo = null;
+
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    // Précharger toutes les vidéos
     videos.forEach((video) => {
-        // Précharger les métadonnées pour garantir que la vidéo est prête
-        video.load();
-        
-        // Forcer un préchargement actif pour s'assurer que la vidéo est prête à jouer
-        video.addEventListener("canplaythrough", () => {
-            console.log(`Vidéo prête : ${video.src}`);
-        });
+        let isTouch = false;
 
-        // Activer la lecture dès le premier touché
+        // Handle play/pause on first interaction (click or touch)
         const togglePlayPause = () => {
             if (video.paused) {
-                video.play().catch((err) => console.error("Erreur lors de la lecture:", err));
+                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                    currentlyPlayingVideo.pause();
+                }
+                video.play();
+                currentlyPlayingVideo = video;
             } else {
                 video.pause();
+                currentlyPlayingVideo = null;
             }
         };
 
-        // Gérer les clics et touchés
+        // Attach event listeners for both click and touchstart
         video.addEventListener("click", togglePlayPause);
-        video.addEventListener("touchstart", togglePlayPause);
+        video.addEventListener("touchstart", (event) => {
+            event.preventDefault(); // Prevent default scrolling behavior
+            isTouch = true;
+            togglePlayPause();
+        });
+
+        // Ensure only one video plays at a time
+        video.addEventListener("play", () => {
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+            }
+            currentlyPlayingVideo = video;
+        });
+
+        // Clear reference when video pauses
+        video.addEventListener("pause", () => {
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null;
+            }
+        });
+
+        // Reset touch state to prevent overlap with clicks
+        video.addEventListener("touchend", () => {
+            setTimeout(() => (isTouch = false), 100); // Short debounce
+        });
     });
+
+    // Dynamically adjust video sizes for responsiveness
+    const adjustVideoSize = () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "180px";
+            }
+        });
+    };
+
+    adjustVideoSize();
+    window.addEventListener("resize", adjustVideoSize);
 });
+
+video.addEventListener("play", () => console.log("Playing:", video.src));
+video.addEventListener("pause", () => console.log("Paused:", video.src));
 </script>
 </body>
 </html>
