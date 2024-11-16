@@ -134,16 +134,15 @@ body {
 }
 
 .exercise-slot-placeholder {
-    width: 100%; /* Allow it to stretch based on parent container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100px; /* Reduced width for smaller screens */
+    height: 60px; /* Adjusted height for proportion */
     background-color: transparent;
+    margin-bottom: 5px;
+    margin-left: 30px; /* Aligns placeholder more to the left */
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the video in the slot */
-    border: 2px solid #FF8A65; /* Optional: To highlight the slot */
-    border-radius: 8px;
-    padding: 10px; /* Optional padding for better spacing */
-    box-sizing: border-box; /* Ensure padding doesn't overflow */
+    justify-content: flex-start; /* Aligns video to the left */
+    object-fit: contain;
 }
 
 .exercise-slot-placeholder video {
@@ -152,15 +151,6 @@ body {
     object-fit: contain;
     border-radius: inherit;
 }
-
-/* Ensure videos are scaled properly within the placeholder */
-.exercise-slot-placeholder .cloned-video video {
-    width: 100%; /* Stretch to the container's width */
-    max-width: 600px; /* Limit the width for larger screens */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Match the slot's rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-}        
 
         .slider-group label {
     font-size: 0.5rem;       /* Increase font size for better readability */
