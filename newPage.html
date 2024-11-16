@@ -2076,32 +2076,31 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    // Function to detect if the user is on a mobile device
-    const isMobile = () => {
-        return "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-    };
+    videos.forEach((video) => {
+        // S'assurer que la vidéo est prête à lire
+        video.preload = "metadata"; // Charger uniquement les métadonnées pour éviter des délais excessifs
 
-    if (isMobile()) {
-        videos.forEach((video) => {
-            // Optimize for fast playback
-            video.setAttribute("preload", "auto"); // Preload entire video for smoother interaction
-            video.setAttribute("playsinline", ""); // Allow inline playback
-            video.setAttribute("muted", ""); // Mute for autoplay compatibility
+        // Assurer une lecture inline sur mobile
+        video.playsInline = true;
 
-            // Toggle play/pause on click
-            video.addEventListener("click", () => {
-                if (video.paused) {
-                    if (video.readyState >= 3) { // Ensure the video is ready to play
-                        video.play().catch((error) => {
-                            console.error("Error playing video:", error);
-                        });
-                    }
-                } else {
-                    video.pause();
-                }
-            });
+        // Ajout d'un comportement de play/pause fluide
+        video.addEventListener("click", function () {
+            if (video.paused) {
+                // Pause les autres vidéos avant de lire la vidéo actuelle
+                videos.forEach((v) => {
+                    if (v !== video) v.pause();
+                });
+                video.play();
+            } else {
+                video.pause();
+            }
         });
-    }
+
+        // Gestion d'erreur pour la lecture
+        video.addEventListener("error", function (event) {
+            console.error("Erreur de lecture de la vidéo : ", event, video.src);
+        });
+    });
 });
 </script>
 </body>
