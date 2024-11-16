@@ -376,6 +376,17 @@ h2#setTitle {
         border-radius: 4px;
     }
 
+    .video-bank-container video {
+    padding: 10px; /* Increases the touchable area */
+    margin: -10px; /* Compensates for padding so layout is unchanged */
+    box-sizing: content-box; /* Ensures padding is outside the visible area */
+    border-radius: 8px; /* Maintains the rounded appearance */
+}
+
+.video-bank-container .exercise-card {
+    touch-action: manipulation; /* Optimizes touch response */
+}
+
 
     #setTitle {
         font-size: 3rem; /* Increase title font size */
@@ -2074,75 +2085,38 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
-
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    videos.forEach((video) => {
-        let isTouch = false;
-
-        // Handle play/pause on first interaction (click or touch)
-        const togglePlayPause = () => {
-            if (video.paused) {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
-                video.play();
-                currentlyPlayingVideo = video;
-            } else {
-                video.pause();
-                currentlyPlayingVideo = null;
-            }
-        };
-
-        // Attach event listeners for both click and touchstart
-        video.addEventListener("click", togglePlayPause);
-        video.addEventListener("touchstart", (event) => {
-            event.preventDefault(); // Prevent default scrolling behavior
-            isTouch = true;
-            togglePlayPause();
-        });
-
-        // Ensure only one video plays at a time
-        video.addEventListener("play", () => {
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-            }
-            currentlyPlayingVideo = video;
-        });
-
-        // Clear reference when video pauses
-        video.addEventListener("pause", () => {
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
-        });
-
-        // Reset touch state to prevent overlap with clicks
-        video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100); // Short debounce
-        });
-    });
-
-    // Dynamically adjust video sizes for responsiveness
-    const adjustVideoSize = () => {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "100%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "280px";
-                video.style.height = "180px";
-            }
-        });
+    // Function to detect if the user is on a mobile device
+    const isMobile = () => {
+        return "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     };
 
-    adjustVideoSize();
-    window.addEventListener("resize", adjustVideoSize);
-});
+    if (isMobile()) {
+        videos.forEach((video) => {
+            // Enable quick touch responsiveness
+            video.setAttribute("preload", "auto"); // Preload for better performance
+            video.setAttribute("playsinline", ""); // Inline playback for mobile
+            video.setAttribute("muted", ""); // Mute to comply with autoplay policies
 
-video.addEventListener("play", () => console.log("Playing:", video.src));
-video.addEventListener("pause", () => console.log("Paused:", video.src));
+            // Touch event listeners
+            video.addEventListener("touchstart", (event) => {
+                if (video.paused) {
+                    if (video.readyState >= 3) {
+                        video.play().catch((error) => {
+                            console.error("Error playing video:", error);
+                        });
+                    }
+                } else {
+                    video.pause();
+                }
+
+                // Prevent unintended scroll during touch
+                event.preventDefault();
+            });
+        });
+    }
+});
 </script>
 </body>
 </html>
