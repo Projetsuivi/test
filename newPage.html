@@ -2076,19 +2076,15 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
-    // Select all video elements within the video bank
     const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
-        // Toggle play/pause on user interaction
+        // Toggle play/pause on click
         video.addEventListener("click", () => {
             if (video.paused) {
-                // Pause any currently playing video
                 if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                     currentlyPlayingVideo.pause();
                 }
-
-                // Play the clicked video
                 video.play();
                 currentlyPlayingVideo = video;
             } else {
@@ -2096,7 +2092,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Ensure only one video is playing at a time
+        // Ensure only one video plays at a time
         video.addEventListener("play", () => {
             if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                 currentlyPlayingVideo.pause();
@@ -2104,7 +2100,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentlyPlayingVideo = video;
         });
 
-        // Clear reference if video is paused
+        // Clear the currently playing reference when a video pauses
         video.addEventListener("pause", () => {
             if (currentlyPlayingVideo === video) {
                 currentlyPlayingVideo = null;
@@ -2112,7 +2108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Adjust video size dynamically for better responsiveness on small screens
+    // Resize videos dynamically for better responsiveness
     function adjustVideoSize() {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
@@ -2125,7 +2121,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Adjust video sizes on load and resize
+    // Adjust video size on load and window resize
     adjustVideoSize();
     window.addEventListener("resize", adjustVideoSize);
 });
