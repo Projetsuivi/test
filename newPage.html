@@ -2085,37 +2085,33 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll(".video-bank-container video");
+    // Fonction pour gérer les clics/touch des vidéos
+    function setupVideoInteraction(video) {
+        video.addEventListener("click", () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
 
-    // Function to detect if the user is on a mobile device
-    const isMobile = () => {
-        return "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-    };
-
-    if (isMobile()) {
-        videos.forEach((video) => {
-            // Enable quick touch responsiveness
-            video.setAttribute("preload", "auto"); // Preload for better performance
-            video.setAttribute("playsinline", ""); // Inline playback for mobile
-            video.setAttribute("muted", ""); // Mute to comply with autoplay policies
-
-            // Touch event listeners
-            video.addEventListener("touchstart", (event) => {
-                if (video.paused) {
-                    if (video.readyState >= 3) {
-                        video.play().catch((error) => {
-                            console.error("Error playing video:", error);
-                        });
-                    }
-                } else {
-                    video.pause();
-                }
-
-                // Prevent unintended scroll during touch
-                event.preventDefault();
-            });
+        video.addEventListener("touchstart", (event) => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+            event.preventDefault(); // Évite les actions par défaut (ex. scrolling)
         });
     }
+
+    // Sélectionner toutes les vidéos dans la banque ET dans les emplacements d'exercices
+    const allVideos = document.querySelectorAll(".video-bank-container video, .exercise-slot-placeholder video");
+
+    // Appliquer le comportement de lecture/pause sur toutes les vidéos
+    allVideos.forEach((video) => {
+        setupVideoInteraction(video);
+    });
 });
 </script>
 </body>
