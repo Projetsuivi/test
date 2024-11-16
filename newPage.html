@@ -169,11 +169,14 @@ body {
 
 .video-bank {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Default to vertical layout */
+    align-items: flex-start;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 20px; /* Spacing between videos */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
+
 
         /* Sticky Video bank container */
 .video-bank-container {
@@ -2151,6 +2154,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 video.style.width = "100%";
                 video.style.height = "auto";
             }
+            // Function to adjust the layout of the video bank dynamically
+function updateVideoBankLayout() {
+    const videoBank = document.querySelector(".video-bank");
+
+    if (window.innerWidth <= 768) {
+        // Set to horizontal scrolling for mobile
+        videoBank.style.flexDirection = "row";
+        videoBank.style.overflowX = "auto";
+        videoBank.style.overflowY = "hidden";
+    } else {
+        // Set to vertical layout for desktop
+        videoBank.style.flexDirection = "column";
+        videoBank.style.overflowX = "hidden";
+        videoBank.style.overflowY = "auto";
+    }
+}
+
+// Call on page load and window resize
+window.addEventListener("load", updateVideoBankLayout);
+window.addEventListener("resize", updateVideoBankLayout);
         });
     });
 });
