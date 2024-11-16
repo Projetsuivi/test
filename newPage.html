@@ -2088,26 +2088,16 @@ document.addEventListener("DOMContentLoaded", function () {
             video.setAttribute("playsinline", ""); // Allow inline playback
             video.setAttribute("muted", ""); // Mute for autoplay compatibility
 
-            // Event to start video playback
-            video.addEventListener("pointerenter", () => {
-                if (video.readyState >= 3) { // Ensure video is ready to play
-                    video.play().catch((error) => {
-                        console.error("Error playing video:", error);
-                    });
-                }
-            });
-
-            // Event to pause video playback
-            video.addEventListener("pointerleave", () => {
-                video.pause();
-            });
-
-            // Ensure immediate response to pointer movements
-            video.addEventListener("pointermove", () => {
-                if (video.paused && video.readyState >= 3) {
-                    video.play().catch((error) => {
-                        console.error("Error resuming video:", error);
-                    });
+            // Toggle play/pause on click
+            video.addEventListener("click", () => {
+                if (video.paused) {
+                    if (video.readyState >= 3) { // Ensure the video is ready to play
+                        video.play().catch((error) => {
+                            console.error("Error playing video:", error);
+                        });
+                    }
+                } else {
+                    video.pause();
                 }
             });
         });
