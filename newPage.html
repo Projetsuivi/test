@@ -2084,33 +2084,38 @@ window.onload = function() {
     addDragAndDropListeners();
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Fonction pour gérer les clics/touch des vidéos
-    function setupVideoInteraction(video) {
-        video.addEventListener("click", () => {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        });
+ocument.addEventListener("DOMContentLoaded", function () {
+    const videoBankVideos = document.querySelectorAll(".video-bank-container video");
+    const clonedVideos = document.querySelectorAll(".cloned-video video");
 
-        video.addEventListener("touchstart", (event) => {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-            event.preventDefault(); // Évite les actions par défaut (ex. scrolling)
-        });
+    // Fonction pour gérer play/pause
+    function togglePlayPause(video) {
+        if (video.paused) {
+            // Pause toutes les autres vidéos
+            const allVideos = document.querySelectorAll("video");
+            allVideos.forEach((v) => {
+                if (!v.paused) {
+                    v.pause();
+                }
+            });
+
+            // Lecture de la vidéo sélectionnée
+            video.play().catch((error) => {
+                console.error("Erreur lors de la lecture de la vidéo :", error);
+            });
+        } else {
+            video.pause();
+        }
     }
 
-    // Sélectionner toutes les vidéos dans la banque ET dans les emplacements d'exercices
-    const allVideos = document.querySelectorAll(".video-bank-container video, .exercise-slot-placeholder video");
+    // Ajouter des événements pour les vidéos dans la Video Bank
+    videoBankVideos.forEach((video) => {
+        video.addEventListener("click", () => togglePlayPause(video));
+    });
 
-    // Appliquer le comportement de lecture/pause sur toutes les vidéos
-    allVideos.forEach((video) => {
-        setupVideoInteraction(video);
+    // Ajouter des événements pour les vidéos clonées
+    clonedVideos.forEach((video) => {
+        video.addEventListener("click", () => togglePlayPause(video));
     });
 });
 </script>
