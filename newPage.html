@@ -2076,32 +2076,24 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     const videos = document.querySelectorAll(".video-bank-container video");
 
-    // Vérifier si l'appareil est mobile
-    const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
-    // Fonction pour basculer entre lecture et pause
-    const togglePlayPause = (video) => {
-        if (video.paused) {
-            video.play().catch((err) => console.error("Erreur lors de la lecture:", err));
-        } else {
-            video.pause();
-        }
-    };
-
-    if (isMobile) {
-        videos.forEach((video) => {
-            // Configurations optimisées pour mobile
-            video.setAttribute("playsinline", ""); // Assurer une lecture en ligne sur mobile
-            video.setAttribute("muted", ""); // Lecture silencieuse par défaut pour compatibilité
-            video.setAttribute("preload", "auto"); // Précharger les vidéos pour éviter les lags
-
-            // Ajouter l'événement tactile pour lecture/pause
-            video.addEventListener("touchstart", () => togglePlayPause(video));
-
-            // Ajouter l'événement clic pour lecture/pause
-            video.addEventListener("click", () => togglePlayPause(video));
+    videos.forEach((video) => {
+        // Ajouter un événement de clic à chaque vidéo
+        video.addEventListener("click", function () {
+            // Si la vidéo est en pause, la lecture démarre, sinon elle s'arrête
+            if (this.paused) {
+                this.play();
+            } else {
+                this.pause();
+            }
         });
-    }
+
+        // Pour éviter qu'un clic sur les contrôles natifs ne déclenche le clic
+        video.addEventListener("play", function () {
+            videos.forEach((v) => {
+                if (v !== this) v.pause(); // Arrêter les autres vidéos si une seule doit jouer
+            });
+        });
+    });
 });
 </script>
 </body>
