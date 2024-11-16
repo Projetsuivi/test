@@ -172,7 +172,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px; /* Adjust spacing between videos as needed */
+    gap: 20px;
 }
 
         /* Sticky Video bank container */
@@ -1891,6 +1891,23 @@ function prevSet() {
     updateTitle();
 }
 
+unction updateLayout() {
+    const videoBank = document.querySelector(".video-bank");
+
+    if (window.innerWidth <= 768) {
+        // Mobile: Set horizontal layout
+        videoBank.style.flexDirection = "row";
+        videoBank.style.overflowX = "auto";
+    } else {
+        // Desktop: Set column layout
+        videoBank.style.flexDirection = "column";
+        videoBank.style.overflowX = "hidden";
+    }
+}
+
+// Call this function on page load and on window resize
+window.onload = updateLayout;
+window.onresize = updateLayout;
 // Function to update the title of the current set
 function updateTitle() {
     const titles = [
