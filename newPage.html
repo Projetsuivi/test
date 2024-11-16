@@ -2083,31 +2083,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isMobile()) {
         videos.forEach((video) => {
-            // Add attributes for seamless playback on mobile
-            video.setAttribute("preload", "metadata");
-            video.setAttribute("playsinline", ""); // Allow inline playback on mobile
-            video.setAttribute("muted", ""); // Mute the video to avoid autoplay restrictions
+            // Optimize for fast playback
+            video.setAttribute("preload", "auto"); // Preload entire video for smoother interaction
+            video.setAttribute("playsinline", ""); // Allow inline playback
+            video.setAttribute("muted", ""); // Mute for autoplay compatibility
 
-            // Start playing as soon as the user touches or interacts with the video
-            video.addEventListener("pointerdown", () => {
-                video.play();
-            });
-
-            // Pause the video only after the user leaves the video area
-            video.addEventListener("pointerleave", () => {
-                setTimeout(() => {
-                    video.pause();
-                }, 100);
-            });
-
-            // Resume playback if the user re-enters the video area
+            // Event to start video playback
             video.addEventListener("pointerenter", () => {
-                video.play();
+                if (video.readyState >= 3) { // Ensure video is ready to play
+                    video.play().catch((error) => {
+                        console.error("Error playing video:", error);
+                    });
+                }
             });
 
-            // Prevent accidental pauses on light taps by ignoring `pointerup`
-            video.addEventListener("pointerup", (event) => {
-                event.preventDefault(); // Prevent default pause behavior on tap
+            // Event to pause video playback
+            video.addEventListener("pointerleave", () => {
+                video.pause();
+            });
+
+            // Ensure immediate response to pointer movements
+            video.addEventListener("pointermove", () => {
+                if (video.paused && video.readyState >= 3) {
+                    video.play().catch((error) => {
+                        console.error("Error resuming video:", error);
+                    });
+                }
             });
         });
     }
