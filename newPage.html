@@ -376,17 +376,6 @@ h2#setTitle {
         border-radius: 4px;
     }
 
-    .video-bank-container video {
-    padding: 10px; /* Increases the touchable area */
-    margin: -10px; /* Compensates for padding so layout is unchanged */
-    box-sizing: content-box; /* Ensures padding is outside the visible area */
-    border-radius: 8px; /* Maintains the rounded appearance */
-}
-
-.video-bank-container .exercise-card {
-    touch-action: manipulation; /* Optimizes touch response */
-}
-
 
     #setTitle {
         font-size: 3rem; /* Increase title font size */
@@ -2085,34 +2074,75 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Sélectionner toutes les vidéos dans la Video Bank et les vidéos clonées
-    const allVideos = document.querySelectorAll(".video-bank-container video, .cloned-video video");
+    let currentlyPlayingVideo = null;
 
-    // Fonction pour gérer la lecture/pause
-    function togglePlayPause(video) {
-        if (video.paused) {
-            // Pause toutes les autres vidéos
-            allVideos.forEach((v) => {
-                if (!v.paused) {
-                    v.pause();
+    const videos = document.querySelectorAll(".video-bank-container video");
+
+    videos.forEach((video) => {
+        let isTouch = false;
+
+        // Handle play/pause on first interaction (click or touch)
+        const togglePlayPause = () => {
+            if (video.paused) {
+                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                    currentlyPlayingVideo.pause();
                 }
-            });
+                video.play();
+                currentlyPlayingVideo = video;
+            } else {
+                video.pause();
+                currentlyPlayingVideo = null;
+            }
+        };
 
-            // Lecture de la vidéo actuelle
-            video.play().catch((error) => {
-                console.error("Erreur lors de la lecture de la vidéo :", error);
-            });
-        } else {
-            video.pause();
-        }
-    }
+        // Attach event listeners for both click and touchstart
+        video.addEventListener("click", togglePlayPause);
+        video.addEventListener("touchstart", (event) => {
+            event.preventDefault(); // Prevent default scrolling behavior
+            isTouch = true;
+            togglePlayPause();
+        });
 
-    // Appliquer les événements click à toutes les vidéos
-    allVideos.forEach((video) => {
-        video.addEventListener("click", () => togglePlayPause(video));
+        // Ensure only one video plays at a time
+        video.addEventListener("play", () => {
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+            }
+            currentlyPlayingVideo = video;
+        });
+
+        // Clear reference when video pauses
+        video.addEventListener("pause", () => {
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null;
+            }
+        });
+
+        // Reset touch state to prevent overlap with clicks
+        video.addEventListener("touchend", () => {
+            setTimeout(() => (isTouch = false), 100); // Short debounce
+        });
     });
+
+    // Dynamically adjust video sizes for responsiveness
+    const adjustVideoSize = () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "180px";
+            }
+        });
+    };
+
+    adjustVideoSize();
+    window.addEventListener("resize", adjustVideoSize);
 });
 
+video.addEventListener("play", () => console.log("Playing:", video.src));
+video.addEventListener("pause", () => console.log("Paused:", video.src));
 </script>
 </body>
 </html>
