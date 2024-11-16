@@ -2074,57 +2074,54 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    let currentlyPlayingVideo = null;
-
     const videos = document.querySelectorAll(".video-bank-container video");
+    let isTouchDevice = false;
 
     videos.forEach((video) => {
         let isTouch = false;
 
-        // Handle play/pause on first interaction (click or touch)
+        // Function to handle play/pause
         const togglePlayPause = () => {
             if (video.paused) {
-                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                    currentlyPlayingVideo.pause();
-                }
                 video.play();
-                currentlyPlayingVideo = video;
+                console.log("Playing:", video.src);
             } else {
                 video.pause();
-                currentlyPlayingVideo = null;
+                console.log("Paused:", video.src);
             }
         };
 
-        // Attach event listeners for both click and touchstart
-        video.addEventListener("click", togglePlayPause);
+        // Handle touchstart event
         video.addEventListener("touchstart", (event) => {
-            event.preventDefault(); // Prevent default scrolling behavior
+            isTouchDevice = true; // Mark as a touch device
+            event.preventDefault(); // Prevent default scrolling
             isTouch = true;
             togglePlayPause();
         });
 
+        // Handle touchend to debounce touch interactions
+        video.addEventListener("touchend", () => {
+            setTimeout(() => (isTouch = false), 100); // Debounce touch
+        });
+
+        // Handle click event only if it's not a touch interaction
+        video.addEventListener("click", () => {
+            if (!isTouch) {
+                togglePlayPause();
+            }
+        });
+
         // Ensure only one video plays at a time
         video.addEventListener("play", () => {
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-            }
-            currentlyPlayingVideo = video;
-        });
-
-        // Clear reference when video pauses
-        video.addEventListener("pause", () => {
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
-        });
-
-        // Reset touch state to prevent overlap with clicks
-        video.addEventListener("touchend", () => {
-            setTimeout(() => (isTouch = false), 100); // Short debounce
+            videos.forEach((otherVideo) => {
+                if (otherVideo !== video && !otherVideo.paused) {
+                    otherVideo.pause();
+                }
+            });
         });
     });
 
-    // Dynamically adjust video sizes for responsiveness
+    // Adjust video sizes dynamically for better touch accessibility
     const adjustVideoSize = () => {
         videos.forEach((video) => {
             if (window.innerWidth < 768) {
