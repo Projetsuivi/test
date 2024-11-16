@@ -2071,68 +2071,90 @@ window.onload = function() {
     addDragAndDropListeners();
 };
 
-         document.addEventListener("DOMContentLoaded", function () {
-        let currentlyPlayingVideo = null;
+        document.addEventListener("DOMContentLoaded", function () {
+    let currentlyPlayingVideo = null; // Track currently playing video
+    let lastTapTime = 0; // Prevent rapid toggling
+    
+    // Function to toggle play/pause
+    function togglePlayPause(video) {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
 
-        // Function to handle play/pause toggle
-        function togglePlayPause(video) {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
+    // Function to handle video play/pause
+    function handleVideoInteraction(event, video) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTapTime < 300) return; // Debounce: Ignore rapid taps
+        lastTapTime = currentTime;
+
+        togglePlayPause(video);
+
+        // If playing, pause any other video
+        if (!video.paused) {
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
             }
+            currentlyPlayingVideo = video;
+        } else if (currentlyPlayingVideo === video) {
+            currentlyPlayingVideo = null;
+        }
+    }
+
+    // Function to add event listeners to videos
+    function attachVideoListeners(video) {
+        // Ensure previous listeners are removed by replacing the element
+        const newVideo = video.cloneNode(true);
+        video.parentNode.replaceChild(newVideo, video);
+
+        // Add click listener
+        newVideo.addEventListener("click", function (event) {
+            handleVideoInteraction(event, newVideo);
+        });
+
+        // Add touch listener for mobile
+        newVideo.addEventListener("touchstart", function (event) {
+            event.preventDefault(); // Prevent default touch behavior
+            handleVideoInteraction(event, newVideo);
+        });
+
+        return newVideo;
+    }
+
+    // Function to reapply listeners to all videos (including new ones)
+    function reapplyListeners() {
+        const videos = document.querySelectorAll(".exercise-card video, .cloned-video video");
+        videos.forEach(attachVideoListeners);
+    }
+
+    // Initial application of listeners
+    reapplyListeners();
+
+    // Reapply listeners when videos are dynamically added/moved
+    window.moveVideoToRow = function (selectElement, videoId) {
+        // Your existing code for moving videos
+        const videoBankElement = document.getElementById(videoId);
+        const clonedVideo = videoBankElement.cloneNode(true);
+        clonedVideo.removeAttribute("id"); // Ensure no duplicate IDs
+        clonedVideo.classList.add("cloned-video");
+        
+        // Hide dropdown and title in the cloned element
+        clonedVideo.querySelector("select")?.remove();
+        clonedVideo.querySelector("p")?.style.display = "none";
+
+        // Place video in the selected slot
+        const targetSlot = document.querySelector(`#${selectElement.value}`);
+        if (targetSlot) {
+            targetSlot.innerHTML = ""; // Clear existing content
+            targetSlot.appendChild(clonedVideo);
         }
 
-        // Function to add event listeners to all videos
-        function addVideoEventListeners() {
-            const videos = document.querySelectorAll(".exercise-card video, .cloned-video video");
-
-            videos.forEach((video) => {
-                // Replace the video element to remove existing event listeners
-                const newVideo = video.cloneNode(true);
-                video.parentNode.replaceChild(newVideo, video);
-
-                // Attach new event listeners
-                newVideo.addEventListener("click", function () {
-                    togglePlayPause(newVideo);
-                });
-
-                // Quick touch response
-                newVideo.addEventListener("touchstart", function (e) {
-                    e.preventDefault(); // Prevent default touch behavior
-                    togglePlayPause(newVideo);
-                });
-
-                // Handle play event
-                newVideo.addEventListener("play", function () {
-                    // Pause any other playing video
-                    if (currentlyPlayingVideo && currentlyPlayingVideo !== newVideo) {
-                        currentlyPlayingVideo.pause();
-                    }
-                    currentlyPlayingVideo = newVideo;
-                });
-
-                // Handle pause event
-                newVideo.addEventListener("pause", function () {
-                    if (currentlyPlayingVideo === newVideo) {
-                        currentlyPlayingVideo = null;
-                    }
-                });
-            });
-        }
-
-        // Initial call to add event listeners
-        addVideoEventListeners();
-
-        // Expose moveVideoToRow to the global scope
-        window.moveVideoToRow = function (selectElement, videoId) {
-            // Existing code for moving videos
-            // ...
-
-            // After cloning a video, re-add event listeners
-            addVideoEventListeners();
-        };
-    });
+        // Reapply event listeners to the cloned video
+        attachVideoListeners(clonedVideo);
+    };
+});
 </script>
 </body>
 </html>
