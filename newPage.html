@@ -2076,56 +2076,62 @@ window.onload = function() {
 document.addEventListener("DOMContentLoaded", function () {
     let currentlyPlayingVideo = null;
 
-    // Select all video elements
-    const videos = document.querySelectorAll(".video-card video");
+    // Select all video elements within the video bank
+    const videos = document.querySelectorAll(".video-bank-container video");
 
     videos.forEach((video) => {
-        // Handle play event
-        video.addEventListener("play", () => {
-            // Pause the currently playing video, if any
-            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
-                currentlyPlayingVideo.pause();
-                currentlyPlayingVideo.classList.remove("playing");
-            }
-
-            // Set the new currently playing video
-            currentlyPlayingVideo = video;
-            video.classList.add("playing");
-        });
-
-        // Handle pause event
-        video.addEventListener("pause", () => {
-            video.classList.remove("playing");
-
-            // Clear the current video reference if paused
-            if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null;
-            }
-        });
-
-        // Toggle play/pause on click
+        // Toggle play/pause on user interaction
         video.addEventListener("click", () => {
             if (video.paused) {
+                // Pause any currently playing video
+                if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                    currentlyPlayingVideo.pause();
+                }
+
+                // Play the clicked video
                 video.play();
+                currentlyPlayingVideo = video;
             } else {
                 video.pause();
             }
         });
-    });
 
-    // Adjust video responsiveness dynamically on window resize
-    window.addEventListener("resize", () => {
-        videos.forEach((video) => {
-            if (window.innerWidth < 768) {
-                video.style.width = "90%";
-                video.style.height = "auto";
-            } else {
-                video.style.width = "100%";
-                video.style.height = "auto";
+        // Ensure only one video is playing at a time
+        video.addEventListener("play", () => {
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
+                currentlyPlayingVideo.pause();
+            }
+            currentlyPlayingVideo = video;
+        });
+
+        // Clear reference if video is paused
+        video.addEventListener("pause", () => {
+            if (currentlyPlayingVideo === video) {
+                currentlyPlayingVideo = null;
             }
         });
     });
+
+    // Adjust video size dynamically for better responsiveness on small screens
+    function adjustVideoSize() {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "280px";
+                video.style.height = "180px";
+            }
+        });
+    }
+
+    // Adjust video sizes on load and resize
+    adjustVideoSize();
+    window.addEventListener("resize", adjustVideoSize);
 });
+
+video.addEventListener("play", () => console.log("Playing:", video.src));
+video.addEventListener("pause", () => console.log("Paused:", video.src));
 </script>
 </body>
 </html>
