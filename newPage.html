@@ -2074,80 +2074,57 @@ window.onload = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll("video");
+    let currentlyPlayingVideo = null;
+
+    // Select all video elements
+    const videos = document.querySelectorAll(".video-card video");
 
     videos.forEach((video) => {
-        // Preload video data for faster playback
-        video.preload = "auto"; // Ensure preloading is enabled
-        video.playsInline = true; // Prevent fullscreen on mobile
-        video.muted = true; // Mute videos for autoplay compatibility
-        video.load(); // Load video data immediately
-
-        // Handle the play event to ensure only one video plays at a time
-        let currentlyPlayingVideo = null;
-
+        // Handle play event
         video.addEventListener("play", () => {
-            // Pause other videos if currently playing
+            // Pause the currently playing video, if any
             if (currentlyPlayingVideo && currentlyPlayingVideo !== video) {
                 currentlyPlayingVideo.pause();
                 currentlyPlayingVideo.classList.remove("playing");
             }
-            currentlyPlayingVideo = video; // Set the current video as playing
+
+            // Set the new currently playing video
+            currentlyPlayingVideo = video;
             video.classList.add("playing");
         });
 
-        // Remove the 'playing' class when paused
+        // Handle pause event
         video.addEventListener("pause", () => {
             video.classList.remove("playing");
+
+            // Clear the current video reference if paused
             if (currentlyPlayingVideo === video) {
-                currentlyPlayingVideo = null; // Clear reference if paused
+                currentlyPlayingVideo = null;
             }
         });
 
-        // Play or pause the video on click
+        // Toggle play/pause on click
         video.addEventListener("click", () => {
-            if (video.readyState >= 2) {
-                // Ready to play immediately
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
+            if (video.paused) {
+                video.play();
             } else {
-                // Wait for video to be ready if not fully loaded
-                video.addEventListener(
-                    "canplay",
-                    () => {
-                        video.play();
-                    },
-                    { once: true }
-                );
-            }
-        });
-
-        // Prefetch a small portion of the video for immediate playback
-        video.addEventListener("canplay", () => {
-            video.currentTime = 0.01; // Buffer a small segment
-        });
-    });
-
-    // Lazy-loading for better performance (optional for many videos)
-    const lazyVideos = document.querySelectorAll("video[data-src]");
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const lazyVideo = entry.target;
-                if (lazyVideo.dataset.src) {
-                    lazyVideo.src = lazyVideo.dataset.src;
-                    lazyVideo.load(); // Start loading the video
-                    observer.unobserve(lazyVideo); // Stop observing once loaded
-                }
+                video.pause();
             }
         });
     });
 
-    lazyVideos.forEach((video) => observer.observe(video));
+    // Adjust video responsiveness dynamically on window resize
+    window.addEventListener("resize", () => {
+        videos.forEach((video) => {
+            if (window.innerWidth < 768) {
+                video.style.width = "90%";
+                video.style.height = "auto";
+            } else {
+                video.style.width = "100%";
+                video.style.height = "auto";
+            }
+        });
+    });
 });
 </script>
 </body>
