@@ -2084,22 +2084,21 @@ window.onload = function() {
     addDragAndDropListeners();
 };
 
-ocument.addEventListener("DOMContentLoaded", function () {
-    const videoBankVideos = document.querySelectorAll(".video-bank-container video");
-    const clonedVideos = document.querySelectorAll(".cloned-video video");
+document.addEventListener("DOMContentLoaded", function () {
+    // Sélectionner toutes les vidéos dans la Video Bank et les vidéos clonées
+    const allVideos = document.querySelectorAll(".video-bank-container video, .cloned-video video");
 
-    // Fonction pour gérer play/pause
+    // Fonction pour gérer la lecture/pause
     function togglePlayPause(video) {
         if (video.paused) {
             // Pause toutes les autres vidéos
-            const allVideos = document.querySelectorAll("video");
             allVideos.forEach((v) => {
                 if (!v.paused) {
                     v.pause();
                 }
             });
 
-            // Lecture de la vidéo sélectionnée
+            // Lecture de la vidéo actuelle
             video.play().catch((error) => {
                 console.error("Erreur lors de la lecture de la vidéo :", error);
             });
@@ -2108,16 +2107,12 @@ ocument.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Ajouter des événements pour les vidéos dans la Video Bank
-    videoBankVideos.forEach((video) => {
-        video.addEventListener("click", () => togglePlayPause(video));
-    });
-
-    // Ajouter des événements pour les vidéos clonées
-    clonedVideos.forEach((video) => {
+    // Appliquer les événements click à toutes les vidéos
+    allVideos.forEach((video) => {
         video.addEventListener("click", () => togglePlayPause(video));
     });
 });
+
 </script>
 </body>
 </html>
