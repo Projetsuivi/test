@@ -1910,13 +1910,13 @@ function displayCurrentDate() {
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotIndex = parseInt(selectElement.value.replace("slot", "")) - 1;
     const videoBankElement = document.getElementById(videoId);
-    const previousSlotIndex = videoBankElement.getAttribute("data-current-slot");
-
     const exerciseSlots = document.querySelectorAll(".exercise-slot-placeholder");
+
+    const previousSlotIndex = videoBankElement.getAttribute("data-current-slot");
     const previousSlot = exerciseSlots[previousSlotIndex];
 
-    // Clear previous slot if it exists
-    if (previousSlot && previousSlotIndex != selectedSlotIndex) {
+    // Clear the previous slot if necessary
+    if (previousSlot && previousSlotIndex !== selectedSlotIndex) {
         previousSlot.innerHTML = '';
     }
 
@@ -1927,8 +1927,6 @@ function moveVideoToRow(selectElement, videoId) {
 
     // Remove dropdown and any duplicate title
     clonedVideo.querySelector("select")?.remove();
-    const existingTitle = clonedVideo.querySelector("p");
-    if (existingTitle) existingTitle.remove();
 
     // Create a container for the cloned video
     const clonedVideoContainer = document.createElement("div");
@@ -1937,7 +1935,7 @@ function moveVideoToRow(selectElement, videoId) {
     // Add cloned video to the container
     clonedVideoContainer.appendChild(clonedVideo);
 
-    // Add title explicitly if needed
+    // Add title
     const videoTitle = videoBankElement.querySelector("p").textContent;
     const titleElement = document.createElement("p");
     titleElement.textContent = videoTitle;
@@ -1949,6 +1947,14 @@ function moveVideoToRow(selectElement, videoId) {
     if (targetSlot) {
         targetSlot.innerHTML = '';
         targetSlot.appendChild(clonedVideoContainer);
+    }
+
+    // For mobile: Append title near exercise number
+    const exerciseNumber = targetSlot.parentElement.querySelector(".exercise-number");
+    if (window.innerWidth <= 900 && exerciseNumber) {
+        exerciseNumber.insertAdjacentElement('beforeend', titleElement);
+    } else {
+        clonedVideoContainer.appendChild(titleElement); // Ensure title is back below the video for desktop
     }
 
     // Update the video's current slot
