@@ -146,10 +146,11 @@ body {
 }
 
 .exercise-slot-placeholder video {
-    width: 150px;  /* Fixed width */
-    height: 100px; /* Fixed height */
-    object-fit: contain;
-    border-radius: inherit;
+    width: 100%; /* Ajuste la vidéo à la largeur du conteneur */
+    height: 250px; /* Définissez une hauteur appropriée */
+    object-fit: cover; /* Adapte la vidéo à l'espace sans déformation */
+    border-radius: 8px; /* Optionnel : coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre */
 }
 
         .slider-group label {
