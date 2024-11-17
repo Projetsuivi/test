@@ -1855,6 +1855,7 @@ let currentSet = 1;  // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
+// Function to navigate to the next set
 function nextSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
     if (currentElement) {
@@ -1864,7 +1865,8 @@ function nextSet() {
     currentSet = (currentSet % totalSets) + 1;
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
-        nextElement.style.display = 'flex';
+        nextElement.style.display = 'flex'; // Ensure display is 'flex'
+        nextElement.style.flexDirection = 'column'; // Force column layout
     }
 
     updateTitle();
@@ -1880,7 +1882,8 @@ function prevSet() {
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
-        prevElement.style.display = 'flex';
+        prevElement.style.display = 'flex'; // Ensure display is 'flex'
+        prevElement.style.flexDirection = 'column'; // Force column layout
     }
 
     updateTitle();
