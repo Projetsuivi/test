@@ -2073,6 +2073,15 @@ window.onload = function() {
 };
 
     document.addEventListener("DOMContentLoaded", function () {
+    const exerciseRows = document.querySelectorAll(".exercise-row");
+
+    exerciseRows.forEach(row => {
+        const videoTitle = row.querySelector(".cloned-video-title");
+        const exerciseNumber = row.querySelector(".exercise-number");
+        if (videoTitle && exerciseNumber) {
+            exerciseNumber.insertAdjacentElement("afterend", videoTitle);
+        }
+    document.addEventListener("DOMContentLoaded", function () {
         const videoBankVideos = document.querySelectorAll(".video-bank-container video");
 
         videoBankVideos.forEach((video) => {
