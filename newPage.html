@@ -335,22 +335,6 @@ body {
     object-fit: contain; /* Maintain aspect ratio while fitting */
     border-radius: 8px; /* Optional: Add some rounding for aesthetics */
 }
-        
- .exercise-slot-placeholder .cloned-video p {
-        display: block; /* Ensure titles are visible */
-        text-align: center;
-        font-size: 0.9rem; /* Adjust font size as needed */
-        margin-top: 8px; /* Add spacing below the video */
-    }
-
- .cloned-video p {
-    display: block; /* Ensure titles are visible */
-    text-align: center;
-    font-size: 1rem; /* Adjust font size as needed */
-    margin-top: 10px; /* Add spacing below the video */
-    color: #333;
-    font-weight: bold;
-}       
            
 @media (max-width: 900px) {
     body, .container, .exercise-card p, .exercise-number, h1, h2, .slider-group label, .rest-group label, .exercise-dropdown {
@@ -1946,16 +1930,10 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
     clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
-    // Ensure the title is visible
+    // Hide dropdown and title in the cloned element
     const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) {
-        titleElement.style.display = "block"; // Ensure the title is shown
-        titleElement.style.textAlign = "center"; // Center-align the title for better appearance
-        titleElement.style.marginTop = "10px"; // Add some spacing
-    }
-
-    // Remove dropdown in the cloned element
-    clonedVideo.querySelector("select")?.remove();
+    if (titleElement) titleElement.style.display = "none"; // Hide the title
+    clonedVideo.querySelector("select")?.remove(); // Remove dropdown
 
     // Set video size
     const videoElement = clonedVideo.querySelector("video");
@@ -1971,15 +1949,16 @@ function moveVideoToRow(selectElement, videoId) {
         targetSlot.appendChild(clonedVideo); // Add the cloned video
 
         // Update exercise number with video title on smaller screens
-        const exerciseNumber = targetSlot.previousElementSibling;
-        if (exerciseNumber) {
-            exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
+        if (window.innerWidth <= 768) {
+            const exerciseNumber = targetSlot.previousElementSibling;
+            if (exerciseNumber) {
+                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
+            }
         }
     }
 
     // Update data attribute to track the current slot where the video is placed
     videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
-}
 }
 async function exportSession() {
     let contentToExport = `
