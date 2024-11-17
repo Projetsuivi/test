@@ -1930,31 +1930,34 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
     clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
-    // Hide dropdown and title in the cloned element
-    const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) titleElement.style.display = "none"; // Hide the title
+    // Hide dropdown in the cloned element
     clonedVideo.querySelector("select")?.remove(); // Remove dropdown
+
+    // Create a container for the cloned video and its title
+    const clonedVideoContainer = document.createElement("div");
+    clonedVideoContainer.className = "cloned-video-container";
 
     // Set video size
     const videoElement = clonedVideo.querySelector("video");
     if (videoElement) {
         videoElement.style.width = "100%";
-        videoElement.style.height = "100%";
+        videoElement.style.height = "auto";
     }
 
-    // Place the cloned video into the selected slot
+    // Add the cloned video to the container
+    clonedVideoContainer.appendChild(clonedVideo);
+
+    // Add the title to the container
+    const titleElement = document.createElement("p");
+    titleElement.textContent = videoTitle;
+    titleElement.className = "cloned-video-title";
+    clonedVideoContainer.appendChild(titleElement);
+
+    // Place the cloned video container into the selected slot
     const targetSlot = exerciseSlots[selectedSlotIndex];
     if (targetSlot) {
         targetSlot.innerHTML = ''; // Clear any previous content in the slot
-        targetSlot.appendChild(clonedVideo); // Add the cloned video
-
-        // Update exercise number with video title on smaller screens
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling;
-            if (exerciseNumber) {
-                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
-            }
-        }
+        targetSlot.appendChild(clonedVideoContainer); // Add the cloned video container
     }
 
     // Update data attribute to track the current slot where the video is placed
