@@ -329,6 +329,13 @@ body {
     background-size: cover;
     background-attachment: scroll;
 }
+
+.cloned-video video {
+    width: 100%; /* Ensure it fills the width of the slot */
+    height: 100%; /* Ensure it fills the height of the slot */
+    object-fit: contain; /* Maintain aspect ratio while fitting */
+    border-radius: 8px; /* Optional: Add some rounding for aesthetics */
+}
            
 @media (max-width: 900px) {
     body, .container, .exercise-card p, .exercise-number, h1, h2, .slider-group label, .rest-group label, .exercise-dropdown {
