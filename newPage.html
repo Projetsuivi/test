@@ -1978,6 +1978,12 @@ function moveVideoToRow(selectElement, videoId) {
         targetSlot.innerHTML = ''; // Clear any previous content in the slot
         targetSlot.appendChild(clonedVideo); // Add the cloned video
 
+        // Check and remove any existing title in the target slot
+        const existingTitle = targetSlot.querySelector(".video-title");
+        if (existingTitle) {
+            existingTitle.remove();
+        }
+
         // Add title below the video only on larger screens
         if (window.innerWidth > 900) {
             const titleElement = document.createElement("p");
@@ -1990,7 +1996,6 @@ function moveVideoToRow(selectElement, videoId) {
     // Update data attribute to track the current slot where the video is placed
     videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
 }
-
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
