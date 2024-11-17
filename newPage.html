@@ -1851,10 +1851,9 @@ h2#setTitle {
 
            
 <script>
-let currentSet = 1;  // Start with Set 1
+let currentSet = 1; // Start with Set 1
 const totalSets = 6; // Total number of sets
 
-// Function to navigate to the next set
 // Function to navigate to the next set
 function nextSet() {
     const currentElement = document.getElementById(`exerciseSet${currentSet}`);
@@ -1866,7 +1865,7 @@ function nextSet() {
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
         nextElement.style.display = 'flex'; // Ensure display is 'flex'
-        nextElement.style.flexDirection = 'column'; // Force column layout
+        adjustLayout(nextElement); // Adjust layout based on screen size
     }
 
     updateTitle();
@@ -1883,10 +1882,26 @@ function prevSet() {
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
         prevElement.style.display = 'flex'; // Ensure display is 'flex'
-        prevElement.style.flexDirection = 'column'; // Force column layout
+        adjustLayout(prevElement); // Adjust layout based on screen size
     }
 
     updateTitle();
+}
+
+// Function to adjust layout dynamically based on screen width
+function adjustLayout(element) {
+    const isMobile = window.innerWidth <= 900; // Define mobile breakpoint
+    if (isMobile) {
+        element.style.flexDirection = 'row'; // Horizontal layout for mobile
+        element.style.overflowX = 'auto'; // Enable horizontal scrolling if needed
+        element.style.overflowY = 'hidden';
+        element.style.justifyContent = 'flex-start'; // Align items to the left
+    } else {
+        element.style.flexDirection = 'column'; // Vertical layout for computer
+        element.style.overflowX = 'hidden'; // Disable horizontal scrolling
+        element.style.overflowY = 'visible';
+        element.style.alignItems = 'center'; // Center align items
+    }
 }
 
 // Function to update the title of the current set
@@ -1909,6 +1924,22 @@ function displayCurrentDate() {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
 }
+
+// Adjust layout on window resize
+window.addEventListener('resize', () => {
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        adjustLayout(currentElement); // Adjust layout dynamically on resize
+    }
+});
+
+window.onload = function () {
+    displayCurrentDate();
+    const initialElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (initialElement) {
+        adjustLayout(initialElement); // Adjust layout on initial load
+    }
+};
 
 // Function to handle dropdown selection and move video to the selected exercise slot
 // Function to handle dropdown selection and move video to the selected exercise slot
