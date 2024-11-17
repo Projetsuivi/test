@@ -1955,10 +1955,6 @@ function moveVideoToRow(selectElement, videoId) {
     // Clear the previous slot if it exists and differs from the selected slot
     if (previousSlot && previousSlotIndex != selectedSlotIndex) {
         previousSlot.innerHTML = ''; // Clear the previous slot
-        const previousExerciseNumber = previousSlot.previousElementSibling;
-        if (previousExerciseNumber) {
-            previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
-        }
     }
 
     // Clone the video element for the selected slot
@@ -1966,10 +1962,8 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
     clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
-    // Hide dropdown and title in the cloned element
-    const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) titleElement.style.display = "none"; // Hide the title
-    clonedVideo.querySelector("select")?.remove(); // Remove dropdown
+    // Remove dropdown in the cloned element
+    clonedVideo.querySelector("select")?.remove();
 
     // Set video size
     const videoElement = clonedVideo.querySelector("video");
@@ -1984,12 +1978,12 @@ function moveVideoToRow(selectElement, videoId) {
         targetSlot.innerHTML = ''; // Clear any previous content in the slot
         targetSlot.appendChild(clonedVideo); // Add the cloned video
 
-        // Update exercise number with video title on smaller screens
-        if (window.innerWidth <= 768) {
-            const exerciseNumber = targetSlot.previousElementSibling;
-            if (exerciseNumber) {
-                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
-            }
+        // Add title below the video only on larger screens
+        if (window.innerWidth > 900) {
+            const titleElement = document.createElement("p");
+            titleElement.textContent = videoTitle;
+            titleElement.classList.add("video-title");
+            targetSlot.appendChild(titleElement);
         }
     }
 
