@@ -1931,25 +1931,27 @@ function moveVideoToRow(selectElement, videoId) {
     if (existingTitle) existingTitle.remove();
 
     // Create a container for the cloned video
-    const clonedVideoContainer = document.createElement("div");
-    clonedVideoContainer.className = "cloned-video-container";
+   const clonedVideoContainer = document.createElement("div");
+clonedVideoContainer.className = "cloned-video-container";
 
-    // Add cloned video to the container
-    clonedVideoContainer.appendChild(clonedVideo);
+// Add cloned video to the container
+clonedVideoContainer.appendChild(clonedVideo);
 
-    // Add title explicitly if needed
-    const videoTitle = videoBankElement.querySelector("p").textContent;
-    const titleElement = document.createElement("p");
-    titleElement.textContent = videoTitle;
-    titleElement.className = "cloned-video-title";
-    clonedVideoContainer.appendChild(titleElement);
+// Add title explicitly if needed
+const videoTitle = videoBankElement.querySelector("p").textContent;
+const titleElement = document.createElement("p");
+titleElement.textContent = videoTitle;
+titleElement.className = "cloned-video-title";
 
-    // Place the container in the selected slot
-    const targetSlot = exerciseSlots[selectedSlotIndex];
-    if (targetSlot) {
-        targetSlot.innerHTML = '';
-        targetSlot.appendChild(clonedVideoContainer);
-    }
+// Add title to the same row as the exercise number
+clonedVideoContainer.appendChild(titleElement);
+
+// Place the container in the selected slot
+const targetSlot = exerciseSlots[selectedSlotIndex];
+if (targetSlot) {
+    targetSlot.innerHTML = '';
+    targetSlot.appendChild(clonedVideoContainer);
+}
 
     // Update the video's current slot
     videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
