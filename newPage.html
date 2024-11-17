@@ -1910,14 +1910,21 @@ function displayCurrentDate() {
 function moveVideoToRow(selectElement, videoId) {
     const selectedSlotIndex = parseInt(selectElement.value.replace("slot", "")) - 1;
     const videoBankElement = document.getElementById(videoId);
+    const exerciseSlots = document.querySelectorAll(".exercise-slot-placeholder");
+    const exerciseNumbers = document.querySelectorAll(".exercise-number");
+
+    if (!videoBankElement || !exerciseSlots[selectedSlotIndex] || !exerciseNumbers[selectedSlotIndex]) {
+        console.error("Invalid slot or video ID");
+        return;
+    }
+
+    // Get the previous slot index from the data attribute
     const previousSlotIndex = videoBankElement.getAttribute("data-current-slot");
 
-    const exerciseSlots = document.querySelectorAll(".exercise-slot-placeholder");
-    const previousSlot = exerciseSlots[previousSlotIndex];
-
-    // Clear previous slot if it exists
-    if (previousSlot && previousSlotIndex != selectedSlotIndex) {
-        previousSlot.innerHTML = '';
+    // Clear the previous slot if it exists and is not the same as the selected slot
+    if (previousSlotIndex !== null && parseInt(previousSlotIndex) !== selectedSlotIndex) {
+        const previousSlot = exerciseSlots[parseInt(previousSlotIndex)];
+        if (previousSlot) previousSlot.innerHTML = '';
     }
 
     // Clone the video element
@@ -1925,35 +1932,35 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id");
     clonedVideo.classList.add("cloned-video");
 
-    // Remove dropdown and any duplicate title
+    // Remove dropdown and any existing title
     clonedVideo.querySelector("select")?.remove();
-    const existingTitle = clonedVideo.querySelector("p");
-    if (existingTitle) existingTitle.remove();
+    clonedVideo.querySelector("p")?.remove();
 
     // Create a container for the cloned video
-   const clonedVideoContainer = document.createElement("div");
-clonedVideoContainer.className = "cloned-video-container";
+    const clonedVideoContainer = document.createElement("div");
+    clonedVideoContainer.className = "cloned-video-container";
 
-// Add cloned video to the container
-clonedVideoContainer.appendChild(clonedVideo);
+    // Add cloned video to the container
+    clonedVideoContainer.appendChild(clonedVideo);
 
-// Add title explicitly if needed
-const videoTitle = videoBankElement.querySelector("p").textContent;
-const titleElement = document.createElement("p");
-titleElement.textContent = videoTitle;
-titleElement.className = "cloned-video-title";
+    // Add title next to the exercise number
+    const videoTitle = videoBankElement.querySelector("p").textContent;
+    const titleElement = document.createElement("span");
+    titleElement.textContent = ` - ${videoTitle}`;
+    titleElement.className = "cloned-video-title";
 
-// Add title to the same row as the exercise number
-clonedVideoContainer.appendChild(titleElement);
+    // Add the title to the exercise number container
+    const exerciseNumber = exerciseNumbers[selectedSlotIndex];
+    const existingTitle = exerciseNumber.querySelector(".cloned-video-title");
+    if (existingTitle) existingTitle.remove(); // Remove any existing title
+    exerciseNumber.appendChild(titleElement);
 
-// Place the container in the selected slot
-const targetSlot = exerciseSlots[selectedSlotIndex];
-if (targetSlot) {
+    // Place the cloned video in the selected slot
+    const targetSlot = exerciseSlots[selectedSlotIndex];
     targetSlot.innerHTML = '';
     targetSlot.appendChild(clonedVideoContainer);
-}
 
-    // Update the video's current slot
+    // Update the video's current slot data attribute
     videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
 }
 async function exportSession() {
