@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programme d'entraînement</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">.video
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -1955,6 +1955,10 @@ function moveVideoToRow(selectElement, videoId) {
     // Clear the previous slot if it exists and differs from the selected slot
     if (previousSlot && previousSlotIndex != selectedSlotIndex) {
         previousSlot.innerHTML = ''; // Clear the previous slot
+        const previousExerciseNumber = previousSlot.previousElementSibling;
+        if (previousExerciseNumber) {
+            previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
+        }
     }
 
     // Clone the video element for the selected slot
@@ -1962,8 +1966,10 @@ function moveVideoToRow(selectElement, videoId) {
     clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
     clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
-    // Remove dropdown in the cloned element
-    clonedVideo.querySelector("select")?.remove();
+    // Hide dropdown and title in the cloned element
+    const titleElement = clonedVideo.querySelector("p");
+    if (titleElement) titleElement.style.display = "none"; // Hide the title
+    clonedVideo.querySelector("select")?.remove(); // Remove dropdown
 
     // Set video size
     const videoElement = clonedVideo.querySelector("video");
@@ -1978,24 +1984,19 @@ function moveVideoToRow(selectElement, videoId) {
         targetSlot.innerHTML = ''; // Clear any previous content in the slot
         targetSlot.appendChild(clonedVideo); // Add the cloned video
 
-        // Check and remove any existing title in the target slot
-        const existingTitle = targetSlot.querySelector(".video-title");
-        if (existingTitle) {
-            existingTitle.remove();
-        }
-
-        // Add title below the video only on larger screens
-        if (window.innerWidth > 900) {
-            const titleElement = document.createElement("p");
-            titleElement.textContent = videoTitle;
-            titleElement.classList.add("video-title");
-            targetSlot.appendChild(titleElement);
+        // Update exercise number with video title on smaller screens
+        if (window.innerWidth <= 768) {
+            const exerciseNumber = targetSlot.previousElementSibling;
+            if (exerciseNumber) {
+                exerciseNumber.textContent = `${exerciseNumber.textContent.split(":")[0]}: ${videoTitle}`;
+            }
         }
     }
 
     // Update data attribute to track the current slot where the video is placed
     videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
 }
+
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
