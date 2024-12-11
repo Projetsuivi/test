@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programme d'entraînement</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">.video
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -107,12 +107,12 @@ body {
     display: flex;
     align-items: center; /* Ensure elements are aligned vertically */
     justify-content: flex-start; /* Ensure they are aligned to the left */
-    padding: 02px;
+    padding: 2px;
     margin-bottom: 10px;
-background:
+    background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%), /* Adds depth with subtle gradient variation */
-    url('logo.png') no-repeat center center;
-    background-position: center 65px; /* Moves the image 20px from the center upwards */
+    url('logo.png') no-repeat;
+    background-position: 65px 53px; /* Adjusted to move the logo left and slightly down */
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
     height: 250px;
@@ -133,26 +133,23 @@ background:
     letter-spacing: 0.5px; /* Optional: increase letter spacing */
 }
 
-       .exercise-slot {
-    width: 300px;
-    height: 200px;
-    border: 1.2px dashed #FF8A65;
+.exercise-slot-placeholder {
+    width: 100%;
+    height: 300px; /* Adjust height as needed */
+    background-color: transparent;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background-color: #fff;
-    overflow: hidden;
-    margin-right: 16px;
+    object-fit: contain;
 }
 
-        .exercise-slot video {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
+.exercise-slot-placeholder video {
+    width: 100%;
+    height: 100%; /* Ensures the video fits within the container */
+    object-fit: cover; /* Keeps the aspect ratio */
+    border-radius: 8px; /* Adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow effect */
+}
 
         .slider-group label {
     font-size: 0.5rem;       /* Increase font size for better readability */
@@ -173,7 +170,7 @@ background:
         .video-bank-container {
     position: sticky;
     top: 40px;
-    width: 300px; /* Reduced width of the video bank */
+    width: 350px; /* Reduced width of the video bank */
     max-height: 93vh; /* Keep the video bank taller if needed */
     overflow-y: auto;
     background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
@@ -182,6 +179,7 @@ background:
     padding: 15px; /* Reduced padding to make the container more compact */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    flex-direction: column;
 }
 
 .exercise-set {
@@ -209,7 +207,7 @@ background:
     max-width: 100%;
 }
 .exercise-card p {
-    font-size: 1rem; /* Increased for better visibility */
+    font-size: 0.8rem; /* Increased for better visibility */
     font-weight: 500; /* Bolder text for emphasis */
     color: #444; /* Darker gray for a professional look */
     margin-top: 8px; /* Add some spacing above the text */
@@ -221,8 +219,8 @@ background:
 
 /* Adjust the size of the video inside the card */
 .exercise-card video {
-    width: 250px; /* Width of the video, leaving a small padding */
-    height: 200px; /* Height of the video, adjusted to fit the card */
+    width: 280px; /* Width of the video, leaving a small padding */
+    height: 100%; /* Height of the video, adjusted to fit the card */
     object-fit: cover; /* Ensures the video covers its container */
     border-radius: 8px 8px 0 0; /* Rounded corners at the top */
     margin-bottom: 10px; /* Space between the video and text */
@@ -331,6 +329,13 @@ body {
     background-size: cover;
     background-attachment: scroll;
 }
+
+.cloned-video video {
+    width: 100%; /* Ensure it fills the width of the slot */
+    height: 100%; /* Ensure it fills the height of the slot */
+    object-fit: contain; /* Maintain aspect ratio while fitting */
+    border-radius: 8px; /* Optional: Add some rounding for aesthetics */
+}
            
 @media (max-width: 900px) {
     body, .container, .exercise-card p, .exercise-number, h1, h2, .slider-group label, .rest-group label, .exercise-dropdown {
@@ -369,6 +374,12 @@ h2#setTitle {
     margin-top: -10px !important; /* Move it closer to the top */
     position: relative; /* Ensure it can be adjusted */
     top: -25px; /* Adjusts the vertical position */
+}
+
+     .cloned-video video {
+    width: 100%; /* Fill the placeholder width */
+    height: 100%; /* Fill the placeholder height */
+    object-fit: cover; /* Maintain aspect ratio while fitting */
 }
 
 
@@ -456,13 +467,32 @@ h2#setTitle {
         margin-bottom: 5px;
     }
 
-    .exercise-slot {
-        width: 340px !important;
-        height: 185px !important;
-        background-color: transparent;
-        border: 0.5px solid red;
-        margin-bottom: 5px;
-    }
+.exercise-slot-placeholder {
+    width: 355px !important;
+    height: 200px !important;
+    background-color: transparent;
+    margin-bottom: 5px;
+    margin-left: 10px; /* Aligns placeholder more to the left */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns video to the left */
+}
+
+.exercise-slot-placeholder video {
+    width: 100%; /* Ensures the video fits the container width */
+    height: 200px; /* Ensures the video fits the container height */
+    object-fit: cover; /* Scales the video to cover the entire area without leaving gaps */
+    border: none; /* Removes any border */
+}
+
+.exercise-slot-placeholder .cloned-video video {
+    width: 300px !important;
+    height: 200px !important;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: -15 !important; /* Set to 0 or your desired value */
+}
+
 
     /* Horizontal scrolling setup for the video bank container */
     .video-bank-container {
@@ -471,7 +501,7 @@ h2#setTitle {
         left: 0;
         right: 0;
         width: 100vw;
-        height: 270px;
+        height: 285px;
         overflow-x: auto;
         overflow-y: hidden;
         display: flex;
@@ -484,6 +514,24 @@ h2#setTitle {
         scroll-snap-type: x mandatory;
     }
 
+    .video-bank-container .exercise-card {
+        width: 260px; /* Further increased width for larger clickable area */
+        height: 180px; /* Adjusted height to match new width */
+        margin-right: 30px; /* Increased space between video cards */
+        scroll-snap-type: none;
+        display: inline-flex;
+        flex-shrink: 0;
+        border-radius: 8px;
+    }
+
+    .video-bank-container .exercise-card video {
+        width: 240px; /* Further increased width of video for easier clicking */
+        height: 160px; /* Adjusted height to fit within card */
+        object-fit: cover;
+        border-radius: 8px;
+        margin-left: -5px; /* Increased space between video cards */
+
+    }
     /* Align exercise sets in a horizontal row */
     .exercise-set {
         display: inline-flex;
@@ -502,12 +550,17 @@ h2#setTitle {
    
 
     /* Ensure videos are consistently sized */
-    .exercise-card video {
-        width: 190px;
-        height: 140px;
-        object-fit: cover;
-        border-radius: 6px;
-    }
+.exercise-card video {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+.exercise-card video.playing {
+    transform: scale(1.05); /* Slight zoom-in effect when playing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
     /* Style for exercise names */
     .exercise-card p {
@@ -602,6 +655,12 @@ h2#setTitle {
         color: #333;
     }
 
+    .cloned-video video {
+    width: 450px;
+    height: 180px;
+    margin-left: 15px; /* Adjust the value as needed */
+}
+
     .checkbox-group input[type="checkbox"] {
         transform: scale(1.2);
         accent-color: #FF8A65;
@@ -618,18 +677,19 @@ h2#setTitle {
     }
 
 
-.exercise-dropdown {
-    font-size: 0.9rem;
-    padding: 5px;
-    border-radius: 6px;
-    background-color: #FFF5F5;
-    color: #333;
-    border: 1px solid #FF8A65;
-    width: 100%;
-    margin-top: 0.5px;
-}
+    .exercise-dropdown {
+        font-size: .9rem;
+        padding: 5px;
+        border-radius: 6px;
+        background-color: #FFF5F5;
+        color: #333;
+        border: 1px solid #FF8A65;
+        width: 170px;
+        margin-top: 0.5px;
+        margin-left:5px
+    }
 
-.exercise-slot.selected {
+.exercise-slot-placeholder.selected {
     border-color: #FF8A65;
     background-color: rgba(255, 138, 101, 0.1);
 }
@@ -662,7 +722,7 @@ h2#setTitle {
               <!-- Exercise Row 1 -->
               <div class="exercise-row">
                 <div class="exercise-number">Exercice 1</div>
-                <div class="exercise-slot" id="slot1"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series1">Séries: <span id="seriesValue1">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series1" oninput="document.getElementById('seriesValue1').textContent = this.value;">
@@ -701,7 +761,7 @@ h2#setTitle {
             <!-- Exercise Row 2 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 2</div>
-                <div class="exercise-slot" id="slot2"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series2">Séries: <span id="seriesValue2">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series2" oninput="document.getElementById('seriesValue2').textContent = this.value;">
@@ -740,7 +800,7 @@ h2#setTitle {
             <!-- Exercise Row 3 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 3</div>
-                <div class="exercise-slot" id="slot3"></div>
+               <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series3">Séries: <span id="seriesValue3">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series3" oninput="document.getElementById('seriesValue3').textContent = this.value;">
@@ -779,7 +839,7 @@ h2#setTitle {
             <!-- Exercise Row 4 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 4</div>
-                <div class="exercise-slot" id="slot4"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series4">Séries: <span id="seriesValue4">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series4" oninput="document.getElementById('seriesValue4').textContent = this.value;">
@@ -818,7 +878,7 @@ h2#setTitle {
             <!-- Exercise Row 5 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 5</div>
-                <div class="exercise-slot" id="slot5"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series5">Séries: <span id="seriesValue5">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series5" oninput="document.getElementById('seriesValue5').textContent = this.value;">
@@ -857,7 +917,7 @@ h2#setTitle {
             <!-- Exercise Row 6 -->
             <div class="exercise-row">
                 <div class="exercise-number">Exercice 6</div>
-                <div class="exercise-slot" id="slot6"></div>
+                <div class="exercise-slot-placeholder"></div>
                 <div class="slider-group">
                     <label for="series6">Séries: <span id="seriesValue6">3</span></label>
                     <input type="range" min="1" max="6" value="3" class="slider" id="series6" oninput="document.getElementById('seriesValue6').textContent = this.value;">
@@ -903,19 +963,21 @@ h2#setTitle {
         <div class="video-bank" id="exerciseSetsContainer">
             <!-- Set 1: Triceps -->
             <div class="exercise-set" id="exerciseSet1" style="display: block;">
-    <!-- Exercise 1 / Barre au front & Chaise -->
-    <div class="exercise-card">
-        <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
-            <video controls playsinline src="barre_au_front_chaise.mp4" width="180" alt="Barre au front + Chaise" poster="bar_au_front.png"></video>
-            <p>Barre au front + Chaise</p>
-            <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
-                <option value="">Exercice numéro</option>
-                <option value="slot1">Exercice 1</option>
-                <option value="slot2">Exercice 2</option>
-                <option value="slot3">Exercice 3</option>
-                <option value="slot4">Exercice 4</option>
-                <option value="slot5">Exercice 5</option>
-                <option value="slot6">Exercice 6</option>
+   <!-- Exercise 1 / Barre au front & Chaise -->
+<div class="exercise-card">
+    <div class="draggable" draggable="true" ondragstart="drag(event)" id="video1">
+        <video controls playsinline src="https://storage.googleapis.com/superset-3d6b8.appspot.com/barre_au_front_chaise.mp4" width="180"
+                alt="Barre au front + Chaise"
+                poster="https://storage.googleapis.com/superset-3d6b8.appspot.com/bar_au_front.png"></video>
+        <p>Barre au front + Chaise</p>
+        <select class="exercise-dropdown" onchange="moveVideoToRow(this, 'video1')">
+            <option value="">Exercice numéro</option>
+            <option value="slot1">Exercice 1</option>
+            <option value="slot2">Exercice 2</option>
+            <option value="slot3">Exercice 3</option>
+            <option value="slot4">Exercice 4</option>
+            <option value="slot5">Exercice 5</option>
+            <option value="slot6">Exercice 6</option>
             </select>
         </div>
     </div>
@@ -1789,7 +1851,7 @@ h2#setTitle {
 
            
 <script>
-let currentSet = 1;  // Start with Set 1
+let currentSet = 1; // Start with Set 1
 const totalSets = 6; // Total number of sets
 
 // Function to navigate to the next set
@@ -1802,7 +1864,8 @@ function nextSet() {
     currentSet = (currentSet % totalSets) + 1;
     const nextElement = document.getElementById(`exerciseSet${currentSet}`);
     if (nextElement) {
-        nextElement.style.display = 'flex';
+        nextElement.style.display = 'flex'; // Ensure display is 'flex'
+        adjustLayout(nextElement); // Adjust layout based on screen size
     }
 
     updateTitle();
@@ -1818,10 +1881,27 @@ function prevSet() {
     currentSet = (currentSet - 1 + totalSets) % totalSets || totalSets;
     const prevElement = document.getElementById(`exerciseSet${currentSet}`);
     if (prevElement) {
-        prevElement.style.display = 'flex';
+        prevElement.style.display = 'flex'; // Ensure display is 'flex'
+        adjustLayout(prevElement); // Adjust layout based on screen size
     }
 
     updateTitle();
+}
+
+// Function to adjust layout dynamically based on screen width
+function adjustLayout(element) {
+    const isMobile = window.innerWidth <= 900; // Define mobile breakpoint
+    if (isMobile) {
+        element.style.flexDirection = 'row'; // Horizontal layout for mobile
+        element.style.overflowX = 'auto'; // Enable horizontal scrolling if needed
+        element.style.overflowY = 'hidden';
+        element.style.justifyContent = 'flex-start'; // Align items to the left
+    } else {
+        element.style.flexDirection = 'column'; // Vertical layout for computer
+        element.style.overflowX = 'hidden'; // Disable horizontal scrolling
+        element.style.overflowY = 'visible';
+        element.style.alignItems = 'center'; // Center align items
+    }
 }
 
 // Function to update the title of the current set
@@ -1845,46 +1925,66 @@ function displayCurrentDate() {
     dateElement.textContent = today.toLocaleDateString('fr-FR', options);
 }
 
+// Adjust layout on window resize
+window.addEventListener('resize', () => {
+    const currentElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (currentElement) {
+        adjustLayout(currentElement); // Adjust layout dynamically on resize
+    }
+});
+
+window.onload = function () {
+    displayCurrentDate();
+    const initialElement = document.getElementById(`exerciseSet${currentSet}`);
+    if (initialElement) {
+        adjustLayout(initialElement); // Adjust layout on initial load
+    }
+};
+
+// Function to handle dropdown selection and move video to the selected exercise slot
 // Function to handle dropdown selection and move video to the selected exercise slot
 function moveVideoToRow(selectElement, videoId) {
-    const selectedSlotId = selectElement.value;
-    const videoBankElement = document.getElementById(videoId);
-    const videoTitle = videoBankElement.querySelector('p').textContent;
+    const selectedSlotIndex = parseInt(selectElement.value.replace("slot", "")) - 1; // Get the slot index (0-based)
+    const videoBankElement = document.getElementById(videoId); // Original video element in the bank
+    const videoTitle = videoBankElement.querySelector('p').textContent; // Get video title
+    const previousSlotIndex = videoBankElement.getAttribute("data-current-slot");
 
-    const previousSlotId = videoBankElement.getAttribute("data-current-slot");
+    const exerciseSlots = document.querySelectorAll(".exercise-slot-placeholder"); // Get all exercise slots
+    const previousSlot = exerciseSlots[previousSlotIndex]; // Get previous slot if any
 
-    if (previousSlotId && previousSlotId !== selectedSlotId) {
-        const previousSlot = document.getElementById(previousSlotId);
-        if (previousSlot) {
-            previousSlot.innerHTML = '';
-            const previousExerciseNumber = previousSlot.previousElementSibling;
-            if (previousExerciseNumber) {
-                previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0];
-            }
+    // Clear the previous slot if it exists and differs from the selected slot
+    if (previousSlot && previousSlotIndex != selectedSlotIndex) {
+        previousSlot.innerHTML = ''; // Clear the previous slot
+        const previousExerciseNumber = previousSlot.previousElementSibling;
+        if (previousExerciseNumber) {
+            previousExerciseNumber.textContent = previousExerciseNumber.textContent.split(":")[0]; // Reset exercise text
         }
     }
 
+    // Clone the video element for the selected slot
     const clonedVideo = videoBankElement.cloneNode(true);
-    clonedVideo.removeAttribute("id");
-   
-    // Set the specific video size when dropped (e.g., 300px by 200px)
-    const videoElement = clonedVideo.querySelector("video");
-if (videoElement) {
-    videoElement.style.width = "400px";
-    videoElement.style.height = "250px"; // Adjusted height
-}
+    clonedVideo.removeAttribute("id"); // Remove ID for uniqueness
+    clonedVideo.classList.add("cloned-video"); // Add a custom class to cloned videos
 
+    // Hide dropdown and title in the cloned element
     const titleElement = clonedVideo.querySelector("p");
-    if (titleElement) {
-        titleElement.style.display = "none"; // Hide the title
+    if (titleElement) titleElement.style.display = "none"; // Hide the title
+    clonedVideo.querySelector("select")?.remove(); // Remove dropdown
+
+    // Set video size
+    const videoElement = clonedVideo.querySelector("video");
+    if (videoElement) {
+        videoElement.style.width = "100%";
+        videoElement.style.height = "100%";
     }
-    clonedVideo.querySelector("select")?.remove();
 
-    const targetSlot = document.getElementById(selectedSlotId);
+    // Place the cloned video into the selected slot
+    const targetSlot = exerciseSlots[selectedSlotIndex];
     if (targetSlot) {
-        targetSlot.innerHTML = '';
-        targetSlot.appendChild(clonedVideo);
+        targetSlot.innerHTML = ''; // Clear any previous content in the slot
+        targetSlot.appendChild(clonedVideo); // Add the cloned video
 
+        // Update exercise number with video title on smaller screens
         if (window.innerWidth <= 768) {
             const exerciseNumber = targetSlot.previousElementSibling;
             if (exerciseNumber) {
@@ -1893,8 +1993,10 @@ if (videoElement) {
         }
     }
 
-    videoBankElement.setAttribute("data-current-slot", selectedSlotId);
+    // Update data attribute to track the current slot where the video is placed
+    videoBankElement.setAttribute("data-current-slot", selectedSlotIndex);
 }
+
 async function exportSession() {
     let contentToExport = `
     <!DOCTYPE html>
@@ -1906,16 +2008,11 @@ async function exportSession() {
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('logo.png') no-repeat center center fixed;
-                background-size: cover;
+                background: linear-gradient(135deg, rgba(255, 222, 233, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
                 margin: 0;
                 padding: 0;
                 color: #333;
                 line-height: 1.6;
-            }
-            h1, h2 {
-                text-align: center;
-                color: #FF8A65;
             }
             .container {
                 width: 100%;
@@ -1941,17 +2038,13 @@ async function exportSession() {
             }
             .exercise-card video {
                 width: 100%;
-                max-width: 600px; /* Increase max-width for larger display */
-                height: auto; /* Ensure aspect ratio is maintained */
+                max-width: 600px;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
             .exercise-details {
                 margin-top: 15px;
                 font-size: 0.9rem;
-            }
-            .exercise-details div {
-                margin-bottom: 5px;
             }
             .footer {
                 text-align: center;
@@ -1969,29 +2062,25 @@ async function exportSession() {
 
     for (const row of exerciseRows) {
         let exerciseNumber = row.querySelector('.exercise-number').textContent;
-        let slot = row.querySelector('.exercise-slot');
+        let slot = row.querySelector('.exercise-slot-placeholder');
         let videoElement = slot.querySelector('video');
         let seriesValue = row.querySelector('.slider-group input[id^="series"]').value;
         let repsValue = row.querySelector('.slider-group input[id^="reps"]').value;
         let restPeriod = row.querySelector('.rest-group select option:checked').textContent;
-        let base64Video = '';
-
-        if (videoElement && videoElement.src) {
-            base64Video = await convertVideoToBase64(videoElement.src);
-        }
+        let videoURL = videoElement ? videoElement.src : '';
+        let posterURL = videoElement ? videoElement.poster : '';
 
         contentToExport += `
             <div class="exercise-card">
                 <h3>${exerciseNumber}</h3>
         `;
 
-        if (base64Video) {
-            contentToExport += `
-                <div>
-                    Vidéo:<br>
-                    <video controls autoplay loop muted preload="metadata" src="${base64Video}"></video>
-                </div>
-            `;
+        if (videoURL) {
+        contentToExport += `
+    <div>
+        <video controls playsinline muted preload="metadata" src="${videoURL}" poster="${posterURL}"></video>
+    </div>
+`;
         } else {
             contentToExport += `<div>Aucune vidéo sélectionnée</div>`;
         }
@@ -2015,48 +2104,39 @@ async function exportSession() {
     `;
 
     const blob = new Blob([contentToExport], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'seance.html';
+    const url = URL.createObjectURL(blob);
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open the content in a new tab
+    window.open(url, '_blank');
 }
-
-// Helper function to convert video to base64
-async function convertVideoToBase64(videoUrl) {
-    return new Promise((resolve, reject) => {
-        fetch(videoUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            })
-            .catch(reject);
-    });
-}
-
 document.getElementById('exportButton').addEventListener('click', exportSession);
-
 window.onload = function() {
     displayCurrentDate();
     addDragAndDropListeners();
 };
-document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll("video");
-    videos.forEach(video => {
-        video.addEventListener("click", () => {
-            if (!video.paused) {
-                video.pause();
-            } else {
-                video.play();
-            }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const videoBankVideos = document.querySelectorAll(".video-bank-container video");
+
+        videoBankVideos.forEach((video) => {
+            video.addEventListener("click", function () {
+                // Clone the video element
+                const clonedVideo = video.cloneNode(true);
+
+                // Démarre automatiquement la vidéo clonée
+                clonedVideo.play();
+
+                // Remplace la vidéo initiale par le clone
+                video.parentElement.replaceChild(clonedVideo, video);
+
+                // Optionnel : Ajouter un événement pour détecter quand la vidéo est terminée
+                clonedVideo.addEventListener("ended", () => {
+                    console.log("Vidéo terminée :", clonedVideo.src);
+                });
+            });
         });
     });
-});
+</script>
 </script>
 </body>
 </html>
