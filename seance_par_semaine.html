@@ -1,0 +1,162 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de séances par Semaine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+     /* Ensure video scales properly on mobile */
+#background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none; /* Prevent accidental interaction */
+}
+
+        .container {
+            max-width: 535px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #FF8A65;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Expand the specific dropdown cell on mobile */
+.dropdown {
+    font-size: 1.2rem;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    width: 100%; /* Ensure it takes up the full width */
+    max-width: 500px; /* Restrict maximum width */
+    text-align: center;
+    text-align-last: center;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    background: #fff;
+    color: #333;
+}
+
+        .dropdown:focus, .dropdown:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #FF8A65;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #FF7043;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+    .dropdown {
+        font-size: 0.9rem; /* Increase font size */
+        padding: 20px 15px; /* Add padding for better touch experience */
+        max-width: 100%; /* Expand to nearly full width of the screen */
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Background video -->
+    <video id="background-video" autoplay loop muted playsinline poster="fallback-image.jpg">
+        <source src="suppershred.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h1>Nombre de Séances par Semaine</h1>
+        <select id="sessionsDropdown" class="dropdown">
+            <option value="" disabled selected>Choisis ton nombre de séances par semaine</option>
+            <option value="4">3 Séances / Semaine</option>
+            <option value="4">4 Séances / Semaine</option>
+            <option value="5">5 Séances / Semaine</option>
+            <option value="6">6 Séances / Semaine</option>
+        </select>
+        <button class="btn" onclick="confirmSelection()">Confirmer</button>
+    </div>
+
+    <script>
+        let selectedValue = null;
+
+        // Store the dropdown selection but prevent navigation
+        document.getElementById('sessionsDropdown').addEventListener('change', (event) => {
+            selectedValue = event.target.value;
+        });
+
+        // Only navigate when the button is clicked
+        function confirmSelection() {
+            if (!selectedValue) {
+                alert("Veuillez sélectionner un nombre de séances.");
+                return;
+            }
+            const baseURL = "seances.html";
+            const url = `${baseURL}?seances=${selectedValue}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
