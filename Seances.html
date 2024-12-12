@@ -1660,7 +1660,7 @@
 <!-- Exercise 3: Tirage Menton / Dégressif -->
 <div class="training-row">
     <select class="dropdown" onchange="updateExercise('tirageMenton5', this.value)">
-        <option value="tirage_menton_degressif.mp4|tirage_menton_degressif.png|4 Séries / 10-12 Répétitions + Dégressif<br>Repos: au moins 1 min 30" selected>
+        <option value="tirage_menton.mp4|tirage_menton.png|4 Séries / 10-12 Répétitions + Dégressif<br>Repos: au moins 1 min 30" selected>
             Tirage Menton / Dégressif
         </option>
         <option value="shrug.mp4|shrug.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -1813,18 +1813,11 @@
 
 <!-- Exercise 5: Mollets -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <select class="dropdown" onchange="updateExercise('mollets5', this.value)" style="margin: 0 auto;">
-        <option value="mollets.mp4|mollets.png|4 Séries / 15-20 Répétitions<br>Repos: 1 min" selected>
-            Mollets
-        </option>
-        <option value="seated_calf_raises.mp4|seated_calf_raises.png|4 Séries / 12-15 Répétitions<br>Repos: 1 min 30">
-            Seated Calf Raises
-        </option>
-    </select>
-    <p class="exercise-details" id="details-mollets5" style="text-align: center;">
+    <p class="exercise-title" style="font-weight: bold; margin: 0;">Mollets</p>
+    <p class="exercise-details" style="text-align: center;">
         <strong>4 Séries</strong> / <strong>15-20 Répétitions</strong><br>Repos: 1 min
     </p>
-    <video id="video-mollets5" controls playsinline src="mollets.mp4" poster="mollets.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video controls playsinline src="mollets.mp4" poster="mollets.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
     </div>
 
