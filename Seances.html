@@ -3169,7 +3169,7 @@
         <video id="video-hipThrust" controls playsinline src="hip_thrust.mp4" poster="hip_thrust.png"></video>
     </div>
 
-    <!-- Exercise 3: Leg Curl -->
+    <!-- Exercise 3: Soulevé de Terre Jambes Tendues -->
     <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('legCurl1', this.value)">
             <option value="souleve_de_terre_jambes_tendues.mp4|souleve_de_terre_jambes_tendues.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
@@ -3181,18 +3181,24 @@
         <p class="exercise-details" id="details-legCurl1" style="text-align: center;">
             <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
         </p>
-        <video id="video-legCurl1" controls playsinline src="leg_curl.mp4" poster="leg_curl.png"></video>
+        <video id="video-legCurl1" controls playsinline src="souleve_de_terre_jambes_tendues.mp4" poster="leg_curl.png"></video>
     </div>
 
-
-    <!-- Exercise 4: Adducteurs -->
-    <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-        <p class="exercise-title"><strong>Adducteurs</strong></p>
-        <p class="exercise-details" style="text-align: center;">
-            <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min
-        </p>
-        <video controls playsinline src="adducteur.mp4" poster="adducteur.png"></video>
-    </div>
+   <!-- Exercise 4: Legs Extension -->
+<div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+    <select class="dropdown" onchange="updateExercise('legsExtension5', this.value)" style="margin: 0 auto;">
+        <option value="legs_extension_degressif.mp4|leg_extension.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
+            Legs Extension
+        </option>
+        <option value="leg_curl.mp4|leg_curl.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+            Leg Curl
+        </option>
+    </select>
+    <p class="exercise-details" id="details-legsExtension5" style="text-align: center;">
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+    </p>
+    <video id="video-legsExtension5" controls playsinline src="legs_extension_degressif.mp4" poster="leg_extension.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+</div>
 
     <!-- Exercise 5: Mollets -->
     <div class="training-row" style="display: flex; flex-direction: column; align-items: center;">
