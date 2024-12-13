@@ -353,7 +353,7 @@
         <!-- Exercise 1: Fentes -->
         <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
             <select class="dropdown" onchange="updateExercise('fentes', this.value)">
-                <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+                <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe" selected>
                     Fentes / Guidée
                 </option>
                 <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
@@ -431,7 +431,7 @@
         <option value="elevations_laterales_poulie.mp4|elevation_laterale_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
             Élévation Latérale Poulie en Unilatérale
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
             Élévation Latérale Haltères
         </option>
     </select>
@@ -768,7 +768,7 @@
 <!-- Exercise 2: Écartés haltères / Rentrés -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('ecartesHaltere', this.value)" style="margin: 0 auto;">
-        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Écartés haltères / Rentrés
         </option>
         <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -781,20 +781,23 @@
     <video id="video-ecartesHaltere" controls playsinline src="dev_couche_haltere_coude_rentre.mp4" poster="dev_couche_haltere_coude_rentre.png"></video>
 </div>
 
-     <!-- Exercise 3: Bench Machine / Iso -->
+     <!-- Exercise 3: Bench Machine Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('benchMachineIso', this.value)" style="margin: 0 auto;">
-        <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
-            Bench Machine / Iso
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
+            Bench Machine Tempo
         </option>
-        <option value="developpe_couche_haltere.mp4|dev_couche_haltere_normal.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
-            Développé couché
+        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+            Dev Incliné / Tempo
+        </option>
+        <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+            Dips Prise Large
         </option>
     </select>
     <p class="exercise-details" id="details-benchMachineIso" style="text-align: center;">
         <strong>4 Séries</strong> / <strong>7-8 Répétitions</strong><br>+ <strong>1 Série 10-12 Réps jusqu'à 20</strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-benchMachineIso" controls playsinline src="Ton_Exo_Pec_Deck.mp4" poster="pec_deck.png"></video>
+    <video id="video-benchMachineIso" controls playsinline src="bench_machine_tempo.mp4" poster="bench_machine_tempo.png"></video>
 </div>
     </div>
 </div>
@@ -914,7 +917,7 @@
    <!-- Exercise 2: Écartés haltères / Rentrés -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('ecartesHaltere4', this.value)" style="margin: 0 auto;">
-        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Écartés haltères / Rentrés
         </option>
         <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -930,11 +933,14 @@
     <div class="training-row">
         <!-- Dropdown for selecting exercise -->
         <select class="dropdown" onchange="updateExercise('benchMachine', this.value)" style="display: block; margin: 0 auto;">
-            <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|4 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
-                Bench Machine / Iso
+            <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
+                Bench Machine Tempo
             </option>
-            <option value="developpe_couche_haltere.mp4|dev_couche_haltere_normal.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
-                Développé couché
+            <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+                Dev Incliné / Tempo
+            </option>
+            <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+                Dips Prise Large
             </option>
         </select>
         
@@ -944,7 +950,7 @@
         </p>
         
         <!-- Video for the selected exercise -->
-        <video id="video-benchMachine" controls playsinline src="Ton_Exo_Pec_Deck.mp4" poster="pec_deck.png" style="display: block; margin: 0 auto;"></video>
+        <video id="video-benchMachine" controls playsinline src="bench_machine_tempo.mp4" poster="bench_machine_tempo.png" style="display: block; margin: 0 auto;"></video>
     </div>
                 </div>
             </div>
@@ -969,7 +975,7 @@
        <!-- Exercise 1: Fentes -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('fentes4', this.value)" style="margin: 0 auto;">
-        <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe" selected>
             Fentes / Guidée
         </option>
         <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
@@ -986,7 +992,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-fentes4" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30 de repos entre chaque jambe
     </p>
     <video id="video-fentes4" controls playsinline src="fentes_guides.mp4" poster="fentes_guides.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
@@ -1042,18 +1048,18 @@
 <!-- Exercise 1: Élévations Machine / Dégressif -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('elevationMachine4', this.value)" style="display: block; margin: 0 auto;">
-        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières" selected>
+        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières" selected>
             Élévations Machine / Dégressif
         </option>
-        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières">
+        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières">
             Élévations latérale Poulie / Unilatérale
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières">
             Élévations latérale Haltères
         </option>
     </select>
     <p class="exercise-details" id="details-elevationMachine4" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les dernières
+        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les deux dernières
     </p>
     <video id="video-elevationMachine4" controls playsinline src="elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -1078,7 +1084,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-devMilitaire4" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-devMilitaire4" controls playsinline src="dev_militaire_machine.mp4" poster="dev_militaire.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -1089,7 +1095,7 @@
             <option value="butterfly_inverse.mp4|butterfly_inverse.png|4 Séries / 18-20 Répétitions<br><br>Repos: au moins 1 min 15" selected>
                 Butterfly Inversé / Dégressif
             </option>
-            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions<br>Repos: 1 min 30">
+            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions<br>Repos: au moins 1 min 15">
                 Face Pull
             </option>
         </select>
@@ -1174,11 +1180,11 @@
     <!-- Séance Pectoraux Content -->
     <div id="sessionPectoraux4" class="session-content" style="display: block;">
         <h2 class="exercise-block-title2"></h2>
-    <!-- Exercise 1: Bench Machine / Iso -->
+    <!-- Exercise 1: Bench Machine Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('benchMachine4', this.value)" style="margin: 0 auto;">
-        <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
-            Bench Machine / Iso
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
+            Bench Machine Tempo
         </option>
         <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30">
             Dev incliné
@@ -1190,7 +1196,7 @@
     <p class="exercise-details" id="details-benchMachine4" style="margin-top: 10px;">
         <strong>5 Séries</strong> / <strong>7-8 Répétitions</strong> + <strong>1 série 10-12 jusqu'à 20 réps</strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-benchMachine4" controls playsinline src="Ton_Exo_Pec_Deck.mp4" poster="pec_deck.png" style="margin-top: 10px;"></video>
+    <video id="video-benchMachine4" controls playsinline src="bench_machine_tempo.mp4" poster="bench_machine_tempo.png" style="margin-top: 10px;"></video>
 </div>
 
        <!-- Exercise 2: Écartés haltères / Rentrés -->
@@ -1212,18 +1218,18 @@
 <!-- Exercise 3: Dev Incliné / Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('pecs4', this.value)">
-        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Dev incliné / Tempo
         </option>
-        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Bench Machine Tempo
         </option>
-        <option value="dips_prise_large.mp4|dips_prise_large.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="dips_prise_large.mp4|dips_prise_large.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Dips prise large
         </option>
     </select>
     <p class="exercise-details" id="details-pecs4">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-pecs4" controls playsinline src="smith_machine_tempo.mp4" poster="smith_machine_tempo.png"></video>
 </div>
@@ -1235,24 +1241,24 @@
       <!-- Exercise 1: Tractions Assistées -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('tractions4', this.value)">
-        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Tractions Assistées
         </option>
-        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Poulie vis-à-vis
         </option>
-        <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Machine
         </option>
         <option value="tirage_dorsaux.mp4|tirage_dorsaux.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Rowing Haltères Banc Incliné
         </option>
-        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Unilatérale
         </option>
     </select>
     <p class="exercise-details" id="details-tractions4">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-tractions4" controls playsinline src="tes_tractions_assistees_en_details.mp4" poster="traction_assistee.png"></video>
 </div>
@@ -1260,15 +1266,15 @@
 <!-- Exercise 2: Tirage Halteres / Trapèze -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('tirageHalteres4', this.value)">
-        <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Tirage Halteres / Trapèze
         </option>
-        <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Rowing Banc Incliné
         </option>
     </select>
     <p class="exercise-details" id="details-tirageHalteres4">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-tirageHalteres4" controls playsinline src="tirage_trapeze.mp4" poster="tirage_trapeze.png"></video>
 </div>
@@ -1276,24 +1282,24 @@
        <!-- Exercise 3: Tirage Machine -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('tirageMachine4', this.value)">
-        <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|4 Séries / 10-12 Répétitions<br>+ Dégressif<br>Repos: 1 min 30" selected>
+        <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|4 Séries / 10-12 Répétitions<br>+ Dégressif<br>Repos: au moins 1 min 30" selected>
             Tirage Machine
         </option>
-        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Poulie Vis-à-Vis
         </option>
-        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tractions Assistées
         </option>
         <option value="tirage_dorsaux.mp4|tirage_dorsaux.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Rowing Haltères Banc Incliné
         </option>
-        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Unilatéral
         </option>
     </select>
     <p class="exercise-details" id="details-tirageMachine4">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-tirageMachine4" controls playsinline src="tirage_horizontal_machine.mp4" poster="tirage_horizontal_machine.png"></video>
 </div>
@@ -1331,7 +1337,7 @@
         <option value="curl_biceps_machine.mp4|curl_biceps_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
             Curl Biceps Machine / Dégressif
         </option>
-        <option value="curl_biceps_supination.mp4|biceps_supination.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="curl_biceps_supination.mp4|biceps_supination.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Curl Supination (Haltères)
         </option>
         <option value="biceps_unilateral.mp4|biceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
@@ -1567,7 +1573,7 @@
     <!-- Exercise 2: Écartés haltères / Rentrés -->
     <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('ecartesHaltere5', this.value)" style="margin: 0 auto;">
-            <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+            <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
                 Écartés haltères / Rentrés
             </option>
             <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -1587,11 +1593,11 @@
         </video>
     </div>
 
-      <!-- Exercise 1: Bench Machine / Iso -->
+      <!-- Exercise 1: Bench Machine Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('benchMachine5', this.value)" style="margin: 0 auto;">
-        <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
-            Bench Machine / Iso
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
+            Bench Machine Tempo
         </option>
         <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30">
             Dev incliné
@@ -1607,8 +1613,8 @@
             id="video-benchMachine5"
             controls
             playsinline
-            src="Ton_Exo_Pec_Deck.mp4"
-            poster="pec_deck.png"
+            src="bench_machine_tempo.mp4"
+            poster="bench_machine_tempo.png"
             style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
         </video>
     </div>
@@ -1758,21 +1764,21 @@
        <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe" selected>
             Fentes / Guidée
         </option>
-        <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe">
+        <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos">
             Press Verticale
         </option>
-        <option value="fentes_bulgares_guides.mp4|fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe">
+        <option value="fentes_bulgares_guides.mp4|fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos">
             Fentes Bulgares / Guidée
         </option>
-        <option value="squat.mp4|squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe">
+        <option value="squat.mp4|squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos">
             Squat Bar Guidée
         </option>
-        <option value="hack_squat.mp4|hack_squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe">
+        <option value="hack_squat.mp4|hack_squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos">
             Hack Squat
         </option>
     </select>
     <p class="exercise-details" id="details-fentes5" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30 de repos entre chaque jambe
     </p>
     <video id="video-fentes5" controls playsinline src="fentes_guides.mp4" poster="fentes_guides.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
@@ -1828,18 +1834,18 @@
       <!-- Exercise 1: Élévations Machine / Dégressif -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('elevationMachine5', this.value)" style="display: block; margin: 0 auto;">
-        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières" selected>
+        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières" selected>
             Élévations Machine / Dégressif
         </option>
         <option value="elevations_laterales_poulie.mp4|elevation_laterale_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
             Élévation Latérale Poulie en Unilatérale
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières">
             Élévation Latérale Haltères
         </option>
     </select>
     <p class="exercise-details" id="details-elevationMachine5" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les dernières
+        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les deux dernières
     </p>
     <video id="video-elevationMachine5" controls playsinline src="elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -1864,7 +1870,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-devMilitaire5" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-devMilitaire5" controls playsinline src="dev_militaire_machine.mp4" poster="dev_militaire.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -1875,7 +1881,7 @@
             <option value="butterfly_inverse.mp4|butterfly_inverse.png|4 Séries / 18-20 Répétitions<br>+ Dégressif<br>Repos: au moins 1 min 15" selected>
                 Butterfly Inversé / Dégressif
             </option>
-            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions + Dégressif<br>Repos: 1 min 30">
+            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions<br>Repos: au moins 1 min 15">
                 Face Pull
             </option>
         </select>
@@ -1935,15 +1941,15 @@
 <!-- Exercise 2: Tirage Halteres / Trapèze -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('tirageHalteres5', this.value)">
-        <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Tirage Halteres / Trapèze
         </option>
-        <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Rowing Banc Incliné
         </option>
     </select>
     <p class="exercise-details" id="details-tirageHalteres5">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-tirageHalteres5" controls playsinline src="tirage_trapeze.mp4" poster="tirage_trapeze.png"></video>
 </div>
@@ -1954,10 +1960,10 @@
         <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Machine
         </option>
-        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tirage Poulie Vis-à-Vis
         </option>
-        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Tractions Assistées
         </option>
         <option value="tirage_dorsaux.mp4|tirage_dorsaux.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -1968,7 +1974,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-tirageMachine5">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-tirageMachine5" controls playsinline src="tirage_horizontal_machine.mp4" poster="tirage_horizontal_machine.png"></video>
 </div>
@@ -1986,29 +1992,29 @@
     <!-- Séance Pecs Content -->
     <div id="sessionPecs18" class="session-content" style="display: none;">
         <h2 class="exercise-block-title2"></h2>
-     <!-- Exercise 1: Bench Machine / Iso -->
+     <!-- Exercise 1: Bench Machine Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('pecsEx5', this.value)" style="margin: 0 auto;">
-        <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
-            Bench Machine / Iso
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
+            Bench Machine Tempo
         </option>
-        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30">
+        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20 réps<br>Repos: au moins 1 min 30">
             Dev incliné
         </option>
-        <option value="dips_prise_large.mp4|dips_prise_large.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30">
+        <option value="dips_prise_large.mp4|dips_prise_large.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20 réps<br>Repos: au moins 1 min 30">
             Dips Prise Large
         </option>
     </select>
     <p class="exercise-details" id="details-pecsEx5" style="margin-top: 10px;">
         <strong>5 Séries</strong> / <strong>7-8 Répétitions</strong> + <strong>1 série 10-12 réps jusqu'à 20 réps</strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-pecsEx5" controls playsinline src="Ton_Exo_Pec_Deck.mp4" poster="pec_deck.png" style="margin-top: 10px;"></video>
+    <video id="video-pecsEx5" controls playsinline src="bench_machine_tempo.mp4" poster="bench_machine_tempo.png" style="margin-top: 10px;"></video>
 </div>
 
 <!-- Exercise 2: Écartés haltères / Rentrés -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('ecarteHaltere5', this.value)" style="margin: 0 auto;">
-        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Écartés haltères / Rentrés
         </option>
         <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -2027,10 +2033,10 @@
         <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|4 Séries / 10-12 Répétitions + 1 série 10-12 répétitions jusqu'a 20<br>Repos: au moins 1 min 30" selected>
             Dev incliné / Tempo
         </option>
-        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 10-12 Répétitions + 1 série 10-12 répétitions jusqu'a 20<br>Repos: au moins 1 min 30">
             Bench Machine Tempo
         </option>
-        <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+        <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 10-12 Répétitions + 1 série 10-12 répétitions jusqu'a 20<br>Repos: au moins 1 min 30">
             Dips prise large
         </option>
     </select>
@@ -2070,7 +2076,7 @@
         <option value="biceps_unilateral.mp4|biceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Biceps Poulie (Unilatérale)
         </option>
-        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Curl Supination / Barre
         </option>
     </select>
@@ -2340,7 +2346,7 @@
 <!-- Exercise 1: Élevations Latérales / Dégressif -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <select class="dropdown" onchange="updateExercise('elevationsLaterales', this.value)" style="margin: 0 auto;">
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|4 Séries / 10-12 Répétitions + 6-8 + 6-8... <br>Repos: au moins 1 min 30" selected>
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|4 Séries / 10-12 Répétitions + 6-8 + 6-8... <br>Repos: au moins 1 min 30" selected>
             Élevations latérales / Dégressif
         </option>
         <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|4 Séries / 10-12 Répétitions + 6-8 + 6-8... <br>Repos: au moins 1 min 30">
@@ -2353,7 +2359,7 @@
     <p class="exercise-details" id="details-elevationsLaterales" style="text-align: center;">
         <strong>4 Séries</strong> / <strong>10-12 Répétitions + 6-8 + 6-8...</strong></strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-elevationsLaterales" controls playsinline src="elevations_laterales_degressif.mp4" poster="elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-elevationsLaterales" controls playsinline src="elevation_en_degressif.mp4" poster="elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 2: Dév militaire / Guidée -->
@@ -2378,7 +2384,7 @@
         <option value="elevations_laterales_poulie.mp4|elevation_laterale_poulie.png|4 Séries / 10-12 réps + 6-8 + 6-8...<br>Repos: au moins 1 min 30" selected>
             Élevations Latérales / Poulies
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|4 Séries / 10-12 réps + 6-8 + 6-8...<br>Repos: au moins 1 min 30">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|4 Séries / 10-12 réps + 6-8 + 6-8...<br>Repos: au moins 1 min 30">
             Élevations Latérales / Dégressif
         </option>
         <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|4 Séries / 10-12 réps + 6-8 + 6-8...<br>Repos: au moins 1 min 30">
@@ -2447,7 +2453,7 @@
     <!-- Exercise 2: Écartés haltères / Rentrés -->
     <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('ecartesHaltere6', this.value)" style="margin: 0 auto;">
-            <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+            <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
                 Écartés haltères / Rentrés
             </option>
             <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -2467,14 +2473,17 @@
         </video>
     </div>
 
-    <!-- Exercise 3: Bench Machine / Iso -->
+    <!-- Exercise 3: Bench Machine Tempo -->
     <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('benchMachine6', this.value)" style="margin: 0 auto;">
-            <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|4 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
-                Bench Machine / Iso
+            <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
+                Bench Machine Tempo
             </option>
-            <option value="developpe_couche_haltere.mp4|dev_couche_haltere_normal.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
-                Développé couché
+            <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+                Dev Incliné / Tempo
+            </option>
+            <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30">
+                Dips Prise Large
             </option>
         </select>
         <p class="exercise-details" id="details-benchMachine6" style="text-align: center;">
@@ -2484,8 +2493,8 @@
             id="video-benchMachine6"
             controls
             playsinline
-            src="Ton_Exo_Pec_Deck.mp4"
-            poster="pec_deck.png"
+            src="bench_machine_tempo.mp4"
+            poster="bench_machine_tempo.png"
             style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
         </video>
     </div>
@@ -2633,7 +2642,7 @@
  <!-- Exercise 1: Fentes -->
  <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('fentes6', this.value)" style="margin: 0 auto;">
-        <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe" selected>
             Fentes / Guidée
         </option>
         <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
@@ -2650,7 +2659,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-fentes6" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30 de repos entre chaque jambe
     </p>
     <video id="video-fentes6" controls playsinline src="fentes_guides.mp4" poster="fentes_guides.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
@@ -2706,18 +2715,18 @@
        <!-- Exercise 1: Élévations Machine / Dégressif -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('elevationMachine6', this.value)" style="display: block; margin: 0 auto;">
-        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières" selected>
+        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières" selected>
             Élévations Machine / Dégressif
         </option>
-        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières">
+        <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières">
             Élévations latérale Poulie / Unilatérale
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les dernières">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 8-10 Répétitions<br>+2 séries 15/20 reps en dégressif<br>Repos: au moins 1 min 30 et 2 min pour les deux dernières">
             Élévations latérale Haltères
         </option>
     </select>
     <p class="exercise-details" id="details-elevationMachine6" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les dernières
+        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+ <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>Repos: au moins 1 min 30 et 2 min pour les deux dernières
     </p>
     <video id="video-elevationMachine6" controls playsinline src="elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -2742,7 +2751,7 @@
         </option>
     </select>
     <p class="exercise-details" id="details-devMilitaire6" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-devMilitaire6" controls playsinline src="dev_militaire_machine.mp4" poster="dev_militaire.png" style="display: block; margin: 0 auto;"></video>
 </div>
@@ -2753,7 +2762,7 @@
             <option value="butterfly_inverse.mp4|butterfly_inverse.png|4 Séries / 18-20 Répétitions<br>+ Dégressif<br>Repos: au moins 1 min 15" selected>
                 Butterfly Inversé / Dégressif
             </option>
-            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions + Dégressif<br>Repos: 1 min 30">
+            <option value="face_pull.mp4|face_pull.png|4 Séries / 18-20 Répétitions<br>Repos: au moins 1 min 15">
                 Face Pull
             </option>
         </select>
@@ -2787,13 +2796,13 @@
         <option value="curl_biceps_machine.mp4|curl_biceps_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
             Curl Biceps Machine / Dégressif
         </option>
-        <option value="curl_biceps_supination.mp4|biceps_supination.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="curl_biceps_supination.mp4|biceps_supination.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Curl Supination (Haltère)
         </option>
         <option value="biceps_unilateral.mp4|biceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Biceps Poulie (Unilatérale)
         </option>
-        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
             Curl Supination / Barre
         </option>
     </select>
@@ -2981,10 +2990,10 @@
         <!-- Exercise 1: Tractions Assistées -->
         <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
             <select class="dropdown" onchange="updateExercise('tractions7.4', this.value)">
-                <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+                <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
                     Tractions Assistées
                 </option>
-                <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+                <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
                     Tirage Poulie Vis-à-Vis
                 </option>
                 <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -2998,32 +3007,32 @@
                 </option>
             </select>
             <p class="exercise-details" id="details-tractions7.4">
-                <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+                <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
             </p>
             <video id="video-tractions7.4" controls playsinline src="tes_tractions_assistees_en_details.mp4" poster="traction_assistee.png"></video>
         </div>
         <!-- Exercise 2: Tirage Haltères / Trapèze -->
         <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
             <select class="dropdown" onchange="updateExercise('tirageHalteres7.4', this.value)">
-                <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+                <option value="tirage_trapeze.mp4|tirage_trapeze.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
                     Tirage Halteres / Trapèze
                 </option>
-                <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+                <option value="rowing_banc.mp4|rowing_banc.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
                     Rowing Banc Incliné
                 </option>
             </select>
             <p class="exercise-details" id="details-tirageHalteres7.4">
-                <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+                <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
             </p>
             <video id="video-tirageHalteres7.4" controls playsinline src="tirage_trapeze.mp4" poster="tirage_trapeze.png"></video>
         </div>
         <!-- Exercise 3: Tirage Machine -->
         <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
             <select class="dropdown" onchange="updateExercise('tirageMachine6', this.value)">
-                <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|4 Séries / 10-12 Répétitions<br>+ Dégressif<br>Repos: 1 min 30" selected>
+                <option value="tirage_horizontal_machine.mp4|tirage_horizontal_machine.png|4 Séries / 10-12 Répétitions<br>+ Dégressif<br>Repos: au moins 1 min 30" selected>
                     Tirage Machine
                 </option>
-                <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+                <option value="tirage_poulie_vis_a_vis.mp4|tirage_poulie_vis_a_vis.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
                     Tirage Poulie Vis-à-Vis
                 </option>
                 <option value="tirage_dorsaux.mp4|tirage_dorsaux.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -3032,12 +3041,12 @@
                 <option value="tirage_unilateral_a_la_poulie.mp4|tirage_unilateral_poulie.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
                     Tirage Unilatéral
                 </option>
-                <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+                <option value="tes_tractions_assistees_en_details.mp4|traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
                     Tractions Assistées
                 </option>
             </select>
             <p class="exercise-details" id="details-tirageMachine6">
-                <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: 1 min 30
+                <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: au moins 1 min 30
             </p>
             <video id="video-tirageMachine6" controls playsinline src="tirage_horizontal_machine.mp4" poster="tirage_horizontal_machine.png"></video>
             
@@ -3055,11 +3064,11 @@
     <!-- Séance Pecs Content -->
     <div id="sessionPecs25" class="session-content" style="display: none;">
         <h2 class="exercise-block-title2"></h2>
-      <!-- Exercise 1: Bench Machine / Iso -->
+      <!-- Exercise 1: Bench Machine Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('benchMachine6.1', this.value)" style="margin: 0 auto;">
-        <option value="Ton_Exo_Pec_Deck.mp4|pec_deck.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
-            Bench Machine / Iso
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30" selected>
+            Bench Machine Tempo
         </option>
         <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 7-8 Répétitions<br>+ 1 série 10-12 jusqu'à 20 réps<br>Repos: au moins 1 min 30">
             Dev incliné
@@ -3071,13 +3080,13 @@
     <p class="exercise-details" id="details-benchMachine6.1" style="margin-top: 10px;">
         <strong>5 Séries</strong> / <strong>7-8 Répétitions</strong> + <strong>1 série 10-12 jusqu'à 20 réps</strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-benchMachine6.1" controls playsinline src="Ton_Exo_Pec_Deck.mp4" poster="pec_deck.png" style="margin-top: 10px;"></video>
+    <video id="video-benchMachine6.1" controls playsinline src="bench_machine_tempo.mp4" poster="bench_machine_tempo.png" style="margin-top: 10px;"></video>
 </div>
 
        <!-- Exercise 2: Écartés haltères / Rentrés -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('ecarteHaltere6.1', this.value)" style="margin: 0 auto;">
-        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos:au moins 1 min 30" selected>
+        <option value="dev_couche_haltere_coude_rentre.mp4|dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Écartés haltères / Rentrés
         </option>
         <option value="butterfly_pompes.mp4|butterfly.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
@@ -3093,18 +3102,18 @@
 <!-- Exercise 3: Dev Incliné / Tempo -->
 <div class="training-row" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;">
     <select class="dropdown" onchange="updateExercise('pecs6.1', this.value)">
-        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+        <option value="smith_machine_tempo.mp4|smith_machine_tempo.png|4 Séries / 10-12 Répétitions + 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
             Dev incliné / Tempo
         </option>
-        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="bench_machine_tempo.mp4|bench_machine_tempo.png|4 Séries / 10-12 Répétitions + 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
             Bench Machine Tempo
         </option>
-        <option value="dips_prise_large.mp4|dips_prise_large.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+        <option value="dips_prise_large.mp4|dips_prise_large.png|4 Séries / 10-12 Répétitions + 1 série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
             Dips prise large
         </option>
     </select>
     <p class="exercise-details" id="details-pecs6.1">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions + 1 série 10-12 réps jusqu'à 20</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-pecs6.1" controls playsinline src="smith_machine_tempo.mp4" poster="smith_machine_tempo.png"></video>
 </div>
@@ -3129,24 +3138,24 @@
       <!-- Exercise 1: Fentes -->
       <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('fentes6.2', this.value)">
-            <option value="fentes_bulgares_guides.mp4|fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+            <option value="fentes_bulgares_guides.mp4|fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Au moins 2min de repos une fois les deux jambes réalisées" selected>
                 Fentes Bulgares / Guidée
             </option>
-            <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            <option value="fentes_guides.mp4|fentes_guides.png|5 Séries / 10-12 Répétitions<br>Au moins 2min de repos une fois les deux jambes réalisées">
                 Fentes / Guidée
             </option>
-            <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            <option value="press_verticale.mp4|press_verticale.png|5 Séries / 10-12 Répétitions<br>Au moins 2min de repos une fois les deux jambes réalisées">
                 Press Verticale
             </option>
-            <option value="squat.mp4|squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            <option value="squat.mp4|squat.png|5 Séries / 10-12 Répétitions<br>Au moins 2min de repos une fois les deux jambes réalisées">
                 Squat Bar Guidée
             </option>
-            <option value="hack_squat.mp4|hack_squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            <option value="hack_squat.mp4|hack_squat.png|5 Séries / 10-12 Répétitions<br>Au moins 2min de repos une fois les deux jambes réalisées">
                 Hack Squat
             </option>
         </select>
         <p class="exercise-details" id="details-fentes6.2" style="text-align: center;">
-            <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30 de repos entre chaque jambe
+            <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Au moins 2min de repos une fois les deux jambes réalisées
         </p>
         <video id="video-fentes6.2" controls playsinline src="fentes_bulgares_guides.mp4" poster="fentes_bulgares_guides.png"></video>
     </div>
@@ -3160,31 +3169,36 @@
         <video id="video-hipThrust" controls playsinline src="hip_thrust.mp4" poster="hip_thrust.png"></video>
     </div>
 
-    <!-- Exercise 3: Leg Curl -->
+    <!-- Exercise 3: Soulevé de Terre Jambes Tendues -->
     <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <select class="dropdown" onchange="updateExercise('legCurl1', this.value)">
-            <option value="leg_curl.mp4|leg_curl.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
-                Leg Curl
-            </option>
-            <option value="souleve_de_terre_jambes_tendues.mp4|souleve_de_terre_jambes_tendues.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+            <option value="souleve_de_terre_jambes_tendues.mp4|souleve_de_terre_jambes_tendues.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
                 Soulevé de Terre Jambes Tendues
+            <option value="leg_curl.mp4|leg_curl.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+                Leg Curl
             </option>
         </select>
         <p class="exercise-details" id="details-legCurl1" style="text-align: center;">
-            <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
+            <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
         </p>
-        <video id="video-legCurl1" controls playsinline src="leg_curl.mp4" poster="leg_curl.png"></video>
+        <video id="video-legCurl1" controls playsinline src="souleve_de_terre_jambes_tendues.mp4" poster="souleve_de_terre_jambes_tendues.png"></video>
     </div>
 
-
-    <!-- Exercise 4: Adducteurs -->
-    <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-        <p class="exercise-title"><strong>Adducteurs</strong></p>
-        <p class="exercise-details" style="text-align: center;">
-            <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min
-        </p>
-        <video controls playsinline src="adducteur.mp4" poster="adducteur.png"></video>
-    </div>
+   <!-- Exercise 4: Legs Extension -->
+<div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+    <select class="dropdown" onchange="updateExercise('legsExtension6.2', this.value)" style="margin: 0 auto;">
+        <option value="legs_extension_degressif.mp4|leg_extension.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
+            Legs Extension
+        </option>
+        <option value="leg_curl.mp4|leg_curl.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
+            Leg Curl
+        </option>
+    </select>
+    <p class="exercise-details" id="details-legsExtension6.2" style="text-align: center;">
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+    </p>
+    <video id="video-legsExtension6.2" controls playsinline src="legs_extension_degressif.mp4" poster="leg_extension.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+</div>
 
     <!-- Exercise 5: Mollets -->
     <div class="training-row" style="display: flex; flex-direction: column; align-items: center;">
@@ -3203,7 +3217,7 @@
 <!-- Exercise 1: Élevations latérales / Dégressif -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <select class="dropdown" onchange="updateExercise('elevationsLaterales1', this.value)" style="margin: 0 auto;">
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30" selected>
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30" selected>
             Élevations latérales / Dégressif
         </option>
         <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30">
@@ -3216,7 +3230,7 @@
     <p class="exercise-details" id="details-elevationsLaterales1" style="text-align: center;">
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>6-8 + 6-8...</strong><br>Repos: au moins 1 min 30
     </p>
-    <video id="video-elevationsLaterales1" controls playsinline src="elevations_laterales_degressif.mp4" poster="elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-elevationsLaterales1" controls playsinline src="elevation_en_degressif.mp4" poster="elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 2: Dév militaire / Guidée -->
@@ -3238,18 +3252,18 @@
 <!-- Exercise 3: Élévations Latérales / Poulies -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <select class="dropdown" onchange="updateExercise('elevationsPoulies1', this.value)" style="margin: 0 auto;">
-        <option value="elevations_laterales_poulie.mp4|elevation_laterale_poulie.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30" selected>
+        <option value="elevations_laterales_poulie.mp4|elevation_laterale_poulie.png|3 Séries / 5-6 + 5-6 répétitions<br>Repos: au moins 1 min 30" selected>
             Élévations Latérales / Poulies
         </option>
-        <option value="elevations_laterales_degressif.mp4|elevations_laterales_degressif.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30">
+        <option value="elevation_en_degressif.mp4|elevations_laterales_degressif.png|3 Séries / 5-6 + 5-6 répétitions<br>Repos: au moins 1 min 30">
             Élevations Latérales / Dégressif
         </option>
-        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 10-12 réps + 6-8 + 6-8... <br>Repos: au moins 1 min 30">
+        <option value="elevations_laterales_machine.mp4|elevation_machine_laterale.png|3 Séries / 5-6 + 5-6 répétitions<br>Repos: au moins 1 min 30">
             Élévation Machine / Dégressif
         </option>
     </select>
     <p class="exercise-details" id="details-elevationsPoulies1" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>6-8 + 6-8...</strong><br>Repos: au moins 1 min 30
+        <strong>3 Séries</strong> / <strong>5-6 + 5-6 répétitions</strong><br>Repos: au moins 1 min 30
     </p>
     <video id="video-elevationsPoulies1" controls playsinline src="elevations_laterales_poulie.mp4" poster="elevation_laterale_poulie.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
@@ -3275,19 +3289,19 @@
 <!-- Exercise 1: Extension / Incliné / Dégressif -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <select class="dropdown" onchange="updateExercise('extensionIncline6.2', this.value)" style="margin: 0 auto;">
-        <option value="extension_coudes_banc_incline.mp4|extension_coude_banc_incline.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
+        <option value="extension_coudes_banc_incline.mp4|extension_coude_banc_incline.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Extension / Incliné / Dégressif
         </option>
-        <option value="barre_au_front_chaise.mp4|bar_au_front.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="barre_au_front_chaise.mp4|bar_au_front.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Barre au Front + Chaise
         </option>
-        <option value="extension_coude_corde_dos_puis_face_a_la_poulie.mp4|extension_coude.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="extension_coude_corde_dos_puis_face_a_la_poulie.mp4|extension_coude.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Extension Coude Dos à la Poulie
         </option>
-        <option value="triceps_unilateral.mp4|triceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="triceps_unilateral.mp4|triceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Extension Coudes / Isolation
         </option>
-        <option value="extension_de_coudes.mp4|extensions_de_coude.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15">
+        <option value="extension_de_coudes.mp4|extensions_de_coude.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30">
             Extension Coude Corde
         </option>
     </select>
@@ -3376,7 +3390,7 @@
 <!-- Exercise 2: Biceps Poulie Unilatérale -->
 <div class="training-row" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <select class="dropdown" onchange="updateExercise('curlBiceps5.1', this.value)" style="margin: 0 auto;">
-        <option value="biceps_unilateral.mp4|biceps_unilateral.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
+        <option value="biceps_unilateral.mp4|biceps_unilateral.png|5 Séries /  5-6 + 5-6 réps<br>Repos: au moins 1 min 30" selected>
             Biceps Poulie (Unilatérale)
         </option>
         <option value="curl_biceps_machine.mp4|curl_biceps_machine.png|5 Séries / 5-6 + 5-6 réps<br>Repos: au moins 1 min 30">
@@ -3385,7 +3399,7 @@
         <option value="curl_biceps_supination.mp4|biceps_supination.png|5 Séries /  5-6 + 5-6 réps<br>Repos: au moins 1 min 30">
             Curl Supination (Haltères)
         </option>
-        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|4 Séries / 5-6 + 5-6 réps<br>Repos: au moins 1 min 30">
+        <option value="curl_supination_poulie.mp4|curl_supination_poulie.png|5 Séries /  5-6 + 5-6 réps<br>Repos: au moins 1 min 30">
             Curl Supination / Barre
         </option>
     </select>
