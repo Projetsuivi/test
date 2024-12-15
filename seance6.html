@@ -1416,7 +1416,7 @@
     <script>
         function displaySchedule(scheduleNumber = '6') {
             const schedules = ['schedule3', 'schedule4', 'schedule5', 'schedule6'];
-        
+    
             // Hide all schedules
             schedules.forEach(schedule => {
                 const element = document.getElementById(schedule);
@@ -1424,12 +1424,12 @@
                     element.style.display = 'none';
                 }
             });
-        
+    
             // Show the specified schedule
             const selectedSchedule = document.getElementById(`schedule${scheduleNumber}`);
             if (selectedSchedule) {
                 selectedSchedule.style.display = 'block';
-        
+    
                 // Handle visibility of Days 5, 6, and 7 for schedule 3
                 const daysToHide = ['exerciseContent5', 'exerciseContent6', 'exerciseContent7'];
                 daysToHide.forEach((dayId, index) => {
@@ -1438,17 +1438,17 @@
                         dayElement.style.display = scheduleNumber === '3' && index < 3 ? 'block' : 'none';
                     }
                 });
-        
+    
                 // Scroll the selected schedule into view
                 selectedSchedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
-        
+    
         function handleSeancesFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const seances = urlParams.get('seances');
             const validSeances = ['3', '4', '5', '6'];
-        
+    
             if (seances && validSeances.includes(seances)) {
                 // Display the corresponding schedule from the URL
                 displaySchedule(seances);
@@ -1459,12 +1459,12 @@
                 displaySchedule('6');
             }
         }
-        
+    
         // Initialize on page load
         window.onload = function () {
             // Display the appropriate schedule based on the URL or default
             handleSeancesFromURL();
-        
+    
             // Hide all exercise contents and reset arrow states
             document.querySelectorAll('.exercise-content').forEach(content => {
                 content.style.display = 'none';
@@ -1473,7 +1473,8 @@
                 arrow.style.transform = 'rotate(0deg)';
             });
         };
-        
+    
+        // Toggle exercise content visibility
         function toggleExercises(contentId) {
             const content = document.getElementById(contentId);
             const arrow = content.previousElementSibling.querySelector('.arrow');
@@ -1485,21 +1486,33 @@
                 arrow.style.transform = 'rotate(180deg)';
             }
         }
-        
+    
+        // Update the exercise with selected details
         function updateExercise(exerciseId, value) {
             const [videoSrc, posterSrc, details] = value.split('|');
             const videoElement = document.getElementById(`video-${exerciseId}`);
             const detailsElement = document.getElementById(`details-${exerciseId}`);
-        
+    
             if (videoElement) {
                 videoElement.src = videoSrc;
                 videoElement.poster = posterSrc;
             }
-        
+    
             if (detailsElement) {
                 detailsElement.innerHTML = details;
             }
         }
-</script>
+    
+        // Switch between sessions
+        function switchSession(showId, hideIds, tab) {
+            document.getElementById(showId).style.display = 'block';
+            hideIds.forEach(id => document.getElementById(id).style.display = 'none');
+    
+            // Update tab active state
+            const tabs = tab.parentNode.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        }
+    </script>
 </body>
 </html>
