@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -151,8 +151,28 @@
                 alert("Veuillez sélectionner un nombre de séances.");
                 return;
             }
-            const baseURL = "https://programmes-suppersept.netlify.app/seances";
-            const url = `${baseURL}?seances=${selectedValue}`;
+
+            // Define specific URLs for each option
+            let url = "";
+            switch (selectedValue) {
+                case "3":
+                    url = "https://programmes-suppersept.netlify.app/seances?seances=3";
+                    break;
+                case "4":
+                    url = "https://programmes-suppersept.netlify.app/seance4.html";
+                    break;
+                case "5":
+                    url = "https://programmes-suppersept.netlify.app/seance5.html";
+                    break;
+                case "6":
+                    url = "https://programmes-suppersept.netlify.app/seance6.html";
+                    break;
+                default:
+                    alert("Sélection invalide.");
+                    return;
+            }
+
+            // Navigate to the selected URL
             window.location.href = url;
         }
     </script>
