@@ -24,17 +24,16 @@
             overflow: hidden;
         }
 
-     /* Ensure video scales properly on mobile */
-#background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    pointer-events: none; /* Prevent accidental interaction */
-}
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            pointer-events: none; /* Prevent accidental interaction */
+        }
 
         .container {
             max-width: 535px;
@@ -68,23 +67,22 @@
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Expand the specific dropdown cell on mobile */
-.dropdown {
-    font-size: 1.2rem;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    width: 100%; /* Ensure it takes up the full width */
-    max-width: 500px; /* Restrict maximum width */
-    text-align: center;
-    text-align-last: center;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    background: #fff;
-    color: #333;
-}
+        .dropdown {
+            font-size: 1.2rem;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            text-align-last: center;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            background: #fff;
+            color: #333;
+        }
 
         .dropdown:focus, .dropdown:hover {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -111,12 +109,12 @@
         }
 
         @media (max-width: 768px) {
-    .dropdown {
-        font-size: 0.9rem; /* Increase font size */
-        padding: 20px 15px; /* Add padding for better touch experience */
-        max-width: 100%; /* Expand to nearly full width of the screen */
-    }
-}
+            .dropdown {
+                font-size: 0.9rem;
+                padding: 20px 15px;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,7 +129,7 @@
         <h1>Nombre de Séances par Semaine</h1>
         <select id="sessionsDropdown" class="dropdown">
             <option value="" disabled selected>Choisis ton nombre de séances par semaine</option>
-            <option value="4">3 Séances / Semaine</option>
+            <option value="3">3 Séances / Semaine</option>
             <option value="4">4 Séances / Semaine</option>
             <option value="5">5 Séances / Semaine</option>
             <option value="6">6 Séances / Semaine</option>
@@ -153,7 +151,7 @@
                 alert("Veuillez sélectionner un nombre de séances.");
                 return;
             }
-            const baseURL = "seances.html";
+            const baseURL = "https://programmes-suppersept.netlify.app/seances";
             const url = `${baseURL}?seances=${selectedValue}`;
             window.location.href = url;
         }
