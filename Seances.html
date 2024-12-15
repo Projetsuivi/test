@@ -324,13 +324,7 @@
 <body>
     <div class="container">
         <h1>Plan d'Entraînement Hebdomadaire</h1>
-        <label for="sessionsDropdown">Séances par semaine:</label>
-        <select id="sessionsDropdown" class="dropdown" onchange="displaySchedule()">
-            <option value="3">3 Séances / Semaine</option>
-            <option value="4">4 Séances / Semaine</option>
-            <option value="5">5 Séances / Semaine</option>
-            <option value="6">6 Séances / Semaine</option>
-        </select>
+        <label for="sessionsDropdown">3 Séances par semaine</label>
 <!-- Schedule for 4 sessions per week -->
 <div id="schedule3" class="training-schedule">
 
@@ -807,13 +801,12 @@
     <h3>Jour 7: Repos</h3>
 </div>
 </div>
-   
-    </div>
+
     
     </div>
     <script>
-function displaySchedule() {
-    const selectedValue = document.getElementById('sessionsDropdown').value;
+// Function to display a specific schedule based on the URL parameter or default
+function displaySchedule(scheduleNumber) {
     const schedules = ['schedule3', 'schedule4', 'schedule5', 'schedule6'];
 
     // Hide all schedules
@@ -825,16 +818,16 @@ function displaySchedule() {
     });
 
     // Show the selected schedule
-    const selectedSchedule = document.getElementById(`schedule${selectedValue}`);
+    const selectedSchedule = document.getElementById(`schedule${scheduleNumber}`);
     if (selectedSchedule) {
         selectedSchedule.style.display = 'block';
 
-        // Handle visibility of Days 5, 6, and 7
+        // Handle visibility of Days 5, 6, and 7 based on the number of sessions
         const daysToHide = ['exerciseContent5', 'exerciseContent6', 'exerciseContent7'];
-        daysToHide.forEach(dayId => {
+        daysToHide.forEach((dayId, index) => {
             const dayElement = document.getElementById(dayId);
             if (dayElement) {
-                dayElement.style.display = selectedValue === '3' ? 'block' : 'none';
+                dayElement.style.display = scheduleNumber > index + 4 ? 'block' : 'none';
             }
         });
 
@@ -843,52 +836,37 @@ function displaySchedule() {
     }
 }
 
-// Initialize the page
+// Function to handle URL parameter for 'seances'
+function handleSeancesFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const seances = urlParams.get('seances');
+    const validSeances = ['3', '4', '5', '6'];
+
+    if (seances && validSeances.includes(seances)) {
+        // Display the schedule corresponding to the URL parameter
+        displaySchedule(seances);
+        console.log(`Loaded content for ${seances} séances`);
+    } else {
+        console.warn(`Invalid or missing 'seances' parameter. Defaulting to 3 séances.`);
+        // Default to 3 séances if no valid parameter is provided
+        displaySchedule('3');
+    }
+}
+
+// Initialize on page load
 window.onload = function () {
-    // Handle initial URL-based or dropdown-based schedule loading
+    // Display the appropriate schedule based on the URL parameter or default
     handleSeancesFromURL();
 
-    // Hide Days 5, 6, and 7 if not "3 séances par semaine"
-    const initialSelection = document.getElementById('sessionsDropdown').value;
-    if (initialSelection !== '3') {
-        ['exerciseContent5', 'exerciseContent6', 'exerciseContent7'].forEach(dayId => {
-            const dayElement = document.getElementById(dayId);
-            if (dayElement) {
-                dayElement.style.display = 'none';
-            }
-        });
-    }
-};
-
-window.onload = function () {
-    // Show only Schedule 4 on page load
-    const schedule3 = document.getElementById('schedule3');
-    if (schedule3) {
-        schedule3.style.display = 'block';
-    }
-
-    // Hide all other schedules if they exist
-    const schedules = ['schedule3', 'schedule5', 'schedule6'];
-    schedules.forEach(scheduleId => {
-        const schedule = document.getElementById(scheduleId);
-        if (schedule) {
-            schedule.style.display = 'none';
-        }
-    });
-};
-
-// Ensure all exercise contents are hidden on page load
-window.onload = function () {
-    // Hide all sections and reset arrow states
+    // Ensure all exercise contents are hidden initially
     document.querySelectorAll('.exercise-content').forEach(content => {
         content.style.display = 'none';
     });
+
+    // Reset all arrow states
     document.querySelectorAll('.arrow').forEach(arrow => {
         arrow.style.transform = 'rotate(0deg)';
     });
-
-    // Display the correct schedule from URL or default
-    handleSeancesFromURL();
 };
 
 // Function to toggle exercise content
@@ -904,119 +882,22 @@ function toggleExercises(contentId) {
     }
 }
 
-// Function to switch between tabs
-function switchSession(showId, hideIds, tabElement) {
-    // Hide all other session contents
-    hideIds.forEach(function (hideId) {
-        document.getElementById(hideId).style.display = 'none';
-    });
-
-    // Show the selected session content
-    document.getElementById(showId).style.display = 'block';
-
-    // Remove 'active' class from all tabs in the same group
-    const tabs = tabElement.parentNode.querySelectorAll('.tab');
-    tabs.forEach(function (tab) {
-        tab.classList.remove('active');
-    });
-
-    // Add 'active' class to the clicked tab
-    tabElement.classList.add('active');
-}
-
-// Function to update exercise details dynamically
-function updateExercise(exerciseId, value) {
-    const [videoSrc, posterSrc, details] = value.split('|');
-    document.getElementById(`video-${exerciseId}`).src = videoSrc;
-    document.getElementById(`video-${exerciseId}`).poster = posterSrc;
-    document.getElementById(`details-${exerciseId}`).innerHTML = details;
-}
-
-// Function to handle URL parameter for 'seances'
-function handleSeancesFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const seances = urlParams.get('seances');
-
-    if (seances) {
-        const validSeances = ['3', '4', '5', '6']; // Added '3'
-        if (validSeances.includes(seances)) {
-            // Update the dropdown to match the URL parameter
-            document.getElementById('sessionsDropdown').value = seances;
-
-            // Display the corresponding schedule
-            displaySchedule();
-            console.log(`Loaded content for ${seances} séances`);
-        } else {
-            console.warn(`Invalid séance parameter: ${seances}`);
-        }
-    } else {
-        console.log('No séance parameter provided, defaulting to 3 séances.');
-        // Default to 3 séances if no parameter is provided
-        document.getElementById('sessionsDropdown').value = '3';
-        displaySchedule();
-    }
-}
-
-// Function to handle URL parameter for 'seances'
-function handleSeancesFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const seances = urlParams.get('seances');
-
-    if (seances) {
-        const validSeances = ['3', '4', '5', '6']; // Added '3'
-        if (validSeances.includes(seances)) {
-            // Update the dropdown to match the URL parameter
-            document.getElementById('sessionsDropdown').value = seances;
-
-            // Display the corresponding schedule
-            displaySchedule();
-            console.log(`Loaded content for ${seances} séances`);
-        } else {
-            console.warn(`Invalid séance parameter: ${seances}`);
-        }
-    } else {
-        console.log('No séance parameter provided, defaulting to 3 séances.');
-        // Default to 3 séances if no parameter is provided
-        document.getElementById('sessionsDropdown').value = '3';
-        displaySchedule();
-    }
-}
-
-// Function to display the schedule based on the dropdown selection
-function displaySchedule() {
-    const selectedValue = document.getElementById('sessionsDropdown').value;
-    const schedules = ['schedule3', 'schedule4', 'schedule5', 'schedule6']; // Added 'schedule3'
-
-    schedules.forEach(schedule => {
-        const element = document.getElementById(schedule);
-        if (element) {
-            element.style.display = 'none';
-        }
-    });
-
-    const selectedSchedule = document.getElementById(`schedule${selectedValue}`);
-    if (selectedSchedule) {
-        selectedSchedule.style.display = 'block';
-    }
-}
-
-// Initialize on page load
-window.onload = function () {
-    handleSeancesFromURL(); // Handle 'seances' parameter from URL
-};
-
 // Function to update exercise details dynamically
 function updateExercise(exerciseId, value) {
     const [videoSrc, posterSrc, details] = value.split('|');
 
     // Update the video source and poster
     const videoElement = document.getElementById(`video-${exerciseId}`);
-    videoElement.src = videoSrc;
-    videoElement.poster = posterSrc;
+    if (videoElement) {
+        videoElement.src = videoSrc;
+        videoElement.poster = posterSrc;
+    }
 
     // Update the exercise details
     const detailsElement = document.getElementById(`details-${exerciseId}`);
-    detailsElement.innerHTML = details;
+    if (detailsElement) {
+        detailsElement.innerHTML = details;
+    }
 }
 </script>
 </body>
