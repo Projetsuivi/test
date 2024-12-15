@@ -1520,68 +1520,103 @@
 </div>
 </div>
 
-    <script>
-        function displaySchedule(scheduleNumber = '4') {
-            const schedules = ['schedule3', 'schedule4', 'schedule5', 'schedule6'];
-        
-            // Hide all schedules
-            schedules.forEach(schedule => {
-                const element = document.getElementById(schedule);
-                if (element) {
-                    element.style.display = 'none';
+<script>
+    // Function to display a specific schedule based on the URL parameter or default
+    function displaySchedule(scheduleNumber) {
+        const schedules = ['schedule3', 'schedule4', 'schedule5', 'schedule6'];
+
+        // Hide all schedules
+        schedules.forEach(schedule => {
+            const element = document.getElementById(schedule);
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
+
+        // Show the selected schedule
+        const selectedSchedule = document.getElementById(`schedule${scheduleNumber}`);
+        if (selectedSchedule) {
+            selectedSchedule.style.display = 'block';
+
+            // Handle visibility of Days 5, 6, and 7 based on the number of sessions
+            const daysToHide = ['exerciseContent5', 'exerciseContent6', 'exerciseContent7'];
+            daysToHide.forEach((dayId, index) => {
+                const dayElement = document.getElementById(dayId);
+                if (dayElement) {
+                    dayElement.style.display = scheduleNumber > index + 4 ? 'block' : 'none';
                 }
             });
-        
-            // Show the specified schedule
-            const selectedSchedule = document.getElementById(`schedule${scheduleNumber}`);
-            if (selectedSchedule) {
-                selectedSchedule.style.display = 'block';
-        
-                // Handle visibility of Days 5, 6, and 7 for schedule 3
-                const daysToHide = ['exerciseContent5', 'exerciseContent6', 'exerciseContent7'];
-                daysToHide.forEach((dayId, index) => {
-                    const dayElement = document.getElementById(dayId);
-                    if (dayElement) {
-                        dayElement.style.display = scheduleNumber === '3' && index < 3 ? 'block' : 'none';
-                    }
-                });
-        
-                // Scroll the selected schedule into view
-                selectedSchedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+
+            // Scroll the selected schedule into view
+            selectedSchedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
-        function handleSeancesFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const seances = urlParams.get('seances');
-            const validSeances = ['3', '4', '5', '6'];
-        
-            if (seances && validSeances.includes(seances)) {
-                // Display the corresponding schedule from the URL
-                displaySchedule(seances);
-                console.log(`Loaded content for ${seances} séances.`);
-            } else {
-                // Default to Schedule 4 if no valid parameter is provided
-                console.log('No valid "seances" parameter provided. Defaulting to 4 séances.');
-                displaySchedule('4');
-            }
+    }
+
+    // Function to handle URL parameter for 'seances'
+    function handleSeancesFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const seances = urlParams.get('seances');
+        const validSeances = ['3', '4', '5', '6'];
+
+        if (seances && validSeances.includes(seances)) {
+            // Display the schedule corresponding to the URL parameter
+            displaySchedule(seances);
+            console.log(`Loaded content for ${seances} séances`);
+        } else {
+            console.warn(`Invalid or missing 'seances' parameter. Defaulting to 3 séances.`);
+            // Default to 3 séances if no valid parameter is provided
+            displaySchedule('3');
         }
-        
-        // Initialize on page load
-        window.onload = function () {
-            // Display the appropriate schedule based on the URL or default
-            handleSeancesFromURL();
-        
-            // Hide all exercise contents and reset arrow states
-            document.querySelectorAll('.exercise-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            document.querySelectorAll('.arrow').forEach(arrow => {
-                arrow.style.transform = 'rotate(0deg)';
-            });
-        };
-        
-        function toggleExercises(contentId) {
+    }
+
+    // Initialize on page load
+    window.onload = function () {
+        // Display the appropriate schedule based on the URL parameter or default
+        handleSeancesFromURL();
+
+        // Ensure all exercise contents are hidden initially
+        document.querySelectorAll('.exercise-content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // Reset all arrow states
+        document.querySelectorAll('.arrow').forEach(arrow => {
+            arrow.style.transform = 'rotate(0deg)';
+        });
+    };
+
+    // Function to toggle exercise content
+    function toggleExercises(contentId) {
+        const content = document.getElementById(contentId);
+        const arrow = content.previousElementSibling.querySelector('.arrow');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            arrow.style.transform = 'rotate(0deg)';
+        } else {
+            content.style.display = 'block';
+            arrow.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Function to update exercise details dynamically
+    function updateExercise(exerciseId, value) {
+        const [videoSrc, posterSrc, details] = value.split('|');
+
+        // Update the video source and poster
+        const videoElement = document.getElementById(`video-${exerciseId}`);
+        if (videoElement) {
+            videoElement.src = videoSrc;
+            videoElement.poster = posterSrc;
+        }
+
+        // Update the exercise details
+        const detailsElement = document.getElementById(`details-${exerciseId}`);
+        if (detailsElement) {
+            detailsElement.innerHTML = details;
+        }
+    }
+    // Toggle exercise content visibility
+    function toggleExercises(contentId) {
             const content = document.getElementById(contentId);
             const arrow = content.previousElementSibling.querySelector('.arrow');
             if (content.style.display === 'block') {
@@ -1592,20 +1627,16 @@
                 arrow.style.transform = 'rotate(180deg)';
             }
         }
-        
-        function updateExercise(exerciseId, value) {
-            const [videoSrc, posterSrc, details] = value.split('|');
-            const videoElement = document.getElementById(`video-${exerciseId}`);
-            const detailsElement = document.getElementById(`details-${exerciseId}`);
-        
-            if (videoElement) {
-                videoElement.src = videoSrc;
-                videoElement.poster = posterSrc;
-            }
-        
-            if (detailsElement) {
-                detailsElement.innerHTML = details;
-            }
+
+        // Switch between sessions
+        function switchSession(showId, hideIds, tab) {
+            document.getElementById(showId).style.display = 'block';
+            hideIds.forEach(id => document.getElementById(id).style.display = 'none');
+
+            // Update tab active state
+            const tabs = tab.parentNode.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
         }
 </script>
 </body>
