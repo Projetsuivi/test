@@ -324,7 +324,8 @@
 <body>
     <div class="container">
         <h1>Plan d'Entraînement Hebdomadaire</h1>
-        <label for="sessionsDropdown">3 Séances par semaine</label>
+        <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem; color: #530b0b;;">3 Séances par semaine</h2>    
+
 <!-- Schedule for 4 sessions per week -->
 <div id="schedule3" class="training-schedule">
 
@@ -344,81 +345,165 @@
     <div id="sessionJambes" class="session-content" style="text-align: center;">
         <h2 class="exercise-block-title3"></h2>
 
-        <!-- Exercise 1: Fentes -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-            <select class="dropdown" onchange="updateExercise('fentes', this.value)">
-                <option value="https://storage.googleapis.com/suppersept/fentes_guides.mp4|https://storage.googleapis.com/suppersept/fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30 de repos entre chaque jambe" selected>
-                    Fentes / Guidée
-                </option>
-                <option value="https://storage.googleapis.com/suppersept/press_verticale.mp4|https://storage.googleapis.com/suppersept/press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
-                    Press Verticale
-                </option>
-                <option value="https://storage.googleapis.com/suppersept/fentes_bulgare_video.mp4|https://storage.googleapis.com/suppersept/fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
-                    Fentes Bulgares / Guidée
-                </option>
-                <option value="https://storage.googleapis.com/suppersept/squat.mp4|https://storage.googleapis.com/suppersept/squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
-                    Squat Bar Guidée
-                </option>
-                <option value="https://storage.googleapis.com/suppersept/hack_squat.mp4|https://storage.googleapis.com/suppersept/hack_squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
-                    Hack Squat
-                </option>
-            </select>
-            <p class="exercise-details" id="details-fentes" style="text-align: center;">
-                <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min 30 de repos entre chaque jambe
-            </p>
-            <video id="video-fentes" controls playsinline src="https://storage.googleapis.com/suppersept/fentes_guides.mp4" poster="https://storage.googleapis.com/suppersept/fentes_guides.png"></video>
-        </div>
+<!-- Exercise 1: Fentes -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 1</h2>
+    
+    <select class="dropdown" onchange="updateExercise('fentes', this.value)">
+        <option value="https://storage.googleapis.com/suppersept/fentes_guides.mp4|https://storage.googleapis.com/suppersept/fentes_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30" selected>
+            Fentes / Guidée
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/press_verticale.mp4|https://storage.googleapis.com/suppersept/press_verticale.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            Press Verticale
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/fentes_bulgare_video.mp4|https://storage.googleapis.com/suppersept/fentes_bulgares_guides.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            Fentes Bulgares / Guidée
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/squat.mp4|https://storage.googleapis.com/suppersept/squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            Squat Bar Guidée
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/hack_squat.mp4|https://storage.googleapis.com/suppersept/hack_squat.png|5 Séries / 10-12 Répétitions<br>Repos: 1 min 30">
+            Hack Squat
+        </option>
+    </select>
+    
+    <p class="exercise-details" id="details-fentes" style="text-align: center;">
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min 30</span>
+    </p>
+    </p>
+    
+    <video id="video-fentes" controls playsinline src="https://storage.googleapis.com/suppersept/fentes_guides.mp4" poster="https://storage.googleapis.com/suppersept/fentes_guides.png"></video>
+</div>
 
-        <!-- Exercise 2: Hip Thrust -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-            <p class="exercise-title" style="text-align: center;">Hip Thrust</p>
-            <p class="exercise-details" id="details-hipThrust" style="text-align: center;">
-                <strong>5 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: au moins 1 min 15
-            </p>
-            <video id="video-hipThrust" controls playsinline src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png"></video>
-        </div>
+<!-- Exercise 2: Hip Thrust -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 2: Hip Thrust</h2>
+    
+    <p class="exercise-details" id="details-hipThrust" style="text-align: center;">
+        <strong>5 Séries</strong> / <strong>12-15 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min 15</span>
+    </p>
+    
+    <video id="video-hipThrust" controls playsinline src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png" style="
+        display: block;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+    </video>
+</div>
 
-        <!-- Exercise 3: Leg Curl -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-            <select class="dropdown" onchange="updateExercise('legCurl', this.value)">
-                <option value="https://storage.googleapis.com/suppersept/leg_curl.mp4|https://storage.googleapis.com/suppersept/leg_curl.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
-                    Leg Curl
-                </option>
-                <option value="souleve_de_terre_jambes_tendues.mp4|https://storage.googleapis.com/suppersept/souleve_de_terre_jambes_tendues.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 15">
-                    Soulevé de Terre Jambes Tendues
-                </option>
-            </select>
-            <p class="exercise-details" id="details-legCurl" style="text-align: center;">
-                <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
-            </p>
-            <video id="video-legCurl" controls playsinline src="https://storage.googleapis.com/suppersept/leg_curl.mp4" poster="https://storage.googleapis.com/suppersept/leg_curl.png"></video>
-        </div>
+<!-- Exercise 3: Leg Curl -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+    url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 3: Leg Curl</h2>
+    
+    <select class="dropdown" onchange="updateExercise('legCurl', this.value)">
+        <option value="https://storage.googleapis.com/suppersept/leg_curl.mp4|https://storage.googleapis.com/suppersept/leg_curl.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
+            Leg Curl
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/souleve_de_terre_jambes_tendues.mp4|https://storage.googleapis.com/suppersept/souleve_de_terre_jambes_tendues.png|4 Séries / 10-12 Répétitions<br>Repos: 1 min 15">
+            Soulevé de Terre Jambes Tendues
+        </option>
+    </select>
+    
+    <p class="exercise-details" id="details-legCurl" style="text-align: center;">
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
+    </p>
+    
+    <video id="video-legCurl" controls playsinline src="https://storage.googleapis.com/suppersept/leg_curl.mp4" poster="https://storage.googleapis.com/suppersept/leg_curl.png"></video>
+</div>
 
-        <!-- Exercise 4: Adducteurs -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-            <p class="exercise-title"><strong>Adducteurs</strong></p>
-            <p class="exercise-details" style="text-align: center;">
-                <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: 1 min
-            </p>
-            <video controls playsinline src="https://storage.googleapis.com/suppersept/adducteur.mp4" poster="https://storage.googleapis.com/suppersept/adducteur.png"></video>
-        </div>
+<!-- Exercise 4: Adducteurs -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 4: Adducteurs</h2>
+    <p class="exercise-details" style="text-align: center;">
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min</span>
+    </p>
+    <video controls playsinline src="https://storage.googleapis.com/suppersept/adducteur.mp4" poster="https://storage.googleapis.com/suppersept/adducteur.png"></video>
+</div>
 
-        <!-- Exercise 5: Mollets -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center;">
-            <p class="exercise-title"><strong>Mollets</strong></p>
-            <p class="exercise-details" style="text-align: center;">
-                <strong>4 Séries</strong> / <strong>15-20 Répétitions</strong><br>Repos: 1 min
-            </p>
-            <video controls playsinline src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png"></video>
-        </div>
-    </div>
+<!-- Exercise 5: Mollets -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 5: Mollets</h2>
+    <p class="exercise-details" style="text-align: center;">
+        <strong>4 Séries</strong> / <strong>15-20 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min</span>    </p>
+    <video controls playsinline src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png"></video>
+</div>
+</div>
 
 <!-- Séance Épaules Content -->
 <div id="sessionEpaules" class="session-content" style="display: none; text-align: center;">
     <h2 class="exercise-block-title4"></h2>
-<!-- Exercise 1: Élévation Machine -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('elevationMachine', this.value)">
+<!-- Exercise 6: Élévation Machine -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+    url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 6<select class="dropdown" onchange="updateExercise('elevationMachine', this.value)">
         <option value="https://storage.googleapis.com/suppersept/elevations_laterales_machine.mp4|elevation_machine_laterale.png|5 Séries / 8-10 Répétitions<br>+2 séries en dégressif 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières" selected>
             Élévation Machine / Dégressif
         </option>
@@ -430,14 +515,30 @@
         </option>
     </select>
     <p class="exercise-details" id="details-elevationMachine" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>+2 séries en dégressif / 15-20 réps<br>Repos: Au moins 1 min 30 / 2 min pour les deux dernières
+        <strong>5 Séries</strong> / <strong>8-10 Répétitions</strong><br>
+        +2 séries en dégressif / 15-20 réps<br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: Au moins 1 min 30 / 2 min pour les deux dernières
+        </span>
     </p>
     <video id="video-elevationMachine" controls playsinline src="https://storage.googleapis.com/suppersept/elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png"></video>
 </div>
 
-  <!-- Exercise 2: Dev Militaire -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('devMilitaire', this.value)">
+  <!-- Exercise 7: Dev Militaire -->
+  <div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 7</h2>
+      <select class="dropdown" onchange="updateExercise('devMilitaire', this.value)">
         <option value="https://storage.googleapis.com/suppersept/dev_militaire_machine.mp4|https://storage.googleapis.com/suppersept/dev_militaire.png|4 Séries / 12-15 Répétitions<br>Repos: au moins 1 min 30" selected>
             Dev Militaire / Machine
         </option>
@@ -455,14 +556,29 @@
         </option>
     </select>
     <p class="exercise-details" id="details-devMilitaire" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-devMilitaire" controls playsinline src="https://storage.googleapis.com/suppersept/dev_militaire_machine.mp4" poster="https://storage.googleapis.com/suppersept/dev_militaire.png"></video>
 </div>
 
-<!-- Exercise 3: Butterfly inversé / Dégressif -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('butterflyInverse', this.value)">
+<!-- Exercise 8: Butterfly inversé / Dégressif -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 8</h2>
+        <select class="dropdown" onchange="updateExercise('butterflyInverse', this.value)">
         <option value="https://storage.googleapis.com/suppersept/butterfly_inverse.mp4|https://storage.googleapis.com/suppersept/butterfly_inverse.png|4 Séries / 18-20 Répétitions<br>Repos: au moins 1 min 15" selected>
             Butterfly inversé / Dégressif
         </option>
@@ -471,7 +587,10 @@
         </option>
     </select>
     <p class="exercise-details" id="details-butterflyInverse" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>18-20 Répétitions</strong><br>Repos: au moins 1 min 15
+        <strong>4 Séries</strong> / <strong>18-20 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 15
+        </span>
     </p>
     <video id="video-butterflyInverse" controls playsinline src="https://storage.googleapis.com/suppersept/butterfly_inverse.mp4" poster="https://storage.googleapis.com/suppersept/butterfly_inverse.png"></video>
 </div>
@@ -500,7 +619,19 @@
     <div id="sessionTriceps" class="session-content" style="text-align: center;">
         <h2 class="exercise-block-title7"></h2>
 <!-- Exercise 1: Dips -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 1</h2>    
     <select class="dropdown" onchange="updateExercise('dips', this.value)">
         <option value="https://storage.googleapis.com/suppersept/dips.mp4|https://storage.googleapis.com/suppersept/dips.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Dips (Ou dips guidés)
@@ -510,14 +641,28 @@
         </option>
     </select>
     <p class="exercise-details" id="details-dips" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-dips" controls playsinline src="https://storage.googleapis.com/suppersept/dips.mp4" poster="https://storage.googleapis.com/suppersept/dips.png"></video>
 </div>
 
 <!-- Exercise 2: Barre au Front -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('barreFront', this.value)">
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 2</h2>    <select class="dropdown" onchange="updateExercise('barreFront', this.value)">
         <option value="https://storage.googleapis.com/suppersept/barre_au_front_chaise.mp4|https://storage.googleapis.com/suppersept/bar_au_front.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
             Barre au front + Chaise
         </option>
@@ -535,7 +680,10 @@
         </option>
     </select>
     <p class="exercise-details" id="details-barreFront" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 15
+        </span>
     </p>
     <video id="video-barreFront" controls playsinline src="https://storage.googleapis.com/suppersept/barre_au_front_chaise.mp4" poster="https://storage.googleapis.com/suppersept/bar_au_front.png"></video>
 </div>
@@ -545,9 +693,21 @@
     <!-- Séance Biceps Content -->
     <div id="sessionBiceps" class="session-content" style="display: none; text-align: center;">
         <h2 class="exercise-block-title6"></h2>
-<!-- Exercise 1: Curl Biceps Machine -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('curlBiceps', this.value)">
+<!-- Exercise 3: Curl Biceps Machine -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 3</h2>
+        <select class="dropdown" onchange="updateExercise('curlBiceps', this.value)">
         <option value="https://storage.googleapis.com/suppersept/curl_biceps_machine.mp4|https://storage.googleapis.com/suppersept/curl_biceps_machine.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 15" selected>
             Curl Biceps Machine / Dégressif
         </option>
@@ -561,15 +721,30 @@
             Curl Supination / Barre
         </option>
     </select>
-    <p class="exercise-details" id="details-curlBiceps" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
-    </p>
+<p class="exercise-details" id="details-curlBiceps" style="text-align: center;">
+    <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+    <span style="color: rgb(10, 147, 10); font-weight: bold;">
+        Repos: au moins 1 min 15
+    </span>
+</p>
     <video id="video-curlBiceps" controls playsinline src="https://storage.googleapis.com/suppersept/curl_biceps_machine.mp4" poster="https://storage.googleapis.com/suppersept/curl_biceps_machine.png"></video>
 </div>
 
-       <!-- Exercise 2: Curl Marteau -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('curlMarteau', this.value)">
+       <!-- Exercise 4: Curl Marteau -->
+       <div class="training-row" style="
+       background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                   url('logo.png') no-repeat center center;
+       background-size: cover;
+       color: #530b0b;
+       padding: 20px;
+       margin-bottom: 20px;
+       border-radius: 12px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+       backdrop-filter: blur(3px);
+       transition: all 0.3s ease;">
+       
+       <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 4</h2>
+           <select class="dropdown" onchange="updateExercise('curlMarteau', this.value)">
         <option value="https://storage.googleapis.com/suppersept/curl_prise_marteaux.mp4|https://storage.googleapis.com/suppersept/curl_prise_marteaux.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Curl Marteau / Haltères
         </option>
@@ -578,16 +753,33 @@
         </option>
     </select>
     <p class="exercise-details" id="details-curlMarteau" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-curlMarteau" controls playsinline src="https://storage.googleapis.com/suppersept/curl_prise_marteaux.mp4" poster="https://storage.googleapis.com/suppersept/curl_prise_marteaux.png"></video>
 </div>
 
-<!-- Exercise 3: Curl Incliné -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center;">
-    <p class="exercise-title" style="text-align: center;"><strong>Curl Incliné / Dégressif</strong></p>
+<!-- Exercise 5: Curl Incliné -->
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 5: Curl Incliné / Dégressif</h2>
     <p class="exercise-details" id="details-curlIncline" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 15
+        </span>
     </p>
     <video id="video-curlIncline" controls playsinline src="https://storage.googleapis.com/suppersept/curl_incline_degressif.mp4" poster="https://storage.googleapis.com/suppersept/curl_incline_degressif.png"></video>
 </div>
@@ -602,49 +794,103 @@
             <div class="tab" onclick="switchSession('abdosCrunchSeries', ['abdosGainage'], this)">Crunch / Machine</div>
         </div>
 
-       <!-- Gainage Subcategory -->
-<div id="abdosGainage" class="subcategory-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; min-height: 300px;">
-    <!-- Exercise Details -->
-    <div style="margin-bottom: 15px; text-align: center;">
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Relevé de Jambes</p>
-            <p style="margin: 0;">30-45 secondes / Fois 4</p>
-        </div>
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Ventral</p>
-            <p style="margin: 0;">30-45 secondes / Fois 4</p>
-        </div>
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Latéral</p>
-            <p style="margin: 0;">30-45 secondes / Fois 4</p>
-        </div>
-        <div>
-            <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Dorsal</p>
-            <p style="margin: 0;">30-45 secondes / Fois 4</p>
-        </div>
-    </div>
+      <!-- Gainage Subcategory -->
+<div id="abdosGainage" class="subcategory-content" style="
+display: flex; 
+flex-direction: column; 
+align-items: center; 
+margin-bottom: 20px; 
+min-height: 300px;
+background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+            url('logo.png') no-repeat center center;
+background-size: cover;
+color: #530b0b;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+backdrop-filter: blur(3px);
+transition: all 0.3s ease;">
 
-    <!-- Video -->
-    <video controls playsinline src="https://storage.googleapis.com/suppersept/gainage.mp4" poster="https://storage.googleapis.com/suppersept/gainage.png" style="width: 300px; height: auto; border-radius: 8px;"></video>
+<!-- Exercise Details -->
+<div style="margin-bottom: 15px; text-align: center;">
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 6: Gainage</h2>
+
+    <div>
+        <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Relevé de Jambes</p>
+        <p style="margin: 0; color: rgb(10, 147, 10); font-weight: bold;">
+            30-45 secondes / Fois 4
+        </p>
+    </div>
+    <div>
+        <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Ventral</p>
+        <p style="margin: 0; color: rgb(10, 147, 10); font-weight: bold;">
+            30-45 secondes / Fois 4
+        </p>
+    </div>
+    <div>
+        <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Latéral</p>
+        <p style="margin: 0; color: rgb(10, 147, 10); font-weight: bold;">
+            30-45 secondes / Fois 4
+        </p>
+    </div>
+    <div>
+        <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Gainage Dorsal</p>
+        <p style="margin: 0; color: rgb(10, 147, 10); font-weight: bold;">
+            30-45 secondes / Fois 4
+        </p>
+    </div>
+</div>
+
+<!-- Centered Video -->
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px;">
+    <video controls playsinline 
+           src="https://storage.googleapis.com/suppersept/gainage.mp4" 
+           poster="https://storage.googleapis.com/suppersept/gainage.png" 
+           style="width: 300px; height: auto; border-radius: 8px;">
+    </video>
+</div>
 </div>
 
 <!-- Crunch / Machine Subcategory -->
-<div id="abdosCrunchSeries" class="subcategory-content" style="display: none; flex-direction: column; align-items: center; margin-bottom: 20px; min-height: 300px;">
-    <!-- Exercise Details -->
-    <div style="margin-bottom: 15px; text-align: center;">
-        <p style="font-size: 1.2rem; font-weight: bold; margin: 0;">Crunch / Machine</p>
-        <p style="margin: 0;">
-            <strong>6 Séries</strong> / <strong>15-20 Répétitions</strong><br>
-            Charge modérée - Engagement du Périnée<br>
-            <strong>35-40 secondes</strong> de repos
-        </p>
-    </div>
+<div id="abdosCrunchSeries" class="subcategory-content training-row" style="
+    display: none; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-bottom: 20px; 
+    min-height: 300px; 
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <!-- Exercise Title -->
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 7: Crunch / Machine</h2>
 
-    <!-- Video -->
-    <video controls playsinline src="https://storage.googleapis.com/suppersept/crunch.mp4" poster="https://storage.googleapis.com/suppersept/crunch.png" style="width: 300px; height: auto; border-radius: 8px;"></video>
+    <!-- Exercise Details -->
+    <p class="exercise-details" style="text-align: center;">
+        <strong>6 Séries</strong> / <strong>15-20 Répétitions</strong><br>
+        Charge modérée - Engagement du Périnée<br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            35-40 secondes de repos
+        </span>
+    </p>
+
+   <!-- Video -->
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <video controls playsinline 
+           src="https://storage.googleapis.com/suppersept/crunch.mp4" 
+           poster="https://storage.googleapis.com/suppersept/crunch.png" 
+           style="width: 300px; height: auto; border-radius: 8px;">
+    </video>
 </div>
         </div>
     </div>
+</div>
 
 
 <!-- Day 4: Repos -->
@@ -673,7 +919,19 @@
     <div id="sessionDos" class="session-content">
         <h2 class="exercise-block-title"></h2>
 <!-- Exercise 1: Tractions assistées -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+<div class="training-row" style="
+    background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                url('logo.png') no-repeat center center;
+    background-size: cover;
+    color: #530b0b;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;">
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 1</h2>    
     <select class="dropdown" onchange="updateExercise('tractions', this.value)">
         <option value="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4|https://storage.googleapis.com/suppersept/traction_assistee.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Tractions assistées
@@ -692,13 +950,28 @@
         </option>
     </select>
     <p class="exercise-details" id="details-tractions" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-tractions" controls playsinline src="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4" poster="https://storage.googleapis.com/suppersept/traction_assistee.png"></video>
 </div>
        <!-- Exercise 2: Tirage Horizontal / Trapèze -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('tirageHorizontal', this.value)">
+       <div class="training-row" style="
+       background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                   url('logo.png') no-repeat center center;
+       background-size: cover;
+       color: #530b0b;
+       padding: 20px;
+       margin-bottom: 20px;
+       border-radius: 12px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+       backdrop-filter: blur(3px);
+       transition: all 0.3s ease;">
+       
+       <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 2</h2>
+        <select class="dropdown" onchange="updateExercise('tirageHorizontal', this.value)">
         <option value="tirage_horizontale_trapezes.mp4|https://storage.googleapis.com/suppersept/tirage_horizontale_trapezes.png|5 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Tirage Horizontal / Trapèze
         </option>
@@ -707,14 +980,29 @@
         </option>
     </select>
     <p class="exercise-details" id="details-tirageHorizontal" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-tirageHorizontal" controls playsinline src="tirage_horizontale_trapezes.mp4" poster="https://storage.googleapis.com/suppersept/tirage_horizontale_trapezes.png"></video>
 </div>
 
 <!-- Exercise 3: Tirage Menton / Dégressif -->
-<div class="training-row">
-    <select class="dropdown" onchange="updateExercise('tirageMenton', this.value)">
+<div class="training-row" style="
+       background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                   url('logo.png') no-repeat center center;
+       background-size: cover;
+       color: #530b0b;
+       padding: 20px;
+       margin-bottom: 20px;
+       border-radius: 12px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+       backdrop-filter: blur(3px);
+       transition: all 0.3s ease;">
+       
+       <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 3</h2>    
+       <select class="dropdown" onchange="updateExercise('tirageMenton', this.value)">
         <option value="https://storage.googleapis.com/suppersept/tirage_menton.mp4|https://storage.googleapis.com/suppersept/tirage_menton.png|4 Séries / 10-12 Répétitions + Dégressif<br>Repos: au moins 1 min 30" selected>
             Tirage Menton / Dégressif
         </option>
@@ -723,16 +1011,33 @@
         </option>
     </select>
     <p class="exercise-details" id="details-tirageMenton" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>Repos: au moins 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-tirageMenton" controls playsinline src="https://storage.googleapis.com/suppersept/tirage_menton.mp4" poster="https://storage.googleapis.com/suppersept/tirage_menton.png"></video>
 </div>
         <!-- Exercise 4: Relevé de buste -->
-        <div class="training-row" style="display: flex; flex-direction: column; align-items: center;">
-            <p class="exercise-title" style="text-align: center;"><strong>Relevé de buste</strong></p>
-            <p class="exercise-details" style="text-align: center;">
-                <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 15
-            </p>
+        <div class="training-row" style="
+        background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                    url('logo.png') no-repeat center center;
+        background-size: cover;
+        color: #530b0b;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(3px);
+        transition: all 0.3s ease;">
+        
+        <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 4: Relevé de buste</h2>            
+        <p class="exercise-details" style="text-align: center;">
+            <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+            <span style="color: rgb(10, 147, 10); font-weight: bold;">
+                Repos: au moins 1 min 15
+            </span>
+        </p>
             <video controls playsinline src="https://storage.googleapis.com/suppersept/releves_de_buste_en_detail.mp4" poster="https://storage.googleapis.com/suppersept/releve_buste.png"></video>
         </div>
     </div>
@@ -740,9 +1045,21 @@
     <!-- Séance Pectoraux Content -->
     <div id="sessionPectoraux" class="session-content" style="display: none;">
         <h2 class="exercise-block-title"></h2>
-<!-- Exercise 1: Dev Incliné -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('devIncline', this.value)" style="margin: 0 auto;">
+<!-- Exercise 5: Dev Incliné -->
+<div class="training-row" style="
+       background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                   url('logo.png') no-repeat center center;
+       background-size: cover;
+       color: #530b0b;
+       padding: 20px;
+       margin-bottom: 20px;
+       border-radius: 12px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+       backdrop-filter: blur(3px);
+       transition: all 0.3s ease;">
+       
+       <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 5</h2>  
+       <select class="dropdown" onchange="updateExercise('devIncline', this.value)" style="margin: 0 auto;">
         <option value="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4|https://storage.googleapis.com/suppersept/smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
             Dev Incliné / Tempo
         </option>
@@ -753,15 +1070,30 @@
             Dips Prise Large
         </option>
     </select>
-    <p class="exercise-details" id="details-devIncline" style="text-align: center;">
-        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>1 Série 10-12 Réps jusqu'à 20</strong><br>Repos: au moins 1 min 30
+    <p class="exercise-details" style="text-align: center;">
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 15
+        </span>
     </p>
     <video id="video-devIncline" controls playsinline src="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/smith_machine_tempo.png"></video>
 </div>
 
-<!-- Exercise 2: Écartés haltères / Rentrés -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('ecartesHaltere', this.value)" style="margin: 0 auto;">
+<!-- Exercise 6: Écartés haltères / Rentrés -->
+<div class="training-row" style="
+       background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                   url('logo.png') no-repeat center center;
+       background-size: cover;
+       color: #530b0b;
+       padding: 20px;
+       margin-bottom: 20px;
+       border-radius: 12px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+       backdrop-filter: blur(3px);
+       transition: all 0.3s ease;">
+       
+       <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 6</h2>    
+       <select class="dropdown" onchange="updateExercise('ecartesHaltere', this.value)" style="margin: 0 auto;">
         <option value="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.mp4|https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.png|4 Séries / 10-12 Répétitions<br>Repos: au moins 1 min 30" selected>
             Écartés haltères / Rentrés
         </option>
@@ -770,14 +1102,29 @@
         </option>
     </select>
     <p class="exercise-details" id="details-ecartesHaltere" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>Repos: au moins 1 min 30
+        <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-ecartesHaltere" controls playsinline src="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.mp4" poster="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.png"></video>
 </div>
 
-     <!-- Exercise 3: Bench Machine Tempo -->
-<div class="training-row" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-    <select class="dropdown" onchange="updateExercise('benchMachineIso', this.value)" style="margin: 0 auto;">
+     <!-- Exercise 7: Bench Machine Tempo -->
+     <div class="training-row" style="
+     background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+                 url('logo.png') no-repeat center center;
+     background-size: cover;
+     color: #530b0b;
+     padding: 20px;
+     margin-bottom: 20px;
+     border-radius: 12px;
+     box-shadow: 0 4px 8px rgba(2, 1, 1, 0.15);
+     backdrop-filter: blur(3px);
+     transition: all 0.3s ease;">
+     
+     <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 7</h2>
+        <select class="dropdown" onchange="updateExercise('benchMachineIso', this.value)" style="margin: 0 auto;">
         <option value="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4|https://storage.googleapis.com/suppersept/bench_machine_tempo.png|4 Séries / 7-8 Répétitions<br>+ 1 Série 10-12 Réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
             Bench Machine Tempo
         </option>
@@ -789,7 +1136,9 @@
         </option>
     </select>
     <p class="exercise-details" id="details-benchMachineIso" style="text-align: center;">
-        <strong>4 Séries</strong> / <strong>7-8 Répétitions</strong><br>+ <strong>1 Série 10-12 Réps jusqu'à 20</strong><br>Repos: au moins 1 min 30
+        <strong>4 Séries</strong> / <strong>7-8 Répétitions</strong><br>+ <strong>1 Série 10-12 Réps jusqu'à 20</strong><br>   <span style="color: rgb(10, 147, 10); font-weight: bold;">
+            Repos: au moins 1 min 30
+        </span>
     </p>
     <video id="video-benchMachineIso" controls playsinline src="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/bench_machine_tempo.png"></video>
 </div>
@@ -882,22 +1231,28 @@
             }
         }
 
-        // Function to update exercise details dynamically
         function updateExercise(exerciseId, value) {
-            const [videoSrc, posterSrc, details] = value.split('|');
+    const [videoSrc, posterSrc, details] = value.split('|');
 
-            // Update the video source and poster
-            const videoElement = document.getElementById(`video-${exerciseId}`);
-            if (videoElement) {
-                videoElement.src = videoSrc;
-                videoElement.poster = posterSrc;
-            }
+    // Update the video source and poster
+    const videoElement = document.getElementById(`video-${exerciseId}`);
+    if (videoElement) {
+        videoElement.src = videoSrc;
+        videoElement.poster = posterSrc;
+        videoElement.load();
+    }
 
-            // Update the exercise details
-            const detailsElement = document.getElementById(`details-${exerciseId}`);
-            if (detailsElement) {
-                detailsElement.innerHTML = details;
-            }
+    // Preserve bold tags for "5 Séries" and "10-12 Répétitions" and format "Repos" in green
+    const formattedDetails = details
+        .replace(/(\d+\sSéries)/, '<strong>$1</strong>')
+        .replace(/(\d+-\d+\sRépétitions)/, '<strong>$1</strong>')
+        .replace(/(Repos:.*?)(<br>|$)/, '<span style="color: rgb(10, 147, 10); font-weight: bold;">$1</span>$2');
+
+    // Update the exercise details
+    const detailsElement = document.getElementById(`details-${exerciseId}`);
+    if (detailsElement) {
+        detailsElement.innerHTML = formattedDetails;
+    }
         }
          // Toggle exercise content visibility
          function toggleExercises(contentId) {
