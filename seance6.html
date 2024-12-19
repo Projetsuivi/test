@@ -345,43 +345,48 @@
     <div id="sessionPecs22" class="session-content">
         <h2 class="exercise-block-title2"></h2>
 
-         <!-- Exercise 1: Dev Incliné / Tempo -->
-         <div class="training-row" style="
-         background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
-                     url('logo.png') no-repeat center center;
-         background-size: cover;
-         color: #530b0b;
-         padding: 20px;
-         margin-bottom: 20px;
-         border-radius: 12px;
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-         backdrop-filter: blur(3px);
-         transition: all 0.3s ease;">
-         
-         <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 1</h2>     
-            <select class="dropdown" onchange="updateExercise('pecs6', this.value)" style="margin: 0 auto;">
-            <option value="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4|https://storage.googleapis.com/suppersept/smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
-                Dev Incliné / Tempo
-            </option>
-            <option value="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4|https://storage.googleapis.com/suppersept/bench_machine_tempo.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
-                Bench Machine Tempo
-            </option>
-            <option value="https://storage.googleapis.com/suppersept/dips_prise_large.mp4|https://storage.googleapis.com/suppersept/dips_prise_large.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
-                Dips Prise Large
-            </option>
-        </select>
-        <p class="exercise-details" id="details-pecs6" style="text-align: center;">
-            <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>1 Série 10-12 réps jusqu'à 20</strong><br>
-            <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
-        </p>
-        <video
-            id="video-pecs6"
-            controls
-            playsinline
-            src="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4"
-            poster="https://storage.googleapis.com/suppersept/smith_machine_tempo.png"
-            style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
-        </video>
+<!-- Exercise 1: Dev Incliné / Tempo -->
+<div class="training-row" style="
+background: linear-gradient(135deg, #ffd8cc, rgba(255, 255, 255, 0.8)), 
+            url('logo.png') no-repeat center center;
+background-size: cover;
+color: #530b0b;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 12px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+backdrop-filter: blur(3px);
+transition: all 0.3s ease;">
+
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 1.5rem;">Exercice 1</h2>     
+    <select class="dropdown" onchange="updateExercise('pecs6', this.value)" style="margin: 0 auto;">
+        <option value="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4|https://storage.googleapis.com/suppersept/smith_machine_tempo.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30" selected>
+            Dev Incliné / Tempo
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4|https://storage.googleapis.com/suppersept/bench_machine_tempo.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
+            Bench Machine Tempo
+        </option>
+        <option value="https://storage.googleapis.com/suppersept/dips_prise_large.mp4|https://storage.googleapis.com/suppersept/dips_prise_large.png|5 Séries / 10-12 Répétitions<br>+ 1 Série 10-12 réps jusqu'à 20<br>Repos: au moins 1 min 30">
+            Dips Prise Large
+        </option>
+    </select>
+    
+    <p class="exercise-details" id="details-pecs6" style="text-align: center;">
+        <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>1 Série 10-12 réps jusqu'à 20</strong><br>
+        <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
+    </p>
+
+    <video
+        id="video-pecs6"
+        controls
+         playsinline
+ preload="none"
+        preload="none"
+        src="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4"
+        poster="https://storage.googleapis.com/suppersept/smith_machine_tempo.png"
+        style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
+    </video>
+</div>
     </div>
 
     <!-- Exercise 2: Écartés haltères / Rentrés -->
@@ -414,7 +419,9 @@
         <video
             id="video-ecartesHaltere6"
             controls
-            playsinline
+             playsinline
+ preload="none"
+            preload="none"
             src="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.mp4"
             poster="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.png"
             style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -455,7 +462,9 @@
         <video
             id="video-benchMachine6"
             controls
-            playsinline
+             playsinline
+ preload="none"
+            preload="none"
             src="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4"
             poster="https://storage.googleapis.com/suppersept/bench_machine_tempo.png"
             style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -502,7 +511,8 @@
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-tractions6" controls playsinline src="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4" poster="https://storage.googleapis.com/suppersept/traction_assistee.png"></video>
+    <video id="video-tractions6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4" poster="https://storage.googleapis.com/suppersept/traction_assistee.png"></video>
 </div>
        <!-- Exercise 2: Tirage Horizontal / Trapèze -->
  <div class="training-row" style="
@@ -530,7 +540,8 @@
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-tirageHorizontal6" controls playsinline src="tirage_horizontale_trapezes.mp4" poster="https://storage.googleapis.com/suppersept/tirage_horizontale_trapezes.png"></video>
+    <video id="video-tirageHorizontal6" controls  playsinline
+ preload="none" src="tirage_horizontale_trapezes.mp4" poster="https://storage.googleapis.com/suppersept/tirage_horizontale_trapezes.png"></video>
 </div>
 
 <!-- Exercise 3: Tirage Menton / Dégressif -->
@@ -559,7 +570,8 @@
         <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-tirageMenton6" controls playsinline src="https://storage.googleapis.com/suppersept/tirage_menton.mp4" poster="https://storage.googleapis.com/suppersept/tirage_menton.png"></video>
+    <video id="video-tirageMenton6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/tirage_menton.mp4" poster="https://storage.googleapis.com/suppersept/tirage_menton.png"></video>
 </div>
         <!-- Exercise 4: Relevé de buste -->
         <div class="training-row" style="
@@ -579,7 +591,8 @@
                 <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
                 <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
             </p>
-            <video controls playsinline src="https://storage.googleapis.com/suppersept/releves_de_buste_en_detail.mp4" poster="https://storage.googleapis.com/suppersept/releve_buste.png"></video>
+            <video controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/releves_de_buste_en_detail.mp4" poster="https://storage.googleapis.com/suppersept/releve_buste.png"></video>
         </div>
 </div>
 
@@ -642,7 +655,8 @@
       
       <!-- Centered Video -->
       <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px;">
-          <video controls playsinline 
+          <video controls  playsinline
+ preload="none" 
                  src="https://storage.googleapis.com/suppersept/gainage.mp4" 
                  poster="https://storage.googleapis.com/suppersept/gainage.png" 
                  style="width: 300px; height: auto; border-radius: 8px;">
@@ -681,7 +695,8 @@
 
         <!-- Centered Video -->
         <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-            <video controls playsinline 
+            <video controls  playsinline
+ preload="none" 
                    src="https://storage.googleapis.com/suppersept/crunch.mp4" 
                    poster="https://storage.googleapis.com/suppersept/crunch.png" 
                    style="width: 300px; height: auto; border-radius: 8px;">
@@ -741,7 +756,8 @@
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min 30 de repos entre chaque jambe</span>
     </p>
-    <video id="video-fentes6" controls playsinline src="https://storage.googleapis.com/suppersept/fentes_guides.mp4" poster="https://storage.googleapis.com/suppersept/fentes_guides.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-fentes6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/fentes_guides.mp4" poster="https://storage.googleapis.com/suppersept/fentes_guides.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 2: Hip Thrust -->
@@ -762,7 +778,8 @@ transition: all 0.3s ease;">
         <strong>5 Séries</strong> / <strong>12-15 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
     </p>
-    <video id="video-hipThrust6" controls playsinline src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png" style="display: block; margin: 0 auto;"></video>
+    <video id="video-hipThrust6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png" style="display: block; margin: 0 auto;"></video>
 </div>
 
 <!-- Exercise 3: Leg Curl -->
@@ -791,7 +808,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
     </p>
-    <video id="video-legCurl6" controls playsinline src="https://storage.googleapis.com/suppersept/leg_curl.mp4" poster="https://storage.googleapis.com/suppersept/leg_curl.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-legCurl6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/leg_curl.mp4" poster="https://storage.googleapis.com/suppersept/leg_curl.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 4: Adducteurs --> 
@@ -812,7 +830,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min</span>
     </p>
-    <video id="video-adducteurs6" controls playsinline src="https://storage.googleapis.com/suppersept/adducteur.mp4" poster="https://storage.googleapis.com/suppersept/adducteur.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-adducteurs6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/adducteur.mp4" poster="https://storage.googleapis.com/suppersept/adducteur.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 5: Mollets -->
@@ -833,7 +852,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>15-20 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min</span>
     </p>
-    <video controls playsinline src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
     </div>
 
@@ -871,7 +891,8 @@ transition: all 0.3s ease;">
         + <strong>2 séries en dégressif</strong> <strong> / 15-20 reps</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30 et 2 min pour les deux dernières</span>
     </p>
-    <video id="video-elevationMachine6" controls playsinline src="https://storage.googleapis.com/suppersept/elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png" style="display: block; margin: 0 auto;"></video>
+    <video id="video-elevationMachine6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/elevations_laterales_machine.mp4" poster="elevation_machine_laterale.png" style="display: block; margin: 0 auto;"></video>
 </div>
 
    <!-- Exercise 2: Dev Militaire / Machine -->
@@ -909,7 +930,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-devMilitaire6" controls playsinline src="https://storage.googleapis.com/suppersept/dev_militaire_machine.mp4" poster="https://storage.googleapis.com/suppersept/dev_militaire.png" style="display: block; margin: 0 auto;"></video>
+    <video id="video-devMilitaire6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/dev_militaire_machine.mp4" poster="https://storage.googleapis.com/suppersept/dev_militaire.png" style="display: block; margin: 0 auto;"></video>
 </div>
 
     <!-- Exercise 3: Butterfly Inversé / Dégressif -->
@@ -938,7 +960,8 @@ transition: all 0.3s ease;">
             <strong>4 Séries</strong> / <strong>18-20 Répétitions + Dégressif</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
         </p>
-        <video id="video-butterflyInverse6" controls playsinline src="https://storage.googleapis.com/suppersept/butterfly_inverse.mp4" poster="https://storage.googleapis.com/suppersept/butterfly_inverse.png" style="display: block; margin: 0 auto;"></video>
+        <video id="video-butterflyInverse6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/butterfly_inverse.mp4" poster="https://storage.googleapis.com/suppersept/butterfly_inverse.png" style="display: block; margin: 0 auto;"></video>
     </div>
 </div>
 </div>
@@ -994,7 +1017,8 @@ transition: all 0.3s ease;">
     <video
         id="video-curlBiceps6"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/curl_biceps_machine.mp4"
         poster="https://storage.googleapis.com/suppersept/curl_biceps_machine.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1030,7 +1054,8 @@ transition: all 0.3s ease;">
     <video
         id="video-curlMarteau6"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/curl_prise_marteaux.mp4"
         poster="https://storage.googleapis.com/suppersept/curl_prise_marteaux.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1057,7 +1082,8 @@ transition: all 0.3s ease;">
     <video
         id="video-curlIncline4"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/curl_incline_degressif.mp4"
         poster="https://storage.googleapis.com/suppersept/curl_incline_degressif.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1097,7 +1123,8 @@ transition: all 0.3s ease;">
     <video
         id="video-dips6"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/dips.mp4"
         poster="https://storage.googleapis.com/suppersept/dips.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1142,7 +1169,8 @@ transition: all 0.3s ease;">
     <video
         id="video-barreFront6"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/barre_au_front_chaise.mp4"
         poster="https://storage.googleapis.com/suppersept/bar_au_front.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1209,7 +1237,8 @@ transition: all 0.3s ease;">
 
         <!-- Video -->
         <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px;">
-            <video controls playsinline 
+            <video controls  playsinline
+ preload="none" 
                    src="https://storage.googleapis.com/suppersept/gainage.mp4" 
                    poster="https://storage.googleapis.com/suppersept/gainage.png" 
                    style="width: 300px; height: auto; border-radius: 8px;">
@@ -1246,7 +1275,8 @@ transition: all 0.3s ease;">
 
         <!-- Video -->
         <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-            <video controls playsinline 
+            <video controls  playsinline
+ preload="none" 
                    src="https://storage.googleapis.com/suppersept/crunch.mp4" 
                    poster="https://storage.googleapis.com/suppersept/crunch.png" 
                    style="width: 300px; height: auto; border-radius: 8px;">
@@ -1306,7 +1336,8 @@ transition: all 0.3s ease;">
                 <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
                 <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
             </p>
-            <video id="video-tractions7.4" controls playsinline src="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4" poster="https://storage.googleapis.com/suppersept/traction_assistee.png"></video>
+            <video id="video-tractions7.4" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/tes_tractions_assistees_en_details.mp4" poster="https://storage.googleapis.com/suppersept/traction_assistee.png"></video>
         </div>
         <!-- Exercise 2: Tirage Haltères / Trapèze -->
         <div class="training-row" style="
@@ -1334,7 +1365,8 @@ transition: all 0.3s ease;">
                 <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
                 <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
             </p>
-            <video id="video-tirageHalteres7.4" controls playsinline src="https://storage.googleapis.com/suppersept/tirage_trapeze.mp4" poster="https://storage.googleapis.com/suppersept/tirage_trapeze.png"></video>
+            <video id="video-tirageHalteres7.4" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/tirage_trapeze.mp4" poster="https://storage.googleapis.com/suppersept/tirage_trapeze.png"></video>
         </div>
         <!-- Exercise 3: Tirage Machine -->
         <div class="training-row" style="
@@ -1371,7 +1403,8 @@ transition: all 0.3s ease;">
                 <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>Dégressif</strong><br>
                 <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
             </p>
-            <video id="video-tirageMachine6" controls playsinline src="https://storage.googleapis.com/suppersept/Tirage%20horizontal%20machine.mp4" poster="https://storage.googleapis.com/suppersept/tirage_horizontal_machine.png"></video>
+            <video id="video-tirageMachine6" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/Tirage%20horizontal%20machine.mp4" poster="https://storage.googleapis.com/suppersept/tirage_horizontal_machine.png"></video>
             
         </div>
         <!-- Exercise 4: Relevé de buste -->
@@ -1392,7 +1425,8 @@ transition: all 0.3s ease;">
                 <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
                 <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
                 </p>
-            <video controls playsinline src="https://storage.googleapis.com/suppersept/releves_de_buste_en_detail.mp4" poster="https://storage.googleapis.com/suppersept/releve_buste.png"></video>
+            <video controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/releves_de_buste_en_detail.mp4" poster="https://storage.googleapis.com/suppersept/releve_buste.png"></video>
         </div>
 </div>
 
@@ -1433,7 +1467,8 @@ transition: all 0.3s ease;">
             <strong>5 Séries</strong> / <strong>7-8 Répétitions</strong> + <strong>1 série 10-12 jusqu'à 20 réps</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
         </p>
-        <video id="video-benchMachine6.1" controls playsinline src="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/bench_machine_tempo.png" style="margin-top: 10px;"></video>
+        <video id="video-benchMachine6.1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/bench_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/bench_machine_tempo.png" style="margin-top: 10px;"></video>
     </div>
 
        <!-- Exercise 2: Écartés haltères / Rentrés -->
@@ -1462,7 +1497,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-ecarteHaltere6.1" controls playsinline src="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.mp4" poster="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-ecarteHaltere6.1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.mp4" poster="https://storage.googleapis.com/suppersept/dev_couche_haltere_coude_rentre.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 3: Dev Incliné / Tempo -->
@@ -1499,7 +1535,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>10-12 Répétitions + 1 série 10-12 réps jusqu'à 20</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-pecs6.1" controls playsinline src="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/smith_machine_tempo.png"></video>
+    <video id="video-pecs6.1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/smith_machine_tempo.mp4" poster="https://storage.googleapis.com/suppersept/smith_machine_tempo.png"></video>
 </div>
     </div>
 </div>
@@ -1559,7 +1596,8 @@ transition: all 0.3s ease;">
             <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Au moins 2 min de repos une fois les deux jambes réalisées</span>
         </p>
-        <video id="video-fentes6.2" controls playsinline src="https://storage.googleapis.com/suppersept/fentes_bulgare_video.mp4" poster="https://storage.googleapis.com/suppersept/fentes_bulgares_guides.png"></video>
+        <video id="video-fentes6.2" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/fentes_bulgare_video.mp4" poster="https://storage.googleapis.com/suppersept/fentes_bulgares_guides.png"></video>
     </div>
 
     <!-- Exercise 2: Hip Thrust -->
@@ -1586,7 +1624,8 @@ transition: all 0.3s ease;">
             <strong>5 Séries</strong> / <strong>12-15 Répétitions</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 15</span>
         </p>
-        <video id="video-hipThrust" controls playsinline src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png"></video>
+        <video id="video-hipThrust" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/hip_thrust.mp4" poster="https://storage.googleapis.com/suppersept/hip_thrust.png"></video>
     </div>
 
     <!-- Exercise 3: Soulevé de Terre Jambes Tendues -->
@@ -1619,7 +1658,8 @@ transition: all 0.3s ease;">
             <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
         </p>
-        <video id="video-legCurl1" controls playsinline src="souleve_de_terre_jambes_tendues.mp4" poster="https://storage.googleapis.com/suppersept/souleve_de_terre_jambes_tendues.png"></video>
+        <video id="video-legCurl1" controls  playsinline
+ preload="none" src="souleve_de_terre_jambes_tendues.mp4" poster="https://storage.googleapis.com/suppersept/souleve_de_terre_jambes_tendues.png"></video>
     </div>
 
    <!-- Exercise 4: Legs Extension -->
@@ -1653,7 +1693,8 @@ transition: all 0.3s ease;">
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-legsExtension6.2" controls playsinline src="https://storage.googleapis.com/suppersept/legs_extension_degressif.mp4" poster="https://storage.googleapis.com/suppersept/leg_extension.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-legsExtension6.2" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/legs_extension_degressif.mp4" poster="https://storage.googleapis.com/suppersept/leg_extension.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
     <!-- Exercise 5: Mollets -->
@@ -1679,7 +1720,8 @@ transition: all 0.3s ease;">
             <strong>4 Séries</strong> / <strong>15-20 Répétitions</strong><br>
             <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min</span>
         </p>
-        <video controls playsinline src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png"></video>
+        <video controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/mollets.mp4" poster="https://storage.googleapis.com/suppersept/mollets.png"></video>
     </div>
 </div>
 
@@ -1720,7 +1762,8 @@ transition: all 0.3s ease;">
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong> + <strong>6-8 + 6-8...</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-elevationsLaterales1" controls playsinline src="https://storage.googleapis.com/suppersept/elevation_en_degressif.mp4" poster="https://storage.googleapis.com/suppersept/elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-elevationsLaterales1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/elevation_en_degressif.mp4" poster="https://storage.googleapis.com/suppersept/elevations_laterales_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 7: Dév militaire / Guidée -->
@@ -1754,7 +1797,8 @@ transition: all 0.3s ease;">
         <strong>4 Séries</strong> / <strong>12-15 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-devMilitaire1" controls playsinline src="https://storage.googleapis.com/suppersept/developpe_militaire_smith_guide.mp4" poster="https://storage.googleapis.com/suppersept/militaire_machine.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-devMilitaire1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/developpe_militaire_smith_guide.mp4" poster="https://storage.googleapis.com/suppersept/militaire_machine.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 8: Élévations Latérales / Poulies -->
@@ -1791,7 +1835,8 @@ transition: all 0.3s ease;">
         <strong>3 Séries</strong> / <strong>5-6 + 5-6 répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-elevationsPoulies1" controls playsinline src="https://storage.googleapis.com/suppersept/elevations_laterales_poulie.mp4" poster="elevation_laterale_poulie.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-elevationsPoulies1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/elevations_laterales_poulie.mp4" poster="elevation_laterale_poulie.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
     </div>
 </div>
@@ -1855,7 +1900,8 @@ transition: all 0.3s ease;">
     <video
         id="video-extensionIncline6.2"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/extension_coudes_banc_incline.mp4"
         poster="https://storage.googleapis.com/suppersept/extension_coude_banc_incline.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1905,7 +1951,8 @@ transition: all 0.3s ease;">
     <video
         id="video-barreFront6.1"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/triceps_unilateral.mp4"
         poster="https://storage.googleapis.com/suppersept/triceps_unilateral.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -1952,7 +1999,8 @@ transition: all 0.3s ease;">
         <strong>6 Séries</strong> / <strong>10-12 Réps (Dos à la poulie) + 8-10 Réps / Charge très légère / En Face</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: 1 min 30</span>
     </p>
-    <video id="video-extensionCorde" controls playsinline src="https://storage.googleapis.com/suppersept/extension_coude_corde_dos_puis_face_a_la_poulie.mp4" poster="https://storage.googleapis.com/suppersept/extension_coude.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-extensionCorde" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/extension_coude_corde_dos_puis_face_a_la_poulie.mp4" poster="https://storage.googleapis.com/suppersept/extension_coude.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
     </div>
 
@@ -1982,7 +2030,8 @@ transition: all 0.3s ease;">
         <strong>5 Séries</strong> / <strong>10-12 Répétitions</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-curlIncline" controls playsinline src="https://storage.googleapis.com/suppersept/curl_incline_degressif.mp4" poster="https://storage.googleapis.com/suppersept/curl_incline_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-curlIncline" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/curl_incline_degressif.mp4" poster="https://storage.googleapis.com/suppersept/curl_incline_degressif.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 <!-- Exercise 2: Biceps Poulie Unilatérale -->
 <div class="training-row" style="
@@ -2021,7 +2070,8 @@ transition: all 0.3s ease;">
         <strong>5 Séries</strong> / <strong>5-6 + 5-6 réps</strong><br>
         <span style="color: rgb(10, 147, 10); font-weight: bold;">Repos: au moins 1 min 30</span>
     </p>
-    <video id="video-curlBiceps5.1" controls playsinline src="https://storage.googleapis.com/suppersept/biceps_unilateral.mp4" poster="https://storage.googleapis.com/suppersept/biceps_unilateral.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
+    <video id="video-curlBiceps5.1" controls  playsinline
+ preload="none" src="https://storage.googleapis.com/suppersept/biceps_unilateral.mp4" poster="https://storage.googleapis.com/suppersept/biceps_unilateral.png" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;"></video>
 </div>
 
 <!-- Exercise 3: Curl Inversé / Haltères -->
@@ -2058,7 +2108,8 @@ transition: all 0.3s ease;">
     <video
         id="video-curlMarteau6.1"
         controls
-        playsinline
+         playsinline
+ preload="none"
         src="https://storage.googleapis.com/suppersept/curl_prise_inverse.mp4"
         poster="https://storage.googleapis.com/suppersept/curl_prise_inverse.png"
         style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-top: 15px;">
@@ -2125,7 +2176,8 @@ transition: all 0.3s ease;">
       
       <!-- Centered Video -->
       <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px;">
-          <video controls playsinline 
+          <video controls  playsinline
+ preload="none" 
                  src="https://storage.googleapis.com/suppersept/gainage.mp4" 
                  poster="https://storage.googleapis.com/suppersept/gainage.png" 
                  style="width: 300px; height: auto; border-radius: 8px;">
@@ -2164,7 +2216,8 @@ transition: all 0.3s ease;">
 
         <!-- Centered Video -->
         <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-            <video controls playsinline 
+            <video controls  playsinline
+ preload="none" 
                    src="https://storage.googleapis.com/suppersept/crunch.mp4" 
                    poster="https://storage.googleapis.com/suppersept/crunch.png" 
                    style="width: 300px; height: auto; border-radius: 8px;">
